@@ -135,10 +135,30 @@ export default function DiscoveryPage() {
   const [concepts, setConcepts] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('keyword')
+  const [enrichmentJob, setEnrichmentJob] = useState(null)
 
   useEffect(() => {
     loadData()
   }, [candidateId])
+
+  // Poll for enrichment completion and auto-reload data
+  useEffect(() => {
+    if (!enrichmentJob || enrichmentJob.status === 'completed' || enrichmentJob.status === 'failed') return
+    const interval = setInterval(async () => {
+      const { data } = await supabase.from('enrichment_jobs')
+        .select('*').eq('id', enrichmentJob.id).single()
+      if (data) {
+        setEnrichmentJob(data)
+        if (data.status === 'completed') {
+          clearInterval(interval)
+          // Reload discovery data
+          loadData()
+        }
+        if (data.status === 'failed') clearInterval(interval)
+      }
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [enrichmentJob?.id, enrichmentJob?.status])
 
   async function loadData() {
     setLoading(true)
@@ -183,6 +203,12 @@ export default function DiscoveryPage() {
           .order('confidence_score', { ascending: false })
         setConcepts(conceptsData || [])
       }
+      // Also check for enrichment jobs
+      const { data: jobData } = await supabase.from('enrichment_jobs')
+        .select('*').eq('candidate_id', candidateId)
+        .order('created_at', { ascending: false }).limit(1)
+      if (jobData?.[0]) setEnrichmentJob(jobData[0])
+
     } catch (err) {
       console.error('Error loading discovery data:', err)
     } finally {
@@ -294,6 +320,42 @@ export default function DiscoveryPage() {
           </div>
         </div>
 
+        {/* Enrichment In Progress Banner */}
+        {enrichmentJob && (enrichmentJob.status === 'pending' || enrichmentJob.status === 'running') && (
+          <div className="rounded-lg p-5 mb-8 border" style={{ background: 'var(--blue-muted)', borderColor: 'rgba(96,165,250,0.3)' }}>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2" style={{ borderColor: 'var(--blue)' }} />
+              <h3 className="text-base font-semibold" style={{ color: 'var(--blue-text)' }}>
+                Generating Discovery Report for {candidate.ingredient_name}...
+              </h3>
+            </div>
+            <p className="text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
+              Running keyword analysis, Reddit research, science review, and concept synthesis. This usually takes 1-2 minutes.
+            </p>
+            <div className="flex gap-2">
+              {['datarova', 'reddit', 'science', 'concepts'].map(step => {
+                const completed = enrichmentJob.steps_completed || []
+                const isCurrent = enrichmentJob.current_step === step
+                const isDone = completed.some(s => s === step || s.startsWith(step + '_'))
+                const isFailed = completed.some(s => s === step + '_failed')
+                return (
+                  <div key={step} className="flex-1 rounded-lg px-3 py-2 text-center" style={{
+                    background: isDone && !isFailed ? 'var(--green-muted)' : isCurrent ? 'rgba(96,165,250,0.15)' : isFailed ? 'var(--red-muted)' : 'var(--bg-active)',
+                    color: isDone && !isFailed ? 'var(--green-text)' : isCurrent ? 'var(--blue-text)' : isFailed ? 'var(--red-text)' : 'var(--text-faint)',
+                  }}>
+                    <div className="text-lg mb-1">
+                      {isDone && !isFailed ? '✓' : isCurrent ? '◉' : isFailed ? '✗' : '○'}
+                    </div>
+                    <div className="text-xs font-medium">
+                      {step === 'datarova' ? 'Keywords' : step === 'reddit' ? 'Reddit' : step === 'science' ? 'Science' : 'Concepts'}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Tabs */}
         <div className="mb-8">
           <div className="mb-6 border-b" style={{ borderBottomColor: 'var(--border-default)' }}>
@@ -388,7 +450,7 @@ export default function DiscoveryPage() {
                     <SmartRender data={redditResearch.use_cases} label="Use Cases" />
                   </div>
                   <div className="grid grid-cols-2 gap-6">
-                    <SmartRender data={redditResearch.combinations_discussed} label="Combinations Discussed" />
+                    <SmartRender data={redditResearch.combos_discussed || redditResearch.combinations_discussed} label="Combinations Discussed" />
                     <SmartRender data={redditResearch.brand_landscape} label="Brand Landscape" />
                   </div>
                   <div className="grid grid-cols-2 gap-6">
