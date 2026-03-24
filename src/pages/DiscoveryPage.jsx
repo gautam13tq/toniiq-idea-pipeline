@@ -194,7 +194,7 @@ export default function DiscoveryPage() {
     return (
       <div className="min-h-screen">
         <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Loading...</p>
         </div>
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
@@ -210,7 +210,7 @@ export default function DiscoveryPage() {
     return (
       <div className="min-h-screen">
         <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Loading...</p>
         </div>
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
@@ -236,7 +236,7 @@ export default function DiscoveryPage() {
         <Link
           to="/"
           className="text-sm font-medium mb-2 flex items-center gap-1 transition-colors"
-          style={{ color: 'var(--text-secondary)' }}
+          style={{ color: 'var(--text-muted)' }}
         >
           ← Discovery
         </Link>
@@ -244,7 +244,7 @@ export default function DiscoveryPage() {
           {candidate.ingredient_name}
         </h1>
         {candidate.category && (
-          <span className="text-xs mt-1 inline-block px-2 py-0.5 rounded" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>
+          <span className="text-xs mt-1 inline-block px-2 py-0.5 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-muted)' }}>
             {candidate.category}
           </span>
         )}

@@ -1027,7 +1027,7 @@ export default function ConceptDetailPage() {
         <button
           onClick={() => navigate('/concepts')}
           className="text-sm font-medium mb-3 flex items-center gap-1 transition-colors"
-          style={{ color: 'var(--text-secondary)' }}
+          style={{ color: 'var(--text-muted)' }}
         >
           ← Concepts
         </button>
@@ -1039,23 +1039,23 @@ export default function ConceptDetailPage() {
       <div className="px-6 py-6">
         {/* Tab navigation */}
         {hasPhaseB && (
-          <div className="flex rounded p-0.5 mb-8 w-fit" style={{ background: 'var(--bg-tertiary)' }}>
+          <div className="flex rounded-lg p-1 mb-8 w-fit" style={{ background: 'var(--bg-active)' }}>
             <button
               onClick={() => setActiveTab('overview')}
-              className="px-4 py-2 rounded text-sm font-medium transition-colors"
+              className="px-4 py-2 rounded-md text-sm font-medium transition-colors"
               style={{
-                background: activeTab === 'overview' ? 'var(--accent-primary)' : 'transparent',
-                color: activeTab === 'overview' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+                background: activeTab === 'overview' ? 'var(--accent)' : 'transparent',
+                color: activeTab === 'overview' ? 'var(--text-inverse)' : 'var(--text-muted)',
               }}
             >
               Concept Overview
             </button>
             <button
               onClick={() => setActiveTab('evaluation')}
-              className="px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2"
+              className="px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2"
               style={{
-                background: activeTab === 'evaluation' ? 'var(--accent-primary)' : 'transparent',
-                color: activeTab === 'evaluation' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+                background: activeTab === 'evaluation' ? 'var(--accent)' : 'transparent',
+                color: activeTab === 'evaluation' ? 'var(--text-inverse)' : 'var(--text-muted)',
               }}
             >
               Phase B Evaluation

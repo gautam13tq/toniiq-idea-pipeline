@@ -258,7 +258,7 @@ export default function ConceptsPage() {
   )
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
       {/* Page Header */}
       <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
         <div className="flex items-center justify-between">
@@ -266,19 +266,19 @@ export default function ConceptsPage() {
             <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
               Concepts
             </h1>
-            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
               {phaseBConcepts.length > 0
                 ? `${phaseBConcepts.length} evaluated · ${phaseAOnlyConcepts.length} awaiting evaluation`
                 : `${concepts.length} concepts from keyword data, Reddit research, and clinical science`}
             </p>
           </div>
-          <div className="flex rounded p-0.5" style={{ background: 'var(--bg-tertiary)' }}>
+          <div className="flex rounded p-0.5" style={{ background: 'var(--bg-active)' }}>
             <button
               onClick={() => setViewMode('ranked')}
               className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
               style={{
-                background: viewMode === 'ranked' ? 'var(--accent-primary)' : 'transparent',
-                color: viewMode === 'ranked' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+                background: viewMode === 'ranked' ? 'var(--accent)' : 'transparent',
+                color: viewMode === 'ranked' ? 'var(--text-inverse)' : 'var(--text-muted)',
               }}
             >
               By Score
@@ -287,8 +287,8 @@ export default function ConceptsPage() {
               onClick={() => setViewMode('by-ingredient')}
               className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
               style={{
-                background: viewMode === 'by-ingredient' ? 'var(--accent-primary)' : 'transparent',
-                color: viewMode === 'by-ingredient' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+                background: viewMode === 'by-ingredient' ? 'var(--accent)' : 'transparent',
+                color: viewMode === 'by-ingredient' ? 'var(--text-inverse)' : 'var(--text-muted)',
               }}
             >
               By Ingredient

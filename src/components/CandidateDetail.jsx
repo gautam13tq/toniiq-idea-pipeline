@@ -168,25 +168,27 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
           {/* POE Data */}
           {poe && (
             <div>
-              <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--text-body)' }}>
-                Amazon POE Data
-                {poe.flagged_high_opportunity && <span className="text-xs">🔥 High Opportunity</span>}
+              <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                <span style={{ color: 'var(--blue)' }}>◆</span> Amazon POE Data
+                {poe.flagged_high_opportunity && (
+                  <span className="text-xs px-2 py-0.5 rounded" style={{ background: 'var(--green-muted)', color: 'var(--green-text)' }}>🔥 High Opportunity</span>
+                )}
               </h3>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: 'Search Vol (90d)', value: formatNum(poe.search_volume_90d) },
-                  { label: 'Growth (90d)', value: formatPct(poe.search_volume_growth_90d) },
-                  { label: 'Growth (180d)', value: formatPct(poe.search_volume_growth_180d) },
-                  { label: 'Avg Price', value: formatUsd(poe.avg_price_usd) },
+                  { label: 'Search Vol (90d)', value: formatNum(poe.search_volume_90d), color: 'var(--blue-text)' },
+                  { label: 'Growth (90d)', value: formatPct(poe.search_volume_growth_90d), color: poe.search_volume_growth_90d > 0 ? 'var(--green-text)' : 'var(--red-text)' },
+                  { label: 'Growth (180d)', value: formatPct(poe.search_volume_growth_180d), color: poe.search_volume_growth_180d > 0 ? 'var(--green-text)' : 'var(--red-text)' },
+                  { label: 'Avg Price', value: formatUsd(poe.avg_price_usd), color: 'var(--text-primary)' },
                   { label: 'Price Range', value: `${formatUsd(poe.min_price_usd)} – ${formatUsd(poe.max_price_usd)}` },
                   { label: 'Top Clicked', value: formatNum(poe.top_clicked_products) },
-                  { label: 'Units Sold (360d)', value: `${formatNum(poe.units_sold_lower_360d)} – ${formatNum(poe.units_sold_upper_360d)}` },
-                  { label: 'Return Rate', value: formatPct(poe.return_rate) },
-                  { label: 'Vol (360d)', value: formatNum(poe.search_volume_360d) },
+                  { label: 'Units Sold (360d)', value: `${formatNum(poe.units_sold_lower_360d)} – ${formatNum(poe.units_sold_upper_360d)}`, color: 'var(--amber-text)' },
+                  { label: 'Return Rate', value: formatPct(poe.return_rate), color: poe.return_rate > 0.1 ? 'var(--red-text)' : 'var(--green-text)' },
+                  { label: 'Vol (360d)', value: formatNum(poe.search_volume_360d), color: 'var(--blue-text)' },
                 ].map(item => (
                   <div key={item.label} className="rounded-lg px-3 py-2" style={{ background: 'var(--bg-hover)' }}>
                     <div className="text-xs" style={{ color: 'var(--text-faint)' }}>{item.label}</div>
-                    <div className="text-sm font-medium mt-0.5" style={{ color: 'var(--text-primary)' }}>{item.value}</div>
+                    <div className="text-sm font-medium mt-0.5" style={{ color: item.color || 'var(--text-primary)' }}>{item.value}</div>
                   </div>
                 ))}
               </div>
@@ -204,18 +206,18 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
           {/* Datarova Data */}
           {datarova && (
             <div>
-              <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Datarova Keyword Data</h3>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}><span style={{ color: 'var(--amber)' }}>◆</span> Datarova Keyword Data</h3>
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { label: 'Keyword', value: datarova.keyword },
-                  { label: 'Ann. Volume', value: formatNum(datarova.search_volume) },
-                  { label: 'Growth Trend', value: datarova.search_volume_trend !== null ? formatPct(datarova.search_volume_trend) : '—' },
-                  { label: 'Conversion', value: datarova.conversion_rate ? datarova.conversion_rate.toFixed(1) + '%' : '—' },
-                  { label: 'Revenue Est', value: datarova.monthly_revenue_est ? '$' + formatNum(Math.round(datarova.monthly_revenue_est)) + '/mo' : '—' },
+                  { label: 'Ann. Volume', value: formatNum(datarova.search_volume), color: 'var(--blue-text)' },
+                  { label: 'Growth Trend', value: datarova.search_volume_trend !== null ? formatPct(datarova.search_volume_trend) : '—', color: datarova.search_volume_trend > 0 ? 'var(--green-text)' : datarova.search_volume_trend < 0 ? 'var(--red-text)' : null },
+                  { label: 'Conversion', value: datarova.conversion_rate ? datarova.conversion_rate.toFixed(1) + '%' : '—', color: datarova.conversion_rate > 10 ? 'var(--green-text)' : datarova.conversion_rate > 5 ? 'var(--amber-text)' : null },
+                  { label: 'Revenue Est', value: datarova.monthly_revenue_est ? '$' + formatNum(Math.round(datarova.monthly_revenue_est)) + '/mo' : '—', color: 'var(--green-text)' },
                 ].map(item => (
                   <div key={item.label} className="rounded-lg px-3 py-2" style={{ background: 'var(--bg-hover)' }}>
                     <div className="text-xs" style={{ color: 'var(--text-faint)' }}>{item.label}</div>
-                    <div className="text-sm font-medium mt-0.5" style={{ color: 'var(--text-primary)' }}>{item.value}</div>
+                    <div className="text-sm font-medium mt-0.5" style={{ color: item.color || 'var(--text-primary)' }}>{item.value}</div>
                   </div>
                 ))}
               </div>
