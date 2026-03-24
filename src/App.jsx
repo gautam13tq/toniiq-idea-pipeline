@@ -181,53 +181,54 @@ export default function App() {
   const data = filtered()
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-[1600px] mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <h1 className="text-xl font-semibold text-white tracking-tight">Toniiq Idea Pipeline</h1>
-              <span className="text-xs font-medium px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                {candidates.length} candidates
-              </span>
-            </div>
-            <div className="flex gap-6 items-center">
-              <nav className="flex gap-4">
-                <button
-                  onClick={() => setTab('pipeline')}
-                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                    tab === 'pipeline' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
+    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+      {/* Page Header */}
+      <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+              Discovery
+            </h1>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+              {candidates.length} candidates tracked across all sources
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setTab('pipeline')}
+              className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              style={{
+                background: tab === 'pipeline' ? 'var(--accent-primary)' : 'transparent',
+                color: tab === 'pipeline' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+                border: tab === 'pipeline' ? 'none' : '1px solid var(--border-primary)',
+              }}
+            >
+              Pipeline
+            </button>
+            <button
+              onClick={() => setTab('picks')}
+              className="px-3 py-1.5 rounded text-sm font-medium transition-colors flex items-center gap-2"
+              style={{
+                background: tab === 'picks' ? 'var(--accent-primary)' : 'transparent',
+                color: tab === 'picks' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+                border: tab === 'picks' ? 'none' : '1px solid var(--border-primary)',
+              }}
+            >
+              Claude's Picks
+              {picks.filter(p => !p.feedback_rating).length > 0 && (
+                <span
+                  className="text-[10px] font-bold px-1.5 py-0.5 rounded"
+                  style={{ background: 'var(--score-high-bg)', color: 'var(--score-high)' }}
                 >
-                  Pipeline
-                </button>
-                <button
-                  onClick={() => setTab('picks')}
-                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
-                    tab === 'picks' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Claude's Picks
-                  {picks.length > 0 && (
-                    <span className="text-xs bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded-full">
-                      {picks.filter(p => !p.feedback_rating).length} new
-                    </span>
-                  )}
-                </button>
-                <Link
-                  to="/concepts"
-                  className="px-4 py-1.5 rounded-md text-sm font-medium text-slate-400 hover:text-white transition-colors"
-                >
-                  Concepts
-                </Link>
-              </nav>
-            </div>
+                  {picks.filter(p => !p.feedback_rating).length}
+                </span>
+              )}
+            </button>
           </div>
         </div>
-      </header>
+      </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 py-4">
+      <div className="px-6 py-4">
         {tab === 'pipeline' ? (
           <>
             <StatsBar candidates={candidates} poeData={poeData} datarovaData={datarovaData} />

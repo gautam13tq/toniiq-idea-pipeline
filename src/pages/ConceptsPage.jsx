@@ -190,7 +190,7 @@ export default function ConceptsPage() {
     return (
       <div className="min-h-screen bg-slate-900">
         <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-          <div className="max-w-[1600px] mx-auto px-6 py-4">
+          <div className="px-6 py-4">
             <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">Toniiq Idea Pipeline</Link>
           </div>
         </header>
@@ -233,50 +233,38 @@ export default function ConceptsPage() {
   )
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-[1600px] mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">Toniiq Idea Pipeline</Link>
-              <span className="text-xs font-medium px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                {concepts.length} concepts
-              </span>
-              {phaseBConcepts.length > 0 && (
-                <span className="text-xs font-medium px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  {phaseBConcepts.length} evaluated
-                </span>
-              )}
-            </div>
-            <nav className="flex gap-4 items-center">
-              <Link to="/" className="text-sm text-slate-400 hover:text-white transition-colors">Pipeline</Link>
-              <span className="text-slate-600">/</span>
-              <span className="text-sm text-white">Concepts</span>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      <div className="max-w-[1600px] mx-auto px-6 py-8">
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+      {/* Page Header */}
+      <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Product Concepts</h1>
-            <p className="text-slate-400">
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+              Concepts
+            </h1>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
               {phaseBConcepts.length > 0
-                ? `${phaseBConcepts.length} concept${phaseBConcepts.length > 1 ? 's' : ''} with Phase B evaluation. ${phaseAOnlyConcepts.length} awaiting evaluation.`
-                : 'Synthesized from keyword data, Reddit research, and clinical science.'}
+                ? `${phaseBConcepts.length} evaluated · ${phaseAOnlyConcepts.length} awaiting evaluation`
+                : `${concepts.length} concepts from keyword data, Reddit research, and clinical science`}
             </p>
           </div>
-          <div className="flex bg-slate-800 rounded-lg p-1 border border-slate-700/50">
+          <div className="flex rounded p-0.5" style={{ background: 'var(--bg-tertiary)' }}>
             <button
               onClick={() => setViewMode('ranked')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'ranked' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+              className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              style={{
+                background: viewMode === 'ranked' ? 'var(--accent-primary)' : 'transparent',
+                color: viewMode === 'ranked' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+              }}
             >
               By Score
             </button>
             <button
               onClick={() => setViewMode('by-ingredient')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'by-ingredient' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+              className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              style={{
+                background: viewMode === 'by-ingredient' ? 'var(--accent-primary)' : 'transparent',
+                color: viewMode === 'by-ingredient' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+              }}
             >
               By Ingredient
             </button>

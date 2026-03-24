@@ -192,14 +192,10 @@ export default function DiscoveryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900">
-        <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-          <div className="max-w-[1600px] mx-auto px-6 py-4">
-            <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">
-              Toniiq Idea Pipeline
-            </Link>
-          </div>
-        </header>
+      <div className="min-h-screen">
+        <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+        </div>
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
@@ -212,14 +208,10 @@ export default function DiscoveryPage() {
 
   if (!candidate) {
     return (
-      <div className="min-h-screen bg-slate-900">
-        <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-          <div className="max-w-[1600px] mx-auto px-6 py-4">
-            <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">
-              Toniiq Idea Pipeline
-            </Link>
-          </div>
-        </header>
+      <div className="min-h-screen">
+        <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+        </div>
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
             <p className="text-slate-400">Ingredient not found</p>
@@ -238,26 +230,27 @@ export default function DiscoveryPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-[1600px] mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">
-              Toniiq Idea Pipeline
-            </Link>
-            <nav className="flex gap-3 items-center text-sm">
-              <Link to="/" className="text-slate-400 hover:text-white transition-colors">Pipeline</Link>
-              <span className="text-slate-600">/</span>
-              <Link to="/concepts" className="text-slate-400 hover:text-white transition-colors">Concepts</Link>
-              <span className="text-slate-600">/</span>
-              <span className="text-white">{candidate.ingredient_name}</span>
-            </nav>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen">
+      {/* Page Header */}
+      <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+        <Link
+          to="/"
+          className="text-sm font-medium mb-2 flex items-center gap-1 transition-colors"
+          style={{ color: 'var(--text-secondary)' }}
+        >
+          ← Discovery
+        </Link>
+        <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+          {candidate.ingredient_name}
+        </h1>
+        {candidate.category && (
+          <span className="text-xs mt-1 inline-block px-2 py-0.5 rounded" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>
+            {candidate.category}
+          </span>
+        )}
+      </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 py-8">
+      <div className="px-6 py-8">
         <button
           onClick={() => navigate(-1)}
           className="text-indigo-400 hover:text-indigo-300 text-sm font-medium mb-6 flex items-center gap-1"

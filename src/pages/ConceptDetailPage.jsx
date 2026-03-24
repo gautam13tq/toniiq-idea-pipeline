@@ -1011,49 +1011,42 @@ export default function ConceptDetailPage() {
       : []
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-[1600px] mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">
-              Toniiq Idea Pipeline
-            </Link>
-            <nav className="flex gap-3 items-center text-sm">
-              <Link to="/" className="text-slate-400 hover:text-white transition-colors">Pipeline</Link>
-              <span className="text-slate-600">/</span>
-              <Link to="/concepts" className="text-slate-400 hover:text-white transition-colors">Concepts</Link>
-              <span className="text-slate-600">/</span>
-              <span className="text-white truncate max-w-xs">{concept.concept_name}</span>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      <div className="max-w-[1600px] mx-auto px-6 py-8">
+    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+      {/* Page Header */}
+      <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
         <button
           onClick={() => navigate('/concepts')}
-          className="text-indigo-400 hover:text-indigo-300 text-sm font-medium mb-6 flex items-center gap-1"
+          className="text-sm font-medium mb-3 flex items-center gap-1 transition-colors"
+          style={{ color: 'var(--text-secondary)' }}
         >
-          ← Back to Concepts
+          ← Concepts
         </button>
+        <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+          {concept.concept_name}
+        </h1>
+      </div>
 
+      <div className="px-6 py-6">
         {/* Tab navigation */}
         {hasPhaseB && (
-          <div className="flex bg-slate-800 rounded-lg p-1 border border-slate-700/50 mb-8 w-fit">
+          <div className="flex rounded p-0.5 mb-8 w-fit" style={{ background: 'var(--bg-tertiary)' }}>
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-5 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'overview' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
-              }`}
+              className="px-4 py-2 rounded text-sm font-medium transition-colors"
+              style={{
+                background: activeTab === 'overview' ? 'var(--accent-primary)' : 'transparent',
+                color: activeTab === 'overview' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+              }}
             >
               Concept Overview
             </button>
             <button
               onClick={() => setActiveTab('evaluation')}
-              className={`px-5 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
-                activeTab === 'evaluation' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
-              }`}
+              className="px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2"
+              style={{
+                background: activeTab === 'evaluation' ? 'var(--accent-primary)' : 'transparent',
+                color: activeTab === 'evaluation' ? 'var(--text-inverse)' : 'var(--text-secondary)',
+              }}
             >
               Phase B Evaluation
               {conceptScores && (
