@@ -274,6 +274,67 @@ function CompositeScoreHero({ scores }) {
    PHASE B: DIMENSION DETAIL PANELS
    ═══════════════════════════════════════════════════════════ */
 
+// Extract brand name from Amazon product title
+function extractBrand(title) {
+  if (!title) return '—'
+  // Check for "by Brand" at end
+  const byMatch = title.match(/\bby\s+([A-Z][A-Za-z'']+(?:\s+[A-Z][A-Za-z'']+){0,2})\s*$/)
+  if (byMatch) return byMatch[1]
+  // Known brand patterns at start of title
+  const brandPatterns = [
+    /^(Doctor's\s+Best)\b/i, /^(Double\s+Wood)\b/i, /^(NOW\s+Foods)\b/i, /^(NOW)\b/,
+    /^(Nutricost)\b/i, /^(Jarrow\s+Formulas)\b/i, /^(Source\s+Naturals)\b/i,
+    /^(Life\s+Extension)\b/i, /^(Pure\s+Encapsulations)\b/i, /^(Thorne)\b/i,
+    /^(Sports\s+Research)\b/i, /^(Healthy\s+Origins)\b/i, /^(Sundown)\b/i,
+    /^(Nature's\s+Way)\b/i, /^(Swanson)\b/i, /^(Bulk\s+Supplements)\b/i,
+    /^(Garden\s+of\s+Life)\b/i, /^(Micro\s+Ingredients)\b/i, /^(Vimergy)\b/i,
+    /^(Codeage)\b/i, /^(Vital\s+Vitamins)\b/i, /^(Puretality)\b/i,
+  ]
+  for (const pat of brandPatterns) {
+    const m = title.match(pat)
+    if (m) return m[1]
+  }
+  // Heuristic: first word(s) before common supplement keywords
+  const kwMatch = title.match(/^(.+?)\s+(?:Nattokinase|Serrapeptase|Liposomal|Supplement|Enzyme|Premium|Advanced|Maximum|Ultra|High|Extra)/i)
+  if (kwMatch) {
+    const candidate = kwMatch[1].trim()
+    // Only use if it looks like a brand (starts uppercase, ≤30 chars, not too generic)
+    if (candidate.length > 1 && candidate.length <= 30 && /^[A-Z]/.test(candidate)) {
+      return candidate
+    }
+  }
+  return '—'
+}
+
+// Calculate revenue-to-reviews ratio for a set of products
+function calcRevReviewMetrics(products) {
+  if (!products || products.length === 0) return null
+  const withRevenue = products.map(p => {
+    const price = parseFloat(p.price) || 0
+    const sales = p.monthly_sales || p.salesVolume || 0
+    const reviews = p.reviews || p.countReview || 0
+    const revenue = price * sales
+    return { ...p, revenue, reviews: reviews, revPerReview: reviews > 0 ? revenue / reviews : 0 }
+  })
+  const top3 = withRevenue.slice(0, 3)
+  const top10 = withRevenue.slice(0, 10)
+
+  const avgRR = (arr) => {
+    const valid = arr.filter(p => p.revPerReview > 0)
+    if (valid.length === 0) return 0
+    return valid.reduce((sum, p) => sum + p.revPerReview, 0) / valid.length
+  }
+  const totalRev = (arr) => arr.reduce((sum, p) => sum + p.revenue, 0)
+
+  return {
+    top3RevPerReview: avgRR(top3),
+    top10RevPerReview: avgRR(top10),
+    top3TotalRevenue: totalRev(top3),
+    top10TotalRevenue: totalRev(top10),
+    products: withRevenue,
+  }
+}
+
 function CompetitiveResearchPanel({ data }) {
   if (!data) return null
   const topProducts = Array.isArray(data.top_products) ? data.top_products : []
@@ -282,69 +343,143 @@ function CompetitiveResearchPanel({ data }) {
   const opportunitySignals = Array.isArray(data.opportunity_signals) ? data.opportunity_signals : []
   const riskFactors = Array.isArray(data.risk_factors) ? data.risk_factors : []
 
+  const metrics = calcRevReviewMetrics(topProducts)
+
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6 col-span-2">
       <SectionHeader
         icon="🏪"
         title="Amazon Competitive Landscape"
         badge={{ text: `${data.opportunity_score}/10 opportunity`, class: data.opportunity_score >= 7 ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300' }}
       />
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
-        <StatCard label="Total Competitors" value={data.total_competitors || '—'} />
-        <StatCard label="Median Price" value={data.median_price ? `$${parseFloat(data.median_price).toFixed(2)}` : '—'} />
-        <StatCard label="Price/Count" value={data.median_price_per_count ? `$${parseFloat(data.median_price_per_count).toFixed(2)}` : '—'} />
-        <StatCard label="Avg Rating" value={data.avg_rating ? `${parseFloat(data.avg_rating).toFixed(1)}★` : '—'} />
-        <StatCard label="10K+ Review Moats" value={data.products_with_10k_reviews ?? '—'} />
-      </div>
-
-      {/* Top Products Table */}
-      {topProducts.length > 0 && (
-        <div className="mb-6">
-          <h4 className="text-sm font-semibold text-slate-300 mb-3">Top Products by Sales Volume</h4>
-          <div className="overflow-x-auto max-h-72 overflow-y-auto">
-            <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-slate-800">
-                <tr className="border-b border-slate-700/50">
-                  <th className="text-left py-2 px-2 text-slate-400 font-medium">#</th>
-                  <th className="text-left py-2 px-2 text-slate-400 font-medium">Product</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium">Price</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium">Sales/mo</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium">Reviews</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium">Rating</th>
-                </tr>
-              </thead>
-              <tbody>
-                {topProducts.slice(0, 15).map((p, i) => (
-                  <tr key={i} className="border-b border-slate-700/30 hover:bg-slate-700/20">
-                    <td className="py-2 px-2 text-slate-500">{i + 1}</td>
-                    <td className="py-2 px-2 text-white max-w-xs truncate" title={p.title || p.name || p.productDescription}>
-                      {(p.title || p.name || p.productDescription || '—').slice(0, 60)}
-                    </td>
-                    <td className="py-2 px-2 text-slate-300 text-right">${parseFloat(p.price || 0).toFixed(2)}</td>
-                    <td className="py-2 px-2 text-emerald-400 text-right font-medium">{formatNumber(p.monthly_sales || p.salesVolume || p.sales)}</td>
-                    <td className="py-2 px-2 text-slate-400 text-right">{formatNumber(p.reviews || p.countReview || p.review_count)}</td>
-                    <td className="py-2 px-2 text-amber-300 text-right">{p.rating || p.productRating ? `${parseFloat(p.rating || p.productRating).toFixed(1)}` : '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {/* Revenue & Rev/Review Hero Metrics */}
+      {metrics && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+          <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-3">
+            <p className="text-xs text-indigo-300 mb-1 font-medium">Rev/Review — Top 3</p>
+            <p className="text-2xl font-bold text-white">${metrics.top3RevPerReview.toFixed(0)}</p>
+            <p className="text-xs text-slate-500 mt-0.5">Higher = easier to enter</p>
+          </div>
+          <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-3">
+            <p className="text-xs text-indigo-300 mb-1 font-medium">Rev/Review — Top 10</p>
+            <p className="text-2xl font-bold text-white">${metrics.top10RevPerReview.toFixed(0)}</p>
+            <p className="text-xs text-slate-500 mt-0.5">Your entry target zone</p>
+          </div>
+          <div className="bg-slate-700/30 rounded-lg p-3">
+            <p className="text-xs text-slate-400 mb-1">Top 3 Monthly Rev</p>
+            <p className="text-lg font-bold text-emerald-400">${formatNumber(metrics.top3TotalRevenue)}</p>
+          </div>
+          <div className="bg-slate-700/30 rounded-lg p-3">
+            <p className="text-xs text-slate-400 mb-1">Top 10 Monthly Rev</p>
+            <p className="text-lg font-bold text-emerald-400">${formatNumber(metrics.top10TotalRevenue)}</p>
           </div>
         </div>
       )}
 
-      {/* Positioning Gaps & Analysis */}
+      {/* Standard Metrics */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+        <StatCard label="Total Competitors" value={data.total_competitors || '—'} />
+        <StatCard label="Median Price" value={data.median_price ? `$${parseFloat(data.median_price).toFixed(2)}` : '—'} />
+        <StatCard label="Price Range" value={data.price_range_low && data.price_range_high ? `$${parseFloat(data.price_range_low).toFixed(0)}–$${parseFloat(data.price_range_high).toFixed(0)}` : '—'} />
+        <StatCard label="Avg Rating" value={data.avg_rating ? `${parseFloat(data.avg_rating).toFixed(1)}★` : '—'} />
+        <StatCard label="10K+ Review Moats" value={data.products_with_10k_reviews ?? '—'} />
+      </div>
+
+      {/* Top Products Table — with brand, links, revenue, rev/review */}
+      {metrics && metrics.products.length > 0 && (
+        <div className="mb-6">
+          <h4 className="text-sm font-semibold text-slate-300 mb-3">Top Products by Sales Volume</h4>
+          <div className="overflow-x-auto max-h-96 overflow-y-auto">
+            <table className="w-full text-sm">
+              <thead className="sticky top-0 bg-slate-800 z-10">
+                <tr className="border-b border-slate-700/50">
+                  <th className="text-left py-2 px-2 text-slate-400 font-medium w-8">#</th>
+                  <th className="text-left py-2 px-2 text-slate-400 font-medium w-28">Brand</th>
+                  <th className="text-left py-2 px-2 text-slate-400 font-medium">Product</th>
+                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-16">Price</th>
+                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-20">Sales/mo</th>
+                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-24">Revenue/mo</th>
+                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-20">Reviews</th>
+                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-20">Rev/Review</th>
+                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-14">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                {metrics.products.slice(0, 15).map((p, i) => {
+                  const title = p.title || p.name || p.productDescription || '—'
+                  const brand = extractBrand(title)
+                  const amazonUrl = p.url || (p.asin ? `https://amazon.com/dp/${p.asin}` : null)
+                  const isTop3 = i < 3
+                  return (
+                    <tr key={i} className={`border-b border-slate-700/30 hover:bg-slate-700/20 ${isTop3 ? 'bg-slate-700/10' : ''}`}>
+                      <td className="py-2 px-2 text-slate-500 font-mono">{i + 1}</td>
+                      <td className="py-2 px-2 text-indigo-300 font-medium text-xs">{brand}</td>
+                      <td className="py-2 px-2 max-w-xs">
+                        {amazonUrl ? (
+                          <a
+                            href={amazonUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white hover:text-indigo-300 transition-colors truncate block"
+                            title={title}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {title.slice(0, 55)}{title.length > 55 ? '…' : ''}
+                            <span className="text-indigo-500 ml-1 text-xs">↗</span>
+                          </a>
+                        ) : (
+                          <span className="text-white truncate block" title={title}>{title.slice(0, 55)}</span>
+                        )}
+                      </td>
+                      <td className="py-2 px-2 text-slate-300 text-right">${parseFloat(p.price || 0).toFixed(2)}</td>
+                      <td className="py-2 px-2 text-emerald-400 text-right font-medium">{formatNumber(p.monthly_sales || p.salesVolume)}</td>
+                      <td className="py-2 px-2 text-emerald-300 text-right">${formatNumber(p.revenue)}</td>
+                      <td className="py-2 px-2 text-slate-400 text-right">{formatNumber(p.reviews)}</td>
+                      <td className={`py-2 px-2 text-right font-medium ${p.revPerReview >= 100 ? 'text-green-400' : p.revPerReview >= 50 ? 'text-yellow-300' : 'text-red-400'}`}>
+                        {p.reviews > 0 ? `$${p.revPerReview.toFixed(0)}` : '—'}
+                      </td>
+                      <td className="py-2 px-2 text-amber-300 text-right">{p.rating ? parseFloat(p.rating).toFixed(1) : '—'}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-slate-500 mt-2">Rev/Review = (Price × Monthly Sales) / Reviews. <span className="text-green-400">Green ≥ $100</span> (attractive) · <span className="text-yellow-300">Yellow ≥ $50</span> · <span className="text-red-400">Red &lt; $50</span> (review moat)</p>
+        </div>
+      )}
+
+      {/* Positioning Gaps — rendered as structured cards */}
       <div className="grid grid-cols-2 gap-6">
         <div>
           {positioningGaps.length > 0 && (
-            <>
-              <h4 className="text-sm font-semibold text-emerald-300 mb-2">Positioning Gaps</h4>
-              <SignalList signals={positioningGaps} color="text-emerald-400" />
-            </>
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold text-emerald-300 mb-3">Positioning Gaps</h4>
+              <div className="space-y-3">
+                {positioningGaps.map((gap, i) => {
+                  if (typeof gap === 'string') {
+                    return (
+                      <div key={i} className="flex items-start gap-2 text-sm">
+                        <span className="text-emerald-400 mt-0.5 flex-shrink-0">•</span>
+                        <span className="text-slate-200">{gap}</span>
+                      </div>
+                    )
+                  }
+                  // Structured gap object: { gap, angle, evidence }
+                  return (
+                    <div key={i} className="bg-slate-700/20 rounded-lg p-3 border-l-2 border-emerald-500/50">
+                      <p className="text-sm font-medium text-white mb-1">{gap.gap || gap.name || '—'}</p>
+                      {gap.angle && <p className="text-xs text-emerald-300 mb-1">Angle: {gap.angle}</p>}
+                      {gap.evidence && <p className="text-xs text-slate-400">{gap.evidence}</p>}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           )}
           {opportunitySignals.length > 0 && (
-            <div className="mt-4">
+            <div>
               <h4 className="text-sm font-semibold text-green-300 mb-2">Opportunity Signals</h4>
               <SignalList signals={opportunitySignals} color="text-green-400" />
             </div>
@@ -1144,14 +1279,18 @@ export default function ConceptDetailPage() {
             {/* Composite Score Hero */}
             <CompositeScoreHero scores={conceptScores} />
 
-            {/* Dimension panels in 2-col grid */}
+            {/* Amazon Competitive — full width (most important section) */}
             <div className="grid grid-cols-2 gap-6">
               <CompetitiveResearchPanel data={competitiveResearch} />
+            </div>
+
+            {/* Other dimension panels in 2-col grid */}
+            <div className="grid grid-cols-2 gap-6">
               <TikTokResearchPanel data={tiktokResearch} />
+              <GoogleTrendsPanel data={googleTrends} />
             </div>
 
             <div className="grid grid-cols-2 gap-6">
-              <GoogleTrendsPanel data={googleTrends} />
               <DifferentiationPanel scores={conceptScores} />
             </div>
 
