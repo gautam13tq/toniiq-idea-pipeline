@@ -53,11 +53,11 @@ function formatNumber(n) {
   return n.toLocaleString()
 }
 
-function StatCard({ label, value, subtext, color = 'text-white' }) {
+function StatCard({ label, value, subtext, color }) {
   return (
     <div className="rounded-lg p-3" style={{ background: 'var(--bg-hover)' }}>
       <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>{label}</p>
-      <p className={`text-lg font-bold ${color}`}>{value}</p>
+      <p className="text-lg font-bold" style={{ color: color || 'var(--text-primary)' }}>{value}</p>
       {subtext && <p className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>{subtext}</p>}
     </div>
   )
@@ -149,8 +149,8 @@ function KeywordEvidencePanel({ evidence }) {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
           {total_monthly_clicks && <StatCard label="Monthly Clicks" value={formatNumber(total_monthly_clicks)} />}
           {primary_keyword_clicks && <StatCard label="Primary Keyword" value={formatNumber(primary_keyword_clicks)} />}
-          {growth_3m_pct && <StatCard label="3-Month Growth" value={`${parseFloat(growth_3m_pct) > 0 ? '+' : ''}${growth_3m_pct}%`} color={parseFloat(growth_3m_pct) > 0 ? 'text-emerald-400' : 'text-red-400'} />}
-          {growth_yoy_pct && <StatCard label="Year-over-Year" value={`${parseFloat(growth_yoy_pct) > 0 ? '+' : ''}${growth_yoy_pct}%`} color={parseFloat(growth_yoy_pct) > 0 ? 'text-emerald-400' : 'text-red-400'} />}
+          {growth_3m_pct && <StatCard label="3-Month Growth" value={`${parseFloat(growth_3m_pct) > 0 ? '+' : ''}${growth_3m_pct}%`} color={parseFloat(growth_3m_pct) > 0 ? 'var(--green-text)' : 'var(--red-text)'} />}
+          {growth_yoy_pct && <StatCard label="Year-over-Year" value={`${parseFloat(growth_yoy_pct) > 0 ? '+' : ''}${growth_yoy_pct}%`} color={parseFloat(growth_yoy_pct) > 0 ? 'var(--green-text)' : 'var(--red-text)'} />}
         </div>
       )}
       {key_signals.length > 0 && (
@@ -557,9 +557,9 @@ function TikTokResearchPanel({ data }) {
       {/* Key Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         <StatCard label="Total Videos" value={data.total_videos || '—'} subtext={`${data.organic_videos || 0} organic / ${data.ad_videos || 0} ads`} />
-        <StatCard label="Total Plays" value={formatNumber(data.total_plays)} color="text-pink-400" />
+        <StatCard label="Total Plays" value={formatNumber(data.total_plays)} color="var(--red-text)" />
         <StatCard label="Total Likes" value={formatNumber(data.total_likes)} />
-        <StatCard label="Shares + Saves" value={formatNumber((data.total_shares || 0) + (data.total_saves || 0))} color="text-indigo-400" />
+        <StatCard label="Shares + Saves" value={formatNumber((data.total_shares || 0) + (data.total_saves || 0))} color="var(--blue-text)" />
         <StatCard label="Avg Engagement" value={data.avg_engagement_rate ? `${parseFloat(data.avg_engagement_rate).toFixed(1)}%` : '—'} />
       </div>
 
@@ -666,7 +666,7 @@ function GoogleTrendsPanel({ data }) {
         <StatCard
           label="YoY Growth"
           value={data.yoy_growth_pct ? `+${parseFloat(data.yoy_growth_pct).toFixed(0)}%` : '—'}
-          color="text-emerald-400"
+          color="var(--green-text)"
         />
         <StatCard
           label="Trend Direction"

@@ -41,7 +41,7 @@ function JsonTable({ data, columns }) {
         </thead>
         <tbody>
           {data.map((row, i) => (
-            <tr key={i} style={{ borderBottomColor: 'var(--border-default)' }} className="border-b hover:bg-slate-700/20">
+            <tr key={i} style={{ borderBottomColor: 'var(--border-default)' }} className="border-b" onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-hover)'} onMouseLeave={e => e.currentTarget.style.background = ''}>
               {cols.map(col => {
                 let val = row[col]
                 if (val === null || val === undefined) val = '—'
