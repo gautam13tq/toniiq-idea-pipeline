@@ -5,10 +5,10 @@ import { supabase } from '../lib/supabase'
 const STAGE_ORDER = ['raw', 'screened', 'enriched', 'scored']
 const STAGE_LABELS = { raw: 'Raw', screened: 'Screened', enriched: 'Enriched', scored: 'Scored' }
 const STAGE_COLORS = {
-  raw: 'bg-slate-600',
-  screened: 'bg-blue-500',
-  enriched: 'bg-purple-500',
-  scored: 'bg-green-500',
+  raw: { background: 'rgba(100,116,139,1)' },
+  screened: { background: 'var(--blue)' },
+  enriched: { background: 'rgba(147,112,219,1)' },
+  scored: { background: 'var(--green)' },
 }
 
 function formatNum(n) {
@@ -78,24 +78,24 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
       <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
 
       {/* Panel */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-xl bg-slate-900 border-l border-slate-700 z-50 overflow-y-auto">
+      <div className="fixed inset-y-0 right-0 w-full max-w-xl z-50 overflow-y-auto" style={{ background: 'var(--bg-base)', borderLeft: '1px solid var(--border-default)' }}>
         {/* Header */}
-        <div className="sticky top-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 px-6 py-4 flex items-center justify-between">
+        <div className="sticky top-0 backdrop-blur-sm border-b px-6 py-4 flex items-center justify-between" style={{ background: 'rgba(9,9,11,0.95)', borderBottomColor: 'var(--border-default)' }}>
           <div>
-            <h2 className="text-xl font-bold text-white">{candidate.ingredient_name}</h2>
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{candidate.ingredient_name}</h2>
             <div className="flex items-center gap-2 mt-1">
               {candidate.category && (
-                <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">{candidate.category}</span>
+                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>{candidate.category}</span>
               )}
-              <span className={`text-xs px-2 py-0.5 rounded-full text-white ${STAGE_COLORS[candidate.stage] || 'bg-slate-600'}`}>
+              <span className="text-xs px-2 py-0.5 rounded-full text-white" style={STAGE_COLORS[candidate.stage] || { background: 'rgba(100,116,139,1)' }}>
                 {candidate.stage}
               </span>
               {candidate.source_count > 1 && (
-                <span className="text-xs text-slate-400">{candidate.source_count} sources</span>
+                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{candidate.source_count} sources</span>
               )}
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition-colors">
+          <button onClick={onClose} className="p-2 rounded-lg transition-colors" style={{ color: 'var(--text-muted)', backgroundColor: 'transparent' }} onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.backgroundColor = 'var(--bg-hover)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -106,19 +106,19 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
 
           {/* Stage Controls */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-300 mb-3">Pipeline Stage</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Pipeline Stage</h3>
             <div className="flex items-center gap-1 mb-3">
               {STAGE_ORDER.map((stage, i) => (
                 <div key={stage} className="flex items-center gap-1">
-                  <div className={`w-20 text-center py-1.5 rounded text-xs font-medium ${
+                  <div className="w-20 text-center py-1.5 rounded text-xs font-medium text-white" style={
                     i <= currentStageIdx
-                      ? `${STAGE_COLORS[stage]} text-white`
-                      : 'bg-slate-800 text-slate-600'
-                  }`}>
+                      ? STAGE_COLORS[stage]
+                      : { background: 'var(--bg-hover)', color: 'var(--text-faint)' }
+                  }>
                     {STAGE_LABELS[stage]}
                   </div>
                   {i < STAGE_ORDER.length - 1 && (
-                    <svg className={`w-4 h-4 ${i < currentStageIdx ? 'text-slate-400' : 'text-slate-700'}`} fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style={{ color: i < currentStageIdx ? 'var(--text-muted)' : 'var(--text-faint)' }}>
                       <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" />
                     </svg>
                   )}
@@ -129,7 +129,8 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
               {currentStageIdx < STAGE_ORDER.length - 1 && candidate.stage !== 'killed' && (
                 <button
                   onClick={promote}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors"
+                  className="px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors"
+                  style={{ background: 'var(--accent)', color: 'var(--text-inverse)' }}
                 >
                   Promote to {STAGE_LABELS[STAGE_ORDER[currentStageIdx + 1]]}
                 </button>
@@ -142,16 +143,20 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                       placeholder="Kill reason..."
                       value={killReason}
                       onChange={e => setKillReason(e.target.value)}
-                      className="flex-1 bg-slate-800 border border-red-500/50 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none"
+                      className="t-input flex-1"
+                      style={{ borderColor: 'rgba(248,113,113,0.5)' }}
                       autoFocus
                     />
-                    <button onClick={kill} className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg">Kill</button>
-                    <button onClick={() => setShowKill(false)} className="px-3 py-2 text-slate-400 text-sm">Cancel</button>
+                    <button onClick={kill} className="px-3 py-2 text-white text-sm rounded-lg transition-colors" style={{ background: 'var(--red)' }}>Kill</button>
+                    <button onClick={() => setShowKill(false)} className="px-3 py-2 text-sm" style={{ color: 'var(--text-muted)' }}>Cancel</button>
                   </div>
                 ) : (
                   <button
                     onClick={() => setShowKill(true)}
-                    className="px-4 py-2 bg-slate-800 hover:bg-red-900/30 text-red-400 text-sm font-medium rounded-lg border border-slate-700 hover:border-red-500/30 transition-colors"
+                    className="px-4 py-2 text-sm font-medium rounded-lg border transition-colors"
+                    style={{ background: 'var(--bg-hover)', color: 'var(--red)', borderColor: 'var(--border-default)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(248,113,113,0.1)'; e.currentTarget.style.borderColor = 'rgba(248,113,113,0.3)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.borderColor = 'var(--border-default)'; }}
                   >
                     Kill
                   </button>
@@ -163,7 +168,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
           {/* POE Data */}
           {poe && (
             <div>
-              <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+              <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--text-body)' }}>
                 Amazon POE Data
                 {poe.flagged_high_opportunity && <span className="text-xs">🔥 High Opportunity</span>}
               </h3>
@@ -179,17 +184,17 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                   { label: 'Return Rate', value: formatPct(poe.return_rate) },
                   { label: 'Vol (360d)', value: formatNum(poe.search_volume_360d) },
                 ].map(item => (
-                  <div key={item.label} className="bg-slate-800/50 rounded-lg px-3 py-2">
-                    <div className="text-xs text-slate-500">{item.label}</div>
-                    <div className="text-sm text-white font-medium mt-0.5">{item.value}</div>
+                  <div key={item.label} className="rounded-lg px-3 py-2" style={{ background: 'var(--bg-hover)' }}>
+                    <div className="text-xs" style={{ color: 'var(--text-faint)' }}>{item.label}</div>
+                    <div className="text-sm font-medium mt-0.5" style={{ color: 'var(--text-primary)' }}>{item.value}</div>
                   </div>
                 ))}
               </div>
               {poe.top_search_term_1 && (
                 <div className="mt-3 flex gap-2 flex-wrap">
-                  <span className="text-xs text-slate-500">Top terms:</span>
+                  <span className="text-xs" style={{ color: 'var(--text-faint)' }}>Top terms:</span>
                   {[poe.top_search_term_1, poe.top_search_term_2, poe.top_search_term_3].filter(Boolean).map(t => (
-                    <span key={t} className="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-300">{t}</span>
+                    <span key={t} className="text-xs px-2 py-0.5 rounded" style={{ background: 'var(--bg-hover)', color: 'var(--text-body)' }}>{t}</span>
                   ))}
                 </div>
               )}
@@ -199,7 +204,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
           {/* Datarova Data */}
           {datarova && (
             <div>
-              <h3 className="text-sm font-semibold text-slate-300 mb-3">Datarova Keyword Data</h3>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Datarova Keyword Data</h3>
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { label: 'Keyword', value: datarova.keyword },
@@ -208,9 +213,9 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                   { label: 'Conversion', value: datarova.conversion_rate ? datarova.conversion_rate.toFixed(1) + '%' : '—' },
                   { label: 'Revenue Est', value: datarova.monthly_revenue_est ? '$' + formatNum(Math.round(datarova.monthly_revenue_est)) + '/mo' : '—' },
                 ].map(item => (
-                  <div key={item.label} className="bg-slate-800/50 rounded-lg px-3 py-2">
-                    <div className="text-xs text-slate-500">{item.label}</div>
-                    <div className="text-sm text-white font-medium mt-0.5">{item.value}</div>
+                  <div key={item.label} className="rounded-lg px-3 py-2" style={{ background: 'var(--bg-hover)' }}>
+                    <div className="text-xs" style={{ color: 'var(--text-faint)' }}>{item.label}</div>
+                    <div className="text-sm font-medium mt-0.5" style={{ color: 'var(--text-primary)' }}>{item.value}</div>
                   </div>
                 ))}
               </div>
@@ -220,7 +225,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
           {/* Differentiation Quick Check */}
           {(candidate.diff_potency !== null || candidate.diff_fit) && (
             <div>
-              <h3 className="text-sm font-semibold text-slate-300 mb-3">Differentiation Screen</h3>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Differentiation Screen</h3>
               <div className="flex gap-2 flex-wrap">
                 {[
                   { key: 'diff_potency', label: 'Potency' },
@@ -232,19 +237,20 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                 ].map(d => (
                   <span
                     key={d.key}
-                    className={`text-xs px-2 py-1 rounded border ${
+                    className="text-xs px-2 py-1 rounded border"
+                    style={
                       candidate[d.key] === true
-                        ? 'bg-green-500/20 text-green-300 border-green-500/30'
+                        ? { background: 'var(--green-muted)', color: 'var(--green-text)', border: '1px solid rgba(74,222,128,0.3)' }
                         : candidate[d.key] === false
-                        ? 'bg-slate-800 text-slate-600 border-slate-700'
-                        : 'bg-slate-800 text-slate-500 border-slate-700/50'
-                    }`}
+                        ? { background: 'var(--bg-hover)', color: 'var(--text-faint)', border: '1px solid var(--border-default)' }
+                        : { background: 'var(--bg-hover)', color: 'var(--text-muted)', border: '1px solid rgba(100,116,139,0.3)' }
+                    }
                   >
                     {d.label}
                   </span>
                 ))}
                 {candidate.diff_green_lights !== null && (
-                  <span className="text-xs text-slate-400 self-center ml-1">
+                  <span className="text-xs self-center ml-1" style={{ color: 'var(--text-muted)' }}>
                     {candidate.diff_green_lights}/6 green lights
                   </span>
                 )}
@@ -255,17 +261,17 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
           {/* Claude's Picks for this ingredient */}
           {picks.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold text-slate-300 mb-3">Claude's Pick History</h3>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Claude's Pick History</h3>
               {picks.map(p => (
-                <div key={p.id} className="bg-slate-800/50 rounded-lg px-4 py-3 mb-2">
+                <div key={p.id} className="rounded-lg px-4 py-3 mb-2" style={{ background: 'var(--bg-hover)' }}>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs text-slate-400">Week of {p.week_date} — Rank #{p.rank}</span>
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Week of {p.week_date} — Rank #{p.rank}</span>
                     {p.feedback_rating && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">{p.feedback_rating}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>{p.feedback_rating}</span>
                     )}
                   </div>
-                  <p className="text-sm text-slate-300">{p.rationale}</p>
-                  {p.feedback_notes && <p className="text-xs text-slate-500 mt-1">Feedback: {p.feedback_notes}</p>}
+                  <p className="text-sm" style={{ color: 'var(--text-body)' }}>{p.rationale}</p>
+                  {p.feedback_notes && <p className="text-xs mt-1" style={{ color: 'var(--text-faint)' }}>Feedback: {p.feedback_notes}</p>}
                 </div>
               ))}
             </div>
@@ -273,26 +279,33 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
 
           {/* Notes */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-300 mb-3">Notes</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Notes</h3>
             <textarea
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="Add notes about this candidate..."
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
+              className="t-input w-full px-4 py-3 resize-none"
               rows={4}
             />
             <button
               onClick={saveNotes}
               disabled={saving || notes === (candidate.notes || '')}
-              className="mt-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:hover:bg-slate-700 text-white text-sm rounded-lg transition-colors"
+              className="mt-2 px-4 py-2 text-sm rounded-lg transition-colors"
+              style={{
+                background: 'var(--bg-active)',
+                color: 'var(--text-primary)',
+                opacity: saving || notes === (candidate.notes || '') ? 0.4 : 1,
+              }}
+              onMouseEnter={(e) => !((saving || notes === (candidate.notes || '')) ? true : false) && (e.currentTarget.style.background = 'var(--bg-hover)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--bg-active)')}
             >
               {saving ? 'Saving...' : 'Save Notes'}
             </button>
           </div>
 
           {/* Metadata */}
-          <div className="border-t border-slate-700/50 pt-4">
-            <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
+          <div className="border-t pt-4" style={{ borderTopColor: 'var(--border-default)' }}>
+            <div className="grid grid-cols-2 gap-2 text-xs" style={{ color: 'var(--text-faint)' }}>
               <div>First surfaced: {new Date(candidate.first_surfaced_at).toLocaleDateString()}</div>
               <div>Last updated: {new Date(candidate.last_updated_at).toLocaleDateString()}</div>
               <div>Week: {candidate.surfaced_week}</div>

@@ -13,14 +13,14 @@ function formatGrowth(decimal) {
 }
 
 function GrowthBadge({ value }) {
-  if (value === null || value === undefined) return <span className="text-slate-600">—</span>
+  if (value === null || value === undefined) return <span style={{ color: 'var(--text-faint)' }}>—</span>
   const pct = value * 100
   const isPositive = pct > 0
   const isHigh = Math.abs(pct) > 50
   const color = isPositive
-    ? isHigh ? 'text-green-400' : 'text-green-500/70'
-    : isHigh ? 'text-red-400' : 'text-red-500/70'
-  return <span className={`font-medium ${color}`}>{formatGrowth(value)}</span>
+    ? isHigh ? 'var(--green)' : 'rgba(74,222,128,0.7)'
+    : isHigh ? 'var(--red)' : 'rgba(248,113,113,0.7)'
+  return <span className="font-medium" style={{ color }}>{formatGrowth(value)}</span>
 }
 
 function SortHeader({ label, field, filters, setFilters }) {
@@ -29,9 +29,10 @@ function SortHeader({ label, field, filters, setFilters }) {
   return (
     <button
       onClick={() => setFilters(prev => ({ ...prev, sortBy: field, sortDir: active ? next : 'desc' }))}
-      className={`flex items-center gap-1 text-xs font-medium uppercase tracking-wider ${
-        active ? 'text-indigo-300' : 'text-slate-500 hover:text-slate-300'
-      } transition-colors`}
+      className="flex items-center gap-1 text-xs font-medium uppercase tracking-wider transition-colors"
+      style={{
+        color: active ? 'var(--blue-text)' : 'var(--text-faint)',
+      }}
     >
       {label}
       {active && (
@@ -44,22 +45,29 @@ function SortHeader({ label, field, filters, setFilters }) {
 }
 
 const STAGE_COLORS = {
-  raw: 'bg-slate-600/30 text-slate-400',
-  screened: 'bg-blue-500/20 text-blue-300',
-  enriched: 'bg-purple-500/20 text-purple-300',
-  scored: 'bg-green-500/20 text-green-300',
-  killed: 'bg-red-500/20 text-red-400',
+  raw: { background: 'rgba(100,116,139,0.3)', color: 'var(--text-muted)' },
+  screened: { background: 'var(--blue-muted)', color: 'var(--blue-text)' },
+  enriched: { background: 'rgba(147,112,219,0.2)', color: 'rgba(196,181,253,1)' },
+  scored: { background: 'var(--green-muted)', color: 'var(--green-text)' },
+  killed: { background: 'var(--red-muted)', color: 'var(--red-text)' },
 }
 
 export default function PipelineTable({ candidates, poeData, datarovaData, picks, filters, setFilters, onSelect, selectedId }) {
   const pickIds = new Set(picks.map(p => p.candidate_id))
 
+  const sourceColors = {
+    source_poe: 'var(--blue)',
+    source_datarova: 'rgba(147,112,219,1)',
+    source_smartscout: 'rgba(20,184,166,1)',
+    source_google_trends: 'var(--amber)',
+  }
+
   return (
-    <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl overflow-hidden">
+    <div className="t-card rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="t-table">
           <thead>
-            <tr className="border-b border-slate-700/50">
+            <tr style={{ borderBottomColor: 'var(--border-default)' }}>
               <th className="text-left px-4 py-3 w-8"></th>
               <th className="text-left px-4 py-3">
                 <SortHeader label="Ingredient" field="name" filters={filters} setFilters={setFilters} />
@@ -68,7 +76,7 @@ export default function PipelineTable({ candidates, poeData, datarovaData, picks
                 <SortHeader label="Category" field="category" filters={filters} setFilters={setFilters} />
               </th>
               <th className="text-center px-4 py-3">
-                <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Stage</span>
+                <span className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-faint)' }}>Stage</span>
               </th>
               <th className="text-right px-4 py-3">
                 <SortHeader label="POE Vol (90d)" field="poe_volume" filters={filters} setFilters={setFilters} />
@@ -86,7 +94,7 @@ export default function PipelineTable({ candidates, poeData, datarovaData, picks
                 <SortHeader label="Sources" field="sources" filters={filters} setFilters={setFilters} />
               </th>
               <th className="text-center px-4 py-3">
-                <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Flags</span>
+                <span className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--text-faint)' }}>Flags</span>
               </th>
             </tr>
           </thead>
@@ -101,25 +109,29 @@ export default function PipelineTable({ candidates, poeData, datarovaData, picks
                 <tr
                   key={c.id}
                   onClick={() => onSelect(c.id)}
-                  className={`border-b border-slate-700/20 cursor-pointer transition-colors ${
-                    isSelected ? 'bg-indigo-500/10' : 'hover:bg-slate-800/50'
-                  }`}
+                  className="cursor-pointer transition-colors"
+                  style={{
+                    borderBottomColor: 'var(--border-subtle)',
+                    background: isSelected ? 'var(--blue-muted)' : 'transparent',
+                  }}
+                  onMouseEnter={(e) => !isSelected && (e.currentTarget.style.background = 'var(--bg-hover)')}
+                  onMouseLeave={(e) => !isSelected && (e.currentTarget.style.background = 'transparent')}
                 >
                   <td className="px-4 py-2.5 text-center">
                     {isPick && <span title="Claude's Pick">⭐</span>}
                   </td>
                   <td className="px-4 py-2.5">
-                    <span className="font-medium text-white">{c.ingredient_name}</span>
+                    <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{c.ingredient_name}</span>
                   </td>
                   <td className="px-4 py-2.5">
-                    <span className="text-slate-400 text-xs">{c.category || '—'}</span>
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{c.category || '—'}</span>
                   </td>
                   <td className="px-4 py-2.5 text-center">
-                    <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${STAGE_COLORS[c.stage] || ''}`}>
+                    <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full" style={STAGE_COLORS[c.stage] || {}}>
                       {c.stage}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-right font-mono text-xs text-slate-300">
+                  <td className="px-4 py-2.5 text-right font-mono text-xs" style={{ color: 'var(--text-body)' }}>
                     {formatVolume(poe?.search_volume_90d)}
                   </td>
                   <td className="px-4 py-2.5 text-right font-mono text-xs">
@@ -128,22 +140,24 @@ export default function PipelineTable({ candidates, poeData, datarovaData, picks
                   <td className="px-4 py-2.5 text-right font-mono text-xs">
                     <GrowthBadge value={dr?.search_volume_trend} />
                   </td>
-                  <td className="px-4 py-2.5 text-right font-mono text-xs text-slate-300">
+                  <td className="px-4 py-2.5 text-right font-mono text-xs" style={{ color: 'var(--text-body)' }}>
                     {dr?.conversion_rate ? dr.conversion_rate.toFixed(1) + '%' : '—'}
                   </td>
                   <td className="px-4 py-2.5 text-center">
                     <div className="flex justify-center gap-0.5">
                       {[
-                        { key: 'source_poe', label: 'P', color: 'bg-blue-500' },
-                        { key: 'source_datarova', label: 'D', color: 'bg-purple-500' },
-                        { key: 'source_smartscout', label: 'S', color: 'bg-teal-500' },
-                        { key: 'source_google_trends', label: 'G', color: 'bg-yellow-500' },
+                        { key: 'source_poe', label: 'P' },
+                        { key: 'source_datarova', label: 'D' },
+                        { key: 'source_smartscout', label: 'S' },
+                        { key: 'source_google_trends', label: 'G' },
                       ].map(s => (
                         <span
                           key={s.key}
-                          className={`w-4 h-4 rounded text-[9px] font-bold flex items-center justify-center ${
-                            c[s.key] ? s.color + ' text-white' : 'bg-slate-700/30 text-slate-600'
-                          }`}
+                          className="w-4 h-4 rounded text-[9px] font-bold flex items-center justify-center"
+                          style={{
+                            background: c[s.key] ? sourceColors[s.key] : 'rgba(100,116,139,0.3)',
+                            color: c[s.key] ? 'white' : 'var(--text-faint)',
+                          }}
                           title={s.key.replace('source_', '')}
                         >
                           {s.label}
@@ -168,7 +182,7 @@ export default function PipelineTable({ candidates, poeData, datarovaData, picks
         </table>
       </div>
       {candidates.length === 0 && (
-        <div className="text-center py-12 text-slate-500">
+        <div className="text-center py-12" style={{ color: 'var(--text-muted)' }}>
           No candidates match your filters
         </div>
       )}

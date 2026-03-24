@@ -1,115 +1,74 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════
-   TONIIQ DESIGN SYSTEM — CSS Custom Properties
-   Inspired by toniiq.com: minimal, premium, black & white
+   TONIIQ DESIGN SYSTEM — Dark Mode Only
+   Premium, minimal, clinical precision
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* Light mode (default) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f7f7f8;
-  --bg-tertiary: #f0f0f2;
-  --bg-elevated: #ffffff;
-  --bg-sidebar: #fafafa;
-  --bg-hover: #f4f4f6;
-  --bg-active: #eeeeee;
-  --bg-card: #ffffff;
-  --bg-input: #f7f7f8;
+  /* ── Surfaces ── */
+  --bg-base: #09090b;          /* zinc-950 — deepest background */
+  --bg-raised: #111113;        /* slightly lifted surface */
+  --bg-card: #18181b;          /* zinc-900 — cards, panels */
+  --bg-hover: #1f1f23;         /* hover state */
+  --bg-active: #27272a;        /* zinc-800 — active/selected */
+  --bg-input: #18181b;         /* input fields */
+  --bg-sidebar: #0c0c0e;       /* sidebar */
 
-  --border-primary: #e5e5eb;
-  --border-secondary: #eeeeee;
-  --border-subtle: #f0f0f2;
+  /* ── Borders ── */
+  --border-default: #27272a;   /* zinc-800 */
+  --border-subtle: #1f1f23;    /* very subtle dividers */
+  --border-strong: #3f3f46;    /* zinc-700 — more emphasis */
 
-  --text-primary: #121212;
-  --text-secondary: #676986;
-  --text-tertiary: #9a9db1;
-  --text-inverse: #ffffff;
-  --text-link: #121212;
+  /* ── Text ── */
+  --text-primary: #fafafa;     /* zinc-50 — headings, emphasis */
+  --text-body: #d4d4d8;        /* zinc-300 — readable body text */
+  --text-muted: #a1a1aa;       /* zinc-400 — secondary labels */
+  --text-faint: #71717a;       /* zinc-500 — tertiary, timestamps */
+  --text-inverse: #09090b;     /* for use on light/accent backgrounds */
 
-  --accent-primary: #121212;
-  --accent-hover: #545454;
-  --accent-muted: #e5e5eb;
+  /* ── Accent — a warm off-white for primary actions ── */
+  --accent: #fafafa;
+  --accent-hover: #d4d4d8;
+  --accent-muted: #27272a;
 
-  /* Score colors */
-  --score-high: #16a34a;
-  --score-mid: #ca8a04;
-  --score-low: #dc2626;
-  --score-high-bg: #f0fdf4;
-  --score-mid-bg: #fefce8;
-  --score-low-bg: #fef2f2;
+  /* ── Semantic colors — muted, elegant ── */
+  --green: #4ade80;            /* green-400 */
+  --green-muted: rgba(74, 222, 128, 0.12);
+  --green-text: #86efac;       /* green-300 */
 
-  /* Chart colors (monochromatic + one accent) */
-  --chart-1: #121212;
-  --chart-2: #545454;
-  --chart-3: #848484;
-  --chart-4: #b4b4b4;
+  --amber: #fbbf24;            /* amber-400 */
+  --amber-muted: rgba(251, 191, 36, 0.10);
+  --amber-text: #fcd34d;       /* amber-300 */
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.04);
-  --shadow-md: 0 2px 8px 0 rgba(0,0,0,0.06);
-  --shadow-lg: 0 4px 16px 0 rgba(0,0,0,0.08);
+  --red: #f87171;              /* red-400 */
+  --red-muted: rgba(248, 113, 113, 0.10);
+  --red-text: #fca5a5;         /* red-300 */
 
-  color-scheme: light;
-}
+  --blue: #60a5fa;             /* blue-400 */
+  --blue-muted: rgba(96, 165, 250, 0.10);
+  --blue-text: #93c5fd;        /* blue-300 */
 
-/* Dark mode */
-.dark {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #121212;
-  --bg-tertiary: #1a1a1a;
-  --bg-elevated: #161616;
-  --bg-sidebar: #0e0e0e;
-  --bg-hover: #1e1e1e;
-  --bg-active: #252525;
-  --bg-card: #141414;
-  --bg-input: #1a1a1a;
-
-  --border-primary: #2a2a2a;
-  --border-secondary: #222222;
-  --border-subtle: #1e1e1e;
-
-  --text-primary: #f5f5f5;
-  --text-secondary: #a0a0a0;
-  --text-tertiary: #666666;
-  --text-inverse: #0a0a0a;
-  --text-link: #f5f5f5;
-
-  --accent-primary: #f5f5f5;
-  --accent-hover: #cccccc;
-  --accent-muted: #2a2a2a;
-
-  --score-high: #22c55e;
-  --score-mid: #eab308;
-  --score-low: #ef4444;
-  --score-high-bg: #052e16;
-  --score-mid-bg: #422006;
-  --score-low-bg: #450a0a;
-
-  --chart-1: #f5f5f5;
-  --chart-2: #b4b4b4;
-  --chart-3: #848484;
-  --chart-4: #545454;
-
-  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.2);
-  --shadow-md: 0 2px 8px 0 rgba(0,0,0,0.3);
-  --shadow-lg: 0 4px 16px 0 rgba(0,0,0,0.4);
+  /* ── Chart palette — monochrome with one accent ── */
+  --chart-primary: #fafafa;
+  --chart-secondary: #a1a1aa;
+  --chart-tertiary: #52525b;
+  --chart-accent: #60a5fa;
 
   color-scheme: dark;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BASE STYLES
+   BASE
    ═══════════════════════════════════════════════════════════ */
 
 body {
   margin: 0;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 #root {
@@ -117,73 +76,101 @@ body {
   display: flex;
 }
 
-/* Custom scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-primary); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
 
 /* ═══════════════════════════════════════════════════════════
-   UTILITY CLASSES
+   REUSABLE COMPONENT STYLES
    ═══════════════════════════════════════════════════════════ */
 
-.t-bg { background-color: var(--bg-primary); }
-.t-bg-secondary { background-color: var(--bg-secondary); }
-.t-bg-card { background-color: var(--bg-card); }
-.t-bg-sidebar { background-color: var(--bg-sidebar); }
-.t-bg-hover { background-color: var(--bg-hover); }
-.t-bg-elevated { background-color: var(--bg-elevated); }
-
-.t-text { color: var(--text-primary); }
-.t-text-secondary { color: var(--text-secondary); }
-.t-text-tertiary { color: var(--text-tertiary); }
-
-.t-border { border-color: var(--border-primary); }
-.t-border-subtle { border-color: var(--border-subtle); }
-
+/* Card */
 .t-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
 }
 
+/* Panel — slightly more prominent card */
+.t-panel {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+}
+
+/* Input */
 .t-input {
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
   color: var(--text-primary);
+  border-radius: 6px;
+  transition: border-color 0.15s;
 }
-.t-input::placeholder { color: var(--text-tertiary); }
-.t-input:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-}
+.t-input::placeholder { color: var(--text-faint); }
+.t-input:focus { outline: none; border-color: var(--text-muted); }
 
-/* Button styles — Toniiq sharp, black/white */
-.t-btn-primary {
-  background-color: var(--accent-primary);
+/* Button — primary (white on dark) */
+.t-btn {
+  background: var(--accent);
   color: var(--text-inverse);
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  transition: background-color 0.15s ease;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.15s;
+  border: none;
+  cursor: pointer;
 }
-.t-btn-primary:hover { background-color: var(--accent-hover); }
+.t-btn:hover { background: var(--accent-hover); }
 
-.t-btn-secondary {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-primary);
+/* Button — ghost */
+.t-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
   font-weight: 500;
-  transition: all 0.15s ease;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border-default);
+  transition: all 0.15s;
+  cursor: pointer;
 }
-.t-btn-secondary:hover {
-  background-color: var(--bg-hover);
+.t-btn-ghost:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
-/* Score badge colors */
-.score-high { color: var(--score-high); }
-.score-mid { color: var(--score-mid); }
-.score-low { color: var(--score-low); }
-.score-high-bg { background-color: var(--score-high-bg); }
-.score-mid-bg { background-color: var(--score-mid-bg); }
-.score-low-bg { background-color: var(--score-low-bg); }
+/* Badge */
+.t-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* Table */
+.t-table { width: 100%; font-size: 13px; border-collapse: collapse; }
+.t-table th {
+  text-align: left;
+  padding: 8px 12px;
+  color: var(--text-faint);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-default);
+}
+.t-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.t-table tr:hover td { background: var(--bg-hover); }
+
+/* Score badge variants */
+.score-green { color: var(--green-text); background: var(--green-muted); }
+.score-amber { color: var(--amber-text); background: var(--amber-muted); }
+.score-red { color: var(--red-text); background: var(--red-muted); }
+.score-blue { color: var(--blue-text); background: var(--blue-muted); }

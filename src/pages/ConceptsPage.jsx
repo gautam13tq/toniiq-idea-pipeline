@@ -5,28 +5,29 @@ import { supabase } from '../lib/supabase'
 function ConfidenceBar({ score, max = 10 }) {
   const scoreNum = typeof score === 'number' ? score : parseFloat(score) || 0
   const percentage = Math.min(100, Math.max(0, (scoreNum / max) * 100))
-  let color = 'bg-red-500'
-  if (percentage >= 85) color = 'bg-green-500'
-  else if (percentage >= 70) color = 'bg-emerald-500'
-  else if (percentage >= 50) color = 'bg-yellow-500'
+  let backgroundColor = 'var(--red)'
+  if (percentage >= 85) backgroundColor = 'var(--green)'
+  else if (percentage >= 70) backgroundColor = 'var(--green)'
+  else if (percentage >= 50) backgroundColor = 'var(--amber)'
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden max-w-xs">
-        <div className={`h-full ${color} transition-all duration-300`} style={{ width: `${percentage}%` }} />
+      <div className="flex-1 h-2 rounded-full overflow-hidden max-w-xs" style={{ background: 'var(--bg-active)' }}>
+        <div className="h-full transition-all duration-300" style={{ width: `${percentage}%`, background: backgroundColor }} />
       </div>
-      <span className="text-sm font-semibold text-white w-8">{scoreNum.toFixed(max === 100 ? 0 : 1)}</span>
+      <span className="text-sm font-semibold w-8" style={{ color: 'var(--text-primary)' }}>{scoreNum.toFixed(max === 100 ? 0 : 1)}</span>
     </div>
   )
 }
 
 function StatusPill({ status }) {
-  const colors = {
-    generated: 'bg-slate-600/30 text-slate-300',
-    selected: 'bg-green-500/20 text-green-300',
-    rejected: 'bg-red-500/20 text-red-300',
+  const styleMap = {
+    generated: { background: 'rgba(100,116,139,0.2)', color: 'var(--text-body)' },
+    selected: { background: 'var(--green-muted)', color: 'var(--green-text)' },
+    rejected: { background: 'var(--red-muted)', color: 'var(--red-text)' },
   }
+  const style = styleMap[status] || styleMap.generated
   return (
-    <span className={`text-xs font-medium px-2 py-1 rounded-full ${colors[status] || colors.generated}`}>
+    <span className="text-xs font-medium px-2 py-1 rounded-full" style={style}>
       {status}
     </span>
   )
@@ -34,15 +35,15 @@ function StatusPill({ status }) {
 
 function TierPill({ tier }) {
   const tiers = {
-    immediate_launch: { label: 'Launch', class: 'bg-green-500/20 text-green-300 border-green-500/30' },
-    launch_priority: { label: 'Priority', class: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
-    conditional: { label: 'Conditional', class: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' },
-    deprioritize: { label: 'Deprioritize', class: 'bg-orange-500/20 text-orange-300 border-orange-500/30' },
-    kill: { label: 'Kill', class: 'bg-red-500/20 text-red-300 border-red-500/30' },
+    immediate_launch: { label: 'Launch', style: { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'rgba(34,197,94,0.3)' } },
+    launch_priority: { label: 'Priority', style: { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'rgba(34,197,94,0.3)' } },
+    conditional: { label: 'Conditional', style: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'rgba(217,119,6,0.3)' } },
+    deprioritize: { label: 'Deprioritize', style: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'rgba(217,119,6,0.3)' } },
+    kill: { label: 'Kill', style: { background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'rgba(239,68,68,0.3)' } },
   }
-  const t = tiers[tier] || { label: tier, class: 'bg-slate-600/30 text-slate-300 border-slate-600/30' }
+  const t = tiers[tier] || { label: tier, style: { background: 'rgba(100,116,139,0.2)', color: 'var(--text-body)', borderColor: 'rgba(100,116,139,0.3)' } }
   return (
-    <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${t.class}`}>
+    <span className="text-xs font-bold px-2 py-0.5 rounded-full border" style={{ ...t.style, borderStyle: 'solid', borderWidth: '1px' }}>
       {t.label}
     </span>
   )
@@ -56,11 +57,11 @@ function EvidenceSnippets({ concept, compositeScore }) {
   return (
     <div className="flex flex-wrap gap-1.5 mt-2">
       {compositeScore && (
-        <span className={`text-xs px-2 py-0.5 rounded border font-medium ${
-          parseFloat(compositeScore.composite_score) >= 70
-            ? 'bg-green-500/15 text-green-300 border-green-500/20'
-            : 'bg-yellow-500/15 text-yellow-300 border-yellow-500/20'
-        }`}>
+        <span className="text-xs px-2 py-0.5 rounded border font-medium" style={{
+          background: parseFloat(compositeScore.composite_score) >= 70 ? 'var(--green-muted)' : 'var(--amber-muted)',
+          color: parseFloat(compositeScore.composite_score) >= 70 ? 'var(--green-text)' : 'var(--amber-text)',
+          borderColor: parseFloat(compositeScore.composite_score) >= 70 ? 'rgba(34,197,94,0.2)' : 'rgba(217,119,6,0.2)',
+        }}>
           {parseFloat(compositeScore.composite_score).toFixed(0)}/100 composite
         </span>
       )}
@@ -68,22 +69,38 @@ function EvidenceSnippets({ concept, compositeScore }) {
         <TierPill tier={compositeScore.recommendation_tier} />
       )}
       {!compositeScore && kw.total_monthly_clicks && (
-        <span className="text-xs px-2 py-0.5 bg-blue-500/15 text-blue-300 rounded border border-blue-500/20">
+        <span className="text-xs px-2 py-0.5 rounded border" style={{
+          background: 'var(--blue-muted)',
+          color: 'var(--blue-text)',
+          borderColor: 'rgba(96,165,250,0.2)',
+        }}>
           {(kw.total_monthly_clicks / 1000).toFixed(0)}K clicks/mo
         </span>
       )}
       {!compositeScore && (kw.growth_yoy_pct || kw.growth_3m_pct) && (
-        <span className="text-xs px-2 py-0.5 bg-emerald-500/15 text-emerald-300 rounded border border-emerald-500/20">
+        <span className="text-xs px-2 py-0.5 rounded border" style={{
+          background: 'var(--green-muted)',
+          color: 'var(--green-text)',
+          borderColor: 'rgba(34,197,94,0.2)',
+        }}>
           {kw.growth_yoy_pct ? `+${kw.growth_yoy_pct}% YoY` : `+${kw.growth_3m_pct}% 3M`}
         </span>
       )}
       {!compositeScore && rd.reddit_score && (
-        <span className="text-xs px-2 py-0.5 bg-amber-500/15 text-amber-300 rounded border border-amber-500/20">
+        <span className="text-xs px-2 py-0.5 rounded border" style={{
+          background: 'var(--amber-muted)',
+          color: 'var(--amber-text)',
+          borderColor: 'rgba(217,119,6,0.2)',
+        }}>
           Reddit {rd.reddit_score}/10
         </span>
       )}
       {!compositeScore && sc.key_signals && sc.key_signals.length > 0 && (
-        <span className="text-xs px-2 py-0.5 bg-purple-500/15 text-purple-300 rounded border border-purple-500/20">
+        <span className="text-xs px-2 py-0.5 rounded border" style={{
+          background: 'rgba(168,85,247,0.12)',
+          color: '#c084fc',
+          borderColor: 'rgba(168,85,247,0.2)',
+        }}>
           {sc.key_signals.length} science signals
         </span>
       )}
@@ -91,12 +108,20 @@ function EvidenceSnippets({ concept, compositeScore }) {
       {compositeScore && (
         <>
           {compositeScore.amazon_competitive_score && (
-            <span className="text-xs px-2 py-0.5 bg-indigo-500/15 text-indigo-300 rounded border border-indigo-500/20">
+            <span className="text-xs px-2 py-0.5 rounded border" style={{
+              background: 'var(--blue-muted)',
+              color: 'var(--blue-text)',
+              borderColor: 'rgba(96,165,250,0.2)',
+            }}>
               Amazon {compositeScore.amazon_competitive_score}/10
             </span>
           )}
           {compositeScore.differentiation_score && (
-            <span className="text-xs px-2 py-0.5 bg-purple-500/15 text-purple-300 rounded border border-purple-500/20">
+            <span className="text-xs px-2 py-0.5 rounded border" style={{
+              background: 'rgba(168,85,247,0.12)',
+              color: '#c084fc',
+              borderColor: 'rgba(168,85,247,0.2)',
+            }}>
               Diff {compositeScore.differentiation_score}/10
             </span>
           )}
@@ -188,16 +213,16 @@ export default function ConceptsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900">
-        <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
+      <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
+        <header className="border-b sticky top-0 z-30 backdrop-blur-sm" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-base)' }}>
           <div className="px-6 py-4">
-            <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">Toniiq Idea Pipeline</Link>
+            <Link to="/" className="text-xl font-semibold transition-colors" style={{ color: 'var(--text-primary)' }}>Toniiq Idea Pipeline</Link>
           </div>
         </header>
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4" />
-            <p className="text-slate-400">Loading concepts...</p>
+            <div className="animate-spin rounded-full h-8 w-8 mx-auto mb-4" style={{ borderTop: '2px solid var(--text-muted)', borderRadius: '50%', borderRight: '2px solid var(--text-muted)' }} />
+            <p style={{ color: 'var(--text-muted)' }}>Loading concepts...</p>
           </div>
         </div>
       </div>
@@ -276,9 +301,9 @@ export default function ConceptsPage() {
             {/* Phase B Evaluated Concepts — shown first */}
             {phaseBConcepts.length > 0 && (
               <div>
-                <div className="flex items-center gap-3 mb-4 pb-2 border-b border-slate-700/50">
-                  <h2 className="text-lg font-semibold text-white">Phase B Evaluated</h2>
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
+                <div className="flex items-center gap-3 mb-4 pb-2 border-b" style={{ borderColor: 'var(--border-default)' }}>
+                  <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Phase B Evaluated</h2>
+                  <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: 'var(--green-muted)', color: 'var(--green-text)' }}>
                     {phaseBConcepts.length}
                   </span>
                 </div>
@@ -300,9 +325,12 @@ export default function ConceptsPage() {
             {phaseATiers.map(tier => (
               tier.concepts.length > 0 && (
                 <div key={tier.label}>
-                  <div className="flex items-center gap-3 mb-4 pb-2 border-b border-slate-700/50">
-                    <h2 className="text-lg font-semibold text-white">{tier.label}</h2>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${tier.badge}`}>
+                  <div className="flex items-center gap-3 mb-4 pb-2 border-b" style={{ borderColor: 'var(--border-default)' }}>
+                    <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{tier.label}</h2>
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
+                      background: tier.label.includes('High') ? 'var(--green-muted)' : tier.label.includes('Good') ? 'var(--green-muted)' : 'var(--amber-muted)',
+                      color: tier.label.includes('High') ? 'var(--green-text)' : tier.label.includes('Good') ? 'var(--green-text)' : 'var(--amber-text)',
+                    }}>
                       {tier.concepts.length}
                     </span>
                   </div>
@@ -326,19 +354,19 @@ export default function ConceptsPage() {
               if (!candidate) return null
               return (
                 <div key={candidate.id}>
-                  <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between mb-4 pb-2 border-b" style={{ borderColor: 'var(--border-default)' }}>
                     <div className="flex items-center gap-3">
-                      <Link to={`/discovery/${candidate.id}`} className="text-lg font-semibold text-white hover:text-indigo-300 transition-colors">
+                      <Link to={`/discovery/${candidate.id}`} className="text-lg font-semibold transition-colors" style={{ color: 'var(--text-primary)' }}>
                         {candidate.ingredient_name}
                       </Link>
                       {candidate.category && (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">{candidate.category}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>{candidate.category}</span>
                       )}
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">
+                      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)' }}>
                         {ingConcepts.length} concept{ingConcepts.length !== 1 ? 's' : ''}
                       </span>
                     </div>
-                    <Link to={`/discovery/${candidate.id}`} className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors">
+                    <Link to={`/discovery/${candidate.id}`} className="text-sm transition-colors" style={{ color: 'var(--blue)' }}>
                       View full evidence →
                     </Link>
                   </div>
@@ -363,8 +391,8 @@ export default function ConceptsPage() {
         {concepts.length === 0 && (
           <div className="text-center py-20">
             <div className="text-4xl mb-4">🔍</div>
-            <h2 className="text-xl font-semibold text-white mb-2">No concepts yet</h2>
-            <p className="text-slate-400">Check back soon as the idea pipeline generates concepts.</p>
+            <h2 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No concepts yet</h2>
+            <p style={{ color: 'var(--text-muted)' }}>Check back soon as the idea pipeline generates concepts.</p>
           </div>
         )}
       </div>
@@ -382,35 +410,42 @@ function ConceptCard({ concept, candidate, compositeScore, navigate, compact = f
   return (
     <button
       onClick={() => navigate(`/concepts/${concept.id}`)}
-      className={`w-full text-left border rounded-lg p-4 transition-all duration-200 group ${
-        hasPhaseB
-          ? 'bg-gradient-to-r from-slate-800/80 to-slate-800/60 border-indigo-500/20 hover:border-indigo-500/40'
-          : 'bg-slate-800/60 hover:bg-slate-800 border-slate-700/50 hover:border-indigo-500/30'
-      }`}
+      className="w-full text-left border rounded-lg p-4 transition-all duration-200 group"
+      style={{
+        background: hasPhaseB ? 'var(--bg-card)' : 'var(--bg-card)',
+        borderColor: hasPhaseB ? 'rgba(96,165,250,0.2)' : 'var(--border-default)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = hasPhaseB ? 'rgba(96,165,250,0.4)' : 'rgba(96,165,250,0.3)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = hasPhaseB ? 'rgba(96,165,250,0.2)' : 'var(--border-default)'
+      }}
     >
       <div className="flex items-start justify-between gap-4 mb-2">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-1">
-            <h3 className="text-base font-semibold text-white group-hover:text-indigo-300 transition-colors">
+            <h3 className="text-base font-semibold transition-colors" style={{ color: 'var(--text-primary)' }}>
               {concept.concept_name}
             </h3>
             <StatusPill status={concept.status} />
             {hasPhaseB && (
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full border" style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', borderColor: 'rgba(96,165,250,0.3)' }}>
                 Phase B
               </span>
             )}
           </div>
           {!compact && candidate && (
-            <p className="text-sm text-slate-400">
+            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
               From{' '}
               <span
-                className="text-slate-300 hover:text-indigo-300 cursor-pointer"
+                className="cursor-pointer transition-colors"
+                style={{ color: 'var(--text-body)' }}
                 onClick={(e) => { e.stopPropagation(); navigate(`/discovery/${candidate.id}`) }}
               >
                 {candidate.ingredient_name}
               </span>
-              {candidate.category && <span className="text-slate-500"> · {candidate.category}</span>}
+              {candidate.category && <span style={{ color: 'var(--text-faint)' }}> · {candidate.category}</span>}
             </p>
           )}
         </div>
@@ -430,20 +465,20 @@ function ConceptCard({ concept, candidate, compositeScore, navigate, compact = f
 
       <div className="flex items-center gap-2 mb-2 flex-wrap">
         {concept.concept_type && (
-          <span className="text-xs px-2 py-0.5 bg-indigo-500/20 rounded text-indigo-300">
+          <span className="text-xs px-2 py-0.5 rounded" style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)' }}>
             {concept.concept_type.replace(/_/g, ' ')}
           </span>
         )}
         {concept.format && (
-          <span className="text-xs px-2 py-0.5 bg-slate-700/50 rounded text-slate-300">{concept.format}</span>
+          <span className="text-xs px-2 py-0.5 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>{concept.format}</span>
         )}
         {concept.target_dosage && (
-          <span className="text-xs px-2 py-0.5 bg-slate-700/50 rounded text-slate-400">{concept.target_dosage}</span>
+          <span className="text-xs px-2 py-0.5 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-muted)' }}>{concept.target_dosage}</span>
         )}
       </div>
 
       {concept.positioning_angle && (
-        <p className="text-sm text-slate-400 mb-2 line-clamp-2">{concept.positioning_angle}</p>
+        <p className="text-sm mb-2 line-clamp-2" style={{ color: 'var(--text-muted)' }}>{concept.positioning_angle}</p>
       )}
 
       <EvidenceSnippets concept={concept} compositeScore={compositeScore} />

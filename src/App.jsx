@@ -171,8 +171,8 @@ export default function App() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
-          <p className="text-slate-400">Loading pipeline data...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto mb-4" style={{ borderBottomColor: 'var(--blue)' }}></div>
+          <p style={{ color: 'var(--text-muted)' }}>Loading pipeline data...</p>
         </div>
       </div>
     )
@@ -181,15 +181,15 @@ export default function App() {
   const data = filtered()
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
       {/* Page Header */}
-      <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+      <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-default)' }}>
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
               Discovery
             </h1>
-            <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
               {candidates.length} candidates tracked across all sources
             </p>
           </div>
@@ -198,9 +198,9 @@ export default function App() {
               onClick={() => setTab('pipeline')}
               className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
               style={{
-                background: tab === 'pipeline' ? 'var(--accent-primary)' : 'transparent',
-                color: tab === 'pipeline' ? 'var(--text-inverse)' : 'var(--text-secondary)',
-                border: tab === 'pipeline' ? 'none' : '1px solid var(--border-primary)',
+                background: tab === 'pipeline' ? 'var(--accent)' : 'transparent',
+                color: tab === 'pipeline' ? 'var(--text-inverse)' : 'var(--text-muted)',
+                border: tab === 'pipeline' ? 'none' : '1px solid var(--border-default)',
               }}
             >
               Pipeline
@@ -209,16 +209,16 @@ export default function App() {
               onClick={() => setTab('picks')}
               className="px-3 py-1.5 rounded text-sm font-medium transition-colors flex items-center gap-2"
               style={{
-                background: tab === 'picks' ? 'var(--accent-primary)' : 'transparent',
-                color: tab === 'picks' ? 'var(--text-inverse)' : 'var(--text-secondary)',
-                border: tab === 'picks' ? 'none' : '1px solid var(--border-primary)',
+                background: tab === 'picks' ? 'var(--accent)' : 'transparent',
+                color: tab === 'picks' ? 'var(--text-inverse)' : 'var(--text-muted)',
+                border: tab === 'picks' ? 'none' : '1px solid var(--border-default)',
               }}
             >
               Claude's Picks
               {picks.filter(p => !p.feedback_rating).length > 0 && (
                 <span
                   className="text-[10px] font-bold px-1.5 py-0.5 rounded"
-                  style={{ background: 'var(--score-high-bg)', color: 'var(--score-high)' }}
+                  style={{ background: 'var(--green-muted)', color: 'var(--green-text)' }}
                 >
                   {picks.filter(p => !p.feedback_rating).length}
                 </span>
@@ -291,8 +291,8 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
     return (
       <div className="text-center py-20">
         <div className="text-4xl mb-4">🔮</div>
-        <h2 className="text-xl font-semibold text-white mb-2">No picks yet</h2>
-        <p className="text-slate-400 max-w-md mx-auto">
+        <h2 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No picks yet</h2>
+        <p className="max-w-md mx-auto" style={{ color: 'var(--text-muted)' }}>
           Claude's weekly Top 10 picks will appear here. Each week, the pipeline data is analyzed
           to surface the best opportunities, and your feedback helps improve future picks.
         </p>
@@ -301,18 +301,18 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
   }
 
   const RATINGS = [
-    { value: 'strong_yes', label: 'Love it', color: 'bg-green-500/20 text-green-300 border-green-500/30' },
-    { value: 'yes', label: 'Good', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
-    { value: 'maybe', label: 'Maybe', color: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' },
-    { value: 'no', label: 'Pass', color: 'bg-red-500/20 text-red-300 border-red-500/30' },
-    { value: 'strong_no', label: 'Bad pick', color: 'bg-red-700/20 text-red-400 border-red-700/30' },
+    { value: 'strong_yes', label: 'Love it', style: { background: 'var(--green-muted)', color: 'var(--green-text)', border: '1px solid rgba(74,222,128,0.3)' } },
+    { value: 'yes', label: 'Good', style: { background: 'var(--green-muted)', color: 'var(--green-text)', border: '1px solid rgba(74,222,128,0.3)' } },
+    { value: 'maybe', label: 'Maybe', style: { background: 'var(--amber-muted)', color: 'var(--amber-text)', border: '1px solid rgba(251,191,36,0.3)' } },
+    { value: 'no', label: 'Pass', style: { background: 'var(--red-muted)', color: 'var(--red-text)', border: '1px solid rgba(248,113,113,0.3)' } },
+    { value: 'strong_no', label: 'Bad pick', style: { background: 'var(--red-muted)', color: 'var(--red-text)', border: '1px solid rgba(248,113,113,0.3)' } },
   ]
 
   return (
     <div className="space-y-8">
       {Object.entries(weeks).sort(([a], [b]) => b.localeCompare(a)).map(([week, weekPicks]) => (
         <div key={week}>
-          <h2 className="text-lg font-semibold text-white mb-4">
+          <h2 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>
             Week of {new Date(week + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
           </h2>
           <div className="space-y-3">
@@ -323,28 +323,31 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
               if (!candidate) return null
 
               return (
-                <div key={pick.id} className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5">
+                <div key={pick.id} className="rounded-xl p-5" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-default)' }}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-bold">
+                        <span className="flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold" style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)' }}>
                           {pick.rank}
                         </span>
                         <Link
                           to={`/discovery/${pick.candidate_id}`}
-                          className="text-lg font-semibold text-white hover:text-indigo-300 transition-colors"
+                          className="text-lg font-semibold transition-colors"
+                          style={{ color: 'var(--text-primary)' }}
+                          onMouseEnter={(e) => e.target.style.color = 'var(--blue-text)'}
+                          onMouseLeave={(e) => e.target.style.color = 'var(--text-primary)'}
                           onClick={(e) => e.stopPropagation()}
                         >
                           {candidate.ingredient_name}
                         </Link>
                         {candidate.category && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">
+                          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>
                             {candidate.category}
                           </span>
                         )}
                       </div>
-                      <p className="text-slate-300 text-sm leading-relaxed mb-3">{pick.rationale}</p>
-                      <div className="flex gap-4 text-xs text-slate-400">
+                      <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--text-body)' }}>{pick.rationale}</p>
+                      <div className="flex gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
                         {poe && <span>POE Vol: {(poe.search_volume_90d || 0).toLocaleString()}</span>}
                         {poe && <span>POE Growth: {((poe.search_volume_growth_90d || 0) * 100).toFixed(1)}%</span>}
                         {dr && <span>Datarova Growth: {((dr.search_volume_trend || 0) * 100).toFixed(1)}%</span>}
@@ -356,13 +359,11 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
                     <div className="flex-shrink-0 w-64">
                       {pick.feedback_rating ? (
                         <div className="text-center">
-                          <span className={`inline-block text-xs font-medium px-3 py-1 rounded-full border ${
-                            RATINGS.find(r => r.value === pick.feedback_rating)?.color || ''
-                          }`}>
+                          <span className="inline-block text-xs font-medium px-3 py-1 rounded-full border" style={RATINGS.find(r => r.value === pick.feedback_rating)?.style}>
                             {RATINGS.find(r => r.value === pick.feedback_rating)?.label}
                           </span>
                           {pick.feedback_notes && (
-                            <p className="text-xs text-slate-400 mt-2">{pick.feedback_notes}</p>
+                            <p className="text-xs mt-2" style={{ color: 'var(--text-muted)' }}>{pick.feedback_notes}</p>
                           )}
                         </div>
                       ) : (
@@ -375,7 +376,8 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
                                   const notes = feedbackDraft[pick.id] || ''
                                   onFeedback(pick.id, r.value, notes)
                                 }}
-                                className={`text-xs px-2 py-1 rounded border transition-colors hover:opacity-80 ${r.color}`}
+                                className="text-xs px-2 py-1 rounded border transition-colors hover:opacity-80"
+                                style={r.style}
                               >
                                 {r.label}
                               </button>
@@ -384,7 +386,12 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
                           <input
                             type="text"
                             placeholder="Optional note..."
-                            className="w-full text-xs bg-slate-900 border border-slate-600 rounded px-2 py-1 text-slate-300 placeholder-slate-500"
+                            className="w-full text-xs rounded px-2 py-1"
+                            style={{
+                              background: 'var(--bg-base)',
+                              border: '1px solid var(--border-default)',
+                              color: 'var(--text-body)',
+                            }}
                             value={feedbackDraft[pick.id] || ''}
                             onChange={e => setFeedbackDraft(prev => ({ ...prev, [pick.id]: e.target.value }))}
                           />

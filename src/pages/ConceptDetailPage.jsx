@@ -10,29 +10,36 @@ import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Responsi
 function ConfidenceBar({ score, max = 10 }) {
   const scoreNum = typeof score === 'number' ? score : parseFloat(score) || 0
   const percentage = Math.min(100, Math.max(0, (scoreNum / max) * 100))
-  let color = 'bg-red-500'
-  if (percentage >= 85) color = 'bg-green-500'
-  else if (percentage >= 70) color = 'bg-emerald-500'
-  else if (percentage >= 50) color = 'bg-yellow-500'
+  let color = 'var(--red)'
+  if (percentage >= 85) color = 'var(--green)'
+  else if (percentage >= 70) color = 'var(--green)'
+  else if (percentage >= 50) color = 'var(--amber)'
   return (
     <div className="flex items-center gap-3">
-      <div className="flex-1 h-3 bg-slate-700 rounded-full overflow-hidden max-w-sm">
-        <div className={`h-full ${color} transition-all duration-300`} style={{ width: `${percentage}%` }} />
+      <div className="flex-1 h-3 rounded-full overflow-hidden max-w-sm" style={{ background: 'var(--bg-active)' }}>
+        <div className="h-full transition-all duration-300" style={{ width: `${percentage}%`, background: color }} />
       </div>
-      <span className="text-2xl font-bold text-white w-12">{scoreNum.toFixed(max === 100 ? 0 : 1)}</span>
+      <span className="text-2xl font-bold w-12" style={{ color: 'var(--text-primary)' }}>{scoreNum.toFixed(max === 100 ? 0 : 1)}</span>
     </div>
   )
 }
 
 function ActionButton({ onClick, disabled, children, variant = 'primary' }) {
   const baseClass = 'px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
-  const variantClass =
-    variant === 'success' ? 'bg-green-600 hover:bg-green-700 text-white'
-    : variant === 'danger' ? 'bg-red-600 hover:bg-red-700 text-white'
-    : variant === 'secondary' ? 'bg-slate-700 hover:bg-slate-600 text-white'
-    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+  let variantStyle = {}
+
+  if (variant === 'success') {
+    variantStyle = { background: 'var(--green)', color: 'var(--text-inverse)' }
+  } else if (variant === 'danger') {
+    variantStyle = { background: 'var(--red)', color: 'var(--text-inverse)' }
+  } else if (variant === 'secondary') {
+    variantStyle = { background: 'var(--bg-hover)', color: 'var(--text-primary)' }
+  } else {
+    variantStyle = { background: 'var(--accent)', color: 'var(--text-inverse)' }
+  }
+
   return (
-    <button onClick={onClick} disabled={disabled} className={`${baseClass} ${variantClass}`}>
+    <button onClick={onClick} disabled={disabled} className={baseClass} style={variantStyle}>
       {children}
     </button>
   )
@@ -48,10 +55,10 @@ function formatNumber(n) {
 
 function StatCard({ label, value, subtext, color = 'text-white' }) {
   return (
-    <div className="bg-slate-700/30 rounded-lg p-3">
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
+    <div className="rounded-lg p-3" style={{ background: 'var(--bg-hover)' }}>
+      <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>{label}</p>
       <p className={`text-lg font-bold ${color}`}>{value}</p>
-      {subtext && <p className="text-xs text-slate-500 mt-0.5">{subtext}</p>}
+      {subtext && <p className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>{subtext}</p>}
     </div>
   )
 }
@@ -59,7 +66,7 @@ function StatCard({ label, value, subtext, color = 'text-white' }) {
 function SectionHeader({ icon, title, badge }) {
   return (
     <div className="flex items-center justify-between mb-4">
-      <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+      <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
         <span className="text-xl">{icon}</span>
         {title}
       </h3>
@@ -74,27 +81,27 @@ function SectionHeader({ icon, title, badge }) {
 
 function ScoreBadge({ score, max = 10, size = 'md' }) {
   const pct = (score / max) * 100
-  const color = pct >= 80 ? 'text-green-400' : pct >= 60 ? 'text-emerald-400' : pct >= 40 ? 'text-yellow-400' : 'text-red-400'
-  const bgColor = pct >= 80 ? 'bg-green-500/20' : pct >= 60 ? 'bg-emerald-500/20' : pct >= 40 ? 'bg-yellow-500/20' : 'bg-red-500/20'
+  const color = pct >= 80 ? 'var(--green-text)' : pct >= 60 ? 'var(--green-text)' : pct >= 40 ? 'var(--amber-text)' : 'var(--red-text)'
+  const bgColor = pct >= 80 ? 'var(--green-muted)' : pct >= 60 ? 'var(--green-muted)' : pct >= 40 ? 'var(--amber-muted)' : 'var(--red-muted)'
   const sizeClass = size === 'lg' ? 'text-4xl w-20 h-20' : size === 'md' ? 'text-2xl w-14 h-14' : 'text-lg w-10 h-10'
   return (
-    <div className={`${bgColor} ${sizeClass} rounded-full flex items-center justify-center`}>
-      <span className={`font-bold ${color}`}>{score}</span>
+    <div className={`${sizeClass} rounded-full flex items-center justify-center`} style={{ background: bgColor }}>
+      <span className="font-bold" style={{ color }}>{score}</span>
     </div>
   )
 }
 
 function TierBadge({ tier }) {
   const tiers = {
-    immediate_launch: { label: 'Immediate Launch', class: 'bg-green-500/20 text-green-300 border-green-500/30' },
-    launch_priority: { label: 'Launch Priority', class: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
-    conditional: { label: 'Conditional', class: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' },
-    deprioritize: { label: 'Deprioritize', class: 'bg-orange-500/20 text-orange-300 border-orange-500/30' },
-    kill: { label: 'Kill', class: 'bg-red-500/20 text-red-300 border-red-500/30' },
+    immediate_launch: { label: 'Immediate Launch', class: 'border', bgStyle: { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } },
+    launch_priority: { label: 'Launch Priority', class: 'border', bgStyle: { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } },
+    conditional: { label: 'Conditional', class: 'border', bgStyle: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } },
+    deprioritize: { label: 'Deprioritize', class: 'border', bgStyle: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } },
+    kill: { label: 'Kill', class: 'border', bgStyle: { background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' } },
   }
-  const t = tiers[tier] || { label: tier, class: 'bg-slate-600/30 text-slate-300 border-slate-600/30' }
+  const t = tiers[tier] || { label: tier, class: 'border', bgStyle: { background: 'var(--bg-hover)', color: 'var(--text-body)', borderColor: 'var(--border-default)' } }
   return (
-    <span className={`text-sm font-bold px-4 py-1.5 rounded-full border ${t.class}`}>
+    <span className={`text-sm font-bold px-4 py-1.5 rounded-full ${t.class}`} style={t.bgStyle}>
       {t.label}
     </span>
   )
@@ -107,20 +114,20 @@ function highlightSignal(text) {
   return parts.map((part, i) => {
     if (/\+?\d[\d,.]*%/.test(part) || /\d[\d,.]*[KM]/.test(part) || /clicks/.test(part) || /conversion/.test(part)) {
       const isGrowth = part.startsWith('+') || part.includes('growth')
-      return <span key={i} className={`font-semibold ${isGrowth ? 'text-emerald-400' : 'text-white'}`}>{part}</span>
+      return <span key={i} className="font-semibold" style={{ color: isGrowth ? 'var(--green-text)' : 'var(--text-primary)' }}>{part}</span>
     }
     return part
   })
 }
 
-function SignalList({ signals, color = 'text-indigo-400' }) {
+function SignalList({ signals, color = 'var(--blue-text)' }) {
   if (!signals || signals.length === 0) return null
   return (
     <div className="space-y-2">
       {signals.map((signal, i) => (
         <div key={i} className="flex items-start gap-2 text-sm">
-          <span className={`${color} mt-0.5 flex-shrink-0`}>•</span>
-          <span className="text-slate-200">{typeof signal === 'string' ? highlightSignal(signal) : JSON.stringify(signal)}</span>
+          <span className="mt-0.5 flex-shrink-0" style={{ color }}>•</span>
+          <span style={{ color: 'var(--text-body)' }}>{typeof signal === 'string' ? highlightSignal(signal) : JSON.stringify(signal)}</span>
         </div>
       ))}
     </div>
@@ -136,7 +143,7 @@ function KeywordEvidencePanel({ evidence }) {
   const { total_monthly_clicks, growth_yoy_pct, growth_3m_pct, primary_keyword_clicks, key_signals = [] } = evidence
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader icon="📊" title="Keyword Evidence" />
       {(total_monthly_clicks || growth_yoy_pct || growth_3m_pct) && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
@@ -148,7 +155,7 @@ function KeywordEvidencePanel({ evidence }) {
       )}
       {key_signals.length > 0 && (
         <div>
-          <h4 className="text-sm font-semibold text-slate-300 mb-3">Key Signals</h4>
+          <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Key Signals</h4>
           <SignalList signals={key_signals} />
         </div>
       )}
@@ -160,9 +167,9 @@ function RedditEvidencePanel({ evidence }) {
   if (!evidence || Object.keys(evidence).length === 0) return null
   const { reddit_score, key_signals = [] } = evidence
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
-      <SectionHeader icon="💬" title="Reddit Research" badge={reddit_score ? { text: `${reddit_score}/10`, class: 'bg-amber-500/20 text-amber-300' } : null} />
-      <SignalList signals={key_signals} color="text-amber-400" />
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
+      <SectionHeader icon="💬" title="Reddit Research" badge={reddit_score ? { text: `${reddit_score}/10`, class: 'border', style: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } } : null} />
+      <SignalList signals={key_signals} color="var(--amber-text)" />
     </div>
   )
 }
@@ -171,9 +178,9 @@ function ScienceEvidencePanel({ evidence }) {
   if (!evidence || Object.keys(evidence).length === 0) return null
   const { key_signals = [] } = evidence
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader icon="🧪" title="Science Evidence" />
-      <SignalList signals={key_signals} color="text-purple-400" />
+      <SignalList signals={key_signals} color="#c084fc" />
     </div>
   )
 }
@@ -210,17 +217,17 @@ function CompositeScoreHero({ scores }) {
   }))
 
   return (
-    <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 rounded-xl p-8 mb-6">
+    <div className="border rounded-xl p-8 mb-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white mb-1">Phase B Evaluation</h2>
-          <p className="text-slate-400">Composite score from 4 strategic pillars</p>
+          <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Phase B Evaluation</h2>
+          <p style={{ color: 'var(--text-muted)' }}>Composite score from 4 strategic pillars</p>
         </div>
         <div className="flex items-center gap-4">
           <TierBadge tier={scores.recommendation_tier} />
           <div className="text-right">
-            <p className="text-5xl font-bold text-white">{parseFloat(scores.composite_score).toFixed(0)}</p>
-            <p className="text-sm text-slate-400">/ 100</p>
+            <p className="text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>{parseFloat(scores.composite_score).toFixed(0)}</p>
+            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>/ 100</p>
           </div>
         </div>
       </div>
@@ -240,13 +247,13 @@ function CompositeScoreHero({ scores }) {
 
         {/* Weighted Bar Chart */}
         <div>
-          <h4 className="text-sm font-semibold text-slate-300 mb-3">Weighted Contribution</h4>
+          <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Weighted Contribution</h4>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={barData} layout="vertical" margin={{ left: 10, right: 20 }}>
               <XAxis type="number" domain={[0, 30]} tick={{ fill: '#64748b', fontSize: 11 }} />
               <YAxis dataKey="name" type="category" width={140} tick={{ fill: '#94a3b8', fontSize: 11 }} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                contentStyle={{ backgroundColor: 'var(--bg-card)', border: '1px solid #27272a', borderRadius: '8px' }}
                 labelStyle={{ color: '#e2e8f0' }}
                 formatter={(val) => [`${val.toFixed(1)} pts`, 'Weighted']}
               />
@@ -261,22 +268,22 @@ function CompositeScoreHero({ scores }) {
       </div>
 
       {/* Pillar Descriptions */}
-      <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-slate-700/50">
+      <div className="grid grid-cols-2 gap-3 mt-6 pt-6" style={{ borderTop: '1px solid var(--border-default)' }}>
         {pillarData.map(p => (
-          <div key={p.key} className="bg-slate-700/20 rounded-lg p-3">
+          <div key={p.key} className="rounded-lg p-3" style={{ background: 'var(--bg-hover)' }}>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium text-white">{p.icon} {p.label}</span>
+              <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{p.icon} {p.label}</span>
               <span className="text-sm font-bold" style={{ color: p.color }}>{p.score}/10</span>
             </div>
-            {p.description && <p className="text-xs text-slate-400 leading-relaxed">{p.description}</p>}
+            {p.description && <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{p.description}</p>}
           </div>
         ))}
       </div>
 
       {/* Assessment */}
       {scores.overall_assessment && (
-        <div className="mt-4 pt-4 border-t border-slate-700/50">
-          <p className="text-slate-200 leading-relaxed">{scores.overall_assessment}</p>
+        <div className="mt-4 pt-4" style={{ borderTop: '1px solid var(--border-default)' }}>
+          <p className="leading-relaxed" style={{ color: 'var(--text-body)' }}>{scores.overall_assessment}</p>
         </div>
       )}
     </div>
@@ -359,33 +366,33 @@ function CompetitiveResearchPanel({ data }) {
   const metrics = calcRevReviewMetrics(topProducts)
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6 col-span-2">
+    <div className="border rounded-lg p-6 col-span-2" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader
         icon="🏪"
         title="Amazon Competitive Landscape"
-        badge={{ text: `${data.opportunity_score}/10 opportunity`, class: data.opportunity_score >= 7 ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300' }}
+        badge={{ text: `${data.opportunity_score}/10 opportunity`, class: data.opportunity_score >= 7 ? 'border' : 'border', style: data.opportunity_score >= 7 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } }}
       />
 
       {/* Revenue & Rev/Review Hero Metrics */}
       {metrics && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-          <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-3">
-            <p className="text-xs text-indigo-300 mb-1 font-medium">Rev/Review — Top 3</p>
-            <p className="text-2xl font-bold text-white">${metrics.top3RevPerReview.toFixed(0)}</p>
-            <p className="text-xs text-slate-500 mt-0.5">Higher = easier to enter</p>
+          <div className="border rounded-lg p-3" style={{ background: 'var(--blue-muted)', borderColor: 'var(--blue)' }}>
+            <p className="text-xs mb-1 font-medium" style={{ color: 'var(--blue-text)' }}>Rev/Review — Top 3</p>
+            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>${metrics.top3RevPerReview.toFixed(0)}</p>
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>Higher = easier to enter</p>
           </div>
-          <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-3">
-            <p className="text-xs text-indigo-300 mb-1 font-medium">Rev/Review — Top 10</p>
-            <p className="text-2xl font-bold text-white">${metrics.top10RevPerReview.toFixed(0)}</p>
-            <p className="text-xs text-slate-500 mt-0.5">Your entry target zone</p>
+          <div className="border rounded-lg p-3" style={{ background: 'var(--blue-muted)', borderColor: 'var(--blue)' }}>
+            <p className="text-xs mb-1 font-medium" style={{ color: 'var(--blue-text)' }}>Rev/Review — Top 10</p>
+            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>${metrics.top10RevPerReview.toFixed(0)}</p>
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>Your entry target zone</p>
           </div>
-          <div className="bg-slate-700/30 rounded-lg p-3">
-            <p className="text-xs text-slate-400 mb-1">Top 3 Monthly Rev</p>
+          <div className="rounded-lg p-3" style={{ background: 'var(--bg-hover)' }}>
+            <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Top 3 Monthly Rev</p>
             <p className="text-lg font-bold text-emerald-400">${formatNumber(metrics.top3TotalRevenue)}</p>
           </div>
-          <div className="bg-slate-700/30 rounded-lg p-3">
-            <p className="text-xs text-slate-400 mb-1">Top 10 Monthly Rev</p>
-            <p className="text-lg font-bold text-emerald-400">${formatNumber(metrics.top10TotalRevenue)}</p>
+          <div className="rounded-lg p-3" style={{ background: 'var(--bg-hover)' }}>
+            <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Top 10 Monthly Rev</p>
+            <p className="text-lg font-bold text-emerald-300">${formatNumber(metrics.top10TotalRevenue)}</p>
           </div>
         </div>
       )}
@@ -402,20 +409,20 @@ function CompetitiveResearchPanel({ data }) {
       {/* Top Products Table — with brand, links, revenue, rev/review */}
       {metrics && metrics.products.length > 0 && (
         <div className="mb-6">
-          <h4 className="text-sm font-semibold text-slate-300 mb-3">Top Products by Sales Volume</h4>
+          <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Top Products by Sales Volume</h4>
           <div className="overflow-x-auto max-h-96 overflow-y-auto">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-slate-800 z-10">
-                <tr className="border-b border-slate-700/50">
-                  <th className="text-left py-2 px-2 text-slate-400 font-medium w-8">#</th>
-                  <th className="text-left py-2 px-2 text-slate-400 font-medium w-28">Brand</th>
-                  <th className="text-left py-2 px-2 text-slate-400 font-medium">Product</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-16">Price</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-20">Sales/mo</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-24">Revenue/mo</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-20">Reviews</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-20">Rev/Review</th>
-                  <th className="text-right py-2 px-2 text-slate-400 font-medium w-14">Rating</th>
+              <thead className="sticky top-0 z-10" style={{ background: 'var(--bg-card)' }}>
+                <tr style={{ borderBottom: '1px solid var(--border-default)' }}>
+                  <th className="text-left py-2 px-2 font-medium w-8" style={{ color: 'var(--text-muted)' }}>#</th>
+                  <th className="text-left py-2 px-2 font-medium w-28" style={{ color: 'var(--text-muted)' }}>Brand</th>
+                  <th className="text-left py-2 px-2 font-medium" style={{ color: 'var(--text-muted)' }}>Product</th>
+                  <th className="text-right py-2 px-2 font-medium w-16" style={{ color: 'var(--text-muted)' }}>Price</th>
+                  <th className="text-right py-2 px-2 font-medium w-20" style={{ color: 'var(--text-muted)' }}>Sales/mo</th>
+                  <th className="text-right py-2 px-2 font-medium w-24" style={{ color: 'var(--text-muted)' }}>Revenue/mo</th>
+                  <th className="text-right py-2 px-2 font-medium w-20" style={{ color: 'var(--text-muted)' }}>Reviews</th>
+                  <th className="text-right py-2 px-2 font-medium w-20" style={{ color: 'var(--text-muted)' }}>Rev/Review</th>
+                  <th className="text-right py-2 px-2 font-medium w-14" style={{ color: 'var(--text-muted)' }}>Rating</th>
                 </tr>
               </thead>
               <tbody>
@@ -425,41 +432,42 @@ function CompetitiveResearchPanel({ data }) {
                   const amazonUrl = p.url || (p.asin ? `https://amazon.com/dp/${p.asin}` : null)
                   const isTop3 = i < 3
                   return (
-                    <tr key={i} className={`border-b border-slate-700/30 hover:bg-slate-700/20 ${isTop3 ? 'bg-slate-700/10' : ''}`}>
-                      <td className="py-2 px-2 text-slate-500 font-mono">{i + 1}</td>
-                      <td className="py-2 px-2 text-indigo-300 font-medium text-xs">{brand}</td>
+                    <tr key={i} className="hover:opacity-80" style={{ borderBottom: '1px solid var(--border-default)', background: isTop3 ? 'var(--bg-hover)' : 'transparent' }}>
+                      <td className="py-2 px-2 font-mono" style={{ color: 'var(--text-faint)' }}>{i + 1}</td>
+                      <td className="py-2 px-2 font-medium text-xs" style={{ color: 'var(--blue-text)' }}>{brand}</td>
                       <td className="py-2 px-2 max-w-xs">
                         {amazonUrl ? (
                           <a
                             href={amazonUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-white hover:text-indigo-300 transition-colors truncate block"
+                            className="transition-colors truncate block"
+                            style={{ color: 'var(--text-primary)' }}
                             title={title}
                             onClick={(e) => e.stopPropagation()}
                           >
                             {title.slice(0, 55)}{title.length > 55 ? '…' : ''}
-                            <span className="text-indigo-500 ml-1 text-xs">↗</span>
+                            <span style={{ color: 'var(--blue)' }} className="ml-1 text-xs">↗</span>
                           </a>
                         ) : (
-                          <span className="text-white truncate block" title={title}>{title.slice(0, 55)}</span>
+                          <span className="truncate block" style={{ color: 'var(--text-primary)' }} title={title}>{title.slice(0, 55)}</span>
                         )}
                       </td>
-                      <td className="py-2 px-2 text-slate-300 text-right">${parseFloat(p.price || 0).toFixed(2)}</td>
-                      <td className="py-2 px-2 text-emerald-400 text-right font-medium">{formatNumber(p.monthly_sales || p.salesVolume)}</td>
-                      <td className="py-2 px-2 text-emerald-300 text-right">${formatNumber(p.revenue)}</td>
-                      <td className="py-2 px-2 text-slate-400 text-right">{formatNumber(p.reviews)}</td>
-                      <td className={`py-2 px-2 text-right font-medium ${p.revPerReview >= 100 ? 'text-green-400' : p.revPerReview >= 50 ? 'text-yellow-300' : 'text-red-400'}`}>
+                      <td className="py-2 px-2 text-right" style={{ color: 'var(--text-body)' }}>${parseFloat(p.price || 0).toFixed(2)}</td>
+                      <td className="py-2 px-2 text-right font-medium" style={{ color: 'var(--green-text)' }}>{formatNumber(p.monthly_sales || p.salesVolume)}</td>
+                      <td className="py-2 px-2 text-right" style={{ color: 'var(--green)' }}>${formatNumber(p.revenue)}</td>
+                      <td className="py-2 px-2 text-right" style={{ color: 'var(--text-muted)' }}>{formatNumber(p.reviews)}</td>
+                      <td className={`py-2 px-2 text-right font-medium`} style={{ color: p.revPerReview >= 100 ? 'var(--green-text)' : p.revPerReview >= 50 ? 'var(--amber-text)' : 'var(--red-text)' }}>
                         {p.reviews > 0 ? `$${p.revPerReview.toFixed(0)}` : '—'}
                       </td>
-                      <td className="py-2 px-2 text-amber-300 text-right">{p.rating ? parseFloat(p.rating).toFixed(1) : '—'}</td>
+                      <td className="py-2 px-2 text-right" style={{ color: 'var(--amber-text)' }}>{p.rating ? parseFloat(p.rating).toFixed(1) : '—'}</td>
                     </tr>
                   )
                 })}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-slate-500 mt-2">Rev/Review = (Price × Monthly Sales) / Reviews. <span className="text-green-400">Green ≥ $100</span> (attractive) · <span className="text-yellow-300">Yellow ≥ $50</span> · <span className="text-red-400">Red &lt; $50</span> (review moat)</p>
+          <p className="text-xs mt-2" style={{ color: 'var(--text-faint)' }}>Rev/Review = (Price × Monthly Sales) / Reviews. <span style={{ color: 'var(--green-text)' }}>Green ≥ $100</span> (attractive) · <span style={{ color: 'var(--amber-text)' }}>Yellow ≥ $50</span> · <span style={{ color: 'var(--red-text)' }}>Red &lt; $50</span> (review moat)</p>
         </div>
       )}
 
@@ -468,23 +476,23 @@ function CompetitiveResearchPanel({ data }) {
         <div>
           {positioningGaps.length > 0 && (
             <div className="mb-4">
-              <h4 className="text-sm font-semibold text-emerald-300 mb-3">Positioning Gaps</h4>
+              <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--green-text)' }}>Positioning Gaps</h4>
               <div className="space-y-3">
                 {positioningGaps.map((gap, i) => {
                   if (typeof gap === 'string') {
                     return (
                       <div key={i} className="flex items-start gap-2 text-sm">
-                        <span className="text-emerald-400 mt-0.5 flex-shrink-0">•</span>
-                        <span className="text-slate-200">{gap}</span>
+                        <span className="mt-0.5 flex-shrink-0" style={{ color: 'var(--green-text)' }}>•</span>
+                        <span style={{ color: 'var(--text-body)' }}>{gap}</span>
                       </div>
                     )
                   }
                   // Structured gap object: { gap, angle, evidence }
                   return (
-                    <div key={i} className="bg-slate-700/20 rounded-lg p-3 border-l-2 border-emerald-500/50">
-                      <p className="text-sm font-medium text-white mb-1">{gap.gap || gap.name || '—'}</p>
-                      {gap.angle && <p className="text-xs text-emerald-300 mb-1">Angle: {gap.angle}</p>}
-                      {gap.evidence && <p className="text-xs text-slate-400">{gap.evidence}</p>}
+                    <div key={i} className="rounded-lg p-3 border-l-2" style={{ background: 'var(--bg-hover)', borderColor: 'var(--green)' }}>
+                      <p className="text-sm font-medium mb-1" style={{ color: 'var(--text-primary)' }}>{gap.gap || gap.name || '—'}</p>
+                      {gap.angle && <p className="text-xs mb-1" style={{ color: 'var(--green-text)' }}>Angle: {gap.angle}</p>}
+                      {gap.evidence && <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{gap.evidence}</p>}
                     </div>
                   )
                 })}
@@ -493,28 +501,28 @@ function CompetitiveResearchPanel({ data }) {
           )}
           {opportunitySignals.length > 0 && (
             <div>
-              <h4 className="text-sm font-semibold text-green-300 mb-2">Opportunity Signals</h4>
-              <SignalList signals={opportunitySignals} color="text-green-400" />
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--green-text)' }}>Opportunity Signals</h4>
+              <SignalList signals={opportunitySignals} color="var(--green-text)" />
             </div>
           )}
         </div>
         <div>
           {data.differentiation_assessment && (
             <div className="mb-4">
-              <h4 className="text-sm font-semibold text-slate-300 mb-2">Differentiation</h4>
-              <p className="text-sm text-slate-300">{data.differentiation_assessment}</p>
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-body)' }}>Differentiation</h4>
+              <p className="text-sm" style={{ color: 'var(--text-body)' }}>{data.differentiation_assessment}</p>
             </div>
           )}
           {data.premium_tier_analysis && (
             <div className="mb-4">
-              <h4 className="text-sm font-semibold text-slate-300 mb-2">Premium Tier</h4>
-              <p className="text-sm text-slate-300">{data.premium_tier_analysis}</p>
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-body)' }}>Premium Tier</h4>
+              <p className="text-sm" style={{ color: 'var(--text-body)' }}>{data.premium_tier_analysis}</p>
             </div>
           )}
           {riskFactors.length > 0 && (
             <div>
-              <h4 className="text-sm font-semibold text-red-300 mb-2">Risk Factors</h4>
-              <SignalList signals={riskFactors} color="text-red-400" />
+              <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--red-text)' }}>Risk Factors</h4>
+              <SignalList signals={riskFactors} color="var(--red-text)" />
             </div>
           )}
         </div>
@@ -532,18 +540,18 @@ function TikTokResearchPanel({ data }) {
   const keySignals = Array.isArray(data.key_signals) ? data.key_signals : []
 
   const lifecycleColors = {
-    emerging: 'bg-blue-500/20 text-blue-300',
-    growing: 'bg-emerald-500/20 text-emerald-300',
-    mainstream: 'bg-yellow-500/20 text-yellow-300',
-    declining: 'bg-red-500/20 text-red-300',
+    emerging: { background: 'var(--blue-muted)', color: 'var(--blue-text)' },
+    growing: { background: 'var(--green-muted)', color: 'var(--green-text)' },
+    mainstream: { background: 'var(--amber-muted)', color: 'var(--amber-text)' },
+    declining: { background: 'var(--red-muted)', color: 'var(--red-text)' },
   }
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader
         icon="🎵"
         title="TikTok Trend Analysis"
-        badge={{ text: `${data.tiktok_score}/10`, class: data.tiktok_score >= 7 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-yellow-500/20 text-yellow-300' }}
+        badge={{ text: `${data.tiktok_score}/10`, class: 'border', style: data.tiktok_score >= 7 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } }}
       />
 
       {/* Key Metrics */}
@@ -559,9 +567,9 @@ function TikTokResearchPanel({ data }) {
         {/* Trend Lifecycle */}
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <h4 className="text-sm font-semibold text-slate-300">Trend Lifecycle</h4>
+            <h4 className="text-sm font-semibold" style={{ color: 'var(--text-body)' }}>Trend Lifecycle</h4>
             {data.trend_lifecycle && (
-              <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${lifecycleColors[data.trend_lifecycle] || 'bg-slate-600/30 text-slate-300'}`}>
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={lifecycleColors[data.trend_lifecycle] || { background: 'var(--bg-hover)', color: 'var(--text-body)' }}>
                 {data.trend_lifecycle}
               </span>
             )}
@@ -570,13 +578,13 @@ function TikTokResearchPanel({ data }) {
           {/* Query Breakdown */}
           {queryBreakdown.length > 0 && (
             <div className="space-y-2 mb-4">
-              <h4 className="text-xs font-semibold text-slate-400 uppercase">By Search Query</h4>
+              <h4 className="text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>By Search Query</h4>
               {queryBreakdown.map((q, i) => (
-                <div key={i} className="flex items-center justify-between text-sm bg-slate-700/20 rounded px-3 py-2">
-                  <span className="text-slate-200 truncate max-w-[200px]">{q.query || q.keyword}</span>
+                <div key={i} className="flex items-center justify-between text-sm rounded px-3 py-2" style={{ background: 'var(--bg-hover)' }}>
+                  <span className="truncate max-w-[200px]" style={{ color: 'var(--text-body)' }}>{q.query || q.keyword}</span>
                   <div className="flex items-center gap-3 text-xs">
-                    <span className="text-pink-400">{formatNumber(q.total_plays || q.plays)} plays</span>
-                    <span className="text-slate-400">{q.video_count || q.videos} videos</span>
+                    <span style={{ color: 'var(--red-text)' }}>{formatNumber(q.total_plays || q.plays)} plays</span>
+                    <span style={{ color: 'var(--text-muted)' }}>{q.video_count || q.videos} videos</span>
                   </div>
                 </div>
               ))}
@@ -588,13 +596,13 @@ function TikTokResearchPanel({ data }) {
         <div>
           {topHashtags.length > 0 && (
             <div className="mb-4">
-              <h4 className="text-xs font-semibold text-slate-400 uppercase mb-2">Top Hashtags</h4>
+              <h4 className="text-xs font-semibold uppercase mb-2" style={{ color: 'var(--text-muted)' }}>Top Hashtags</h4>
               <div className="flex flex-wrap gap-1.5">
                 {topHashtags.slice(0, 12).map((tag, i) => {
                   const name = typeof tag === 'string' ? tag : tag.name || tag.hashtag
                   const count = typeof tag === 'object' ? tag.count || tag.video_count : null
                   return (
-                    <span key={i} className="text-xs px-2 py-1 bg-pink-500/10 text-pink-300 rounded border border-pink-500/20">
+                    <span key={i} className="text-xs px-2 py-1 rounded border" style={{ background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' }}>
                       #{name}{count ? ` (${count})` : ''}
                     </span>
                   )
@@ -605,12 +613,12 @@ function TikTokResearchPanel({ data }) {
 
           {Object.keys(creatorTiers).length > 0 && (
             <div>
-              <h4 className="text-xs font-semibold text-slate-400 uppercase mb-2">Creator Tiers</h4>
+              <h4 className="text-xs font-semibold uppercase mb-2" style={{ color: 'var(--text-muted)' }}>Creator Tiers</h4>
               <div className="grid grid-cols-3 gap-2">
                 {Object.entries(creatorTiers).map(([tier, count]) => (
-                  <div key={tier} className="bg-slate-700/30 rounded p-2 text-center">
-                    <p className="text-xs text-slate-400 capitalize">{tier}</p>
-                    <p className="text-lg font-bold text-white">{count}</p>
+                  <div key={tier} className="rounded p-2 text-center" style={{ background: 'var(--bg-hover)' }}>
+                    <p className="text-xs capitalize" style={{ color: 'var(--text-muted)' }}>{tier}</p>
+                    <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{count}</p>
                   </div>
                 ))}
               </div>
@@ -621,15 +629,15 @@ function TikTokResearchPanel({ data }) {
 
       {/* Key Signals */}
       {keySignals.length > 0 && (
-        <div className="pt-4 border-t border-slate-700/50">
-          <h4 className="text-sm font-semibold text-slate-300 mb-2">Key Signals</h4>
-          <SignalList signals={keySignals} color="text-pink-400" />
+        <div className="pt-4" style={{ borderTop: '1px solid var(--border-default)' }}>
+          <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-body)' }}>Key Signals</h4>
+          <SignalList signals={keySignals} color="var(--red-text)" />
         </div>
       )}
 
       {data.overall_assessment && (
-        <div className="mt-4 pt-4 border-t border-slate-700/50">
-          <p className="text-sm text-slate-300">{data.overall_assessment}</p>
+        <div className="mt-4 pt-4" style={{ borderTop: '1px solid var(--border-default)' }}>
+          <p className="text-sm" style={{ color: 'var(--text-body)' }}>{data.overall_assessment}</p>
         </div>
       )}
     </div>
@@ -641,17 +649,17 @@ function GoogleTrendsPanel({ data }) {
   const keySignals = Array.isArray(data.key_signals) ? data.key_signals : []
   const relatedQueries = Array.isArray(data.related_queries) ? data.related_queries : []
   const dirColors = {
-    rising: 'text-emerald-400',
-    stable: 'text-yellow-400',
-    declining: 'text-red-400',
+    rising: 'var(--green-text)',
+    stable: 'var(--amber-text)',
+    declining: 'var(--red-text)',
   }
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader
         icon="📈"
         title="Google Trends Validation"
-        badge={{ text: `${data.google_trends_score}/10`, class: data.google_trends_score >= 7 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-yellow-500/20 text-yellow-300' }}
+        badge={{ text: `${data.google_trends_score}/10`, class: 'border', style: data.google_trends_score >= 7 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } }}
       />
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
@@ -663,7 +671,7 @@ function GoogleTrendsPanel({ data }) {
         <StatCard
           label="Trend Direction"
           value={data.trend_direction || '—'}
-          color={dirColors[data.trend_direction] || 'text-white'}
+          color={dirColors[data.trend_direction] || 'var(--text-primary)'}
         />
         <StatCard label="Peak Interest" value={data.peak_interest_date || '—'} />
         <StatCard
@@ -673,27 +681,27 @@ function GoogleTrendsPanel({ data }) {
       </div>
 
       {data.cross_platform_validation && (
-        <div className="mb-4 bg-slate-700/20 rounded-lg p-3">
-          <h4 className="text-xs font-semibold text-slate-400 uppercase mb-1">Cross-Platform Validation</h4>
-          <p className="text-sm text-slate-200">{data.cross_platform_validation}</p>
+        <div className="mb-4 rounded-lg p-3" style={{ background: 'var(--bg-hover)' }}>
+          <h4 className="text-xs font-semibold uppercase mb-1" style={{ color: 'var(--text-muted)' }}>Cross-Platform Validation</h4>
+          <p className="text-sm" style={{ color: 'var(--text-body)' }}>{data.cross_platform_validation}</p>
         </div>
       )}
 
       {keySignals.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-semibold text-slate-300 mb-2">Key Signals</h4>
-          <SignalList signals={keySignals} color="text-emerald-400" />
+          <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-body)' }}>Key Signals</h4>
+          <SignalList signals={keySignals} color="var(--green-text)" />
         </div>
       )}
 
       {relatedQueries.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-xs font-semibold text-slate-400 uppercase mb-2">Related Queries</h4>
+          <h4 className="text-xs font-semibold uppercase mb-2" style={{ color: 'var(--text-muted)' }}>Related Queries</h4>
           <div className="flex flex-wrap gap-1.5">
             {relatedQueries.slice(0, 10).map((q, i) => {
               const name = typeof q === 'string' ? q : q.query || q.term
               return (
-                <span key={i} className="text-xs px-2 py-1 bg-emerald-500/10 text-emerald-300 rounded border border-emerald-500/20">
+                <span key={i} className="text-xs px-2 py-1 rounded border" style={{ background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' }}>
                   {name}
                 </span>
               )
@@ -703,7 +711,7 @@ function GoogleTrendsPanel({ data }) {
       )}
 
       {data.data_source && (
-        <p className="text-xs text-slate-500 mt-2">Data source: {data.data_source}</p>
+        <p className="text-xs mt-2" style={{ color: 'var(--text-faint)' }}>Data source: {data.data_source}</p>
       )}
     </div>
   )
@@ -726,55 +734,56 @@ function DifferentiationPanel({ scores }) {
   const isAutoKill = diffTotal <= 3
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader
         icon="⚡"
         title="Differentiation Scoring"
         badge={{
           text: `${diffTotal}/12`,
-          class: isAutoKill ? 'bg-red-500/20 text-red-300' : diffTotal >= 10 ? 'bg-green-500/20 text-green-300' : diffTotal >= 7 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-yellow-500/20 text-yellow-300'
+          class: 'border',
+          style: isAutoKill ? { background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' } : diffTotal >= 10 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : diffTotal >= 7 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' }
         }}
       />
 
       {isAutoKill && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4 text-sm text-red-300">
+        <div className="border rounded-lg p-3 mb-4 text-sm" style={{ background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' }}>
           ⚠️ AUTO-KILL: Score ≤3/12 — category doesn't support Toniiq's premium approach
         </div>
       )}
 
       {/* 4-Layer Breakdown */}
       <div className="grid grid-cols-4 gap-3 mb-6">
-        <div className="bg-slate-700/30 rounded-lg p-3 text-center">
-          <p className="text-xs text-slate-400 mb-1">Vectors Available</p>
-          <p className="text-2xl font-bold text-white">{scores.diff_vectors_available ?? '—'}<span className="text-sm text-slate-500">/5</span></p>
+        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Vectors Available</p>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_vectors_available ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/5</span></p>
         </div>
-        <div className="bg-slate-700/30 rounded-lg p-3 text-center">
-          <p className="text-xs text-slate-400 mb-1">Competitive Gap</p>
-          <p className="text-2xl font-bold text-white">{scores.diff_competitive_gap ?? '—'}<span className="text-sm text-slate-500">/3</span></p>
+        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Competitive Gap</p>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_competitive_gap ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/3</span></p>
         </div>
-        <div className="bg-slate-700/30 rounded-lg p-3 text-center">
-          <p className="text-xs text-slate-400 mb-1">Form Factor Fit</p>
-          <p className="text-2xl font-bold text-white">{scores.diff_form_factor_fit ?? '—'}<span className="text-sm text-slate-500">/2</span></p>
+        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Form Factor Fit</p>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_form_factor_fit ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/2</span></p>
         </div>
-        <div className="bg-slate-700/30 rounded-lg p-3 text-center">
-          <p className="text-xs text-slate-400 mb-1">Pricing Headroom</p>
-          <p className="text-2xl font-bold text-white">{scores.diff_pricing_headroom ?? '—'}<span className="text-sm text-slate-500">/2</span></p>
+        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Pricing Headroom</p>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_pricing_headroom ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/2</span></p>
         </div>
       </div>
 
       {/* 6 Vectors Checklist */}
       {vectorDetails.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-semibold text-slate-300 mb-2">6-Vector Assessment</h4>
+          <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-body)' }}>6-Vector Assessment</h4>
           {vectorDetails.map((v, i) => {
             const vectorMeta = vectors[i] || { name: v.vector || v.name || `Vector ${i + 1}`, icon: '•' }
             const available = v.available || v.status === 'available' || v.score === true
             return (
-              <div key={i} className="flex items-start gap-3 text-sm bg-slate-700/20 rounded px-3 py-2">
+              <div key={i} className="flex items-start gap-3 text-sm rounded px-3 py-2" style={{ background: 'var(--bg-hover)' }}>
                 <span className="flex-shrink-0 text-lg">{available ? '✅' : '❌'}</span>
                 <div>
-                  <span className="text-white font-medium">{vectorMeta.icon} {v.vector || v.name || vectorMeta.name}</span>
-                  {v.justification && <p className="text-slate-400 mt-0.5">{v.justification}</p>}
+                  <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{vectorMeta.icon} {v.vector || v.name || vectorMeta.name}</span>
+                  {v.justification && <p className="mt-0.5" style={{ color: 'var(--text-muted)' }}>{v.justification}</p>}
                 </div>
               </div>
             )
@@ -794,25 +803,25 @@ function NextStepsPanel({ scores }) {
   if (nextSteps.length === 0 && opportunitySignals.length === 0 && riskFactors.length === 0) return null
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
+    <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <SectionHeader icon="🎯" title="Signals & Next Steps" />
       <div className="grid grid-cols-3 gap-6">
         {opportunitySignals.length > 0 && (
           <div>
-            <h4 className="text-sm font-semibold text-green-300 mb-2">Opportunities</h4>
-            <SignalList signals={opportunitySignals} color="text-green-400" />
+            <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--green-text)' }}>Opportunities</h4>
+            <SignalList signals={opportunitySignals} color="var(--green-text)" />
           </div>
         )}
         {riskFactors.length > 0 && (
           <div>
-            <h4 className="text-sm font-semibold text-red-300 mb-2">Risks</h4>
-            <SignalList signals={riskFactors} color="text-red-400" />
+            <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--red-text)' }}>Risks</h4>
+            <SignalList signals={riskFactors} color="var(--red-text)" />
           </div>
         )}
         {nextSteps.length > 0 && (
           <div>
-            <h4 className="text-sm font-semibold text-indigo-300 mb-2">Next Steps</h4>
-            <SignalList signals={nextSteps} color="text-indigo-400" />
+            <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--blue-text)' }}>Next Steps</h4>
+            <SignalList signals={nextSteps} color="var(--blue-text)" />
           </div>
         )}
       </div>
@@ -897,6 +906,7 @@ export default function ConceptDetailPage() {
         .select('id, concept_name, confidence_score')
         .eq('candidate_id', conceptData.candidate_id)
         .order('confidence_score', { ascending: false })
+
       setAllConcepts(allConceptsData || [])
 
       // ── Phase B data ──
@@ -970,12 +980,12 @@ export default function ConceptDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900">
+      <div style={{ background: 'var(--bg-base)', minHeight: '100vh' }}>
         <Header />
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4" />
-            <p className="text-slate-400">Loading concept...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--blue-text)' }} />
+            <p style={{ color: 'var(--text-muted)' }}>Loading concept...</p>
           </div>
         </div>
       </div>
@@ -984,12 +994,12 @@ export default function ConceptDetailPage() {
 
   if (!concept) {
     return (
-      <div className="min-h-screen bg-slate-900">
+      <div style={{ background: 'var(--bg-base)', minHeight: '100vh' }}>
         <Header />
         <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
           <div className="text-center">
-            <p className="text-slate-400">Concept not found</p>
-            <Link to="/concepts" className="text-indigo-400 hover:text-indigo-300 mt-2 inline-block">Back to concepts</Link>
+            <p style={{ color: 'var(--text-muted)' }}>Concept not found</p>
+            <Link to="/concepts" className="mt-2 inline-block" style={{ color: 'var(--blue-text)' }}>Back to concepts</Link>
           </div>
         </div>
       </div>
@@ -1011,7 +1021,7 @@ export default function ConceptDetailPage() {
       : []
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+    <div style={{ background: 'var(--bg-base)', minHeight: '100vh' }}>
       {/* Page Header */}
       <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
         <button
@@ -1050,9 +1060,10 @@ export default function ConceptDetailPage() {
             >
               Phase B Evaluation
               {conceptScores && (
-                <span className={`text-xs px-2 py-0.5 rounded-full ${
-                  parseFloat(conceptScores.composite_score) >= 70 ? 'bg-green-500/30 text-green-300' : 'bg-yellow-500/30 text-yellow-300'
-                }`}>
+                <span className="text-xs px-2 py-0.5 rounded-full" style={{
+                  background: parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-muted)' : 'var(--amber-muted)',
+                  color: parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-text)' : 'var(--amber-text)',
+                }}>
                   {parseFloat(conceptScores.composite_score).toFixed(0)}
                 </span>
               )}
@@ -1066,14 +1077,14 @@ export default function ConceptDetailPage() {
             <div className="grid grid-cols-3 gap-6 mb-8">
               {/* Left column */}
               <div className="col-span-2">
-                <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-8 mb-6">
+                <div className="border rounded-lg p-8 mb-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
                   <div className="mb-6">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <div className="flex items-center gap-3 mb-2">
-                          <h1 className="text-3xl font-bold text-white">{concept.concept_name}</h1>
+                          <h1 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{concept.concept_name}</h1>
                           {hasPhaseB && (
-                            <span className="text-xs font-medium px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                            <span className="text-xs font-medium px-2 py-1 rounded-full border" style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', borderColor: 'var(--blue)' }}>
                               Phase B
                             </span>
                           )}
@@ -1083,29 +1094,38 @@ export default function ConceptDetailPage() {
                             <Link
                               key={ing.id}
                               to={`/discovery/${ing.id}`}
-                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full bg-slate-700/50 hover:bg-indigo-500/20 border border-slate-600/50 hover:border-indigo-500/30 text-slate-300 hover:text-indigo-300 transition-all"
+                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full border transition-all"
+                              style={{
+                                background: 'var(--bg-hover)',
+                                color: 'var(--text-body)',
+                                borderColor: 'var(--border-default)',
+                              }}
                             >
                               {ing.ingredient_name}
-                              {ing.role === 'secondary' && <span className="text-xs text-slate-500">(secondary)</span>}
-                              <span className="text-slate-500">→</span>
+                              {ing.role === 'secondary' && <span className="text-xs" style={{ color: 'var(--text-faint)' }}>(secondary)</span>}
+                              <span style={{ color: 'var(--text-faint)' }}>→</span>
                             </Link>
                           ))}
                           {linkedIngredients.length === 0 && candidate && (
                             <Link
                               to={`/discovery/${candidate.id}`}
-                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full bg-slate-700/50 hover:bg-indigo-500/20 border border-slate-600/50 hover:border-indigo-500/30 text-slate-300 hover:text-indigo-300 transition-all"
+                              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full border transition-all"
+                              style={{
+                                background: 'var(--bg-hover)',
+                                color: 'var(--text-body)',
+                                borderColor: 'var(--border-default)',
+                              }}
                             >
                               {candidate.ingredient_name}
-                              <span className="text-slate-500">→</span>
+                              <span style={{ color: 'var(--text-faint)' }}>→</span>
                             </Link>
                           )}
                         </div>
                       </div>
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full flex-shrink-0 ${
-                        concept.status === 'selected' ? 'bg-green-500/20 text-green-300'
-                        : concept.status === 'rejected' ? 'bg-red-500/20 text-red-300'
-                        : 'bg-slate-600/30 text-slate-300'
-                      }`}>
+                      <span className="text-xs font-bold px-3 py-1.5 rounded-full flex-shrink-0" style={{
+                        background: concept.status === 'selected' ? 'var(--green-muted)' : concept.status === 'rejected' ? 'var(--red-muted)' : 'var(--bg-hover)',
+                        color: concept.status === 'selected' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)',
+                      }}>
                         {concept.status}
                       </span>
                     </div>
@@ -1115,51 +1135,51 @@ export default function ConceptDetailPage() {
                       {conceptScores ? (
                         <div>
                           <div className="flex items-center gap-4 mb-1">
-                            <p className="text-sm text-slate-400">Composite Score</p>
+                            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Composite Score</p>
                             <TierBadge tier={conceptScores.recommendation_tier} />
                           </div>
                           <ConfidenceBar score={parseFloat(conceptScores.composite_score)} max={100} />
                         </div>
                       ) : (
                         <div>
-                          <p className="text-sm text-slate-400 mb-2">Confidence Score (Phase A)</p>
+                          <p className="text-sm mb-2" style={{ color: 'var(--text-muted)' }}>Confidence Score (Phase A)</p>
                           <ConfidenceBar score={concept.confidence_score} />
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <div className="border-t border-slate-700/50 pt-6">
-                    <h2 className="text-lg font-semibold text-white mb-3">Positioning Angle</h2>
+                  <div className="pt-6" style={{ borderTop: '1px solid var(--border-default)' }}>
+                    <h2 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Positioning Angle</h2>
                     {concept.positioning_angle ? (
-                      <p className="text-lg text-slate-200 italic leading-relaxed">"{concept.positioning_angle}"</p>
+                      <p className="text-lg italic leading-relaxed" style={{ color: 'var(--text-body)' }}>"{concept.positioning_angle}"</p>
                     ) : (
-                      <p className="text-slate-500">No positioning angle provided</p>
+                      <p style={{ color: 'var(--text-faint)' }}>No positioning angle provided</p>
                     )}
                   </div>
                 </div>
 
                 {/* Key Ingredients table */}
                 {ingredients.length > 0 && (
-                  <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6 mb-6">
-                    <h2 className="text-lg font-semibold text-white mb-4">Key Ingredients</h2>
+                  <div className="border rounded-lg p-6 mb-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
+                    <h2 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Key Ingredients</h2>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-slate-700/50">
-                            <th className="text-left py-2 px-3 text-slate-400 font-medium">Ingredient</th>
-                            <th className="text-left py-2 px-3 text-slate-400 font-medium">Dosage</th>
-                            <th className="text-left py-2 px-3 text-slate-400 font-medium">Role</th>
-                            <th className="text-left py-2 px-3 text-slate-400 font-medium">Notes</th>
+                          <tr style={{ borderBottom: '1px solid var(--border-default)' }}>
+                            <th className="text-left py-2 px-3 font-medium" style={{ color: 'var(--text-muted)' }}>Ingredient</th>
+                            <th className="text-left py-2 px-3 font-medium" style={{ color: 'var(--text-muted)' }}>Dosage</th>
+                            <th className="text-left py-2 px-3 font-medium" style={{ color: 'var(--text-muted)' }}>Role</th>
+                            <th className="text-left py-2 px-3 font-medium" style={{ color: 'var(--text-muted)' }}>Notes</th>
                           </tr>
                         </thead>
                         <tbody>
                           {ingredients.map((ing, i) => (
-                            <tr key={i} className="border-b border-slate-700/30 hover:bg-slate-700/20">
-                              <td className="py-2 px-3 text-white font-medium">{ing.ingredient || ing.name || '—'}</td>
-                              <td className="py-2 px-3 text-slate-300">{ing.dose || ing.dosage || '—'}</td>
-                              <td className="py-2 px-3 text-slate-400">{ing.role || '—'}</td>
-                              <td className="py-2 px-3 text-slate-500 text-xs">{ing.notes || ''}</td>
+                            <tr key={i} className="hover:opacity-80" style={{ borderBottom: '1px solid var(--border-default)' }}>
+                              <td className="py-2 px-3 font-medium" style={{ color: 'var(--text-primary)' }}>{ing.ingredient || ing.name || '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.dose || ing.dosage || '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>{ing.role || '—'}</td>
+                              <td className="py-2 px-3 text-xs" style={{ color: 'var(--text-faint)' }}>{ing.notes || ''}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -1169,17 +1189,17 @@ export default function ConceptDetailPage() {
                 )}
 
                 {concept.confidence_reasoning && (
-                  <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6">
-                    <h2 className="text-lg font-semibold text-white mb-3">Why This Score?</h2>
-                    <p className="text-slate-200 leading-relaxed">{concept.confidence_reasoning}</p>
+                  <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
+                    <h2 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Why This Score?</h2>
+                    <p className="leading-relaxed" style={{ color: 'var(--text-body)' }}>{concept.confidence_reasoning}</p>
                   </div>
                 )}
               </div>
 
               {/* Right column: actions + metadata */}
               <div>
-                <div className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-6 sticky top-24">
-                  <h3 className="text-lg font-semibold text-white mb-4">Actions</h3>
+                <div className="border rounded-lg p-6 sticky top-24" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
+                  <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Actions</h3>
                   <div className="space-y-3 mb-6">
                     <ActionButton onClick={() => updateStatus('selected')} disabled={actionLoading || concept.status === 'selected'} variant="success">
                       ✓ Select for Phase B
@@ -1195,35 +1215,39 @@ export default function ConceptDetailPage() {
                   </div>
 
                   {message && (
-                    <div className={`text-sm px-3 py-2 rounded mb-4 ${message.includes('Error') ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'}`}>
+                    <div className="text-sm px-3 py-2 rounded mb-4" style={{
+                      background: message.includes('Error') ? 'var(--red-muted)' : 'var(--green-muted)',
+                      color: message.includes('Error') ? 'var(--red-text)' : 'var(--green-text)',
+                    }}>
                       {message}
                     </div>
                   )}
 
                   {/* Quick Phase B scores */}
                   {conceptScores && (
-                    <div className="border-t border-slate-700/50 pt-4 mb-4">
-                      <h4 className="text-sm font-semibold text-slate-300 mb-3">Evaluation Scores</h4>
+                    <div className="pt-4 mb-4" style={{ borderTop: '1px solid var(--border-default)' }}>
+                      <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Evaluation Scores</h4>
                       <div className="space-y-2">
                         {[
-                          { label: 'Amazon', score: conceptScores.amazon_competitive_score, color: 'bg-indigo-500' },
-                          { label: 'Keywords', score: conceptScores.keyword_demand_score, color: 'bg-blue-500' },
-                          { label: 'Trends', score: conceptScores.google_trends_score, color: 'bg-emerald-500' },
-                          { label: 'TikTok', score: conceptScores.tiktok_score, color: 'bg-pink-500' },
-                          { label: 'Differentiation', score: conceptScores.differentiation_score, color: 'bg-purple-500' },
+                          { label: 'Amazon', score: conceptScores.amazon_competitive_score, color: 'var(--blue)' },
+                          { label: 'Keywords', score: conceptScores.keyword_demand_score, color: '#3b82f6' },
+                          { label: 'Trends', score: conceptScores.google_trends_score, color: 'var(--green)' },
+                          { label: 'TikTok', score: conceptScores.tiktok_score, color: 'var(--red)' },
+                          { label: 'Differentiation', score: conceptScores.differentiation_score, color: '#a855f7' },
                         ].map(({ label, score, color }) => (
                           <div key={label} className="flex items-center gap-2 text-sm">
-                            <span className="text-slate-400 w-24">{label}</span>
-                            <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
-                              <div className={`h-full ${color} rounded-full`} style={{ width: `${(score || 0) * 10}%` }} />
+                            <span style={{ color: 'var(--text-muted)' }} className="w-24">{label}</span>
+                            <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'var(--bg-active)' }}>
+                              <div className="h-full rounded-full" style={{ width: `${(score || 0) * 10}%`, background: color }} />
                             </div>
-                            <span className="text-white font-medium w-6 text-right">{score || '—'}</span>
+                            <span className="font-medium w-6 text-right" style={{ color: 'var(--text-primary)' }}>{score || '—'}</span>
                           </div>
                         ))}
                       </div>
                       <button
                         onClick={() => setActiveTab('evaluation')}
-                        className="text-indigo-400 hover:text-indigo-300 text-xs mt-3 font-medium"
+                        className="text-xs mt-3 font-medium"
+                        style={{ color: 'var(--blue-text)' }}
                       >
                         View full evaluation →
                       </button>
@@ -1231,33 +1255,34 @@ export default function ConceptDetailPage() {
                   )}
 
                   {/* Metadata */}
-                  <div className="border-t border-slate-700/50 pt-4 space-y-3 text-sm">
+                  <div className="pt-4 space-y-3 text-sm" style={{ borderTop: '1px solid var(--border-default)' }}>
                     <div>
-                      <p className="text-slate-400">Format</p>
-                      <p className="text-slate-200">{concept.format || '—'}</p>
+                      <p style={{ color: 'var(--text-muted)' }}>Format</p>
+                      <p style={{ color: 'var(--text-body)' }}>{concept.format || '—'}</p>
                     </div>
                     <div>
-                      <p className="text-slate-400">Target Dosage</p>
-                      <p className="text-slate-200">{concept.target_dosage || '—'}</p>
+                      <p style={{ color: 'var(--text-muted)' }}>Target Dosage</p>
+                      <p style={{ color: 'var(--text-body)' }}>{concept.target_dosage || '—'}</p>
                     </div>
                     <div>
-                      <p className="text-slate-400">Type</p>
-                      <p className="text-slate-200">{concept.concept_type?.replace(/_/g, ' ') || '—'}</p>
+                      <p style={{ color: 'var(--text-muted)' }}>Type</p>
+                      <p style={{ color: 'var(--text-body)' }}>{concept.concept_type?.replace(/_/g, ' ') || '—'}</p>
                     </div>
                   </div>
 
                   {allConcepts.length > 1 && (
-                    <div className="border-t border-slate-700/50 pt-4 mt-4">
-                      <p className="text-sm text-slate-400 mb-2">Other concepts for this ingredient</p>
+                    <div className="pt-4 mt-4" style={{ borderTop: '1px solid var(--border-default)' }}>
+                      <p className="text-sm mb-2" style={{ color: 'var(--text-muted)' }}>Other concepts for this ingredient</p>
                       <div className="space-y-1.5">
                         {allConcepts.filter(c => c.id !== conceptId).map(c => (
                           <button
                             key={c.id}
                             onClick={() => navigate(`/concepts/${c.id}`)}
-                            className="w-full text-left text-sm text-slate-300 hover:text-indigo-300 transition-colors py-1 flex justify-between"
+                            className="w-full text-left text-sm transition-colors py-1 flex justify-between"
+                            style={{ color: 'var(--text-body)' }}
                           >
                             <span className="truncate">{c.concept_name}</span>
-                            <span className="text-slate-500 flex-shrink-0 ml-2">{parseFloat(c.confidence_score).toFixed(1)}</span>
+                            <span className="flex-shrink-0 ml-2" style={{ color: 'var(--text-faint)' }}>{parseFloat(c.confidence_score).toFixed(1)}</span>
                           </button>
                         ))}
                       </div>
@@ -1269,7 +1294,7 @@ export default function ConceptDetailPage() {
 
             {/* Phase A Evidence */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Phase A Evidence</h2>
+              <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Phase A Evidence</h2>
               <div className="grid grid-cols-3 gap-6">
                 <KeywordEvidencePanel evidence={concept.keyword_evidence} />
                 <RedditEvidencePanel evidence={concept.reddit_evidence} />
@@ -1309,22 +1334,22 @@ export default function ConceptDetailPage() {
         {activeTab === 'evaluation' && !hasPhaseB && (
           <div className="text-center py-20">
             <div className="text-4xl mb-4">🔬</div>
-            <h2 className="text-xl font-semibold text-white mb-2">No Phase B data yet</h2>
-            <p className="text-slate-400">Select this concept for Phase B evaluation to generate competitive research, trend analysis, and scoring.</p>
+            <h2 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No Phase B data yet</h2>
+            <p style={{ color: 'var(--text-muted)' }}>Select this concept for Phase B evaluation to generate competitive research, trend analysis, and scoring.</p>
           </div>
         )}
 
         {/* Navigation */}
         {(prevConcept || nextConcept) && (
-          <div className="flex justify-between items-center pt-8 border-t border-slate-700/50 mt-8">
+          <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--border-default)' }}>
             {prevConcept ? (
-              <button onClick={() => navigate(`/concepts/${prevConcept.id}`)} className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2 text-sm font-medium">
+              <button onClick={() => navigate(`/concepts/${prevConcept.id}`)} className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--blue-text)' }}>
                 ← {prevConcept.concept_name}
               </button>
             ) : <div />}
-            <Link to="/concepts" className="text-slate-400 hover:text-white text-sm">View all concepts</Link>
+            <Link to="/concepts" className="text-sm" style={{ color: 'var(--text-muted)' }}>View all concepts</Link>
             {nextConcept ? (
-              <button onClick={() => navigate(`/concepts/${nextConcept.id}`)} className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2 text-sm font-medium">
+              <button onClick={() => navigate(`/concepts/${nextConcept.id}`)} className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--blue-text)' }}>
                 {nextConcept.concept_name} →
               </button>
             ) : <div />}
@@ -1337,9 +1362,9 @@ export default function ConceptDetailPage() {
 
 function Header() {
   return (
-    <header className="border-b border-slate-700/50 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-30">
+    <header className="border-b sticky top-0 z-30 backdrop-blur-sm" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-base)' }}>
       <div className="max-w-[1600px] mx-auto px-6 py-4">
-        <Link to="/" className="text-xl font-semibold text-white hover:text-indigo-300 transition-colors">
+        <Link to="/" className="text-xl font-semibold transition-colors" style={{ color: 'var(--text-primary)' }}>
           Toniiq Idea Pipeline
         </Link>
       </div>
