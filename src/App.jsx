@@ -329,12 +329,13 @@ function PicksView({ picks, candidates, poeData, datarovaData, onFeedback, onSel
                         <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-bold">
                           {pick.rank}
                         </span>
-                        <button
-                          onClick={() => onSelect(pick.candidate_id)}
+                        <Link
+                          to={`/discovery/${pick.candidate_id}`}
                           className="text-lg font-semibold text-white hover:text-indigo-300 transition-colors"
+                          onClick={(e) => e.stopPropagation()}
                         >
                           {candidate.ingredient_name}
-                        </button>
+                        </Link>
                         {candidate.category && (
                           <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">
                             {candidate.category}
