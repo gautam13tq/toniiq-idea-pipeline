@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from './lib/supabase'
 import PipelineTable from './components/PipelineTable'
 import CandidateDetail from './components/CandidateDetail'
@@ -191,28 +192,36 @@ export default function App() {
                 {candidates.length} candidates
               </span>
             </div>
-            <div className="flex gap-1 bg-slate-800 rounded-lg p-1">
-              <button
-                onClick={() => setTab('pipeline')}
-                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  tab === 'pipeline' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Pipeline
-              </button>
-              <button
-                onClick={() => setTab('picks')}
-                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
-                  tab === 'picks' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Claude's Picks
-                {picks.length > 0 && (
-                  <span className="text-xs bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded-full">
-                    {picks.filter(p => !p.feedback_rating).length} new
-                  </span>
-                )}
-              </button>
+            <div className="flex gap-6 items-center">
+              <nav className="flex gap-4">
+                <button
+                  onClick={() => setTab('pipeline')}
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                    tab === 'pipeline' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Pipeline
+                </button>
+                <button
+                  onClick={() => setTab('picks')}
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
+                    tab === 'picks' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Claude's Picks
+                  {picks.length > 0 && (
+                    <span className="text-xs bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded-full">
+                      {picks.filter(p => !p.feedback_rating).length} new
+                    </span>
+                  )}
+                </button>
+                <Link
+                  to="/concepts"
+                  className="px-4 py-1.5 rounded-md text-sm font-medium text-slate-400 hover:text-white transition-colors"
+                >
+                  Concepts
+                </Link>
+              </nav>
             </div>
           </div>
         </div>
