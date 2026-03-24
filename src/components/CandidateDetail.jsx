@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { supabase } from '../lib/supabase'
 
@@ -35,7 +35,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
   const [datarovaHistory, setDatarovaHistory] = useState(null)
 
   // Load history on mount
-  useState(() => {
+  useEffect(() => {
     if (candidate.id) {
       supabase.from('poe_snapshots')
         .select('*')
