@@ -185,36 +185,36 @@ function ScienceEvidencePanel({ evidence }) {
 function CompositeScoreHero({ scores }) {
   if (!scores) return null
 
-  const radarData = [
-    { dimension: 'Amazon', score: scores.amazon_competitive_score || 0, fullMark: 10 },
-    { dimension: 'Keywords', score: scores.keyword_demand_score || 0, fullMark: 10 },
-    { dimension: 'Trends', score: scores.google_trends_score || 0, fullMark: 10 },
-    { dimension: 'TikTok', score: scores.tiktok_score || 0, fullMark: 10 },
-    { dimension: 'Differentiation', score: scores.differentiation_score || 0, fullMark: 10 },
+  // 4-pillar scoring framework
+  const w = scores.composite_weights || {}
+  const pillars = [
+    { key: 'market_size', label: 'Market Size', icon: '📊', color: '#6366f1', defaultWeight: 0.20, defaultScore: scores.amazon_competitive_score || 0 },
+    { key: 'rev_review_ratio', label: 'Rev/Review Ratio', icon: '💰', color: '#10b981', defaultWeight: 0.30, defaultScore: scores.amazon_competitive_score || 0 },
+    { key: 'category_growth', label: 'Category Growth', icon: '📈', color: '#3b82f6', defaultWeight: 0.20, defaultScore: scores.google_trends_score || 0 },
+    { key: 'differentiation_potential', label: 'Differentiation', icon: '🎯', color: '#a855f7', defaultWeight: 0.30, defaultScore: scores.differentiation_score || 0 },
   ]
 
-  const weights = scores.composite_weights || {
-    amazon_competitive: 0.25,
-    keyword_demand: 0.20,
-    google_trends: 0.15,
-    tiktok: 0.10,
-    differentiation: 0.30,
-  }
+  const pillarData = pillars.map(p => {
+    const data = w[p.key] || {}
+    const score = data.score ?? p.defaultScore
+    const weight = data.weight ?? p.defaultWeight
+    return { ...p, score, weight, weighted: score * weight * 10, description: data.description || '' }
+  })
 
-  const barData = [
-    { name: 'Amazon (25%)', score: scores.amazon_competitive_score || 0, weighted: (scores.amazon_competitive_score || 0) * weights.amazon_competitive * 10, fill: '#6366f1' },
-    { name: 'Keywords (20%)', score: scores.keyword_demand_score || 0, weighted: (scores.keyword_demand_score || 0) * weights.keyword_demand * 10, fill: '#3b82f6' },
-    { name: 'Trends (15%)', score: scores.google_trends_score || 0, weighted: (scores.google_trends_score || 0) * weights.google_trends * 10, fill: '#10b981' },
-    { name: 'TikTok (10%)', score: scores.tiktok_score || 0, weighted: (scores.tiktok_score || 0) * weights.tiktok * 10, fill: '#f43f5e' },
-    { name: 'Diff. (30%)', score: scores.differentiation_score || 0, weighted: (scores.differentiation_score || 0) * weights.differentiation * 10, fill: '#a855f7' },
-  ]
+  const radarData = pillarData.map(p => ({ dimension: p.label, score: p.score, fullMark: 10 }))
+  const barData = pillarData.map(p => ({
+    name: `${p.label} (${Math.round(p.weight * 100)}%)`,
+    score: p.score,
+    weighted: p.weighted,
+    fill: p.color,
+  }))
 
   return (
     <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 rounded-xl p-8 mb-6">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-white mb-1">Phase B Evaluation</h2>
-          <p className="text-slate-400">Composite score from 5 research dimensions</p>
+          <p className="text-slate-400">Composite score from 4 strategic pillars</p>
         </div>
         <div className="flex items-center gap-4">
           <TierBadge tier={scores.recommendation_tier} />
@@ -244,7 +244,7 @@ function CompositeScoreHero({ scores }) {
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={barData} layout="vertical" margin={{ left: 10, right: 20 }}>
               <XAxis type="number" domain={[0, 30]} tick={{ fill: '#64748b', fontSize: 11 }} />
-              <YAxis dataKey="name" type="category" width={110} tick={{ fill: '#94a3b8', fontSize: 11 }} />
+              <YAxis dataKey="name" type="category" width={140} tick={{ fill: '#94a3b8', fontSize: 11 }} />
               <Tooltip
                 contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                 labelStyle={{ color: '#e2e8f0' }}
@@ -260,9 +260,22 @@ function CompositeScoreHero({ scores }) {
         </div>
       </div>
 
+      {/* Pillar Descriptions */}
+      <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-slate-700/50">
+        {pillarData.map(p => (
+          <div key={p.key} className="bg-slate-700/20 rounded-lg p-3">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm font-medium text-white">{p.icon} {p.label}</span>
+              <span className="text-sm font-bold" style={{ color: p.color }}>{p.score}/10</span>
+            </div>
+            {p.description && <p className="text-xs text-slate-400 leading-relaxed">{p.description}</p>}
+          </div>
+        ))}
+      </div>
+
       {/* Assessment */}
       {scores.overall_assessment && (
-        <div className="mt-6 pt-6 border-t border-slate-700/50">
+        <div className="mt-4 pt-4 border-t border-slate-700/50">
           <p className="text-slate-200 leading-relaxed">{scores.overall_assessment}</p>
         </div>
       )}
@@ -295,11 +308,11 @@ function extractBrand(title) {
     if (m) return m[1]
   }
   // Heuristic: first word(s) before common supplement keywords
+  const genericWords = /^(nattokinase|serrapeptase|liposomal|supplement|enzyme|premium|advanced|maximum|ultra|high|extra|organic|pure|natural|potent|spike|best|new|4-in-1|5-in-1|red|nattokinase\s|liquid|vegan|daily)$/i
   const kwMatch = title.match(/^(.+?)\s+(?:Nattokinase|Serrapeptase|Liposomal|Supplement|Enzyme|Premium|Advanced|Maximum|Ultra|High|Extra)/i)
   if (kwMatch) {
     const candidate = kwMatch[1].trim()
-    // Only use if it looks like a brand (starts uppercase, ≤30 chars, not too generic)
-    if (candidate.length > 1 && candidate.length <= 30 && /^[A-Z]/.test(candidate)) {
+    if (candidate.length > 1 && candidate.length <= 30 && /^[A-Z]/.test(candidate) && !genericWords.test(candidate)) {
       return candidate
     }
   }
@@ -408,7 +421,7 @@ function CompetitiveResearchPanel({ data }) {
               <tbody>
                 {metrics.products.slice(0, 15).map((p, i) => {
                   const title = p.title || p.name || p.productDescription || '—'
-                  const brand = extractBrand(title)
+                  const brand = p.brand && p.brand !== 'Generic' && p.brand !== 'Generic Liposomal' ? p.brand : extractBrand(title)
                   const amazonUrl = p.url || (p.asin ? `https://amazon.com/dp/${p.asin}` : null)
                   const isTop3 = i < 3
                   return (
