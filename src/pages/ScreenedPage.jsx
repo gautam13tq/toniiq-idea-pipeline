@@ -16,7 +16,7 @@ export default function ScreenedPage() {
       .from('idea_candidates')
       .select('*')
       .eq('stage', 'screened')
-      .order('updated_at', { ascending: false })
+      .order('last_updated_at', { ascending: false })
 
     setCandidates(data || [])
     setLoading(false)
@@ -89,7 +89,7 @@ export default function ScreenedPage() {
                   )}
                 </div>
                 <span className="text-xs" style={{ color: 'var(--text-faint)' }}>
-                  {c.updated_at ? new Date(c.updated_at).toLocaleDateString() : ''}
+                  {c.last_updated_at ? new Date(c.last_updated_at).toLocaleDateString() : ''}
                 </span>
               </div>
             </Link>
