@@ -95,11 +95,17 @@ function TierBadge({ tier }) {
   const tiers = {
     immediate_launch: { label: 'Immediate Launch', class: 'border', bgStyle: { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } },
     launch_priority: { label: 'Launch Priority', class: 'border', bgStyle: { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } },
+    strong_candidate: { label: 'Strong Candidate', class: 'border', bgStyle: { background: 'var(--blue-muted)', color: 'var(--blue-text)', borderColor: 'var(--blue)' } },
+    needs_work: { label: 'Needs Work', class: 'border', bgStyle: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } },
     conditional: { label: 'Conditional', class: 'border', bgStyle: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } },
-    deprioritize: { label: 'Deprioritize', class: 'border', bgStyle: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } },
+    hold: { label: 'Hold', class: 'border', bgStyle: { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } },
+    pass: { label: 'Pass', class: 'border', bgStyle: { background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' } },
+    deprioritize: { label: 'Deprioritize', class: 'border', bgStyle: { background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' } },
     kill: { label: 'Kill', class: 'border', bgStyle: { background: 'var(--red-muted)', color: 'var(--red-text)', borderColor: 'var(--red)' } },
   }
-  const t = tiers[tier] || { label: tier, class: 'border', bgStyle: { background: 'var(--bg-hover)', color: 'var(--text-body)', borderColor: 'var(--border-default)' } }
+  // Normalize: handle UPPERCASE or mixed-case tiers
+  const normalizedTier = tier ? tier.toLowerCase().replace(/\s+/g, '_') : ''
+  const t = tiers[normalizedTier] || { label: tier, class: 'border', bgStyle: { background: 'var(--bg-hover)', color: 'var(--text-body)', borderColor: 'var(--border-default)' } }
   return (
     <span className={`text-sm font-bold px-4 py-1.5 rounded-full ${t.class}`} style={t.bgStyle}>
       {t.label}
