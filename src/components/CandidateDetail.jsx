@@ -26,8 +26,6 @@ function formatUsd(n) {
   return '$' + n.toFixed(2)
 }
 
-const SUPABASE_URL = 'https://hamreqogmporpgdjglyn.supabase.co'
-
 export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate }) {
   const [notes, setNotes] = useState(candidate.notes || '')
   const [saving, setSaving] = useState(false)
@@ -35,8 +33,6 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
   const [showKill, setShowKill] = useState(false)
   const [poeHistory, setPoeHistory] = useState(null)
   const [datarovaHistory, setDatarovaHistory] = useState(null)
-  const [enrichmentJob, setEnrichmentJob] = useState(null)
-  const [enriching, setEnriching] = useState(false)
 
   // Load history on mount
   useEffect(() => {
@@ -51,35 +47,8 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
         .select('*')
         .eq('candidate_id', candidate.id)
         .then(({ data }) => setDatarovaHistory(data || []))
-
-      // Check for active enrichment jobs
-      supabase.from('enrichment_jobs')
-        .select('*')
-        .eq('candidate_id', candidate.id)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .then(({ data }) => {
-          if (data?.[0]) setEnrichmentJob(data[0])
-        })
     }
   }, [candidate.id])
-
-  // Poll enrichment job status
-  useEffect(() => {
-    if (!enrichmentJob || enrichmentJob.status === 'completed' || enrichmentJob.status === 'failed') return
-    const interval = setInterval(async () => {
-      const { data } = await supabase.from('enrichment_jobs')
-        .select('*').eq('id', enrichmentJob.id).single()
-      if (data) {
-        setEnrichmentJob(data)
-        if (data.status === 'completed' || data.status === 'failed') {
-          setEnriching(false)
-          clearInterval(interval)
-        }
-      }
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [enrichmentJob?.id, enrichmentJob?.status])
 
   async function saveNotes() {
     setSaving(true)
@@ -87,40 +56,12 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
     setSaving(false)
   }
 
-  async function promote() {
+  function promote() {
     const idx = STAGE_ORDER.indexOf(candidate.stage)
     if (idx < STAGE_ORDER.length - 1) {
       const nextStage = STAGE_ORDER[idx + 1]
       onUpdate({ stage: nextStage })
-
-      // If promoting to screened → trigger enrichment
-      if (nextStage === 'screened') {
-        await triggerEnrichment()
-      }
-    }
-  }
-
-  async function triggerEnrichment() {
-    setEnriching(true)
-    try {
-      // Create enrichment job
-      const { data: job } = await supabase.from('enrichment_jobs')
-        .insert({ candidate_id: candidate.id, status: 'pending', current_step: 'queued' })
-        .select()
-        .single()
-
-      if (job) {
-        setEnrichmentJob(job)
-        // Fire the edge function (non-blocking)
-        fetch(`${SUPABASE_URL}/functions/v1/enrich-candidate`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidate_id: candidate.id, job_id: job.id }),
-        }).catch(err => console.error('Enrichment trigger error:', err))
-      }
-    } catch (err) {
-      console.error('Failed to create enrichment job:', err)
-      setEnriching(false)
+      // Enrichment (keyword data, Reddit, Science, Concepts) runs via Cowork scheduled task
     }
   }
 
@@ -225,77 +166,17 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
               )}
             </div>
 
-            {/* Re-trigger enrichment button for screened candidates */}
-            {candidate.stage === 'screened' && !enriching && (!enrichmentJob || enrichmentJob.status === 'completed' || enrichmentJob.status === 'failed') && (
-              <button
-                onClick={triggerEnrichment}
-                className="mt-2 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors"
-                style={{ background: 'var(--bg-hover)', color: 'var(--blue-text)', borderColor: 'var(--border-default)' }}
-              >
-                ↻ Re-run Enrichment
-              </button>
-            )}
-          </div>
-
-          {/* Enrichment Status */}
-          {(enriching || (enrichmentJob && (enrichmentJob.status === 'pending' || enrichmentJob.status === 'running'))) && (
-            <div className="rounded-lg p-4 border" style={{ background: 'var(--blue-muted)', borderColor: 'rgba(96,165,250,0.3)' }}>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2" style={{ borderColor: 'var(--blue)' }} />
-                <h3 className="text-sm font-semibold" style={{ color: 'var(--blue-text)' }}>
-                  Generating Discovery Report...
-                </h3>
-              </div>
-              <div className="flex gap-2">
-                {['datarova', 'reddit', 'science', 'concepts'].map(step => {
-                  const completed = enrichmentJob?.steps_completed || []
-                  const isCurrent = enrichmentJob?.current_step === step
-                  const isDone = completed.some(s => s === step || s.startsWith(step + '_'))
-                  const isFailed = completed.some(s => s === step + '_failed')
-                  const isSkipped = completed.some(s => s === step + '_skipped')
-                  return (
-                    <div key={step} className="flex-1 rounded-md px-2 py-1.5 text-center text-xs font-medium" style={{
-                      background: isDone && !isFailed ? 'var(--green-muted)' : isCurrent ? 'rgba(96,165,250,0.2)' : isFailed ? 'var(--red-muted)' : isSkipped ? 'var(--bg-hover)' : 'var(--bg-active)',
-                      color: isDone && !isFailed ? 'var(--green-text)' : isCurrent ? 'var(--blue-text)' : isFailed ? 'var(--red-text)' : isSkipped ? 'var(--text-faint)' : 'var(--text-muted)',
-                    }}>
-                      {isDone && !isFailed ? '✓ ' : isCurrent ? '◉ ' : isFailed ? '✗ ' : isSkipped ? '○ ' : ''}
-                      {step === 'datarova' ? 'Keywords' : step === 'reddit' ? 'Reddit' : step === 'science' ? 'Science' : 'Concepts'}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Completed Enrichment */}
-          {enrichmentJob?.status === 'completed' && (
-            <div className="rounded-lg p-3 border flex items-center justify-between" style={{ background: 'var(--green-muted)', borderColor: 'rgba(74,222,128,0.3)' }}>
-              <div className="flex items-center gap-2">
-                <span style={{ color: 'var(--green-text)' }}>✓</span>
-                <span className="text-sm font-medium" style={{ color: 'var(--green-text)' }}>Discovery report generated</span>
-              </div>
+            {/* View Discovery Report link for screened+ candidates */}
+            {candidate.stage !== 'raw' && (
               <a
                 href={`/discovery/${candidate.id}`}
-                className="text-xs font-medium px-3 py-1 rounded-md transition-colors"
-                style={{ background: 'rgba(74,222,128,0.2)', color: 'var(--green-text)' }}
+                className="mt-2 inline-block px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors"
+                style={{ background: 'var(--bg-hover)', color: 'var(--blue-text)', borderColor: 'var(--border-default)' }}
               >
-                View Report →
+                View Discovery Report →
               </a>
-            </div>
-          )}
-
-          {/* Failed Enrichment */}
-          {enrichmentJob?.status === 'failed' && (
-            <div className="rounded-lg p-3 border" style={{ background: 'var(--red-muted)', borderColor: 'rgba(248,113,113,0.3)' }}>
-              <div className="flex items-center gap-2">
-                <span style={{ color: 'var(--red-text)' }}>✗</span>
-                <span className="text-sm font-medium" style={{ color: 'var(--red-text)' }}>Enrichment failed</span>
-              </div>
-              {enrichmentJob.error_message && (
-                <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{enrichmentJob.error_message}</p>
-              )}
-            </div>
-          )}
+            )}
+          </div>
 
           {/* POE Data */}
           {poe && (

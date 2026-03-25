@@ -83,8 +83,37 @@ function BulletList({ items }) {
   )
 }
 
+/* Normalize inconsistent JSONB shapes into a renderable form.
+   Handles: strings, arrays (of strings or objects), and plain objects
+   with arbitrary keys (e.g. {content: "..."} or {concept_1: "...", concept_2: "..."}) */
+function normalizeJsonb(data) {
+  if (!data) return null
+  if (typeof data === 'string') return data
+  if (Array.isArray(data)) return data
+  // Plain object — unwrap common patterns
+  if (typeof data === 'object') {
+    // {content: "string"} → just the string
+    if (data.content && typeof data.content === 'string' && Object.keys(data).length === 1) {
+      return data.content
+    }
+    // {concept_1: "...", concept_2: "..."} → array of strings
+    const keys = Object.keys(data)
+    if (keys.length > 0 && keys.every(k => typeof data[k] === 'string')) {
+      return keys.map(k => data[k])
+    }
+    // {key: {...}, ...} → array of objects
+    if (keys.length > 0 && keys.every(k => typeof data[k] === 'object' && !Array.isArray(data[k]))) {
+      return keys.map(k => ({ _label: k, ...data[k] }))
+    }
+    // Fallback: wrap values as bullet list
+    return keys.map(k => `${k.replace(/_/g, ' ')}: ${typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k])}`)
+  }
+  return null
+}
+
 /* Smart render for JSONB — objects become tables or structured cards */
-function SmartRender({ data, label }) {
+function SmartRender({ data: rawData, label }) {
+  const data = normalizeJsonb(rawData)
   if (!data) return null
 
   if (Array.isArray(data)) {
@@ -468,12 +497,20 @@ export default function DiscoveryPage() {
             {activeTab === 'science' && (
               scienceResearch ? (
                 <div className="space-y-6">
-                  {scienceResearch.bioavailability_notes && (
-                    <div className="rounded-lg p-4 border" style={{ backgroundColor: 'rgba(168,85,247,0.1)', borderColor: 'rgba(168,85,247,0.2)' }}>
-                      <h4 className="text-sm font-semibold mb-2" style={{ color: '#c084fc' }}>Bioavailability Notes</h4>
-                      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{scienceResearch.bioavailability_notes}</p>
-                    </div>
-                  )}
+                  {scienceResearch.bioavailability_notes && (() => {
+                    const bio = normalizeJsonb(scienceResearch.bioavailability_notes)
+                    if (!bio) return null
+                    return (
+                      <div className="rounded-lg p-4 border" style={{ backgroundColor: 'rgba(168,85,247,0.1)', borderColor: 'rgba(168,85,247,0.2)' }}>
+                        <h4 className="text-sm font-semibold mb-2" style={{ color: '#c084fc' }}>Bioavailability Notes</h4>
+                        {typeof bio === 'string' ? (
+                          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{bio}</p>
+                        ) : Array.isArray(bio) ? (
+                          <BulletList items={bio} />
+                        ) : null}
+                      </div>
+                    )
+                  })()}
                   <div className="grid grid-cols-2 gap-6">
                     <SmartRender data={scienceResearch.clinical_dosages} label="Clinical Dosages" />
                     <SmartRender data={scienceResearch.proven_combinations} label="Proven Combinations" />
