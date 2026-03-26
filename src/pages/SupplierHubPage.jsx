@@ -23,7 +23,7 @@ export default function SupplierHubPage() {
       try {
         // Load all data in 3 parallel queries instead of N+1
         const [suppliersRes, quotationsRes, docsRes] = await Promise.all([
-          supabase.from('suppliers').select('id, name, tier, type, contact_name, email').order('name'),
+          supabase.from('suppliers').select('id, name, tier, type, primary_contact_name, primary_contact_email').order('name'),
           supabase.from('quotations').select('id, ingredient, supplier_id, supplier_name, price_per_kg, source_type'),
           supabase.from('supplier_documents').select('id, supplier_id, ingredient'),
         ])

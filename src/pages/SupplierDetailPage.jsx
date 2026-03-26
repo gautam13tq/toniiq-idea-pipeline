@@ -173,8 +173,8 @@ export default function SupplierDetailPage() {
             {supplier.name}
           </h1>
           <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-            {supplier.contact_email && (
-              <span>{supplier.contact_email}</span>
+            {supplier.primary_contact_email && (
+              <span>{supplier.primary_contact_email}</span>
             )}
           </p>
         </div>

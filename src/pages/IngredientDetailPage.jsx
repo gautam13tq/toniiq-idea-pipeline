@@ -6,10 +6,18 @@ import PDFViewer from '../components/PDFViewer'
 export default function IngredientDetailPage() {
   const { ingredientName } = useParams()
   const navigate = useNavigate()
-  const decodedIngredient = decodeURIComponent(ingredientName)
+
+  // Safe decode — some ingredient names have special chars that break decodeURIComponent
+  let decodedIngredient = ingredientName
+  try {
+    decodedIngredient = decodeURIComponent(ingredientName)
+  } catch {
+    decodedIngredient = ingredientName
+  }
 
   const [quotations, setQuotations] = useState([])
   const [documents, setDocuments] = useState([])
+  const [supplierMap, setSupplierMap] = useState({})
   const [loading, setLoading] = useState(true)
   const [selectedDocument, setSelectedDocument] = useState(null)
   const [sortColumn, setSortColumn] = useState('supplier')
@@ -19,27 +27,20 @@ export default function IngredientDetailPage() {
     async function loadData() {
       setLoading(true)
       try {
-        // Load quotations for this ingredient
-        const { data: quotationData } = await supabase
-          .from('quotations')
-          .select('*, suppliers!supplier_id(name, tier)')
-          .eq('ingredient', decodedIngredient)
-          .order('supplier_name')
+        // Load all three in parallel
+        const [quotationsRes, docsRes, suppliersRes] = await Promise.all([
+          supabase.from('quotations').select('*').eq('ingredient', decodedIngredient).order('supplier_name'),
+          supabase.from('supplier_documents').select('*').eq('ingredient', decodedIngredient).order('filename'),
+          supabase.from('suppliers').select('id, name, tier'),
+        ])
 
-        if (quotationData) {
-          setQuotations(quotationData)
-        }
+        // Build supplier lookup map
+        const sMap = {}
+        ;(suppliersRes.data || []).forEach(s => { sMap[s.id] = s })
+        setSupplierMap(sMap)
 
-        // Load documents for this ingredient
-        const { data: documentData } = await supabase
-          .from('supplier_documents')
-          .select('*, suppliers!supplier_id(name)')
-          .eq('ingredient', decodedIngredient)
-          .order('supplier_name')
-
-        if (documentData) {
-          setDocuments(documentData)
-        }
+        if (quotationsRes.data) setQuotations(quotationsRes.data)
+        if (docsRes.data) setDocuments(docsRes.data)
       } catch (error) {
         console.error('Error loading ingredient data:', error)
       } finally {
@@ -75,10 +76,10 @@ export default function IngredientDetailPage() {
     let aVal = a[sortColumn]
     let bVal = b[sortColumn]
 
-    // Handle supplier name from relation
+    // Handle supplier name from map
     if (sortColumn === 'supplier') {
-      aVal = (a.suppliers?.name || a.supplier_name || '').toLowerCase()
-      bVal = (b.suppliers?.name || b.supplier_name || '').toLowerCase()
+      aVal = (supplierMap[a.supplier_id]?.name || a.supplier_name || '').toLowerCase()
+      bVal = (supplierMap[b.supplier_id]?.name || b.supplier_name || '').toLowerCase()
     } else if (typeof aVal === 'string') {
       aVal = aVal.toLowerCase()
       bVal = bVal.toLowerCase()
@@ -91,7 +92,7 @@ export default function IngredientDetailPage() {
 
   // Group documents by supplier
   const documentsBySupplier = documents.reduce((acc, doc) => {
-    const supplierName = doc.suppliers?.name || doc.supplier_name || 'Unknown'
+    const supplierName = supplierMap[doc.supplier_id]?.name || 'Unknown'
     if (!acc[supplierName]) acc[supplierName] = []
     acc[supplierName].push(doc)
     return acc
@@ -216,7 +217,8 @@ export default function IngredientDetailPage() {
               <tbody>
                 {sortedQuotations.map((quote, i) => {
                   const isCheapest = cheapest && quote.id === cheapest.id
-                  const supplierTier = quote.suppliers?.tier || 'new'
+                  const supplierInfo = supplierMap[quote.supplier_id]
+                  const supplierTier = supplierInfo?.tier || 'new'
                   const tierColor = tierColors[supplierTier?.toLowerCase()] || tierColors.new
                   const rowBg = isCheapest ? 'rgba(16, 185, 129, 0.05)' : 'transparent'
 
@@ -229,7 +231,7 @@ export default function IngredientDetailPage() {
                       }}
                     >
                       <td className="py-2 px-3 font-medium" style={{ color: 'var(--text-primary)' }}>
-                        {quote.suppliers?.name || quote.supplier_name}
+                        {supplierInfo?.name || quote.supplier_name}
                       </td>
                       <td className="py-2 px-3">
                         <span
