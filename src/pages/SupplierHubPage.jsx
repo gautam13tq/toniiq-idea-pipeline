@@ -24,7 +24,7 @@ export default function SupplierHubPage() {
         // Load all data in 3 parallel queries instead of N+1
         const [suppliersRes, quotationsRes, docsRes] = await Promise.all([
           supabase.from('suppliers').select('id, name, tier, type, primary_contact_name, primary_contact_email').order('name'),
-          supabase.from('quotations').select('id, ingredient, supplier_id, supplier_name, price_per_kg, source_type'),
+          supabase.from('quotations').select('id, ingredient, generic_name, branded_name, supplier_id, supplier_name, price_per_kg, source_type'),
           supabase.from('supplier_documents').select('id, supplier_id, ingredient'),
         ])
 
@@ -39,7 +39,7 @@ export default function SupplierHubPage() {
           if (q.supplier_id) {
             quoteCountBySupplier.set(q.supplier_id, (quoteCountBySupplier.get(q.supplier_id) || 0) + 1)
             if (!ingredientsBySupplier.has(q.supplier_id)) ingredientsBySupplier.set(q.supplier_id, new Set())
-            if (q.ingredient) ingredientsBySupplier.get(q.supplier_id).add(q.ingredient)
+            if (q.generic_name || q.ingredient) ingredientsBySupplier.get(q.supplier_id).add(q.generic_name || q.ingredient)
           }
         })
 
@@ -57,24 +57,27 @@ export default function SupplierHubPage() {
         }))
         setSuppliers(enrichedSuppliers)
 
-        // Aggregate ingredients from quotations
+        // Aggregate ingredients by generic_name (groups branded variants together)
         const ingredientMap = new Map()
         quotationData.forEach(q => {
-          if (!q.ingredient) return
-          if (!ingredientMap.has(q.ingredient)) {
-            ingredientMap.set(q.ingredient, { name: q.ingredient, suppliers: new Set(), bestPrice: null })
+          const gName = q.generic_name || q.ingredient
+          if (!gName || gName === 'General' || gName === '_Images') return
+          if (!ingredientMap.has(gName)) {
+            ingredientMap.set(gName, { name: gName, suppliers: new Set(), bestPrice: null, brandedNames: new Set() })
           }
-          const ing = ingredientMap.get(q.ingredient)
+          const ing = ingredientMap.get(gName)
           ing.suppliers.add(q.supplier_id || q.supplier_name)
           if (q.price_per_kg && (!ing.bestPrice || q.price_per_kg < ing.bestPrice)) {
             ing.bestPrice = q.price_per_kg
           }
+          if (q.branded_name) ing.brandedNames.add(q.branded_name)
         })
 
         const ingredientList = Array.from(ingredientMap.values()).map(i => ({
           name: i.name,
           supplierCount: i.suppliers.size,
           bestPrice: i.bestPrice,
+          brandedNames: Array.from(i.brandedNames),
         }))
         setIngredients(ingredientList)
 
@@ -282,11 +285,20 @@ export default function SupplierHubPage() {
                     borderColor: 'var(--border-default)',
                   }}
                 >
-                  <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
+                  <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                     {ingredient.name}
                   </h3>
+                  {ingredient.brandedNames && ingredient.brandedNames.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {ingredient.brandedNames.map(bn => (
+                        <span key={bn} className="text-[9px] font-medium px-1.5 py-0.5 rounded" style={{ background: '#7c3aed20', color: '#a78bfa' }}>
+                          {bn}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
-                  <div className="space-y-2 text-xs" style={{ color: 'var(--text-muted)' }}>
+                  <div className="space-y-2 text-xs mt-2" style={{ color: 'var(--text-muted)' }}>
                     <div className="flex justify-between">
                       <span>Suppliers:</span>
                       <span style={{ color: 'var(--text-primary)' }}>
