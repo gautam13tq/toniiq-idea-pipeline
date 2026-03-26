@@ -191,39 +191,73 @@ function SupplierQuotes({ quotations }) {
       </p>
     )
   }
+
+  // Group by ingredient for easier scanning
+  const grouped = quotations.reduce((acc, q) => {
+    const key = q.ingredient || 'Unknown'
+    if (!acc[key]) acc[key] = []
+    acc[key].push(q)
+    return acc
+  }, {})
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-xs">
-        <thead>
-          <tr style={{ borderBottom: '1px solid var(--border-default)' }}>
-            {['Ingredient', 'Supplier', 'Price/kg', 'MOQ', 'Lead Time', 'Source'].map(h => (
-              <th key={h} className="text-left py-2 px-3 font-medium" style={{ color: 'var(--text-faint)' }}>{h}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {quotations.map((q, i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-              <td className="py-2 px-3 font-medium" style={{ color: 'var(--text-primary)' }}>{q.ingredient}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{q.supplier_name || '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{q.price_per_kg ? `$${Number(q.price_per_kg).toFixed(2)}` : '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>{q.moq || '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>{q.lead_time_days ? `${q.lead_time_days}d` : '—'}</td>
-              <td className="py-2 px-3">
-                <span
-                  className="text-[10px] px-1.5 py-0.5 rounded"
-                  style={{
-                    background: q.source_type === 'current_pricing' ? 'var(--green-muted)' : 'var(--blue-muted)',
-                    color: q.source_type === 'current_pricing' ? 'var(--green-text)' : 'var(--blue-text)',
-                  }}
-                >
-                  {q.source_type === 'current_pricing' ? 'Active' : 'New Quote'}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="space-y-6">
+      {Object.entries(grouped).map(([ingredient, quotes]) => (
+        <div key={ingredient}>
+          <h4 className="text-xs font-semibold mb-2 px-1" style={{ color: 'var(--text-primary)' }}>
+            {ingredient}
+            <span className="ml-2 font-normal" style={{ color: 'var(--text-faint)' }}>
+              {quotes.length} quote{quotes.length !== 1 ? 's' : ''}
+            </span>
+          </h4>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--border-default)' }}>
+                  {['Supplier', 'Spec', 'Price/kg', 'MOQ', 'Lead Time', 'Manufacturer', 'Quote Date', 'Notes'].map(h => (
+                    <th key={h} className="text-left py-2 px-2 font-medium" style={{ color: 'var(--text-faint)' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {quotes.sort((a, b) => Number(a.price_per_kg || 0) - Number(b.price_per_kg || 0)).map((q, i) => {
+                  const isCheapest = i === 0
+                  return (
+                    <tr
+                      key={i}
+                      style={{
+                        borderBottom: '1px solid var(--border-subtle)',
+                        background: isCheapest ? 'var(--green-muted)' : 'transparent',
+                      }}
+                    >
+                      <td className="py-2 px-2 font-medium" style={{ color: 'var(--text-primary)' }}>
+                        {q.supplier_name || '—'}
+                      </td>
+                      <td className="py-2 px-2 max-w-[180px]" style={{ color: 'var(--text-body)' }}>
+                        {q.spec || '—'}
+                      </td>
+                      <td className="py-2 px-2 font-semibold" style={{ color: isCheapest ? 'var(--green-text)' : 'var(--text-body)' }}>
+                        {q.price_per_kg ? `$${Number(q.price_per_kg).toFixed(2)}` : '—'}
+                      </td>
+                      <td className="py-2 px-2" style={{ color: 'var(--text-muted)' }}>{q.moq || '—'}</td>
+                      <td className="py-2 px-2" style={{ color: 'var(--text-muted)' }}>
+                        {q.lead_time_days ? `${q.lead_time_days}d` : '—'}
+                      </td>
+                      <td className="py-2 px-2" style={{ color: 'var(--text-muted)' }}>{q.manufacturer || '—'}</td>
+                      <td className="py-2 px-2" style={{ color: 'var(--text-faint)' }}>
+                        {q.quote_date ? new Date(q.quote_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }) : '—'}
+                      </td>
+                      <td className="py-2 px-2 max-w-[250px] truncate" style={{ color: 'var(--text-muted)' }} title={q.comments || ''}>
+                        {q.comments || '—'}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
@@ -342,16 +376,28 @@ export default function DevelopmentDetailPage() {
           .order('created_at', { ascending: false })
         if (arts) setArtifacts(arts)
 
-        // Load relevant quotations (match by project name keywords)
-        // This is a fuzzy match - in production we'd use formulation ingredients
-        const nameWords = proj.name.toLowerCase().split(/\s+/).filter(w => w.length > 3)
-        if (nameWords.length > 0) {
+        // Load relevant quotations — use formulation ingredients if available, else project name
+        let searchTerms = []
+        if (form?.ingredients?.length) {
+          // Extract core ingredient names from formulation (strip supplier/pct info)
+          searchTerms = form.ingredients.map(ing => {
+            const name = ing.ingredient || ing.name || ''
+            // Get the first meaningful word (e.g., "Astaxanthin" from "Astaxanthin 5% (BannerBio)")
+            return name.split(/[\s(%]/)[0].toLowerCase()
+          }).filter(w => w.length > 3)
+          // Deduplicate
+          searchTerms = [...new Set(searchTerms)]
+        } else {
+          searchTerms = proj.name.toLowerCase().split(/\s+/).filter(w => w.length > 3)
+        }
+        if (searchTerms.length > 0) {
           const { data: quotes } = await supabase
             .from('quotations')
             .select('*')
-            .or(nameWords.map(w => `ingredient.ilike.%${w}%`).join(','))
+            .or(searchTerms.map(w => `ingredient.ilike.%${w}%`).join(','))
+            .order('ingredient', { ascending: true })
             .order('price_per_kg', { ascending: true })
-            .limit(20)
+            .limit(50)
           if (quotes) setQuotations(quotes)
         }
       }
