@@ -759,22 +759,24 @@ function DifferentiationPanel({ scores }) {
 
       {/* 4-Layer Breakdown */}
       <div className="grid grid-cols-4 gap-3 mb-6">
-        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Vectors Available</p>
-          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_vectors_available ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/5</span></p>
-        </div>
-        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Competitive Gap</p>
-          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_competitive_gap ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/3</span></p>
-        </div>
-        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Form Factor Fit</p>
-          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_form_factor_fit ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/2</span></p>
-        </div>
-        <div className="rounded-lg p-3 text-center" style={{ background: 'var(--bg-hover)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Pricing Headroom</p>
-          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.diff_pricing_headroom ?? '—'}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/2</span></p>
-        </div>
+        {[
+          { label: 'Vectors Available', value: scores.diff_vectors_available, max: 6, description: 'How many of the 6 differentiation vectors are available for this product' },
+          { label: 'Competitive Gap', value: scores.diff_competitive_gap, max: 10, description: 'How wide is the gap between this concept and existing competition' },
+          { label: 'Form Factor Fit', value: scores.diff_form_factor_fit, max: 10, description: 'How well does this product fit Toniiq\'s capsule/powder format expertise' },
+          { label: 'Pricing Headroom', value: scores.diff_pricing_headroom, max: 10, description: 'How much room exists between target COGS/price and market pricing' },
+        ].map((item, i) => {
+          const val = item.value ?? '—'
+          const pct = typeof val === 'number' ? (val / item.max) * 100 : 0
+          const color = pct >= 80 ? 'var(--green-text)' : pct >= 60 ? 'var(--amber-text)' : 'var(--red-text)'
+          return (
+            <div key={i} className="rounded-lg p-3" style={{ background: 'var(--bg-hover)' }} title={item.description}>
+              <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>{item.label}</p>
+              <p className="text-2xl font-bold text-center" style={{ color: typeof val === 'number' ? color : 'var(--text-primary)' }}>
+                {val}<span className="text-sm" style={{ color: 'var(--text-faint)' }}>/{item.max}</span>
+              </p>
+            </div>
+          )
+        })}
       </div>
 
       {/* 6 Vectors Checklist */}
@@ -1018,7 +1020,10 @@ export default function ConceptDetailPage() {
   const nextConcept = currentIndex < allConcepts.length - 1 ? allConcepts[currentIndex + 1] : null
 
   const ingredients = Array.isArray(concept.key_ingredients)
-    ? concept.key_ingredients
+    ? concept.key_ingredients.map(ing => {
+        if (typeof ing === 'string') return { ingredient: ing, dose: '—', role: '—', notes: '' }
+        return ing
+      })
     : concept.key_ingredients && typeof concept.key_ingredients === 'object'
       ? Object.entries(concept.key_ingredients).map(([name, data]) => ({
           ingredient: name,
