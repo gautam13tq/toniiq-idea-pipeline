@@ -128,9 +128,10 @@ function ArtifactsList({ artifacts }) {
     )
   }
 
-  const [expandedId, setExpandedId] = useState(null)
+  const [downloadError, setDownloadError] = useState(null)
 
   const handleDownload = async (artifact) => {
+    setDownloadError(null)
     try {
       const { data, error } = await supabase.storage
         .from('development-artifacts')
@@ -139,11 +140,11 @@ function ArtifactsList({ artifacts }) {
         window.open(data.signedUrl, '_blank')
         return
       }
+      setDownloadError(artifact.id)
     } catch (e) {
-      // Storage bucket may not exist or file not uploaded
+      setDownloadError(artifact.id)
     }
-    // Fallback: toggle notes/path info
-    setExpandedId(prev => prev === artifact.id ? null : artifact.id)
+    setTimeout(() => setDownloadError(null), 3000)
   }
 
   return (
@@ -178,29 +179,16 @@ function ArtifactsList({ artifacts }) {
               onClick={() => handleDownload(a)}
               className="text-[11px] font-medium px-3 py-1.5 rounded-lg border transition-colors"
               style={{
-                borderColor: 'var(--border-default)',
-                color: 'var(--text-muted)',
+                borderColor: downloadError === a.id ? 'var(--red)' : 'var(--border-default)',
+                color: downloadError === a.id ? 'var(--red-text)' : 'var(--text-muted)',
                 background: 'transparent',
               }}
-              onMouseEnter={(e) => { e.target.style.background = 'var(--bg-active)'; e.target.style.color = 'var(--text-primary)' }}
-              onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--text-muted)' }}
+              onMouseEnter={(e) => { if (downloadError !== a.id) { e.target.style.background = 'var(--bg-active)'; e.target.style.color = 'var(--text-primary)' } }}
+              onMouseLeave={(e) => { e.target.style.background = 'transparent'; if (downloadError !== a.id) e.target.style.color = 'var(--text-muted)' }}
             >
-              {expandedId === a.id ? 'Hide' : 'View'}
+              {downloadError === a.id ? 'File not found' : 'Download'}
             </button>
           </div>
-          {expandedId === a.id && (
-            <div className="mx-4 mt-1 mb-2 rounded-lg px-4 py-3 text-xs" style={{ background: 'var(--bg-hover)', color: 'var(--text-body)' }}>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-semibold" style={{ color: 'var(--text-muted)' }}>Local path:</span>
-                <code className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>
-                  {a.storage_path}
-                </code>
-              </div>
-              {a.notes && (
-                <p className="mt-2 leading-relaxed" style={{ color: 'var(--text-muted)' }}>{a.notes}</p>
-              )}
-            </div>
-          )}
         </div>
       ))}
     </div>
