@@ -11,7 +11,7 @@ export default function PipelineBreadcrumb({ candidate, concept, project, curren
     >
       {/* Root: Pipeline */}
       <Link
-        to="/discovery"
+        to="/"
         className="font-medium transition-colors hover:underline"
         style={{ color: 'var(--blue-text)' }}
       >
@@ -31,7 +31,7 @@ export default function PipelineBreadcrumb({ candidate, concept, project, curren
             </span>
           ) : (
             <Link
-              to={`/discovery?selected=${candidate.id}`}
+              to={`/discovery/${candidate.id}`}
               className="transition-colors hover:underline"
               style={{ color: 'var(--blue-text)' }}
             >
