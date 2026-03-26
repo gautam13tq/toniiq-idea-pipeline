@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { useAuth } from '../lib/AuthContext'
 
 const NAV_SECTIONS = [
   {
@@ -8,7 +9,7 @@ const NAV_SECTIONS = [
       { path: '/', label: 'Discovery', icon: '◎' },
       { path: '/screened', label: 'Screened', icon: '◉' },
       { path: '/concepts', label: 'Concepts', icon: '◆' },
-      { path: '/development', label: 'Development', icon: '▣', badge: 'soon', disabled: true },
+      { path: '/development', label: 'Development', icon: '▣' },
       { path: '/greenlit', label: 'Greenlit', icon: '✓', badge: 'soon', disabled: true },
     ]
   },
@@ -16,6 +17,7 @@ const NAV_SECTIONS = [
 
 export default function Layout({ children }) {
   const location = useLocation()
+  const { user, signOut } = useAuth()
   const [expanded, setExpanded] = useState(false)
 
   return (
@@ -145,11 +147,27 @@ export default function Layout({ children }) {
           ))}
         </nav>
 
-        {/* Bottom */}
+        {/* Bottom — user + sign out */}
         {expanded && (
           <div className="px-4 py-3 border-t" style={{ borderColor: 'var(--border-default)' }}>
+            {user && (
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-[11px] truncate" style={{ color: 'var(--text-muted)' }}>
+                  {user.email?.split('@')[0]}
+                </p>
+                <button
+                  onClick={signOut}
+                  className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+                  style={{ color: 'var(--text-faint)', background: 'transparent' }}
+                  onMouseEnter={(e) => { e.target.style.background = 'var(--bg-active)'; e.target.style.color = 'var(--text-muted)' }}
+                  onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--text-faint)' }}
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
             <p className="text-[10px]" style={{ color: 'var(--text-faint)' }}>
-              v4.1
+              v5.0
             </p>
           </div>
         )}

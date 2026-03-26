@@ -5,6 +5,8 @@ import ConceptsPage from './pages/ConceptsPage'
 import ConceptDetailPage from './pages/ConceptDetailPage'
 import DiscoveryPage from './pages/DiscoveryPage'
 import ScreenedPage from './pages/ScreenedPage'
+import DevelopmentPage from './pages/DevelopmentPage'
+import DevelopmentDetailPage from './pages/DevelopmentDetailPage'
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +17,8 @@ export const router = createBrowserRouter([
       { path: '/concepts', element: <ConceptsPage /> },
       { path: '/concepts/:conceptId', element: <ConceptDetailPage /> },
       { path: '/discovery/:candidateId', element: <DiscoveryPage /> },
+      { path: '/development', element: <DevelopmentPage /> },
+      { path: '/development/:projectId', element: <DevelopmentDetailPage /> },
     ],
   },
 ])
