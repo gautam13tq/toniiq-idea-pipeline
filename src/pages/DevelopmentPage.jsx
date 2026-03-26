@@ -77,7 +77,7 @@ function ProjectCard({ project }) {
         )}
         {project.current_cogs && (
           <span title="Current COGS">
-            COGS: <span style={{ color: 'var(--text-muted)' }}>${project.current_cogs.toFixed(2)}</span>
+            COGS: <span style={{ color: 'var(--text-muted)' }}>${Number(project.current_cogs).toFixed(2)}</span>
           </span>
         )}
         {project.current_ingredient_count && (
@@ -109,10 +109,14 @@ export default function DevelopmentPage() {
       const { data, error } = await supabase
         .from('development_projects')
         .select('*')
-        .order('priority', { ascending: true })
         .order('updated_at', { ascending: false })
 
-      if (!error && data) setProjects(data)
+      if (!error && data) {
+        // Custom priority sort: high > medium > low
+        const priorityOrder = { high: 0, medium: 1, low: 2 }
+        data.sort((a, b) => (priorityOrder[a.priority] ?? 9) - (priorityOrder[b.priority] ?? 9))
+        setProjects(data)
+      }
       setLoading(false)
     }
     load()

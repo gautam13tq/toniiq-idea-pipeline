@@ -96,16 +96,22 @@ function IngredientsTable({ ingredients }) {
           </tr>
         </thead>
         <tbody>
-          {ingredients.map((ing, i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-              <td className="py-2 px-3 font-medium" style={{ color: 'var(--text-primary)' }}>{ing.ingredient}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.dose_mg || '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.potency_pct ? `${ing.potency_pct}%` : '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>{ing.supplier || '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.cost_per_kg ? `$${ing.cost_per_kg}` : '—'}</td>
-              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.cost_per_serving ? `$${ing.cost_per_serving.toFixed(4)}` : '—'}</td>
-            </tr>
-          ))}
+          {ingredients.map((ing, i) => {
+            // Support both field naming conventions
+            const name = ing.ingredient || ing.name || '—'
+            const potency = ing.potency_pct ?? (ing.potency != null ? (ing.potency < 1 ? ing.potency * 100 : ing.potency) : null)
+            const costServing = ing.cost_per_serving != null ? Number(ing.cost_per_serving) : null
+            return (
+              <tr key={i} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                <td className="py-2 px-3 font-medium" style={{ color: 'var(--text-primary)' }}>{name}</td>
+                <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.dose_mg || '—'}</td>
+                <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{potency != null ? `${potency}%` : '—'}</td>
+                <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>{ing.supplier || '—'}</td>
+                <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.cost_per_kg ? `$${Number(ing.cost_per_kg)}` : '—'}</td>
+                <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{costServing != null ? `$${costServing.toFixed(4)}` : '—'}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
@@ -257,8 +263,8 @@ function GreenLightChecklist({ checklist }) {
   const items = [
     { key: 'spec_sheet', label: 'Spec sheet finalized' },
     { key: 'coa_plan', label: 'COA plan confirmed' },
-    { key: 'costing', label: 'Costing model locked' },
-    { key: 'label', label: 'Label design approved' },
+    { key: 'costing_model', label: 'Costing model locked' },
+    { key: 'label_design', label: 'Label design approved' },
     { key: 'gdrive_folder', label: 'GDrive folder created' },
   ]
   return (
@@ -428,20 +434,20 @@ export default function DevelopmentDetailPage() {
       <div className="grid grid-cols-5 gap-3 mb-6">
         <MetricCard
           label="Phase B Score"
-          value={project.phase_b_composite_score ? `${project.phase_b_composite_score}/100` : null}
+          value={project.phase_b_composite_score ? `${Number(project.phase_b_composite_score)}/100` : null}
           sub={project.phase_b_tier}
         />
         <MetricCard
           label="COGS"
-          value={project.current_cogs ? `$${project.current_cogs.toFixed(2)}` : null}
+          value={project.current_cogs ? `$${Number(project.current_cogs).toFixed(2)}` : null}
         />
         <MetricCard
           label="Target Margin"
-          value={project.target_margin_pct ? `${project.target_margin_pct}%` : '35%'}
+          value={project.target_margin_pct ? `${Number(project.target_margin_pct)}%` : '40%'}
         />
         <MetricCard
           label="Target Price"
-          value={project.target_retail_price ? `$${project.target_retail_price.toFixed(2)}` : null}
+          value={project.target_retail_price ? `$${Number(project.target_retail_price).toFixed(2)}` : null}
         />
         <MetricCard
           label="Format"
