@@ -134,7 +134,7 @@ function SignalList({ signals, color = 'var(--blue-text)' }) {
       {signals.map((signal, i) => (
         <div key={i} className="flex items-start gap-2 text-sm">
           <span className="mt-0.5 flex-shrink-0" style={{ color }}>•</span>
-          <span style={{ color: 'var(--text-body)' }}>{typeof signal === 'string' ? highlightSignal(signal) : JSON.stringify(signal)}</span>
+          <span style={{ color: 'var(--text-body)' }}>{typeof signal === 'string' ? highlightSignal(signal) : highlightSignal(signal.signal || signal.finding || signal.theme || JSON.stringify(signal))}</span>
         </div>
       ))}
     </div>
@@ -622,12 +622,19 @@ function TikTokResearchPanel({ data }) {
             <div>
               <h4 className="text-xs font-semibold uppercase mb-2" style={{ color: 'var(--text-muted)' }}>Creator Tiers</h4>
               <div className="grid grid-cols-3 gap-2">
-                {Object.entries(creatorTiers).map(([tier, count]) => (
-                  <div key={tier} className="rounded p-2 text-center" style={{ background: 'var(--bg-hover)' }}>
-                    <p className="text-xs capitalize" style={{ color: 'var(--text-muted)' }}>{tier}</p>
-                    <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{count}</p>
-                  </div>
-                ))}
+                {Object.entries(creatorTiers).map(([tier, val]) => {
+                  // Handle both simple counts and nested objects
+                  const displayVal = typeof val === 'number' ? val
+                    : typeof val === 'object' && val !== null
+                      ? (val.count != null ? val.count : val.percentage != null ? `${val.percentage}%` : JSON.stringify(val))
+                      : String(val)
+                  return (
+                    <div key={tier} className="rounded p-2 text-center" style={{ background: 'var(--bg-hover)' }}>
+                      <p className="text-xs capitalize" style={{ color: 'var(--text-muted)' }}>{tier.replace(/_/g, ' ')}</p>
+                      <p className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{displayVal}</p>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )}

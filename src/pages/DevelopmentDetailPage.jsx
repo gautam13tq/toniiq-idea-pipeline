@@ -128,56 +128,79 @@ function ArtifactsList({ artifacts }) {
     )
   }
 
+  const [expandedId, setExpandedId] = useState(null)
+
   const handleDownload = async (artifact) => {
-    const { data, error } = await supabase.storage
-      .from('development-artifacts')
-      .createSignedUrl(artifact.storage_path, 3600) // 1hr signed URL
-    if (data?.signedUrl) {
-      window.open(data.signedUrl, '_blank')
+    try {
+      const { data, error } = await supabase.storage
+        .from('development-artifacts')
+        .createSignedUrl(artifact.storage_path, 3600)
+      if (data?.signedUrl) {
+        window.open(data.signedUrl, '_blank')
+        return
+      }
+    } catch (e) {
+      // Storage bucket may not exist or file not uploaded
     }
+    // Fallback: toggle notes/path info
+    setExpandedId(prev => prev === artifact.id ? null : artifact.id)
   }
 
   return (
     <div className="space-y-2">
       {artifacts.map(a => (
-        <div
-          key={a.id}
-          className="flex items-center justify-between rounded-lg border px-4 py-3"
-          style={{ background: 'var(--bg-raised)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-sm">
-              {a.artifact_type === 'costing_model' ? '📊' :
-               a.artifact_type === 'product_brief' ? '📄' :
-               a.artifact_type === 'coa' ? '🔬' :
-               a.artifact_type === 'competitive_analysis' ? '📈' : '📎'}
-            </span>
-            <div>
-              <p className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
-                {a.filename}
-              </p>
-              <p className="text-[10px]" style={{ color: 'var(--text-faint)' }}>
-                {ARTIFACT_LABELS[a.artifact_type] || a.artifact_type}
-                {a.version > 1 && ` · v${a.version}`}
-                {' · '}
-                {new Date(a.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                {a.file_size_bytes && ` · ${(a.file_size_bytes / 1024).toFixed(0)} KB`}
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() => handleDownload(a)}
-            className="text-[11px] font-medium px-3 py-1.5 rounded-lg border transition-colors"
-            style={{
-              borderColor: 'var(--border-default)',
-              color: 'var(--text-muted)',
-              background: 'transparent',
-            }}
-            onMouseEnter={(e) => { e.target.style.background = 'var(--bg-active)'; e.target.style.color = 'var(--text-primary)' }}
-            onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--text-muted)' }}
+        <div key={a.id}>
+          <div
+            className="flex items-center justify-between rounded-lg border px-4 py-3"
+            style={{ background: 'var(--bg-raised)', borderColor: 'var(--border-subtle)' }}
           >
-            Download
-          </button>
+            <div className="flex items-center gap-3">
+              <span className="text-sm">
+                {a.artifact_type === 'costing_model' ? '📊' :
+                 a.artifact_type === 'product_brief' ? '📄' :
+                 a.artifact_type === 'coa' ? '🔬' :
+                 a.artifact_type === 'competitive_analysis' ? '📈' : '📎'}
+              </span>
+              <div>
+                <p className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
+                  {a.filename}
+                </p>
+                <p className="text-[10px]" style={{ color: 'var(--text-faint)' }}>
+                  {ARTIFACT_LABELS[a.artifact_type] || a.artifact_type}
+                  {a.version > 1 && ` · v${a.version}`}
+                  {' · '}
+                  {new Date(a.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  {a.file_size_bytes && ` · ${(a.file_size_bytes / 1024).toFixed(0)} KB`}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => handleDownload(a)}
+              className="text-[11px] font-medium px-3 py-1.5 rounded-lg border transition-colors"
+              style={{
+                borderColor: 'var(--border-default)',
+                color: 'var(--text-muted)',
+                background: 'transparent',
+              }}
+              onMouseEnter={(e) => { e.target.style.background = 'var(--bg-active)'; e.target.style.color = 'var(--text-primary)' }}
+              onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--text-muted)' }}
+            >
+              {expandedId === a.id ? 'Hide' : 'View'}
+            </button>
+          </div>
+          {expandedId === a.id && (
+            <div className="mx-4 mt-1 mb-2 rounded-lg px-4 py-3 text-xs" style={{ background: 'var(--bg-hover)', color: 'var(--text-body)' }}>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-semibold" style={{ color: 'var(--text-muted)' }}>Local path:</span>
+                <code className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-body)' }}>
+                  {a.storage_path}
+                </code>
+              </div>
+              {a.notes && (
+                <p className="mt-2 leading-relaxed" style={{ color: 'var(--text-muted)' }}>{a.notes}</p>
+              )}
+            </div>
+          )}
         </div>
       ))}
     </div>
