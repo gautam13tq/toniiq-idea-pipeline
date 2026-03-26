@@ -29,7 +29,7 @@ export default function ScreenedPage() {
       supabase
         .from('idea_candidates')
         .select('*')
-        .eq('stage', 'screened')
+        .in('stage', ['screened', 'scored'])
         .order('last_updated_at', { ascending: false }),
       supabase
         .from('claude_weekly_picks')

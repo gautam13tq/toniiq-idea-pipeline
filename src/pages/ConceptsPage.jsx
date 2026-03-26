@@ -137,6 +137,7 @@ export default function ConceptsPage() {
   const [conceptScoresMap, setConceptScoresMap] = useState({}) // concept_id -> scores
   const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState('ranked')
+  const [phaseTab, setPhaseTab] = useState('phase_b') // 'phase_b' or 'phase_a'
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -257,100 +258,171 @@ export default function ConceptsPage() {
     (a, b) => Math.max(...b.concepts.map(c => getSortScore(c))) - Math.max(...a.concepts.map(c => getSortScore(c)))
   )
 
+  // Active concepts based on phase tab
+  const activeConcepts = phaseTab === 'phase_b' ? phaseBConcepts : phaseAOnlyConcepts
+
+  // Ingredient groups scoped to active tab
+  const activeByIngredient = {}
+  for (const concept of activeConcepts) {
+    const cand = candidates[concept.candidate_id]
+    if (!activeByIngredient[concept.candidate_id]) {
+      activeByIngredient[concept.candidate_id] = { candidate: cand, concepts: [] }
+    }
+    activeByIngredient[concept.candidate_id].concepts.push(concept)
+  }
+  const activeIngredientGroups = Object.values(activeByIngredient).sort(
+    (a, b) => Math.max(...b.concepts.map(c => getSortScore(c))) - Math.max(...a.concepts.map(c => getSortScore(c)))
+  )
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
       {/* Page Header */}
-      <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-        <div className="flex items-center justify-between">
+      <div className="px-6 pt-6 pb-4">
+        <div className="flex items-center justify-between mb-5">
           <div>
             <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
               Concepts
             </h1>
             <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
-              {phaseBConcepts.length > 0
-                ? `${phaseBConcepts.length} evaluated · ${phaseAOnlyConcepts.length} awaiting evaluation`
-                : `${concepts.length} concepts from keyword data, Reddit research, and clinical science`}
+              {phaseBConcepts.length} evaluated · {phaseAOnlyConcepts.length} awaiting evaluation
             </p>
           </div>
-          <div className="flex rounded p-0.5" style={{ background: 'var(--bg-active)' }}>
-            <button
-              onClick={() => setViewMode('ranked')}
-              className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
-              style={{
-                background: viewMode === 'ranked' ? 'var(--accent)' : 'transparent',
-                color: viewMode === 'ranked' ? 'var(--text-inverse)' : 'var(--text-muted)',
-              }}
-            >
-              By Score
-            </button>
-            <button
-              onClick={() => setViewMode('by-ingredient')}
-              className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
-              style={{
-                background: viewMode === 'by-ingredient' ? 'var(--accent)' : 'transparent',
-                color: viewMode === 'by-ingredient' ? 'var(--text-inverse)' : 'var(--text-muted)',
-              }}
-            >
-              By Ingredient
-            </button>
-          </div>
+          {/* View mode toggle — only show when there are concepts */}
+          {activeConcepts.length > 0 && (
+            <div className="flex rounded p-0.5" style={{ background: 'var(--bg-active)' }}>
+              <button
+                onClick={() => setViewMode('ranked')}
+                className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+                style={{
+                  background: viewMode === 'ranked' ? 'var(--accent)' : 'transparent',
+                  color: viewMode === 'ranked' ? 'var(--text-inverse)' : 'var(--text-muted)',
+                }}
+              >
+                By Score
+              </button>
+              <button
+                onClick={() => setViewMode('by-ingredient')}
+                className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+                style={{
+                  background: viewMode === 'by-ingredient' ? 'var(--accent)' : 'transparent',
+                  color: viewMode === 'by-ingredient' ? 'var(--text-inverse)' : 'var(--text-muted)',
+                }}
+              >
+                By Ingredient
+              </button>
+            </div>
+          )}
         </div>
 
-        {viewMode === 'ranked' ? (
-          <div className="space-y-12">
-            {/* Phase B Evaluated Concepts — shown first */}
+        {/* Phase A / Phase B toggle tabs */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setPhaseTab('phase_b')}
+            className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+            style={{
+              background: phaseTab === 'phase_b' ? 'var(--accent)' : 'transparent',
+              color: phaseTab === 'phase_b' ? 'var(--text-inverse)' : 'var(--text-muted)',
+              border: phaseTab === 'phase_b' ? 'none' : '1px solid var(--border-default)',
+            }}
+          >
+            Phase B — Evaluated
             {phaseBConcepts.length > 0 && (
-              <div>
-                <div className="flex items-center gap-3 mb-4 pb-2 border-b" style={{ borderColor: 'var(--border-default)' }}>
-                  <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Phase B Evaluated</h2>
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: 'var(--green-muted)', color: 'var(--green-text)' }}>
-                    {phaseBConcepts.length}
-                  </span>
-                </div>
-                <div className="space-y-3">
-                  {phaseBConcepts.map(concept => (
-                    <ConceptCard
-                      key={concept.id}
-                      concept={concept}
-                      candidate={candidates[concept.candidate_id]}
-                      compositeScore={conceptScoresMap[concept.id]}
-                      navigate={navigate}
-                    />
-                  ))}
-                </div>
-              </div>
+              <span
+                className="ml-2 text-[10px] font-bold px-1.5 py-0.5 rounded"
+                style={{
+                  background: phaseTab === 'phase_b' ? 'rgba(255,255,255,0.2)' : 'var(--bg-active)',
+                  color: phaseTab === 'phase_b' ? 'var(--text-inverse)' : 'var(--text-muted)',
+                }}
+              >
+                {phaseBConcepts.length}
+              </span>
             )}
+          </button>
+          <button
+            onClick={() => setPhaseTab('phase_a')}
+            className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+            style={{
+              background: phaseTab === 'phase_a' ? 'var(--accent)' : 'transparent',
+              color: phaseTab === 'phase_a' ? 'var(--text-inverse)' : 'var(--text-muted)',
+              border: phaseTab === 'phase_a' ? 'none' : '1px solid var(--border-default)',
+            }}
+          >
+            Phase A — Screened
+            {phaseAOnlyConcepts.length > 0 && (
+              <span
+                className="ml-2 text-[10px] font-bold px-1.5 py-0.5 rounded"
+                style={{
+                  background: phaseTab === 'phase_a' ? 'rgba(255,255,255,0.2)' : 'var(--bg-active)',
+                  color: phaseTab === 'phase_a' ? 'var(--text-inverse)' : 'var(--text-muted)',
+                }}
+              >
+                {phaseAOnlyConcepts.length}
+              </span>
+            )}
+          </button>
+        </div>
 
-            {/* Phase A tiers */}
-            {phaseATiers.map(tier => (
-              tier.concepts.length > 0 && (
-                <div key={tier.label}>
-                  <div className="flex items-center gap-3 mb-4 pb-2 border-b" style={{ borderColor: 'var(--border-default)' }}>
-                    <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{tier.label}</h2>
-                    <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
-                      background: tier.label.includes('High') ? 'var(--green-muted)' : tier.label.includes('Good') ? 'var(--green-muted)' : 'var(--amber-muted)',
-                      color: tier.label.includes('High') ? 'var(--green-text)' : tier.label.includes('Good') ? 'var(--green-text)' : 'var(--amber-text)',
-                    }}>
-                      {tier.concepts.length}
-                    </span>
+        {/* Content area */}
+        {activeConcepts.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="text-4xl mb-4 opacity-30">◉</div>
+            <h2 className="text-base font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+              {phaseTab === 'phase_b' ? 'No Phase B evaluated concepts yet' : 'No Phase A screened concepts yet'}
+            </h2>
+            <p className="text-sm max-w-md mx-auto" style={{ color: 'var(--text-muted)' }}>
+              {phaseTab === 'phase_b'
+                ? 'Run Phase B evaluation on screened concepts to see composite scores, Amazon competitive research, and differentiation analysis.'
+                : 'Concepts from keyword data, Reddit research, and clinical science will appear here after Phase A screening.'}
+            </p>
+          </div>
+        ) : viewMode === 'ranked' ? (
+          <div className="space-y-12">
+            {phaseTab === 'phase_b' ? (
+              /* Phase B: sorted by composite score */
+              <div className="space-y-3">
+                {phaseBConcepts.map(concept => (
+                  <ConceptCard
+                    key={concept.id}
+                    concept={concept}
+                    candidate={candidates[concept.candidate_id]}
+                    compositeScore={conceptScoresMap[concept.id]}
+                    navigate={navigate}
+                  />
+                ))}
+              </div>
+            ) : (
+              /* Phase A: grouped by confidence tiers */
+              phaseATiers.map(tier => (
+                tier.concepts.length > 0 && (
+                  <div key={tier.label}>
+                    <div className="flex items-center gap-3 mb-4 pb-2 border-b" style={{ borderColor: 'var(--border-default)' }}>
+                      <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{tier.label}</h2>
+                      <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
+                        background: tier.label.includes('High') ? 'var(--green-muted)' : tier.label.includes('Good') ? 'var(--green-muted)' : 'var(--amber-muted)',
+                        color: tier.label.includes('High') ? 'var(--green-text)' : tier.label.includes('Good') ? 'var(--green-text)' : 'var(--amber-text)',
+                      }}>
+                        {tier.concepts.length}
+                      </span>
+                    </div>
+                    <div className="space-y-3">
+                      {tier.concepts.map(concept => (
+                        <ConceptCard
+                          key={concept.id}
+                          concept={concept}
+                          candidate={candidates[concept.candidate_id]}
+                          navigate={navigate}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <div className="space-y-3">
-                    {tier.concepts.map(concept => (
-                      <ConceptCard
-                        key={concept.id}
-                        concept={concept}
-                        candidate={candidates[concept.candidate_id]}
-                        navigate={navigate}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )
-            ))}
+                )
+              ))
+            )}
           </div>
         ) : (
+          /* By Ingredient view — scoped to active tab */
           <div className="space-y-10">
-            {ingredientGroups.map(({ candidate, concepts: ingConcepts }) => {
+            {activeIngredientGroups.map(({ candidate, concepts: ingConcepts }) => {
               if (!candidate) return null
               return (
                 <div key={candidate.id}>
