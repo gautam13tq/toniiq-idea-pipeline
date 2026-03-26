@@ -10,6 +10,7 @@ const NAV_SECTIONS = [
       { path: '/screened', label: 'Screened', icon: '◉' },
       { path: '/concepts', label: 'Concepts', icon: '◆' },
       { path: '/development', label: 'Development', icon: '▣' },
+      { path: '/suppliers', label: 'Supplier Hub', icon: '⬡' },
       { path: '/greenlit', label: 'Greenlit', icon: '✓', badge: 'soon', disabled: true },
     ]
   },

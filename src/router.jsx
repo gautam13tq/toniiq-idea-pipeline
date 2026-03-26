@@ -7,6 +7,9 @@ import DiscoveryPage from './pages/DiscoveryPage'
 import ScreenedPage from './pages/ScreenedPage'
 import DevelopmentPage from './pages/DevelopmentPage'
 import DevelopmentDetailPage from './pages/DevelopmentDetailPage'
+import SupplierHubPage from './pages/SupplierHubPage'
+import SupplierDetailPage from './pages/SupplierDetailPage'
+import IngredientDetailPage from './pages/IngredientDetailPage'
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +22,9 @@ export const router = createBrowserRouter([
       { path: '/discovery/:candidateId', element: <DiscoveryPage /> },
       { path: '/development', element: <DevelopmentPage /> },
       { path: '/development/:projectId', element: <DevelopmentDetailPage /> },
+      { path: '/suppliers', element: <SupplierHubPage /> },
+      { path: '/suppliers/:supplierId', element: <SupplierDetailPage /> },
+      { path: '/suppliers/ingredient/:ingredientName', element: <IngredientDetailPage /> },
     ],
   },
 ])
