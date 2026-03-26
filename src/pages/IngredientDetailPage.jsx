@@ -27,10 +27,15 @@ export default function IngredientDetailPage() {
     async function loadData() {
       setLoading(true)
       try {
-        // Load all three in parallel
-        const [quotationsRes, docsRes, suppliersRes] = await Promise.all([
+        // Extract core keyword from ingredient name for fuzzy document matching
+        // e.g. "Beet Root Powder (Beta Vulgaris Root; 4% Nitrates), 20:1 min extract" → "Beet Root"
+        // e.g. "Natural Astaxanthin 5% Powder" → "Astaxanthin"
+        const coreKeyword = extractCoreIngredient(decodedIngredient)
+
+        // Load quotations (exact match) + all documents + suppliers in parallel
+        const [quotationsRes, allDocsRes, suppliersRes] = await Promise.all([
           supabase.from('quotations').select('*').eq('ingredient', decodedIngredient).order('supplier_name'),
-          supabase.from('supplier_documents').select('*').eq('ingredient', decodedIngredient).order('filename'),
+          supabase.from('supplier_documents').select('*').order('filename'),
           supabase.from('suppliers').select('id, name, tier'),
         ])
 
@@ -40,7 +45,20 @@ export default function IngredientDetailPage() {
         setSupplierMap(sMap)
 
         if (quotationsRes.data) setQuotations(quotationsRes.data)
-        if (docsRes.data) setDocuments(docsRes.data)
+
+        // Fuzzy match documents: check if document ingredient contains core keyword or vice versa
+        if (allDocsRes.data) {
+          const matched = allDocsRes.data.filter(doc => {
+            if (!doc.ingredient || doc.ingredient === 'General' || doc.ingredient === '_Images') return false
+            const docIng = doc.ingredient.toLowerCase()
+            const queryIng = decodedIngredient.toLowerCase()
+            const keyword = coreKeyword.toLowerCase()
+            // Match if: doc ingredient contains keyword, or keyword contains doc ingredient,
+            // or the full query name contains the doc ingredient
+            return docIng.includes(keyword) || keyword.includes(docIng) || queryIng.includes(docIng)
+          })
+          setDocuments(matched)
+        }
       } catch (error) {
         console.error('Error loading ingredient data:', error)
       } finally {
@@ -50,6 +68,23 @@ export default function IngredientDetailPage() {
 
     loadData()
   }, [decodedIngredient])
+
+  // Extract the core ingredient name from a detailed spec string
+  function extractCoreIngredient(name) {
+    // Remove parenthetical specs, percentages, extract ratios
+    let core = name
+      .replace(/\(.*?\)/g, '')           // Remove (Beta Vulgaris Root; 4% Nitrates)
+      .replace(/\d+%\s*/g, '')           // Remove 5%, 98%
+      .replace(/\d+:\d+\s*(min\s*)?/g, '')  // Remove 20:1 min
+      .replace(/extract|powder|capsule|granular|beadlets/gi, '')  // Remove form words
+      .replace(/natural|organic|pure|liposomal/gi, '')  // Remove qualifier words
+      .replace(/\s+/g, ' ')
+      .trim()
+    // Take the first meaningful word(s) — usually the ingredient name
+    // If very short after cleaning, use original
+    if (core.length < 3) core = name.split(/[,(]/)[0].trim()
+    return core
+  }
 
   const handleGetSignedUrl = async (document) => {
     try {
@@ -339,7 +374,12 @@ export default function IngredientDetailPage() {
                         </button>
                         {doc.storage_path && (
                           <a
-                            href={`/api/download?path=${encodeURIComponent(doc.storage_path)}`}
+                            href="#"
+                          onClick={async (e) => {
+                            e.preventDefault()
+                            const { data } = await supabase.storage.from('supplier-documents').createSignedUrl(doc.storage_path, 3600)
+                            if (data?.signedUrl) window.open(data.signedUrl, '_blank')
+                          }}
                             className="flex-1 px-2 py-1.5 rounded text-[10px] font-medium transition-colors text-center"
                             style={{
                               background: 'transparent',

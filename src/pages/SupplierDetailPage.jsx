@@ -439,8 +439,11 @@ export default function SupplierDetailPage() {
                       View
                     </button>
                     {doc.storage_path && (
-                      <a
-                        href={`/api/download?path=${encodeURIComponent(doc.storage_path)}`}
+                      <button
+                        onClick={async () => {
+                          const { data } = await supabase.storage.from('supplier-documents').createSignedUrl(doc.storage_path, 3600)
+                          if (data?.signedUrl) window.open(data.signedUrl, '_blank')
+                        }}
                         className="flex-1 px-2 py-1.5 rounded text-[10px] font-medium transition-colors text-center"
                         style={{
                           background: 'transparent',
@@ -449,7 +452,7 @@ export default function SupplierDetailPage() {
                         }}
                       >
                         Download
-                      </a>
+                      </button>
                     )}
                   </div>
                 </div>
