@@ -768,10 +768,10 @@ function DifferentiationPanel({ scores }) {
       {/* 4-Layer Breakdown */}
       <div className="grid grid-cols-4 gap-3 mb-6">
         {[
-          { label: 'Vectors Available', value: scores.diff_vectors_available, max: 6, description: 'How many of the 6 differentiation vectors are available for this product' },
-          { label: 'Competitive Gap', value: scores.diff_competitive_gap, max: 10, description: 'How wide is the gap between this concept and existing competition' },
-          { label: 'Form Factor Fit', value: scores.diff_form_factor_fit, max: 10, description: 'How well does this product fit Toniiq\'s capsule/powder format expertise' },
-          { label: 'Pricing Headroom', value: scores.diff_pricing_headroom, max: 10, description: 'How much room exists between target COGS/price and market pricing' },
+          { label: 'Vectors Available', value: scores.diff_vectors_available, max: 5, description: 'How many of the 6 differentiation vectors are available (capped at 5)' },
+          { label: 'Competitive Gap', value: scores.diff_competitive_gap, max: 3, description: '0 = crowded premium lane, 3 = wide open for Toniiq' },
+          { label: 'Form Factor Fit', value: scores.diff_form_factor_fit, max: 2, description: '0 = poor format fit, 2 = ideal for capsule/powder' },
+          { label: 'Pricing Headroom', value: scores.diff_pricing_headroom, max: 2, description: '0 = no room above $25, 2 = strong $25-45 premium positioning' },
         ].map((item, i) => {
           const val = item.value ?? '—'
           const pct = typeof val === 'number' ? (val / item.max) * 100 : 0
