@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import PipelineBreadcrumb from '../components/PipelineBreadcrumb'
 
 const STAGES = [
   { key: 'sourcing', label: 'Sourcing', color: 'var(--blue)', icon: '🔍' },
@@ -330,6 +331,8 @@ function GreenLightChecklist({ checklist }) {
 export default function DevelopmentDetailPage() {
   const { projectId } = useParams()
   const [project, setProject] = useState(null)
+  const [concept, setConcept] = useState(null)
+  const [candidate, setCandidate] = useState(null)
   const [formulation, setFormulation] = useState(null)
   const [costing, setCosting] = useState(null)
   const [artifacts, setArtifacts] = useState([])
@@ -348,6 +351,26 @@ export default function DevelopmentDetailPage() {
 
       if (proj) {
         setProject(proj)
+
+        // Load concept and candidate
+        if (proj.concept_id) {
+          const { data: conceptData } = await supabase
+            .from('product_concepts')
+            .select('id, concept_name, candidate_id')
+            .eq('id', proj.concept_id)
+            .maybeSingle()
+          if (conceptData) {
+            setConcept(conceptData)
+            if (conceptData.candidate_id) {
+              const { data: candidateData } = await supabase
+                .from('idea_candidates')
+                .select('id, ingredient_name')
+                .eq('id', conceptData.candidate_id)
+                .maybeSingle()
+              if (candidateData) setCandidate(candidateData)
+            }
+          }
+        }
 
         // Load current formulation
         const { data: form } = await supabase
@@ -451,10 +474,8 @@ export default function DevelopmentDetailPage() {
   return (
     <div className="p-6 max-w-[1200px] mx-auto">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 mb-4">
-        <Link to="/development" className="text-xs" style={{ color: 'var(--text-faint)' }}>Development</Link>
-        <span className="text-xs" style={{ color: 'var(--text-faint)' }}>/</span>
-        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{project.name}</span>
+      <div className="mb-4">
+        <PipelineBreadcrumb candidate={candidate} concept={concept} project={project} current="development" />
       </div>
 
       {/* Header */}

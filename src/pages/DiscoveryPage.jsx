@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import PipelineBreadcrumb from '../components/PipelineBreadcrumb'
 
 function formatNumber(n) {
   if (!n && n !== 0) return '—'
@@ -162,6 +163,7 @@ export default function DiscoveryPage() {
   const [redditResearch, setRedditResearch] = useState(null)
   const [scienceResearch, setScienceResearch] = useState(null)
   const [concepts, setConcepts] = useState([])
+  const [devProjects, setDevProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('keyword')
   const [enrichmentJob, setEnrichmentJob] = useState(null)
@@ -223,6 +225,13 @@ export default function DiscoveryPage() {
           .in('id', conceptIds)
           .order('confidence_score', { ascending: false })
         setConcepts(conceptsData || [])
+
+        // Check for development projects for these concepts
+        const { data: devProjectsData } = await supabase
+          .from('development_projects')
+          .select('id, name, stage, concept_id')
+          .in('concept_id', conceptIds)
+        setDevProjects(devProjectsData || [])
       } else {
         // Fallback: direct candidate_id match
         const { data: conceptsData } = await supabase
@@ -287,14 +296,8 @@ export default function DiscoveryPage() {
   return (
     <div className="min-h-screen">
       {/* Page Header */}
-      <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-        <Link
-          to="/"
-          className="text-sm font-medium mb-2 flex items-center gap-1 transition-colors"
-          style={{ color: 'var(--text-muted)' }}
-        >
-          ← Discovery
-        </Link>
+      <div className="px-6 pt-5 pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
+        <PipelineBreadcrumb candidate={candidate} current="discovery" />
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
           {candidate.ingredient_name}
         </h1>
@@ -528,64 +531,101 @@ export default function DiscoveryPage() {
             {activeTab === 'concepts' && (
               concepts.length > 0 ? (
                 <div className="space-y-3">
-                  {concepts.map(concept => (
-                    <button
-                      key={concept.id}
-                      onClick={() => navigate(`/concepts/${concept.id}`)}
-                      className="w-full text-left rounded-lg p-5 transition-all group border"
-                      style={{ backgroundColor: 'var(--bg-hover)', borderColor: 'var(--border-default)' }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(31, 31, 35, 0.8)';
-                        e.currentTarget.style.borderColor = 'rgba(96,165,250,0.3)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--bg-hover)';
-                        e.currentTarget.style.borderColor = 'var(--border-default)';
-                      }}
-                    >
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-1">
-                            <h4 className="font-semibold transition-colors" style={{ color: 'var(--text-primary)' }}>
-                              {concept.concept_name}
-                            </h4>
-                            <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
-                              backgroundColor: concept.status === 'selected' ? 'rgba(34,197,94,0.2)' : concept.status === 'rejected' ? 'rgba(239,68,68,0.2)' : 'var(--bg-active)',
-                              color: concept.status === 'selected' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)'
-                            }}>
-                              {concept.status}
+                  {concepts.map(concept => {
+                    const devProject = devProjects.find(p => p.concept_id === concept.id)
+                    return (
+                      <button
+                        key={concept.id}
+                        onClick={() => navigate(`/concepts/${concept.id}`)}
+                        className="w-full text-left rounded-lg p-5 transition-all group border"
+                        style={{ backgroundColor: 'var(--bg-hover)', borderColor: 'var(--border-default)' }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(31, 31, 35, 0.8)';
+                          e.currentTarget.style.borderColor = 'rgba(96,165,250,0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--bg-hover)';
+                          e.currentTarget.style.borderColor = 'var(--border-default)';
+                        }}
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-1">
+                              <h4 className="font-semibold transition-colors" style={{ color: 'var(--text-primary)' }}>
+                                {concept.concept_name}
+                              </h4>
+                              <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
+                                backgroundColor: concept.status === 'selected' ? 'rgba(34,197,94,0.2)' : concept.status === 'rejected' ? 'rgba(239,68,68,0.2)' : 'var(--bg-active)',
+                                color: concept.status === 'selected' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)'
+                              }}>
+                                {concept.status}
+                              </span>
+                              {devProject && (
+                                <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
+                                  backgroundColor: 'var(--green-muted)',
+                                  color: 'var(--green-text)'
+                                }}>
+                                  In Development
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2 mb-2">
+                              {concept.concept_type && (
+                                <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--blue-muted)', color: 'var(--blue-text)' }}>
+                                  {concept.concept_type.replace(/_/g, ' ')}
+                                </span>
+                              )}
+                              {concept.format && (
+                                <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-active)', color: 'var(--text-body)' }}>
+                                  {concept.format}
+                                </span>
+                              )}
+                              {devProject && (
+                                <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-active)', color: 'var(--text-muted)' }}>
+                                  {devProject.stage}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            {devProject && (
+                              <Link
+                                to={`/development/${devProject.id}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="text-xs px-2 py-1 rounded transition-colors"
+                                style={{
+                                  background: 'var(--green-muted)',
+                                  color: 'var(--green-text)',
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.target.style.background = 'var(--green)';
+                                  e.target.style.color = 'white';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.target.style.background = 'var(--green-muted)';
+                                  e.target.style.color = 'var(--green-text)';
+                                }}
+                              >
+                                View Dev →
+                              </Link>
+                            )}
+                            <div className="w-24 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--bg-active)' }}>
+                              <div
+                                className="h-full"
+                                style={{ width: `${Math.min(100, Math.max(0, parseFloat(concept.confidence_score) * 10))}%`, backgroundColor: 'var(--blue)' }}
+                              />
+                            </div>
+                            <span className="text-sm font-bold w-8" style={{ color: 'var(--text-primary)' }}>
+                              {parseFloat(concept.confidence_score).toFixed(1)}
                             </span>
                           </div>
-                          <div className="flex items-center gap-2 mb-2">
-                            {concept.concept_type && (
-                              <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--blue-muted)', color: 'var(--blue-text)' }}>
-                                {concept.concept_type.replace(/_/g, ' ')}
-                              </span>
-                            )}
-                            {concept.format && (
-                              <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--bg-active)', color: 'var(--text-body)' }}>
-                                {concept.format}
-                              </span>
-                            )}
-                          </div>
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <div className="w-24 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--bg-active)' }}>
-                            <div
-                              className="h-full"
-                              style={{ width: `${Math.min(100, Math.max(0, parseFloat(concept.confidence_score) * 10))}%`, backgroundColor: 'var(--blue)' }}
-                            />
-                          </div>
-                          <span className="text-sm font-bold w-8" style={{ color: 'var(--text-primary)' }}>
-                            {parseFloat(concept.confidence_score).toFixed(1)}
-                          </span>
-                        </div>
-                      </div>
-                      {concept.positioning_angle && (
-                        <p className="text-sm line-clamp-2" style={{ color: 'var(--text-muted)' }}>{concept.positioning_angle}</p>
-                      )}
-                    </button>
-                  ))}
+                        {concept.positioning_angle && (
+                          <p className="text-sm line-clamp-2" style={{ color: 'var(--text-muted)' }}>{concept.positioning_angle}</p>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
               ) : (
                 <div className="text-center py-8" style={{ color: 'var(--text-muted)' }}>

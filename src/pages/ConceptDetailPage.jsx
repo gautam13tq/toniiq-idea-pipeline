@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts'
+import PipelineBreadcrumb from '../components/PipelineBreadcrumb'
 
 /* ═══════════════════════════════════════════════════════════
    SHARED UTILITY COMPONENTS
@@ -839,6 +840,54 @@ function NextStepsPanel({ scores }) {
 
 
 /* ═══════════════════════════════════════════════════════════
+   EVIDENCE BUILDER FUNCTIONS
+   ═══════════════════════════════════════════════════════════ */
+
+function buildKeywordEvidence(datarovaData, fallback) {
+  if (!datarovaData) return fallback
+  return {
+    total_monthly_clicks: datarovaData.total_monthly_clicks,
+    growth_yoy_pct: datarovaData.growth_yoy_clicks_pct,
+    growth_3m_pct: datarovaData.growth_3m_clicks_pct,
+    primary_keyword_clicks: datarovaData.primary_keyword_clicks,
+    key_signals: [
+      `${datarovaData.total_related_keywords} keywords tracked with ${Number(datarovaData.avg_conversion_rate || 0).toFixed(1)}% avg conversion`,
+      `${formatNumber(datarovaData.total_monthly_sales)} monthly sales across the category`,
+      datarovaData.opportunity_summary,
+    ].filter(Boolean),
+  }
+}
+
+function buildRedditEvidence(redditResearchData, fallback) {
+  if (!redditResearchData) return fallback
+  return {
+    reddit_score: redditResearchData.reddit_score,
+    key_signals: [
+      `${Number((redditResearchData.sentiment_ratio || 0) * 100).toFixed(0)}% positive sentiment across ${redditResearchData.total_posts_analyzed} posts`,
+      redditResearchData.score_justification,
+      ...(Array.isArray(redditResearchData.underserved_needs)
+        ? redditResearchData.underserved_needs.slice(0, 2).map(n => `Unmet need: ${typeof n === 'string' ? n : n.need || n}`)
+        : []),
+    ].filter(Boolean),
+  }
+}
+
+function buildScienceEvidence(scienceResearchData, fallback) {
+  if (!scienceResearchData) return fallback
+  return {
+    key_signals: [
+      ...(Array.isArray(scienceResearchData.novel_angles)
+        ? scienceResearchData.novel_angles.map(a => (typeof a === 'string' ? a : a.angle || a.description || JSON.stringify(a)))
+        : []),
+      ...(Array.isArray(scienceResearchData.bioavailability_notes)
+        ? scienceResearchData.bioavailability_notes.slice(0, 2).map(n => (typeof n === 'string' ? n : n.note || n.description || JSON.stringify(n)))
+        : []),
+      scienceResearchData.safety_notes ? `Safety: ${scienceResearchData.safety_notes.slice(0, 120)}...` : null,
+    ].filter(Boolean),
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
    MAIN PAGE COMPONENT
    ═══════════════════════════════════════════════════════════ */
 export default function ConceptDetailPage() {
@@ -853,6 +902,12 @@ export default function ConceptDetailPage() {
   const [tiktokResearch, setTiktokResearch] = useState(null)
   const [googleTrends, setGoogleTrends] = useState(null)
   const [conceptScores, setConceptScores] = useState(null)
+  // Phase A enrichment data
+  const [datarovaData, setDatarovaData] = useState(null)
+  const [redditResearchData, setRedditResearchData] = useState(null)
+  const [scienceResearchData, setScienceResearchData] = useState(null)
+  // Development project link
+  const [devProject, setDevProject] = useState(null)
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState(false)
   const [message, setMessage] = useState('')
@@ -954,6 +1009,44 @@ export default function ConceptDetailPage() {
         .maybeSingle()
       setConceptScores(scoresData)
 
+      // ── Load Phase A enrichment data from enrichment tables ──
+      if (conceptData.candidate_id) {
+        const { data: darovaData } = await supabase
+          .from('datarova_enrichments')
+          .select('*')
+          .eq('candidate_id', conceptData.candidate_id)
+          .order('enriched_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+        setDatarovaData(darovaData)
+
+        const { data: redditData } = await supabase
+          .from('reddit_concept_research')
+          .select('*')
+          .eq('candidate_id', conceptData.candidate_id)
+          .order('researched_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+        setRedditResearchData(redditData)
+
+        const { data: scienceData } = await supabase
+          .from('science_concept_research')
+          .select('*')
+          .eq('candidate_id', conceptData.candidate_id)
+          .order('researched_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+        setScienceResearchData(scienceData)
+      }
+
+      // ── Load development project link ──
+      const { data: devProjectData } = await supabase
+        .from('development_projects')
+        .select('id, name, stage')
+        .eq('concept_id', conceptId)
+        .maybeSingle()
+      if (devProjectData) setDevProject(devProjectData)
+
     } catch (err) {
       console.error('Error loading concept:', err)
       setMessage('Error loading concept')
@@ -1034,17 +1127,18 @@ export default function ConceptDetailPage() {
   return (
     <div style={{ background: 'var(--bg-base)', minHeight: '100vh' }}>
       {/* Page Header */}
-      <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-        <button
-          onClick={() => navigate('/concepts')}
-          className="text-sm font-medium mb-3 flex items-center gap-1 transition-colors"
-          style={{ color: 'var(--text-muted)' }}
-        >
-          ← Concepts
-        </button>
+      <div className="px-6 pt-5 pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
+        <PipelineBreadcrumb candidate={candidate} concept={concept} current="concept" />
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
           {concept.concept_name}
         </h1>
+        {devProject && (
+          <p className="text-sm mt-2" style={{ color: 'var(--text-muted)' }}>
+            <Link to={`/development/${devProject.id}`} style={{ color: 'var(--blue-text)' }}>
+              View in Development →
+            </Link>
+          </p>
+        )}
       </div>
 
       <div className="px-6 py-6">
@@ -1307,9 +1401,9 @@ export default function ConceptDetailPage() {
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Phase A Evidence</h2>
               <div className="grid grid-cols-3 gap-6">
-                <KeywordEvidencePanel evidence={concept.keyword_evidence} />
-                <RedditEvidencePanel evidence={concept.reddit_evidence} />
-                <ScienceEvidencePanel evidence={concept.science_evidence} />
+                <KeywordEvidencePanel evidence={buildKeywordEvidence(datarovaData, concept.keyword_evidence)} />
+                <RedditEvidencePanel evidence={buildRedditEvidence(redditResearchData, concept.reddit_evidence)} />
+                <ScienceEvidencePanel evidence={buildScienceEvidence(scienceResearchData, concept.science_evidence)} />
               </div>
             </div>
           </>
