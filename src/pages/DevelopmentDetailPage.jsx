@@ -376,16 +376,23 @@ export default function DevelopmentDetailPage() {
           .order('created_at', { ascending: false })
         if (arts) setArtifacts(arts)
 
-        // Load relevant quotations — use formulation ingredients if available, else project name
+        // Load relevant quotations — use formulation ingredient names for precise matching
         let searchTerms = []
         if (form?.ingredients?.length) {
-          // Extract core ingredient names from formulation (strip supplier/pct info)
+          // Extract meaningful multi-word ingredient names, stripping supplier info in parens
           searchTerms = form.ingredients.map(ing => {
             const name = ing.ingredient || ing.name || ''
-            // Get the first meaningful word (e.g., "Astaxanthin" from "Astaxanthin 5% (BannerBio)")
-            return name.split(/[\s(%]/)[0].toLowerCase()
-          }).filter(w => w.length > 3)
-          // Deduplicate
+            // Remove "(BannerBio)" style suffixes and percentage specs like "5%"
+            const cleaned = name.replace(/\s*\(.*?\)/g, '').replace(/\s*\d+%/g, '').trim()
+            // Take the primary ingredient name (before any numeric/spec info)
+            // e.g., "Astaxanthin 5% (BannerBio)" → "Astaxanthin"
+            // e.g., "Black Pepper Extract 95% (Nutravative)" → "Black Pepper Extract"
+            // e.g., "Lycopene 10% Beadlets (BannerBio)" → "Lycopene"
+            const parts = cleaned.split(/\s+/)
+            // For multi-word ingredients like "Black Pepper Extract", "Sunflower Lecithin", "MCT Oil"
+            // Use the full cleaned name for the search
+            return cleaned.toLowerCase()
+          }).filter(w => w.length > 2)
           searchTerms = [...new Set(searchTerms)]
         } else {
           searchTerms = proj.name.toLowerCase().split(/\s+/).filter(w => w.length > 3)
@@ -394,7 +401,17 @@ export default function DevelopmentDetailPage() {
           const { data: quotes } = await supabase
             .from('quotations')
             .select('*')
-            .or(searchTerms.map(w => `ingredient.ilike.%${w}%`).join(','))
+            .or(searchTerms.map(w => {
+              // Use the first word only for matching to avoid over-specific queries
+              // but exclude very generic words that cause false positives
+              const firstWord = w.split(/\s+/)[0]
+              const skipWords = ['black', 'red', 'green', 'white', 'oil', 'extract']
+              // If first word is generic, use first two words
+              const term = skipWords.includes(firstWord) && w.split(/\s+/).length > 1
+                ? w.split(/\s+/).slice(0, 2).join(' ')
+                : firstWord
+              return `ingredient.ilike.%${term}%`
+            }).join(','))
             .order('ingredient', { ascending: true })
             .order('price_per_kg', { ascending: true })
             .limit(50)
@@ -425,7 +442,6 @@ export default function DevelopmentDetailPage() {
 
   const tabs = [
     { key: 'overview', label: 'Overview' },
-    { key: 'formulation', label: 'Formulation' },
     { key: 'costing', label: 'Costing' },
     { key: 'suppliers', label: 'Suppliers' },
     { key: 'artifacts', label: `Artifacts${artifacts.length ? ` (${artifacts.length})` : ''}` },
@@ -601,71 +617,165 @@ export default function DevelopmentDetailPage() {
           </div>
         )}
 
-        {activeTab === 'formulation' && (
-          <div
-            className="rounded-lg border p-5"
-            style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-                Formulation {formulation ? `v${formulation.version}` : ''}
-                {formulation?.name && ` — ${formulation.name}`}
-              </h3>
-              {formulation && (
-                <div className="flex gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
-                  {formulation.format && <span>Format: {formulation.format}</span>}
-                  {formulation.servings_per_container && <span>{formulation.servings_per_container} servings</span>}
-                  {formulation.total_weight_per_serving && <span>{formulation.total_weight_per_serving}mg/serving</span>}
-                </div>
-              )}
-            </div>
-            <IngredientsTable ingredients={formulation?.ingredients} />
-            {formulation?.notes && (
-              <p className="text-xs mt-4 pt-3 border-t" style={{ color: 'var(--text-muted)', borderColor: 'var(--border-subtle)' }}>
-                {formulation.notes}
-              </p>
-            )}
-          </div>
-        )}
-
         {activeTab === 'costing' && (
-          <div className="space-y-4">
-            {costing ? (
+          <div className="space-y-5">
+            {formulation || costing ? (
               <>
-                <div className="grid grid-cols-4 gap-3">
-                  <MetricCard label="Ingredient Cost" value={costing.ingredient_cost_per_unit ? `$${Number(costing.ingredient_cost_per_unit).toFixed(2)}` : null} />
-                  <MetricCard label="Packaging" value={`$${Number(costing.packaging_cost || 0.65).toFixed(2)}`} />
-                  <MetricCard label="Co-packing" value={costing.copacking_cost ? `$${Number(costing.copacking_cost).toFixed(2)}` : null} />
-                  <MetricCard label="Total COGS" value={costing.total_cogs ? `$${Number(costing.total_cogs).toFixed(2)}` : null} />
+                {/* Costing sheet header */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                      {formulation?.name || project.name}
+                    </h3>
+                    <div className="flex gap-4 mt-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+                      {formulation?.format && <span>{formulation.format}</span>}
+                      {formulation?.servings_per_container && <span>{formulation.servings_per_container} servings/bottle</span>}
+                      {formulation?.total_weight_per_serving && <span>{formulation.total_weight_per_serving}mg fill weight</span>}
+                      {formulation && <span>v{formulation.version}</span>}
+                    </div>
+                  </div>
                 </div>
 
-                {costing.margin_scenarios && Object.keys(costing.margin_scenarios).length > 0 && (
+                {/* Ingredient costing table — mirrors the costing sheet layout */}
+                <div
+                  className="rounded-lg border overflow-hidden"
+                  style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}
+                >
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr style={{ background: 'var(--bg-raised)', borderBottom: '1px solid var(--border-default)' }}>
+                          {['Ingredient', 'Dose/Serving', 'Potency', 'Supplier', 'Cost/kg', 'Cost/Bottle', 'Cost/Serving', 'Notes'].map(h => (
+                            <th key={h} className="text-left py-2.5 px-3 font-semibold" style={{ color: 'var(--text-faint)' }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(formulation?.ingredients || []).map((ing, i) => {
+                          const name = ing.ingredient || ing.name || '—'
+                          const potency = ing.potency_pct ?? (ing.potency != null ? (ing.potency < 1 ? ing.potency * 100 : ing.potency) : null)
+                          const costServing = ing.cost_per_serving != null ? Number(ing.cost_per_serving) : null
+                          const costBottle = costServing != null && formulation?.servings_per_container
+                            ? costServing * formulation.servings_per_container : null
+                          return (
+                            <tr key={i} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                              <td className="py-2 px-3 font-medium" style={{ color: 'var(--text-primary)' }}>{name}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.dose_mg ? `${ing.dose_mg}mg` : '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{potency != null ? `${potency}%` : '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>{ing.supplier || '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{ing.cost_per_kg ? `$${Number(ing.cost_per_kg)}` : '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{costBottle != null ? `$${costBottle.toFixed(3)}` : '—'}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{costServing != null ? `$${costServing.toFixed(4)}` : '—'}</td>
+                              <td className="py-2 px-3 max-w-[200px] truncate" style={{ color: 'var(--text-faint)' }} title={ing.notes || ''}>{ing.notes || ''}</td>
+                            </tr>
+                          )
+                        })}
+                        {/* Non-ingredient costs */}
+                        {costing && (
+                          <>
+                            <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>Packaging Components</td>
+                              <td colSpan={4}></td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>${Number(costing.packaging_cost || 0).toFixed(2)}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>
+                                {formulation?.servings_per_container ? `$${(Number(costing.packaging_cost || 0) / formulation.servings_per_container).toFixed(4)}` : '—'}
+                              </td>
+                              <td></td>
+                            </tr>
+                            <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>Co-packing</td>
+                              <td colSpan={4}></td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>${Number(costing.copacking_cost || 0).toFixed(2)}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>
+                                {formulation?.servings_per_container ? `$${(Number(costing.copacking_cost || 0) / formulation.servings_per_container).toFixed(4)}` : '—'}
+                              </td>
+                              <td></td>
+                            </tr>
+                            <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>Ship to FBA</td>
+                              <td colSpan={4}></td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>${Number(costing.shipping_cost || 0).toFixed(2)}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>
+                                {formulation?.servings_per_container ? `$${(Number(costing.shipping_cost || 0) / formulation.servings_per_container).toFixed(4)}` : '—'}
+                              </td>
+                              <td></td>
+                            </tr>
+                            <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-muted)' }}>Amazon Fulfillment</td>
+                              <td colSpan={4}></td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>${Number(costing.amazon_fees || 0).toFixed(2)}</td>
+                              <td className="py-2 px-3" style={{ color: 'var(--text-body)' }}>
+                                {formulation?.servings_per_container ? `$${(Number(costing.amazon_fees || 0) / formulation.servings_per_container).toFixed(4)}` : '—'}
+                              </td>
+                              <td></td>
+                            </tr>
+                          </>
+                        )}
+                        {/* Total row */}
+                        {costing && (
+                          <tr style={{ background: 'var(--bg-raised)', borderTop: '2px solid var(--border-default)' }}>
+                            <td className="py-2.5 px-3 font-bold" style={{ color: 'var(--text-primary)' }}>TOTAL COGS</td>
+                            <td colSpan={4}></td>
+                            <td className="py-2.5 px-3 font-bold" style={{ color: 'var(--text-primary)' }}>
+                              ${Number(costing.total_cogs || 0).toFixed(2)}
+                            </td>
+                            <td className="py-2.5 px-3 font-bold" style={{ color: 'var(--text-primary)' }}>
+                              {formulation?.servings_per_container ? `$${(Number(costing.total_cogs || 0) / formulation.servings_per_container).toFixed(4)}` : '—'}
+                            </td>
+                            <td></td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Margin analysis */}
+                {costing?.margin_scenarios && Object.keys(costing.margin_scenarios).length > 0 && (
                   <div
                     className="rounded-lg border p-5"
                     style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}
                   >
-                    <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-faint)' }}>
-                      Margin Scenarios
+                    <h3 className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: 'var(--text-faint)' }}>
+                      Margin Analysis
                     </h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      {Object.entries(costing.margin_scenarios).map(([key, price]) => (
-                        <div key={key} className="text-center">
-                          <p className="text-[11px]" style={{ color: 'var(--text-faint)' }}>{key.replace('margin_', '')}% Margin</p>
-                          <p className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>${Number(price).toFixed(2)}</p>
-                        </div>
-                      ))}
+                    <div className="grid grid-cols-4 gap-3">
+                      {Object.entries(costing.margin_scenarios)
+                        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
+                        .map(([key, price]) => {
+                          const isTarget = key === '40%' || key === String(Number(project.target_margin_pct))
+                          return (
+                            <div
+                              key={key}
+                              className="text-center rounded-lg border px-3 py-3"
+                              style={{
+                                borderColor: isTarget ? 'var(--green)' : 'var(--border-subtle)',
+                                background: isTarget ? 'var(--green-muted)' : 'var(--bg-raised)',
+                              }}
+                            >
+                              <p className="text-[10px] font-medium uppercase" style={{ color: isTarget ? 'var(--green-text)' : 'var(--text-faint)' }}>
+                                {key.includes('%') ? key : `${key}%`} margin
+                              </p>
+                              <p className="text-xl font-bold mt-1" style={{ color: isTarget ? 'var(--green-text)' : 'var(--text-primary)' }}>
+                                ${Number(price).toFixed(2)}
+                              </p>
+                              {formulation?.servings_per_container && (
+                                <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-faint)' }}>
+                                  ${(Number(price) / formulation.servings_per_container).toFixed(3)}/serving
+                                </p>
+                              )}
+                            </div>
+                          )
+                        })}
                     </div>
                   </div>
                 )}
 
-                {costing.target_sell_price && (
-                  <div
-                    className="rounded-lg border-l-2 px-4 py-3"
-                    style={{ background: 'var(--green-muted)', borderColor: 'var(--green)' }}
-                  >
-                    <span className="text-xs" style={{ color: 'var(--green-text)' }}>
-                      Target sell price: <span className="font-semibold">${Number(costing.target_sell_price).toFixed(2)}</span>
-                    </span>
+                {/* Notes */}
+                {(formulation?.notes || costing?.notes) && (
+                  <div className="text-xs pt-2" style={{ color: 'var(--text-muted)' }}>
+                    {formulation?.notes && <p>{formulation.notes}</p>}
+                    {costing?.notes && <p className="mt-1">{costing.notes}</p>}
                   </div>
                 )}
               </>
