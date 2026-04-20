@@ -40,7 +40,7 @@ export default function App() {
   async function loadData() {
     setLoading(true)
     const [candidatesRes, poeRes, datarovaRes, picksRes] = await Promise.all([
-      supabase.from('idea_candidates').select('*').neq('stage', 'killed'),
+      supabase.from('idea_candidates').select('*').neq('stage', 'archive'),
       supabase.from('poe_snapshots').select('*'),
       supabase.from('datarova_snapshots').select('*'),
       supabase.from('claude_weekly_picks').select('*, idea_candidates(ingredient_name, category, stage)').order('week_date', { ascending: false }).order('rank'),
