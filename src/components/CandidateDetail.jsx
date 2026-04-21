@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { supabase } from '../lib/supabase'
 
-const STAGE_ORDER = ['raw', 'screened', 'enriched', 'scored']
-const STAGE_LABELS = { raw: 'Raw', screened: 'Screened', enriched: 'Enriched', scored: 'Scored' }
+const STAGE_ORDER = ['inbox', 'research', 'evaluation', 'development']
+const STAGE_LABELS = { inbox: 'Inbox', research: 'Research', evaluation: 'Evaluation', development: 'Development', archive: 'Archive' }
 const STAGE_COLORS = {
-  raw: { background: 'rgba(100,116,139,1)' },
-  screened: { background: 'var(--blue)' },
-  enriched: { background: 'rgba(147,112,219,1)' },
-  scored: { background: 'var(--green)' },
+  inbox: { background: 'rgba(100,116,139,1)' },
+  research: { background: 'var(--blue)' },
+  evaluation: { background: 'rgba(147,112,219,1)' },
+  development: { background: 'var(--green)' },
+  archive: { background: 'rgba(100,116,139,0.6)' },
 }
 
 function formatNum(n) {
@@ -67,7 +68,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
 
   function kill() {
     if (killReason.trim()) {
-      onUpdate({ stage: 'killed', killed_reason: killReason })
+      onUpdate({ stage: 'archive', killed_reason: killReason })
       setShowKill(false)
     }
   }
@@ -128,7 +129,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
               ))}
             </div>
             <div className="flex gap-2">
-              {currentStageIdx < STAGE_ORDER.length - 1 && candidate.stage !== 'killed' && (
+              {currentStageIdx < STAGE_ORDER.length - 1 && candidate.stage !== 'archive' && (
                 <button
                   onClick={promote}
                   className="px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors"
@@ -137,7 +138,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                   Promote to {STAGE_LABELS[STAGE_ORDER[currentStageIdx + 1]]}
                 </button>
               )}
-              {candidate.stage !== 'killed' && (
+              {candidate.stage !== 'archive' && (
                 showKill ? (
                   <div className="flex gap-2 items-center flex-1">
                     <input
@@ -167,7 +168,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
             </div>
 
             {/* View Discovery Report link for screened+ candidates */}
-            {candidate.stage !== 'raw' && (
+            {candidate.stage !== 'inbox' && (
               <a
                 href={`/discovery/${candidate.id}`}
                 className="mt-2 inline-block px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors"
