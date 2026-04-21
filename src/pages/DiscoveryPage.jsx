@@ -555,8 +555,8 @@ export default function DiscoveryPage() {
                                 {concept.concept_name}
                               </h4>
                               <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
-                                backgroundColor: concept.status === 'selected' ? 'rgba(34,197,94,0.2)' : concept.status === 'rejected' ? 'rgba(239,68,68,0.2)' : 'var(--bg-active)',
-                                color: concept.status === 'selected' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)'
+                                backgroundColor: concept.status === 'accepted' ? 'rgba(34,197,94,0.2)' : concept.status === 'rejected' ? 'rgba(239,68,68,0.2)' : 'var(--bg-active)',
+                                color: concept.status === 'accepted' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)'
                               }}>
                                 {concept.status}
                               </span>

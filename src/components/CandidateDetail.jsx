@@ -27,7 +27,7 @@ function formatUsd(n) {
   return '$' + n.toFixed(2)
 }
 
-export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate }) {
+export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch }) {
   const [notes, setNotes] = useState(candidate.notes || '')
   const [saving, setSaving] = useState(false)
   const [killReason, setKillReason] = useState('')
@@ -55,15 +55,6 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
     setSaving(true)
     await onUpdate({ notes })
     setSaving(false)
-  }
-
-  function promote() {
-    const idx = STAGE_ORDER.indexOf(candidate.stage)
-    if (idx < STAGE_ORDER.length - 1) {
-      const nextStage = STAGE_ORDER[idx + 1]
-      onUpdate({ stage: nextStage })
-      // Enrichment (keyword data, Reddit, Science, Concepts) runs via Cowork scheduled task
-    }
   }
 
   function kill() {
@@ -107,16 +98,14 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
 
         <div className="p-6 space-y-6">
 
-          {/* Stage Controls */}
+          {/* Lifecycle */}
           <div>
-            <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Pipeline Stage</h3>
-            <div className="flex items-center gap-1 mb-3">
+            <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-body)' }}>Lifecycle</h3>
+            <div className="flex items-center gap-1 mb-3 flex-wrap">
               {STAGE_ORDER.map((stage, i) => (
                 <div key={stage} className="flex items-center gap-1">
-                  <div className="w-20 text-center py-1.5 rounded text-xs font-medium text-white" style={
-                    i <= currentStageIdx
-                      ? STAGE_COLORS[stage]
-                      : { background: 'var(--bg-hover)', color: 'var(--text-faint)' }
+                  <div className="px-2.5 py-1.5 rounded text-xs font-medium text-white text-center" style={
+                    i <= currentStageIdx ? STAGE_COLORS[stage] : { background: 'var(--bg-hover)', color: 'var(--text-faint)' }
                   }>
                     {STAGE_LABELS[stage]}
                   </div>
@@ -128,15 +117,21 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                 </div>
               ))}
             </div>
-            <div className="flex gap-2">
-              {currentStageIdx < STAGE_ORDER.length - 1 && candidate.stage !== 'archive' && (
+            <div className="flex gap-2 flex-wrap">
+              {/* Queue for Research — only meaningful action from Inbox */}
+              {candidate.stage === 'inbox' && onQueueResearch && (
                 <button
-                  onClick={promote}
-                  className="px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors"
-                  style={{ background: 'var(--accent)', color: 'var(--text-inverse)' }}
+                  onClick={onQueueResearch}
+                  className="px-4 py-2 text-sm font-medium rounded-lg transition-colors"
+                  style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', border: '1px solid rgba(59,130,246,0.3)' }}
                 >
-                  Promote to {STAGE_LABELS[STAGE_ORDER[currentStageIdx + 1]]}
+                  ◎ Queue for Research
                 </button>
+              )}
+              {candidate.stage !== 'inbox' && candidate.stage !== 'archive' && (
+                <div className="text-xs px-3 py-2 rounded-lg" style={{ background: 'var(--bg-active)', color: 'var(--text-muted)' }}>
+                  Stage auto-updates from concept decisions. No manual promotion needed.
+                </div>
               )}
               {candidate.stage !== 'archive' && (
                 showKill ? (

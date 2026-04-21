@@ -227,7 +227,7 @@ function CompositeScoreHero({ scores }) {
     <div className="border rounded-xl p-8 mb-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Phase B Evaluation</h2>
+          <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Evaluation</h2>
           <p style={{ color: 'var(--text-muted)' }}>Composite score from 4 strategic pillars</p>
         </div>
         <div className="flex items-center gap-4">
@@ -1170,7 +1170,7 @@ export default function ConceptDetailPage() {
                 color: activeTab === 'evaluation' ? 'var(--text-inverse)' : 'var(--text-muted)',
               }}
             >
-              Phase B Evaluation
+              Evaluation
               {conceptScores && (
                 <span className="text-xs px-2 py-0.5 rounded-full" style={{
                   background: parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-muted)' : 'var(--amber-muted)',
@@ -1235,8 +1235,8 @@ export default function ConceptDetailPage() {
                         </div>
                       </div>
                       <span className="text-xs font-bold px-3 py-1.5 rounded-full flex-shrink-0" style={{
-                        background: concept.status === 'selected' ? 'var(--green-muted)' : concept.status === 'rejected' ? 'var(--red-muted)' : 'var(--bg-hover)',
-                        color: concept.status === 'selected' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)',
+                        background: concept.status === 'accepted' ? 'var(--green-muted)' : concept.status === 'rejected' ? 'var(--red-muted)' : 'var(--bg-hover)',
+                        color: concept.status === 'accepted' ? 'var(--green-text)' : concept.status === 'rejected' ? 'var(--red-text)' : 'var(--text-body)',
                       }}>
                         {concept.status}
                       </span>
@@ -1313,15 +1313,23 @@ export default function ConceptDetailPage() {
                 <div className="border rounded-lg p-6 sticky top-24" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
                   <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Actions</h3>
                   <div className="space-y-3 mb-6">
-                    <ActionButton onClick={() => updateStatus('selected')} disabled={actionLoading || concept.status === 'selected'} variant="success">
-                      ✓ Select for Phase B
+                    <ActionButton onClick={() => updateStatus('accepted')} disabled={actionLoading || concept.status === 'accepted'} variant="success">
+                      ✓ Accept — run evaluation
                     </ActionButton>
                     <ActionButton onClick={() => updateStatus('rejected')} disabled={actionLoading || concept.status === 'rejected'} variant="danger">
                       ✕ Reject
                     </ActionButton>
-                    {concept.status !== 'generated' && (
-                      <ActionButton onClick={() => updateStatus('generated')} disabled={actionLoading} variant="secondary">
-                        ↻ Reset
+                    <ActionButton onClick={() => updateStatus('parked')} disabled={actionLoading || concept.status === 'parked'} variant="secondary">
+                      ⏸ Park
+                    </ActionButton>
+                    {concept.status === 'evaluated' && (
+                      <ActionButton onClick={() => updateStatus('greenlit')} disabled={actionLoading} variant="success">
+                        ✓✓ Greenlight → Development
+                      </ActionButton>
+                    )}
+                    {concept.status !== 'proposed' && (
+                      <ActionButton onClick={() => updateStatus('proposed')} disabled={actionLoading} variant="secondary">
+                        ↻ Reset to Proposed
                       </ActionButton>
                     )}
                   </div>

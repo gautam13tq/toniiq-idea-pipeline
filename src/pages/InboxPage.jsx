@@ -1,135 +1,191 @@
-import { useEffect, useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
+import PipelineTable from '../components/PipelineTable'
+import CandidateDetail from '../components/CandidateDetail'
+import FilterBar from '../components/FilterBar'
+import StatsBar from '../components/StatsBar'
 
 /**
- * Inbox — raw ideas not yet screened. 800+ candidates, so this page is a
- * searchable/filterable list with bulk-promote to "run Phase A" queue.
+ * Inbox — raw ideas that haven't been screened yet.
+ * Matches the old Discovery page quality: stats bar, filter bar, sortable
+ * table with POE + Datarova data, clickable rows open CandidateDetail sidebar.
+ * Promoting an idea out of Inbox queues it for Phase A research.
  */
 
+const CATEGORIES = [
+  'All Categories',
+  'Gut Health', 'Longevity', 'Cognitive Health', 'Metabolic Health',
+  'Immune Health', 'Heart Health', 'Joint & Bone', 'Beauty',
+  "Women's Health", "Men's Health", 'Detox & Cleanse', 'Uncategorized'
+]
+
 export default function InboxPage() {
-  const [ideas, setIdeas] = useState([])
+  const [candidates, setCandidates] = useState([])
+  const [poeData, setPoeData] = useState({})
+  const [datarovaData, setDatarovaData] = useState({})
+  const [picks, setPicks] = useState([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('all')
-  const [flaggedOnly, setFlaggedOnly] = useState(false)
-  const [poeMap, setPoeMap] = useState({})
+  const [selectedId, setSelectedId] = useState(null)
+  const [filters, setFilters] = useState({
+    search: '',
+    category: 'All Categories',
+    stage: 'all',
+    showPicks: false,
+    flaggedOnly: false,
+    sortBy: 'poe_volume',
+    sortDir: 'desc',
+  })
 
   useEffect(() => { loadData() }, [])
 
   async function loadData() {
-    const [ideasRes, poeRes] = await Promise.all([
-      supabase.from('idea_candidates').select('*').eq('stage', 'inbox').order('last_updated_at', { ascending: false }),
-      supabase.from('poe_snapshots').select('candidate_id,search_volume_90d,search_volume_growth_90d,flagged_high_opportunity,avg_price_usd,import_date'),
+    setLoading(true)
+    const [candidatesRes, poeRes, datarovaRes, picksRes] = await Promise.all([
+      supabase.from('idea_candidates').select('*').eq('stage', 'inbox'),
+      supabase.from('poe_snapshots').select('*'),
+      supabase.from('datarova_snapshots').select('*'),
+      supabase.from('claude_weekly_picks').select('*, idea_candidates(ingredient_name, category, stage)').order('week_date', { ascending: false }).order('rank'),
     ])
-    setIdeas(ideasRes.data || [])
-    const pm = {}
-    for (const r of (poeRes.data || [])) {
-      if (!pm[r.candidate_id] || r.import_date > pm[r.candidate_id].import_date) pm[r.candidate_id] = r
+
+    setCandidates(candidatesRes.data || [])
+
+    const poeMap = {}
+    for (const row of (poeRes.data || [])) {
+      if (!poeMap[row.candidate_id] || row.import_date > poeMap[row.candidate_id].import_date) poeMap[row.candidate_id] = row
     }
-    setPoeMap(pm)
+    setPoeData(poeMap)
+
+    const drMap = {}
+    for (const row of (datarovaRes.data || [])) {
+      if (!drMap[row.candidate_id] || (row.search_volume || 0) > (drMap[row.candidate_id].search_volume || 0)) drMap[row.candidate_id] = row
+    }
+    setDatarovaData(drMap)
+
+    setPicks(picksRes.data || [])
     setLoading(false)
   }
 
-  const categories = useMemo(() => ['all', ...Array.from(new Set(ideas.map(i => i.category).filter(Boolean))).sort()], [ideas])
+  const filtered = useCallback(() => {
+    let result = [...candidates]
+    const { search, category, showPicks, flaggedOnly, sortBy, sortDir } = filters
 
-  const filtered = useMemo(() => {
-    const q = search.toLowerCase().trim()
-    return ideas.filter(i => {
-      if (q && !i.ingredient_name.toLowerCase().includes(q)) return false
-      if (category !== 'all' && i.category !== category) return false
-      if (flaggedOnly && !poeMap[i.id]?.flagged_high_opportunity) return false
-      return true
-    }).slice(0, 500) // cap render for perf
-  }, [ideas, search, category, flaggedOnly, poeMap])
+    if (search) {
+      const q = search.toLowerCase()
+      result = result.filter(c => c.ingredient_name.toLowerCase().includes(q))
+    }
+    if (category === 'Uncategorized') result = result.filter(c => !c.category)
+    else if (category !== 'All Categories') result = result.filter(c => c.category === category)
+    if (showPicks) {
+      const pickIds = new Set(picks.map(p => p.candidate_id))
+      result = result.filter(c => pickIds.has(c.id))
+    }
+    if (flaggedOnly) {
+      const flaggedIds = new Set(Object.entries(poeData).filter(([, v]) => v.flagged_high_opportunity).map(([k]) => k))
+      result = result.filter(c => flaggedIds.has(c.id))
+    }
 
-  async function promoteToPhaseA(idea) {
-    if (!confirm(`Queue Phase A research for "${idea.ingredient_name}"?`)) return
+    result.sort((a, b) => {
+      let va, vb
+      switch (sortBy) {
+        case 'name':
+          va = a.ingredient_name.toLowerCase(); vb = b.ingredient_name.toLowerCase()
+          return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va)
+        case 'poe_volume':
+          va = poeData[a.id]?.search_volume_90d || 0; vb = poeData[b.id]?.search_volume_90d || 0; break
+        case 'poe_growth':
+          va = poeData[a.id]?.search_volume_growth_90d || 0; vb = poeData[b.id]?.search_volume_growth_90d || 0; break
+        case 'datarova_growth':
+          va = datarovaData[a.id]?.search_volume_trend || 0; vb = datarovaData[b.id]?.search_volume_trend || 0; break
+        case 'datarova_conv':
+          va = datarovaData[a.id]?.conversion_rate || 0; vb = datarovaData[b.id]?.conversion_rate || 0; break
+        case 'sources':
+          va = a.source_count || 0; vb = b.source_count || 0; break
+        case 'category':
+          va = (a.category || 'zzz').toLowerCase(); vb = (b.category || 'zzz').toLowerCase()
+          return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va)
+        default: va = 0; vb = 0
+      }
+      return sortDir === 'desc' ? (vb - va) : (va - vb)
+    })
+
+    return result
+  }, [candidates, filters, poeData, datarovaData, picks])
+
+  const selectedCandidate = candidates.find(c => c.id === selectedId)
+
+  async function updateCandidate(id, updates) {
+    await supabase.from('idea_candidates').update(updates).eq('id', id)
+    // If stage changed out of inbox, remove from list
+    if (updates.stage && updates.stage !== 'inbox') {
+      setCandidates(prev => prev.filter(c => c.id !== id))
+      setSelectedId(null)
+    } else {
+      setCandidates(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c))
+    }
+  }
+
+  async function promoteToResearch(id) {
+    const idea = candidates.find(c => c.id === id)
+    if (!idea) return
+    // Queue a run_phase_a pending action — Claude will pick it up next session
     await supabase.from('pending_actions').insert({
       entity_type: 'idea',
-      entity_id: idea.id,
+      entity_id: id,
       action: 'run_phase_a',
       triggered_by: 'ui',
       context: { ingredient_name: idea.ingredient_name },
     })
-    alert(`Queued. Claude will run Phase A on "${idea.ingredient_name}" in the next Cowork session.`)
+    alert(`Queued research for "${idea.ingredient_name}". Claude will run Phase A (keyword + Reddit + science + concepts) next Cowork session.`)
   }
 
-  if (loading) return <div className="p-6 text-sm" style={{ color: 'var(--text-faint)' }}>Loading inbox...</div>
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto mb-4" style={{ borderBottomColor: 'var(--blue)' }}></div>
+          <p style={{ color: 'var(--text-muted)' }}>Loading inbox...</p>
+        </div>
+      </div>
+    )
+  }
+
+  const data = filtered()
 
   return (
-    <div className="p-6 max-w-6xl">
-      <div className="mb-5">
+    <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
+      <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-default)' }}>
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>Inbox</h1>
-        <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-          {ideas.length} raw idea{ideas.length !== 1 ? 's' : ''} waiting to be screened. Promote to Phase A and Claude will run keyword + Reddit + science research.
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
+          {candidates.length} raw idea{candidates.length !== 1 ? 's' : ''} not yet screened. Click a row to inspect POE/Datarova data, then queue for research.
         </p>
       </div>
 
-      {/* Filters */}
-      <div className="mb-4 flex items-center gap-3 flex-wrap">
-        <input
-          type="text"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          placeholder="Search ingredients..."
-          className="px-3 py-1.5 text-sm rounded border"
-          style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)', color: 'var(--text-primary)', width: 240 }}
+      <div className="px-6 py-4">
+        <StatsBar candidates={candidates} poeData={poeData} datarovaData={datarovaData} />
+        <FilterBar filters={filters} setFilters={setFilters} categories={CATEGORIES} resultCount={data.length} />
+        <PipelineTable
+          candidates={data}
+          poeData={poeData}
+          datarovaData={datarovaData}
+          picks={picks}
+          filters={filters}
+          setFilters={setFilters}
+          onSelect={setSelectedId}
+          selectedId={selectedId}
         />
-        <select
-          value={category}
-          onChange={e => setCategory(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border"
-          style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)', color: 'var(--text-primary)' }}
-        >
-          {categories.map(c => <option key={c} value={c}>{c === 'all' ? 'All categories' : c}</option>)}
-        </select>
-        <label className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-muted)' }}>
-          <input type="checkbox" checked={flaggedOnly} onChange={e => setFlaggedOnly(e.target.checked)} />
-          High-opp only
-        </label>
-        <div className="text-xs ml-auto" style={{ color: 'var(--text-faint)' }}>
-          {filtered.length} shown{filtered.length !== ideas.length && ` (of ${ideas.length})`}
-        </div>
       </div>
 
-      {/* List */}
-      <div className="rounded-lg border overflow-hidden" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-[11px] uppercase tracking-wider" style={{ color: 'var(--text-faint)', background: 'var(--bg-active)' }}>
-              <th className="px-4 py-2.5">Ingredient</th>
-              <th className="px-4 py-2.5">Category</th>
-              <th className="px-4 py-2.5 text-right">POE Vol 90d</th>
-              <th className="px-4 py-2.5 text-right">Growth</th>
-              <th className="px-4 py-2.5"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map(idea => {
-              const poe = poeMap[idea.id]
-              return (
-                <tr key={idea.id} className="border-t" style={{ borderColor: 'var(--border-default)' }}>
-                  <td className="px-4 py-2.5">
-                    <Link to={`/discovery/${idea.id}`} className="font-medium hover:underline" style={{ color: 'var(--text-primary)' }}>
-                      {idea.ingredient_name}
-                    </Link>
-                    {poe?.flagged_high_opportunity && <span className="ml-2 text-[10px] px-1 rounded" style={{ background: 'var(--amber-muted)', color: 'var(--amber-text)' }}>★</span>}
-                  </td>
-                  <td className="px-4 py-2.5 text-xs" style={{ color: 'var(--text-muted)' }}>{idea.category || '—'}</td>
-                  <td className="px-4 py-2.5 text-right text-xs tabular-nums" style={{ color: 'var(--text-muted)' }}>{poe?.search_volume_90d?.toLocaleString() || '—'}</td>
-                  <td className="px-4 py-2.5 text-right text-xs tabular-nums" style={{ color: 'var(--text-muted)' }}>{poe?.search_volume_growth_90d != null ? `${Math.round(poe.search_volume_growth_90d * 100)}%` : '—'}</td>
-                  <td className="px-4 py-2.5 text-right">
-                    <button onClick={() => promoteToPhaseA(idea)} className="text-[11px] px-2 py-1 rounded" style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', border: '1px solid rgba(59,130,246,0.3)' }}>
-                      → Run Phase A
-                    </button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+      {selectedCandidate && (
+        <CandidateDetail
+          candidate={selectedCandidate}
+          poe={poeData[selectedId]}
+          datarova={datarovaData[selectedId]}
+          picks={picks.filter(p => p.candidate_id === selectedId)}
+          onClose={() => setSelectedId(null)}
+          onUpdate={(updates) => updateCandidate(selectedId, updates)}
+          onQueueResearch={() => promoteToResearch(selectedId)}
+        />
+      )}
     </div>
   )
 }
