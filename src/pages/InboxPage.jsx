@@ -135,7 +135,7 @@ export default function InboxPage() {
       triggered_by: 'ui',
       context: { ingredient_name: idea.ingredient_name },
     })
-    alert(`Queued research for "${idea.ingredient_name}". Claude will run Phase A (keyword + Reddit + science + concepts) next Cowork session.`)
+    alert(`Queued research for "${idea.ingredient_name}". Keyword + Reddit + science + concept synthesis will run and results will appear on the Research page.`)
   }
 
   if (loading) {
