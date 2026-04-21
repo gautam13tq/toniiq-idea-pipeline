@@ -27,7 +27,7 @@ function formatUsd(n) {
   return '$' + n.toFixed(2)
 }
 
-export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch }) {
+export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch, jobStatus }) {
   const [notes, setNotes] = useState(candidate.notes || '')
   const [saving, setSaving] = useState(false)
   const [killReason, setKillReason] = useState('')
@@ -117,6 +117,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                 </div>
               ))}
             </div>
+            {jobStatus && <div className="mb-3">{jobStatus}</div>}
             <div className="flex gap-2 flex-wrap">
               {/* Queue for Research — only meaningful action from Inbox */}
               {candidate.stage === 'inbox' && onQueueResearch && (
@@ -125,7 +126,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                   className="px-4 py-2 text-sm font-medium rounded-lg transition-colors"
                   style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', border: '1px solid rgba(59,130,246,0.3)' }}
                 >
-                  ◎ Queue for Research
+                  ◎ Run Research
                 </button>
               )}
               {candidate.stage !== 'inbox' && candidate.stage !== 'archive' && (
