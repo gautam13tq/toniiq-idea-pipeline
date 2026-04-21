@@ -4,6 +4,7 @@ import PipelineTable from '../components/PipelineTable'
 import CandidateDetail from '../components/CandidateDetail'
 import FilterBar from '../components/FilterBar'
 import StatsBar from '../components/StatsBar'
+import ResearchJobStatus from '../components/ResearchJobStatus'
 
 /**
  * Inbox — raw ideas that haven't been screened yet.
@@ -127,15 +128,18 @@ export default function InboxPage() {
   async function promoteToResearch(id) {
     const idea = candidates.find(c => c.id === id)
     if (!idea) return
-    // Queue a run_phase_a pending action — Claude will pick it up next session
-    await supabase.from('pending_actions').insert({
-      entity_type: 'idea',
-      entity_id: id,
-      action: 'run_phase_a',
-      triggered_by: 'ui',
+    if (!confirm(`Run research on "${idea.ingredient_name}"? This kicks off ~5-8 minutes of automated work (keyword + Reddit + science + concept synthesis).`)) return
+    // 1. Insert pending action
+    const { data: action, error } = await supabase.from('pending_actions').insert({
+      entity_type: 'idea', entity_id: id, action: 'run_phase_a', triggered_by: 'ui',
       context: { ingredient_name: idea.ingredient_name },
+    }).select('id').single()
+    if (error) { alert(`Failed to queue: ${error.message}`); return }
+    // 2. Fire-and-forget invoke the Edge Function. Don't await — runs several minutes.
+    supabase.functions.invoke('phase-a-gather', { body: { pending_action_id: action.id } }).catch(e => {
+      console.error('Failed to invoke phase-a-gather:', e)
     })
-    alert(`Queued research for "${idea.ingredient_name}". Keyword + Reddit + science + concept synthesis will run and results will appear on the Research page.`)
+    alert(`Research started for "${idea.ingredient_name}". Results will appear on the Research page in ~5-8 min.`)
   }
 
   if (loading) {
@@ -184,6 +188,7 @@ export default function InboxPage() {
           onClose={() => setSelectedId(null)}
           onUpdate={(updates) => updateCandidate(selectedId, updates)}
           onQueueResearch={() => promoteToResearch(selectedId)}
+          jobStatus={<ResearchJobStatus candidateId={selectedId} />}
         />
       )}
     </div>
