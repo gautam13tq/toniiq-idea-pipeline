@@ -10,7 +10,7 @@ import PendingActionsBanner from '../components/PendingActionsBanner'
  */
 
 const CONCEPT_ACTIONS = [
-  { status: 'accepted', label: 'Accept → Phase B', color: 'green' },
+  { status: 'accepted', label: 'Accept → Evaluate', color: 'green' },
   { status: 'rejected', label: 'Reject', color: 'red' },
   { status: 'parked', label: 'Park for later', color: 'gray' },
 ]
@@ -23,7 +23,7 @@ const BTN_STYLE = {
 
 const STATUS_BADGES = {
   proposed: { label: 'Proposed', bg: 'var(--amber-muted)', text: 'var(--amber-text)' },
-  accepted: { label: 'Accepted · Phase B pending', bg: 'var(--blue-muted)', text: 'var(--blue-text)' },
+  accepted: { label: 'Accepted · evaluation pending', bg: 'var(--blue-muted)', text: 'var(--blue-text)' },
   evaluated: { label: 'Evaluated', bg: 'var(--green-muted)', text: 'var(--green-text)' },
   rejected: { label: 'Rejected', bg: 'var(--red-muted)', text: 'var(--red-text)' },
   parked: { label: 'Parked', bg: 'var(--bg-active)', text: 'var(--text-muted)' },
@@ -79,7 +79,7 @@ export default function ResearchPage() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>Research</h1>
         <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-          Phase A complete. {ideas.length} idea{ideas.length !== 1 ? 's' : ''} with concepts awaiting your decision.
+          Research complete. {ideas.length} idea{ideas.length !== 1 ? 's' : ''} with concepts awaiting your decision. Accept a concept to queue its evaluation.
         </p>
       </div>
 

@@ -45,11 +45,11 @@ function SortHeader({ label, field, filters, setFilters }) {
 }
 
 const STAGE_COLORS = {
-  raw: { background: 'rgba(100,116,139,0.3)', color: 'var(--text-muted)' },
-  screened: { background: 'var(--blue-muted)', color: 'var(--blue-text)' },
-  enriched: { background: 'rgba(147,112,219,0.2)', color: 'rgba(196,181,253,1)' },
-  scored: { background: 'var(--green-muted)', color: 'var(--green-text)' },
-  killed: { background: 'var(--red-muted)', color: 'var(--red-text)' },
+  inbox: { background: 'rgba(100,116,139,0.3)', color: 'var(--text-muted)' },
+  research: { background: 'var(--blue-muted)', color: 'var(--blue-text)' },
+  evaluation: { background: 'rgba(147,112,219,0.2)', color: 'rgba(196,181,253,1)' },
+  development: { background: 'var(--green-muted)', color: 'var(--green-text)' },
+  archive: { background: 'var(--red-muted)', color: 'var(--red-text)' },
 }
 
 export default function PipelineTable({ candidates, poeData, datarovaData, picks, filters, setFilters, onSelect, selectedId }) {

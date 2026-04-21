@@ -1,348 +1,168 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
-const STAGES = [
-  { key: 'sourcing', label: 'Sourcing', color: 'var(--blue)' },
-  { key: 'formulation', label: 'Formulation', color: 'var(--amber)' },
-  { key: 'r_and_d', label: 'R&D', color: 'var(--green)' },
-  { key: 'pre_greenlight', label: 'Pre-Greenlight', color: '#a78bfa' },
-]
+/**
+ * Development — a read-only list of concepts that have been greenlit for
+ * development. This is intentionally simple: Toniiq tracks actual development
+ * work in Notion + local iCloud folders, not in this app. This page exists
+ * purely so Gautam has visibility over which concepts are "in flight."
+ */
 
-const PRIORITY_COLORS = {
-  high: { bg: 'var(--red-muted)', text: 'var(--red-text)', border: 'var(--red)' },
-  medium: { bg: 'var(--amber-muted)', text: 'var(--amber-text)', border: 'var(--amber)' },
-  low: { bg: 'var(--blue-muted)', text: 'var(--blue-text)', border: 'var(--blue)' },
-}
-
-function StageBadge({ stage }) {
-  const s = STAGES.find(st => st.key === stage) || { label: stage, color: 'var(--text-muted)' }
-  return (
-    <span
-      className="text-[11px] font-medium px-2 py-0.5 rounded-full border"
-      style={{ color: s.color, borderColor: s.color, background: `${s.color}15` }}
-    >
-      {s.label}
-    </span>
-  )
-}
-
-function PriorityDot({ priority }) {
-  const p = PRIORITY_COLORS[priority] || PRIORITY_COLORS.medium
-  return (
-    <span
-      className="inline-block w-2 h-2 rounded-full"
-      style={{ background: p.border }}
-      title={priority}
-    />
-  )
-}
-
-function ProjectCard({ project, onDragStart }) {
-  return (
-    <div
-      draggable
-      onDragStart={(e) => {
-        e.dataTransfer.setData('text/plain', project.id)
-        e.dataTransfer.effectAllowed = 'move'
-        onDragStart?.(project.id)
-      }}
-      className="rounded-lg border p-4 transition-colors cursor-grab active:cursor-grabbing"
-      style={{
-        background: 'var(--bg-card)',
-        borderColor: 'var(--border-default)',
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-strong)'}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-default)'}
-    >
-      <Link
-        to={`/development/${project.id}`}
-        className="block"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <PriorityDot priority={project.priority} />
-            <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-              {project.name}
-            </h3>
-          </div>
-          <StageBadge stage={project.stage} />
-        </div>
-
-        {/* Current focus */}
-        {project.current_focus && (
-          <p className="text-xs mb-3 line-clamp-2" style={{ color: 'var(--text-muted)' }}>
-            {project.current_focus}
-          </p>
-        )}
-
-        {/* Metrics row */}
-        <div className="flex items-center gap-4 text-[11px]" style={{ color: 'var(--text-faint)' }}>
-          {project.phase_b_composite_score && (
-            <span title="Phase B Composite Score">
-              Score: <span style={{ color: 'var(--text-muted)' }}>{project.phase_b_composite_score}</span>
-            </span>
-          )}
-          {project.current_cogs && (
-            <span title="Current COGS">
-              COGS: <span style={{ color: 'var(--text-muted)' }}>${Number(project.current_cogs).toFixed(2)}</span>
-            </span>
-          )}
-          {project.current_ingredient_count && (
-            <span title="Ingredients">
-              <span style={{ color: 'var(--text-muted)' }}>{project.current_ingredient_count}</span> ingredients
-            </span>
-          )}
-          {project.format && (
-            <span style={{ color: 'var(--text-muted)' }}>{project.format}</span>
-          )}
-        </div>
-
-        {/* Updated timestamp */}
-        <div className="mt-3 text-[10px]" style={{ color: 'var(--text-faint)' }}>
-          Updated {new Date(project.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-        </div>
-      </Link>
-    </div>
-  )
-}
-
-function StageColumn({ stage, projects, onDrop, onDragStart, dragOverStage }) {
-  const isOver = dragOverStage === stage.key
-
-  return (
-    <div
-      onDragOver={(e) => {
-        e.preventDefault()
-        e.dataTransfer.dropEffect = 'move'
-      }}
-      onDragEnter={(e) => {
-        e.preventDefault()
-        onDrop?.('enter', stage.key)
-      }}
-      onDragLeave={(e) => {
-        // Only trigger if leaving the column entirely
-        if (!e.currentTarget.contains(e.relatedTarget)) {
-          onDrop?.('leave', stage.key)
-        }
-      }}
-      onDrop={(e) => {
-        e.preventDefault()
-        const projectId = e.dataTransfer.getData('text/plain')
-        onDrop?.('drop', stage.key, projectId)
-      }}
-      className="rounded-lg p-2 transition-all min-h-[200px]"
-      style={{
-        background: isOver ? `${stage.color}10` : 'transparent',
-        border: isOver ? `2px dashed ${stage.color}` : '2px dashed transparent',
-      }}
-    >
-      <div className="flex items-center gap-2 mb-3 px-1">
-        <span
-          className="inline-block w-2 h-2 rounded-full"
-          style={{ background: stage.color }}
-        />
-        <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
-          {stage.label}
-        </span>
-        <span className="text-xs" style={{ color: 'var(--text-faint)' }}>
-          {projects.length}
-        </span>
-      </div>
-      <div className="space-y-3">
-        {projects.map(project => (
-          <ProjectCard key={project.id} project={project} onDragStart={onDragStart} />
-        ))}
-      </div>
-    </div>
-  )
+const STATUS_META = {
+  greenlit: { label: 'Greenlit', bg: 'var(--green-muted)', text: 'var(--green-text)', description: 'Approved. Handoff in progress.' },
+  in_development: { label: 'In development', bg: 'var(--blue-muted)', text: 'var(--blue-text)', description: 'Active NPD work (Notion + local folders).' },
 }
 
 export default function DevelopmentPage() {
-  const [projects, setProjects] = useState([])
+  const [concepts, setConcepts] = useState([])
+  const [ideas, setIdeas] = useState({})
   const [loading, setLoading] = useState(true)
-  const [viewMode, setViewMode] = useState('kanban') // 'kanban' or 'list'
-  const [filterStage, setFilterStage] = useState(null)
-  const [dragOverStage, setDragOverStage] = useState(null)
-  const [draggingId, setDraggingId] = useState(null)
 
-  useEffect(() => {
-    async function load() {
-      const { data, error } = await supabase
-        .from('development_projects')
-        .select('*')
-        .order('updated_at', { ascending: false })
+  useEffect(() => { loadData() }, [])
 
-      if (!error && data) {
-        // Custom priority sort: high > medium > low
-        const priorityOrder = { high: 0, medium: 1, low: 2 }
-        data.sort((a, b) => (priorityOrder[a.priority] ?? 9) - (priorityOrder[b.priority] ?? 9))
-        setProjects(data)
-      }
-      setLoading(false)
-    }
-    load()
-  }, [])
+  async function loadData() {
+    const { data: conceptsData } = await supabase
+      .from('product_concepts')
+      .select('*')
+      .in('status', ['greenlit', 'in_development'])
+      .order('updated_at', { ascending: false })
 
-  const handleDragEvent = useCallback(async (type, stageKey, projectId) => {
-    if (type === 'enter') {
-      setDragOverStage(stageKey)
-    } else if (type === 'leave') {
-      setDragOverStage(prev => prev === stageKey ? null : prev)
-    } else if (type === 'drop') {
-      setDragOverStage(null)
-      setDraggingId(null)
+    const ideaIds = [...new Set((conceptsData || []).map(c => c.candidate_id))]
+    const { data: ideasData } = ideaIds.length > 0
+      ? await supabase.from('idea_candidates').select('id,ingredient_name,category').in('id', ideaIds)
+      : { data: [] }
 
-      if (!projectId) return
+    const ideaMap = {}
+    for (const i of (ideasData || [])) ideaMap[i.id] = i
+    setConcepts(conceptsData || [])
+    setIdeas(ideaMap)
+    setLoading(false)
+  }
 
-      // Find the project
-      const project = projects.find(p => p.id === projectId)
-      if (!project || project.stage === stageKey) return
+  async function markInDevelopment(conceptId) {
+    await supabase.from('product_concepts').update({ status: 'in_development', updated_at: new Date().toISOString() }).eq('id', conceptId)
+    loadData()
+  }
 
-      // Optimistic update
-      setProjects(prev => prev.map(p =>
-        p.id === projectId ? { ...p, stage: stageKey, updated_at: new Date().toISOString() } : p
-      ))
+  async function returnToEvaluation(conceptId) {
+    if (!confirm('Return this concept to Evaluation? (resets status to evaluated)')) return
+    await supabase.from('product_concepts').update({ status: 'evaluated', updated_at: new Date().toISOString() }).eq('id', conceptId)
+    loadData()
+  }
 
-      // Persist to Supabase
-      const { error } = await supabase
-        .from('development_projects')
-        .update({ stage: stageKey, updated_at: new Date().toISOString() })
-        .eq('id', projectId)
+  if (loading) return <div className="p-6 text-sm" style={{ color: 'var(--text-faint)' }}>Loading...</div>
 
-      if (error) {
-        // Revert on failure
-        setProjects(prev => prev.map(p =>
-          p.id === projectId ? { ...p, stage: project.stage } : p
-        ))
-        console.error('Failed to update stage:', error)
-      }
-    }
-  }, [projects])
-
-  const filteredProjects = filterStage
-    ? projects.filter(p => p.stage === filterStage)
-    : projects
-
-  const projectsByStage = STAGES.reduce((acc, stage) => {
-    acc[stage.key] = projects.filter(p => p.stage === stage.key)
-    return acc
-  }, {})
+  const greenlit = concepts.filter(c => c.status === 'greenlit')
+  const inDev = concepts.filter(c => c.status === 'in_development')
 
   return (
-    <div className="p-6 max-w-[1400px] mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>Development</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-            {projects.length} active project{projects.length !== 1 ? 's' : ''}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {/* View toggle */}
-          <div
-            className="flex rounded-lg border overflow-hidden"
-            style={{ borderColor: 'var(--border-default)' }}
-          >
-            <button
-              onClick={() => setViewMode('kanban')}
-              className="px-3 py-1.5 text-xs font-medium transition-colors"
-              style={{
-                background: viewMode === 'kanban' ? 'var(--bg-active)' : 'transparent',
-                color: viewMode === 'kanban' ? 'var(--text-primary)' : 'var(--text-muted)',
-              }}
-            >
-              Board
-            </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className="px-3 py-1.5 text-xs font-medium transition-colors"
-              style={{
-                background: viewMode === 'list' ? 'var(--bg-active)' : 'transparent',
-                color: viewMode === 'list' ? 'var(--text-primary)' : 'var(--text-muted)',
-              }}
-            >
-              List
-            </button>
-          </div>
-        </div>
+    <div className="p-6 max-w-5xl">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>Development</h1>
+        <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
+          Concepts we've committed to. Actual development work (sourcing, formulation, costing) happens in Notion + local folders — this page is just a visibility layer.
+        </p>
       </div>
 
-      {/* Stats bar */}
-      <div
-        className="flex items-center gap-6 px-4 py-3 rounded-lg border mb-6"
-        style={{ background: 'var(--bg-raised)', borderColor: 'var(--border-subtle)' }}
-      >
-        {STAGES.map(stage => {
-          const count = projectsByStage[stage.key]?.length || 0
-          return (
-            <button
-              key={stage.key}
-              onClick={() => setFilterStage(filterStage === stage.key ? null : stage.key)}
-              className="flex items-center gap-2 transition-opacity"
-              style={{ opacity: filterStage && filterStage !== stage.key ? 0.4 : 1 }}
-            >
-              <span
-                className="inline-block w-2 h-2 rounded-full"
-                style={{ background: stage.color }}
-              />
-              <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                {stage.label}
-              </span>
-              <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
-                {count}
-              </span>
-            </button>
-          )
-        })}
-        {filterStage && (
-          <button
-            onClick={() => setFilterStage(null)}
-            className="ml-auto text-[11px]"
-            style={{ color: 'var(--text-faint)' }}
-          >
-            Clear filter
-          </button>
-        )}
-      </div>
-
-      {loading ? (
-        <div className="text-center py-20 text-sm" style={{ color: 'var(--text-muted)' }}>
-          Loading projects...
-        </div>
-      ) : projects.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-sm mb-2" style={{ color: 'var(--text-muted)' }}>No development projects yet</p>
-          <p className="text-xs" style={{ color: 'var(--text-faint)' }}>
-            Promote a concept from the Concepts page to start development, or add projects via Cowork.
-          </p>
-        </div>
-      ) : viewMode === 'kanban' ? (
-        /* Kanban view with drag-and-drop */
-        <div className="grid grid-cols-4 gap-4">
-          {STAGES.map(stage => (
-            <StageColumn
-              key={stage.key}
-              stage={stage}
-              projects={projectsByStage[stage.key] || []}
-              onDrop={handleDragEvent}
-              onDragStart={setDraggingId}
-              dragOverStage={dragOverStage}
-            />
-          ))}
+      {concepts.length === 0 ? (
+        <div className="text-center py-20 rounded-md border border-dashed" style={{ borderColor: 'var(--border-default)', color: 'var(--text-muted)' }}>
+          <div className="text-sm">No concepts in development yet.</div>
+          <div className="text-xs mt-1 opacity-70">Greenlight a concept on the Evaluation page to send it here.</div>
         </div>
       ) : (
-        /* List view */
-        <div className="space-y-2">
-          {filteredProjects.map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+        <div className="space-y-8">
+          {/* Greenlit section — newly approved, not yet in active dev */}
+          {greenlit.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2 mb-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Greenlit</h2>
+                <span className="text-xs" style={{ color: 'var(--text-faint)' }}>{greenlit.length}</span>
+              </div>
+              <p className="text-xs mb-3" style={{ color: 'var(--text-faint)' }}>
+                Approved for development but no active work logged yet. Click "Mark in development" once you've created the Notion card and local folder.
+              </p>
+              <ConceptList concepts={greenlit} ideas={ideas} onMarkInDev={markInDevelopment} onReturnToEval={returnToEvaluation} />
+            </section>
+          )}
+
+          {/* In development section */}
+          {inDev.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2 mb-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>In development</h2>
+                <span className="text-xs" style={{ color: 'var(--text-faint)' }}>{inDev.length}</span>
+              </div>
+              <p className="text-xs mb-3" style={{ color: 'var(--text-faint)' }}>
+                Active NPD work. Detailed tracking lives in Notion New Product Pipeline + `Toniiq/Product Development/{'{Product}'}/` folder.
+              </p>
+              <ConceptList concepts={inDev} ideas={ideas} onReturnToEval={returnToEvaluation} />
+            </section>
+          )}
         </div>
       )}
+    </div>
+  )
+}
+
+function ConceptList({ concepts, ideas, onMarkInDev, onReturnToEval }) {
+  return (
+    <div className="rounded-lg border divide-y" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
+      {concepts.map(concept => {
+        const idea = ideas[concept.candidate_id]
+        const meta = STATUS_META[concept.status]
+        return (
+          <div key={concept.id} className="px-5 py-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <Link to={`/concepts/${concept.id}`} className="text-sm font-semibold hover:underline" style={{ color: 'var(--text-primary)' }}>
+                    {concept.concept_name}
+                  </Link>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded font-medium" style={{ background: meta.bg, color: meta.text }}>
+                    {meta.label}
+                  </span>
+                </div>
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                  {idea && (
+                    <Link to={`/discovery/${concept.candidate_id}`} className="hover:underline">
+                      {idea.ingredient_name}
+                    </Link>
+                  )}
+                  {idea?.category && <span> · {idea.category}</span>}
+                  {concept.format && <span> · {concept.format}</span>}
+                  {concept.target_dosage && <span> · {concept.target_dosage}</span>}
+                </div>
+                {concept.positioning_angle && (
+                  <p className="text-xs mt-1.5 line-clamp-2" style={{ color: 'var(--text-muted)' }}>
+                    {concept.positioning_angle}
+                  </p>
+                )}
+              </div>
+              <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
+                {concept.status === 'greenlit' && onMarkInDev && (
+                  <button
+                    onClick={() => onMarkInDev(concept.id)}
+                    className="text-[11px] px-2.5 py-1 rounded"
+                    style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', border: '1px solid rgba(59,130,246,0.3)' }}
+                  >
+                    Mark in development →
+                  </button>
+                )}
+                {onReturnToEval && (
+                  <button
+                    onClick={() => onReturnToEval(concept.id)}
+                    className="text-[10px] px-2 py-0.5 rounded"
+                    style={{ background: 'var(--bg-active)', color: 'var(--text-faint)' }}
+                  >
+                    ↩ Return to Evaluation
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }

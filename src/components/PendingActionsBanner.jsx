@@ -10,8 +10,8 @@ import { supabase } from '../lib/supabase'
  */
 
 const ACTION_LABELS = {
-  run_phase_a: { label: 'Phase A research pending', icon: '◎', color: 'amber' },
-  run_phase_b: { label: 'Phase B evaluation pending', icon: '◉', color: 'amber' },
+  run_phase_a: { label: 'Research pending', icon: '◎', color: 'amber' },
+  run_phase_b: { label: 'Evaluation pending', icon: '◉', color: 'amber' },
   review_concepts: { label: 'Concepts awaiting your decision', icon: '◆', color: 'blue' },
   decide_greenlight: { label: 'Ready for greenlight decision', icon: '✓', color: 'blue' },
   create_dev_folder: { label: 'Development folder setup pending', icon: '▣', color: 'amber' },

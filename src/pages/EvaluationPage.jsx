@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 import PendingActionsBanner from '../components/PendingActionsBanner'
 
 /**
- * Evaluation Page — ideas with Phase B scores. Ready for greenlight decision.
+ * Evaluation Page — ideas with evaluation scores. Ready for greenlight decision.
  * Shows composite score + greenlight button.
  */
 
@@ -52,7 +52,7 @@ export default function EvaluationPage() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>Evaluation</h1>
         <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-          Phase B complete. {ideas.length} idea{ideas.length !== 1 ? 's' : ''} with scored concepts awaiting greenlight decision.
+          Evaluation complete. {ideas.length} idea{ideas.length !== 1 ? 's' : ''} with scored concepts awaiting greenlight decision.
         </p>
       </div>
 
