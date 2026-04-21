@@ -134,7 +134,7 @@ function SignalList({ signals, color = 'var(--blue-text)' }) {
       {signals.map((signal, i) => (
         <div key={i} className="flex items-start gap-2 text-sm">
           <span className="mt-0.5 flex-shrink-0" style={{ color }}>•</span>
-          <span style={{ color: 'var(--text-body)' }}>{typeof signal === 'string' ? highlightSignal(signal) : highlightSignal(signal.signal || signal.finding || signal.theme || JSON.stringify(signal))}</span>
+          <span style={{ color: 'var(--text-body)' }}>{typeof signal === 'string' ? highlightSignal(signal) : highlightSignal(signal.signal || signal.finding || signal.theme || signal.pain || signal.note || signal.angle || signal.quote || signal.data || signal.support || (typeof signal === 'object' ? Object.entries(signal).filter(([,v]) => v != null && v !== '').map(([k,v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : (typeof v === 'object' ? Object.values(v).join(' · ') : String(v))}`).join(' · ') : String(signal)))}</span>
         </div>
       ))}
     </div>
@@ -626,7 +626,7 @@ function TikTokResearchPanel({ data }) {
                   // Handle both simple counts and nested objects
                   const displayVal = typeof val === 'number' ? val
                     : typeof val === 'object' && val !== null
-                      ? (val.count != null ? val.count : val.percentage != null ? `${val.percentage}%` : JSON.stringify(val))
+                      ? (val.count != null ? val.count : val.percentage != null ? `${val.percentage}%` : val.total != null ? val.total : '—')
                       : String(val)
                   return (
                     <div key={tier} className="rounded p-2 text-center" style={{ background: 'var(--bg-hover)' }}>
@@ -884,10 +884,10 @@ function buildScienceEvidence(scienceResearchData, fallback) {
   return {
     key_signals: [
       ...(Array.isArray(scienceResearchData.novel_angles)
-        ? scienceResearchData.novel_angles.map(a => (typeof a === 'string' ? a : a.angle || a.description || JSON.stringify(a)))
+        ? scienceResearchData.novel_angles.map(a => (typeof a === 'string' ? a : a.angle || a.description || a.support || Object.values(a).filter(v => typeof v === 'string').join(' — ')))
         : []),
       ...(Array.isArray(scienceResearchData.bioavailability_notes)
-        ? scienceResearchData.bioavailability_notes.slice(0, 2).map(n => (typeof n === 'string' ? n : n.note || n.description || JSON.stringify(n)))
+        ? scienceResearchData.bioavailability_notes.slice(0, 2).map(n => (typeof n === 'string' ? n : [n.note, n.source ? `(${n.source})` : null].filter(Boolean).join(' ') || Object.values(n).filter(v => typeof v === 'string').join(' — ')))
         : []),
       scienceResearchData.safety_notes ? `Safety: ${scienceResearchData.safety_notes.slice(0, 120)}...` : null,
     ].filter(Boolean),

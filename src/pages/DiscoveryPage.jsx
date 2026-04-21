@@ -18,15 +18,93 @@ function formatPct(n) {
 }
 
 /* ─────────────────────────────────────────────
-   Renders a JSONB array of objects as a table
+   Universal renderers — NEVER JSON.stringify user-facing content.
+   Data Integrity Rule: every JSONB shape renders cleanly, even unknown ones.
    ───────────────────────────────────────────── */
+
+/* Pretty-format a cell value (number, array, string, null). */
+function formatCell(val, colName = '') {
+  if (val === null || val === undefined || val === '') return '—'
+  if (typeof val === 'number') {
+    if (colName.includes('pct') || colName.includes('conversion') || colName.includes('growth') || colName.includes('rate')) return formatPct(val)
+    if (colName.includes('clicks') || colName.includes('sales') || colName.includes('volume')) return formatNumber(val)
+    return val.toLocaleString()
+  }
+  if (Array.isArray(val)) return val.filter(v => v != null && v !== '').join(', ') || '—'
+  if (typeof val === 'object') return <InlineObject obj={val} />
+  return String(val)
+}
+
+/* Nested object inside a table cell: render inline as "k: v, k: v" */
+function InlineObject({ obj }) {
+  const entries = Object.entries(obj).filter(([, v]) => v != null && v !== '')
+  if (entries.length === 0) return '—'
+  return (
+    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+      {entries.map(([k, v], i) => (
+        <span key={k}>
+          {i > 0 && ' · '}
+          <span style={{ color: 'var(--text-faint)' }}>{k.replace(/_/g, ' ')}:</span>{' '}
+          <span style={{ color: 'var(--text-body)' }}>{Array.isArray(v) ? v.join(', ') : (typeof v === 'object' ? '…' : String(v))}</span>
+        </span>
+      ))}
+    </span>
+  )
+}
+
+/* ObjectCard — renders one JSONB object as a key→value card.
+   Handles any shape. Used by BulletList for object items so we never
+   fall back to JSON.stringify. */
+function ObjectCard({ obj }) {
+  const entries = Object.entries(obj).filter(([, v]) => v != null && v !== '')
+  if (entries.length === 0) return <span style={{ color: 'var(--text-faint)' }}>empty</span>
+
+  // Heuristic: find a "primary" key for the title (first string field, or known names)
+  const primaryKey = entries.find(([k]) => ['title', 'name', 'pain', 'concept', 'combo', 'angle', 'niche', 'signal', 'quote', 'note', 'dose', 'protocol'].includes(k))?.[0]
+    || entries.find(([, v]) => typeof v === 'string' && v.length > 0 && v.length < 120)?.[0]
+    || entries[0][0]
+
+  const primary = obj[primaryKey]
+  const rest = entries.filter(([k]) => k !== primaryKey)
+
+  return (
+    <div className="rounded-md px-3 py-2" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-default)' }}>
+      {primary && (
+        <div className="text-sm font-medium mb-1" style={{ color: 'var(--text-primary)' }}>
+          {Array.isArray(primary) ? primary.join(', ') : typeof primary === 'object' ? <InlineObject obj={primary} /> : String(primary)}
+        </div>
+      )}
+      {rest.length > 0 && (
+        <div className="space-y-0.5">
+          {rest.map(([k, v]) => (
+            <div key={k} className="text-xs flex items-start gap-2">
+              <span className="flex-shrink-0" style={{ color: 'var(--text-faint)', minWidth: 90 }}>{k.replace(/_/g, ' ')}</span>
+              <span style={{ color: 'var(--text-body)' }}>
+                {Array.isArray(v) ? (v.length > 0 && typeof v[0] === 'object' ? v.map((x, i) => <div key={i}><InlineObject obj={x} /></div>) : v.join(', '))
+                  : typeof v === 'object' ? <InlineObject obj={v} />
+                  : String(v)}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* JSONB array of objects rendered as a sortable table */
 function JsonTable({ data, columns }) {
   if (!data || !Array.isArray(data) || data.length === 0) {
     return <p className="text-sm" style={{ color: 'var(--text-faint)' }}>No data</p>
   }
 
-  // Auto-detect columns from the first item if not provided
-  const cols = columns || Object.keys(data[0]).filter(k => k !== 'keywords' && k !== 'total_sales')
+  // Auto-detect columns from union of keys across all items (handles variable shapes)
+  const cols = columns || Array.from(
+    data.reduce((set, row) => {
+      if (row && typeof row === 'object') Object.keys(row).forEach(k => set.add(k))
+      return set
+    }, new Set())
+  ).filter(k => k !== 'keywords' && k !== 'total_sales')
 
   return (
     <div className="overflow-x-auto">
@@ -43,20 +121,11 @@ function JsonTable({ data, columns }) {
         <tbody>
           {data.map((row, i) => (
             <tr key={i} style={{ borderBottomColor: 'var(--border-default)' }} className="border-b" onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-hover)'} onMouseLeave={e => e.currentTarget.style.background = ''}>
-              {cols.map(col => {
-                let val = row[col]
-                if (val === null || val === undefined) val = '—'
-                else if (typeof val === 'number') {
-                  if (col.includes('pct') || col.includes('conversion') || col.includes('growth')) val = formatPct(val)
-                  else if (col.includes('clicks') || col.includes('sales')) val = formatNumber(val)
-                  else val = val.toLocaleString()
-                }
-                else if (Array.isArray(val)) val = val.join(', ')
-                else if (typeof val === 'object') val = JSON.stringify(val)
-                return (
-                  <td key={col} className="py-2 px-3" style={{ color: 'var(--text-body)' }}>{String(val)}</td>
-                )
-              })}
+              {cols.map(col => (
+                <td key={col} className="py-2 px-3 align-top" style={{ color: 'var(--text-body)' }}>
+                  {formatCell(row?.[col], col)}
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
@@ -65,21 +134,26 @@ function JsonTable({ data, columns }) {
   )
 }
 
-/* Renders a JSONB array of strings as bullet points */
+/* BulletList — objects become ObjectCards, strings stay as bullets.
+   NEVER falls back to JSON.stringify. */
 function BulletList({ items }) {
   if (!items || !Array.isArray(items) || items.length === 0) {
     return <p className="text-sm" style={{ color: 'var(--text-faint)' }}>No data</p>
   }
   return (
-    <ul className="space-y-1.5">
-      {items.map((item, i) => (
-        <li key={i} className="flex items-start gap-2 text-sm">
-          <span className="mt-0.5" style={{ color: 'var(--text-faint)' }}>•</span>
-          <span style={{ color: 'var(--text-body)' }}>
-            {typeof item === 'object' ? (item.text || item.name || item.need || item.pain_point || item.use_case || item.format || item.brand || JSON.stringify(item)) : String(item)}
-          </span>
-        </li>
-      ))}
+    <ul className="space-y-2">
+      {items.map((item, i) => {
+        if (item === null || item === undefined) return null
+        if (typeof item === 'object') {
+          return <li key={i}><ObjectCard obj={item} /></li>
+        }
+        return (
+          <li key={i} className="flex items-start gap-2 text-sm">
+            <span className="mt-0.5" style={{ color: 'var(--text-faint)' }}>•</span>
+            <span style={{ color: 'var(--text-body)' }}>{String(item)}</span>
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -445,6 +519,24 @@ export default function DiscoveryPage() {
                     </div>
                   )}
 
+                  {/* Top keywords table — the core research output */}
+                  {(datarova.related_keywords || []).length > 0 && (
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--text-body)' }}>
+                        Top Keywords by Monthly Clicks
+                        <span className="ml-2 text-xs font-normal" style={{ color: 'var(--text-faint)' }}>
+                          ({datarova.related_keywords.length} keywords with data)
+                        </span>
+                      </h4>
+                      <div className="rounded-lg p-3 border" style={{ backgroundColor: 'var(--bg-hover)', borderColor: 'var(--border-default)' }}>
+                        <JsonTable
+                          data={[...datarova.related_keywords].sort((a, b) => (b.clicks || 0) - (a.clicks || 0))}
+                          columns={['keyword', 'clicks', 'sales', 'conversion', 'growth_3m_pct', 'growth_6m_pct', 'growth_yoy_pct']}
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   {/* Emerging niches */}
                   <SmartRender
                     data={datarova.emerging_niches}
@@ -457,6 +549,13 @@ export default function DiscoveryPage() {
                   </div>
 
                   <SmartRender data={datarova.dosage_variants} label="Dosage Variants" />
+
+                  {datarova.score_justification && (
+                    <div className="rounded-lg p-4 border" style={{ backgroundColor: 'var(--bg-hover)', borderColor: 'var(--border-default)' }}>
+                      <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Score Justification</p>
+                      <p className="text-sm" style={{ color: 'var(--text-body)' }}>{datarova.score_justification}</p>
+                    </div>
+                  )}
 
                   {datarova.opportunity_summary && (
                     <div className="rounded-lg p-4 border" style={{ backgroundColor: 'var(--blue-muted)', borderColor: 'rgba(96,165,250,0.2)' }}>
@@ -500,20 +599,25 @@ export default function DiscoveryPage() {
             {activeTab === 'science' && (
               scienceResearch ? (
                 <div className="space-y-6">
-                  {scienceResearch.bioavailability_notes && (() => {
-                    const bio = normalizeJsonb(scienceResearch.bioavailability_notes)
-                    if (!bio) return null
-                    return (
-                      <div className="rounded-lg p-4 border" style={{ backgroundColor: 'rgba(168,85,247,0.1)', borderColor: 'rgba(168,85,247,0.2)' }}>
-                        <h4 className="text-sm font-semibold mb-2" style={{ color: '#c084fc' }}>Bioavailability Notes</h4>
-                        {typeof bio === 'string' ? (
-                          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{bio}</p>
-                        ) : Array.isArray(bio) ? (
-                          <BulletList items={bio} />
-                        ) : null}
-                      </div>
-                    )
-                  })()}
+                  {scienceResearch.bioavailability_notes && (
+                    <div className="rounded-lg p-4 border" style={{ backgroundColor: 'rgba(168,85,247,0.1)', borderColor: 'rgba(168,85,247,0.2)' }}>
+                      <h4 className="text-sm font-semibold mb-3" style={{ color: '#c084fc' }}>Bioavailability Notes</h4>
+                      {(() => {
+                        const bio = normalizeJsonb(scienceResearch.bioavailability_notes)
+                        if (!bio) return <p className="text-sm" style={{ color: 'var(--text-faint)' }}>No data</p>
+                        if (typeof bio === 'string') return <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{bio}</p>
+                        if (Array.isArray(bio)) return <BulletList items={bio} />
+                        return null
+                      })()}
+                    </div>
+                  )}
+
+                  {scienceResearch.safety_notes && (
+                    <div className="rounded-lg p-4 border" style={{ backgroundColor: 'rgba(251,191,36,0.08)', borderColor: 'rgba(251,191,36,0.25)' }}>
+                      <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--amber-text)' }}>Safety Notes</h4>
+                      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{scienceResearch.safety_notes}</p>
+                    </div>
+                  )}
                   <div className="grid grid-cols-2 gap-6">
                     <SmartRender data={scienceResearch.clinical_dosages} label="Clinical Dosages" />
                     <SmartRender data={scienceResearch.proven_combinations} label="Proven Combinations" />

@@ -111,6 +111,23 @@ Deno.serve(async (req) => {
     const primary = sorted[0]
     const primaryGrowth = primary ? growthMap[primary.keyword] : null
 
+    // Compute datarova_deep_score (0-10): volume + growth + conversion
+    const primaryClicks = primary?.records[0]?.clicks || 0
+    const primaryConv = primary?.records[0]?.conversion_rate || 0
+    const volumeScore = primaryClicks >= 100000 ? 5 : primaryClicks >= 10000 ? 4 : primaryClicks >= 1000 ? 3 : primaryClicks >= 500 ? 2 : primaryClicks >= 100 ? 1 : 0
+    const yoy = primaryGrowth?.growth_yoy_pct ?? 0
+    const growthBonus = yoy > 100 ? 3 : yoy > 50 ? 2 : yoy > 20 ? 1 : yoy > 0 ? 0 : -1
+    const convBonus = primaryConv >= 30 ? 2 : primaryConv >= 20 ? 1 : 0
+    const deepScore = Math.max(0, Math.min(10, volumeScore + growthBonus + convBonus))
+
+    // Opportunity summary — contextualized narrative
+    const volumeDesc = primaryClicks >= 100000 ? 'large' : primaryClicks >= 10000 ? 'moderate' : primaryClicks >= 1000 ? 'niche' : 'very niche'
+    const growthDesc = yoy > 100 ? 'explosive' : yoy > 50 ? 'strong' : yoy > 20 ? 'growing' : yoy > 0 ? 'stable' : 'declining'
+    const convDesc = primaryConv >= 30 ? 'high intent' : primaryConv >= 20 ? 'healthy intent' : primaryConv >= 15 ? 'average' : 'low intent'
+    const opportunitySummary = `${volumeDesc.charAt(0).toUpperCase() + volumeDesc.slice(1)} market (primary "${primary?.keyword || '—'}" = ${primaryClicks.toLocaleString()} clicks/mo) with ${growthDesc} growth (${yoy.toFixed(1)}% YoY) and ${convDesc} purchase signal (${primaryConv.toFixed(1)}% conversion). ${deepScore >= 7 ? 'Strong opportunity signal.' : deepScore >= 5 ? 'Moderate opportunity.' : 'Weak signal — examine Reddit + science before dismissing.'}`
+
+    const scoreJustification = `Volume: ${volumeScore}/5 (${primaryClicks.toLocaleString()} clicks). Growth: ${growthBonus >= 0 ? '+' : ''}${growthBonus} (${yoy.toFixed(1)}% YoY, ${(primaryGrowth?.growth_3m_pct ?? 0).toFixed(1)}% 3m). Conversion: +${convBonus} (${primaryConv.toFixed(1)}%). Total: ${deepScore}/10. Based on ${relatedKeywords.length}/${keywords.length} keywords with data.`
+
     // Write datarova_enrichments
     await sb.from('datarova_enrichments').insert({
       candidate_id: candidateId,
@@ -120,16 +137,17 @@ Deno.serve(async (req) => {
       total_related_keywords: relatedKeywords.length,
       total_monthly_clicks: totalClicks, total_monthly_sales: totalSales,
       avg_conversion_rate: weightedConv, weighted_avg_conversion: weightedConv,
-      primary_keyword: primary?.keyword, primary_keyword_clicks: primary?.records[0]?.clicks || 0,
+      primary_keyword: primary?.keyword, primary_keyword_clicks: primaryClicks,
       primary_keyword_sales: primary?.records[0]?.sales || 0,
-      primary_keyword_conversion: primary?.records[0]?.conversion_rate || 0,
+      primary_keyword_conversion: primaryConv,
       growth_3m_clicks_pct: primaryGrowth?.growth_3m_pct ?? null,
       growth_6m_clicks_pct: primaryGrowth?.growth_6m_pct ?? null,
       growth_yoy_clicks_pct: primaryGrowth?.growth_yoy_pct ?? null,
       monthly_trend: primaryGrowth?.monthly || null,
       related_keywords: relatedKeywords,
-      score_justification: `Automated run: ${relatedKeywords.length}/${keywords.length} keywords had data. Top keyword "${primary?.keyword}" = ${primary?.records[0]?.clicks || 0} clicks/mo.`,
-      opportunity_summary: 'Auto-generated — see keyword table for demand patterns.',
+      datarova_deep_score: deepScore,
+      score_justification: scoreJustification,
+      opportunity_summary: opportunitySummary,
       enriched_at: new Date().toISOString(),
       api_calls_made: 2,
     })
