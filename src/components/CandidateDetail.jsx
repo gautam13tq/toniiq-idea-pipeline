@@ -27,11 +27,12 @@ function formatUsd(n) {
   return '$' + n.toFixed(2)
 }
 
-export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch, jobStatus }) {
+export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch, onDelete, jobStatus }) {
   const [notes, setNotes] = useState(candidate.notes || '')
   const [saving, setSaving] = useState(false)
   const [killReason, setKillReason] = useState('')
   const [showKill, setShowKill] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [poeHistory, setPoeHistory] = useState(null)
   const [datarovaHistory, setDatarovaHistory] = useState(null)
 
@@ -61,6 +62,18 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
     if (killReason.trim()) {
       onUpdate({ stage: 'archive', killed_reason: killReason })
       setShowKill(false)
+    }
+  }
+
+  async function handleDelete() {
+    if (!onDelete) return
+    const ok = confirm(`Permanently delete "${candidate.ingredient_name}"?\n\nThis removes the candidate, all POE/Datarova snapshots, and any picks. Cannot be undone.\n\nUse Kill instead if you want to keep an audit trail.`)
+    if (!ok) return
+    setDeleting(true)
+    try {
+      await onDelete()
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -160,6 +173,22 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                     Kill
                   </button>
                 )
+              )}
+              {(candidate.stage === 'inbox' || candidate.stage === 'archive') && onDelete && !showKill && (
+                <button
+                  onClick={handleDelete}
+                  disabled={deleting}
+                  title="Permanently remove from database (no audit trail)"
+                  className="px-3 py-2 text-sm font-medium rounded-lg border transition-colors flex items-center gap-1.5"
+                  style={{ background: 'var(--bg-hover)', color: 'var(--text-muted)', borderColor: 'var(--border-default)', opacity: deleting ? 0.5 : 1 }}
+                  onMouseEnter={(e) => { if (!deleting) { e.currentTarget.style.background = 'rgba(248,113,113,0.1)'; e.currentTarget.style.color = 'var(--red)'; e.currentTarget.style.borderColor = 'rgba(248,113,113,0.3)'; } }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.borderColor = 'var(--border-default)'; }}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" />
+                  </svg>
+                  {deleting ? 'Deleting…' : 'Delete'}
+                </button>
               )}
             </div>
 

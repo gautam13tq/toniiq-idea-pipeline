@@ -125,6 +125,22 @@ export default function InboxPage() {
     }
   }
 
+  async function deleteCandidate(id) {
+    // Order matters: clear orphan-prone tables before the candidate row.
+    // Snapshots use SET NULL FK and would leave dangling rows; pending_actions has no FK.
+    await supabase.from('poe_snapshots').delete().eq('candidate_id', id)
+    await supabase.from('datarova_snapshots').delete().eq('candidate_id', id)
+    await supabase.from('pending_actions').delete().eq('entity_id', id).eq('entity_type', 'idea')
+    const { error } = await supabase.from('idea_candidates').delete().eq('id', id)
+    if (error) {
+      alert(`Delete failed: ${error.message}`)
+      return
+    }
+    setCandidates(prev => prev.filter(c => c.id !== id))
+    setPicks(prev => prev.filter(p => p.candidate_id !== id))
+    setSelectedId(null)
+  }
+
   async function promoteToResearch(id) {
     const idea = candidates.find(c => c.id === id)
     if (!idea) return
@@ -188,6 +204,7 @@ export default function InboxPage() {
           onClose={() => setSelectedId(null)}
           onUpdate={(updates) => updateCandidate(selectedId, updates)}
           onQueueResearch={() => promoteToResearch(selectedId)}
+          onDelete={() => deleteCandidate(selectedId)}
           jobStatus={<ResearchJobStatus candidateId={selectedId} />}
         />
       )}
