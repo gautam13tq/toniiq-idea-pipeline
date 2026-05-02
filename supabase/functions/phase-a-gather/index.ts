@@ -57,10 +57,40 @@ Deno.serve(async (req) => {
       context_merge: { gather_started: new Date().toISOString(), model_usage: {} },
     })
 
+    // Watchdog: fail any other in_progress run_phase_a actions for THIS candidate
+    // older than 5 minutes. Edge Function timeouts leave them dangling otherwise.
+    await sb.from('pending_actions').update({
+      status: 'failed',
+      completed_at: new Date().toISOString(),
+      notes: `Auto-failed by watchdog: superseded by new run_phase_a (${actionId})`,
+    })
+      .eq('entity_id', candidateId)
+      .eq('action', 'run_phase_a')
+      .eq('status', 'in_progress')
+      .neq('id', actionId)
+      .lt('started_at', new Date(Date.now() - 5 * 60 * 1000).toISOString())
+
     // ── STEP 1: DATAROVA ─────────────────────────────────────────────────
     await setActionStatus(sb, actionId, 'in_progress', { context_merge: { datarova: 'running' } })
 
-    const keywords = await generateKeywordList(secrets.anthropic_api_key, candidate.ingredient_name)
+    // Build keyword list: union of (a) Sonnet-generated variants, (b) parent term,
+    // (c) bulk-known-good keywords already in datarova_snapshots for this candidate.
+    // Datarova has no fuzzy match — querying terms it doesn't index returns empty.
+    // Without (b)+(c), sparsely-indexed ingredients (e.g. bromelain) get 0 keywords.
+    const sonnetKeywords = await generateKeywordList(secrets.anthropic_api_key, candidate.ingredient_name)
+    const { data: bulkRows } = await sb.from('datarova_snapshots')
+      .select('keyword, search_volume')
+      .eq('candidate_id', candidateId)
+      .order('search_volume', { ascending: false, nullsFirst: false })
+      .limit(20)
+    const bulkKnown = (bulkRows || []).map((r: any) => r.keyword).filter(Boolean)
+    const parentTerm = candidate.ingredient_name.toLowerCase().trim()
+    const dedup = new Set<string>()
+    const keywords: string[] = []
+    for (const k of [parentTerm, `${parentTerm} supplement`, ...bulkKnown, ...sonnetKeywords]) {
+      const norm = String(k).toLowerCase().trim()
+      if (norm && !dedup.has(norm)) { dedup.add(norm); keywords.push(norm) }
+    }
     // Pick snapshot date: previous full month (Datarova lags 1-2 mo)
     const now = new Date()
     const snapshotDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1))
