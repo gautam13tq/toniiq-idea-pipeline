@@ -241,6 +241,25 @@ export default function DiscoveryPage() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('keyword')
   const [enrichmentJob, setEnrichmentJob] = useState(null)
+  const [refreshing, setRefreshing] = useState(false)
+
+  async function refreshResearch() {
+    if (!candidate) return
+    const ok = confirm(`Refresh research for "${candidate.ingredient_name}"?\n\nRe-runs Phase A (keyword + Reddit + science + concept synthesis) in ~5-8 min. Existing concepts are preserved; new ones may be added. Use when the market has shifted or prior data was incomplete.`)
+    if (!ok) return
+    setRefreshing(true)
+    const { data: action, error } = await supabase.from('pending_actions').insert({
+      entity_type: 'idea', entity_id: candidate.id, action: 'run_phase_a', triggered_by: 'ui',
+      context: { ingredient_name: candidate.ingredient_name, refresh: true },
+    }).select('id').single()
+    if (error) { setRefreshing(false); alert(`Failed to queue: ${error.message}`); return }
+    supabase.functions.invoke('phase-a-gather', { body: { pending_action_id: action.id } }).catch(e => console.error(e))
+    if (candidate.shelved_at) {
+      await supabase.from('idea_candidates').update({ shelved_at: null, shelved_reason: null }).eq('id', candidate.id)
+    }
+    alert(`Research refresh started. Returns to this page in ~5-8 min with new data.`)
+    setRefreshing(false)
+  }
 
   useEffect(() => {
     loadData()
@@ -409,7 +428,7 @@ export default function DiscoveryPage() {
                 )}
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex items-start gap-4">
               {datarova && (
                 <div className="rounded-lg p-4 text-center" style={{ backgroundColor: 'var(--bg-hover)' }}>
                   <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Keyword Score</p>
@@ -422,6 +441,15 @@ export default function DiscoveryPage() {
                   <p className="text-3xl font-bold" style={{ color: 'var(--amber-text)' }}>{redditResearch.reddit_score || '—'}<span className="text-lg" style={{ color: 'var(--text-muted)' }}>/10</span></p>
                 </div>
               )}
+              <button
+                onClick={refreshResearch}
+                disabled={refreshing}
+                title="Re-run Phase A (keyword + Reddit + science + concept synthesis)"
+                className="rounded-lg px-4 py-2 text-sm font-medium border transition-colors flex items-center gap-1.5"
+                style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', borderColor: 'rgba(59,130,246,0.3)', opacity: refreshing ? 0.5 : 1 }}
+              >
+                ↻ {refreshing ? 'Refreshing…' : 'Refresh Research'}
+              </button>
             </div>
           </div>
         </div>
