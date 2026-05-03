@@ -490,14 +490,35 @@ export default function DevelopmentDetailPage() {
       </div>
 
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-start justify-between mb-6 gap-4">
         <div>
           <h1 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
             {project.name}
           </h1>
           <StageTracker currentStage={project.stage} />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          {/* Quick links to all prior research — keeps Phase A + Phase B 1 click away */}
+          {concept && (
+            <Link
+              to={`/concepts/${concept.id}`}
+              title="Full Phase B evaluation: Amazon competitive, TikTok, Google Trends, differentiation, composite score"
+              className="text-[11px] font-medium px-3 py-1.5 rounded border transition-colors flex items-center gap-1.5"
+              style={{ background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'rgba(74,222,128,0.3)' }}
+            >
+              ◉ Phase B Evaluation
+            </Link>
+          )}
+          {candidate && (
+            <Link
+              to={`/discovery/${candidate.id}`}
+              title="Full Phase A research: Datarova keywords, Reddit signal, science research, all generated concepts"
+              className="text-[11px] font-medium px-3 py-1.5 rounded border transition-colors flex items-center gap-1.5"
+              style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', borderColor: 'rgba(59,130,246,0.3)' }}
+            >
+              ◎ Phase A Research
+            </Link>
+          )}
           <span
             className="text-[11px] font-medium px-2 py-1 rounded border"
             style={{

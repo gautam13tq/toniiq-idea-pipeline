@@ -25,16 +25,31 @@ export default function EvaluationPage() {
 
   async function loadData() {
     setLoading(true)
-    const [ideasRes, conceptsRes, scoresRes] = await Promise.all([
-      supabase.from('idea_candidates').select('*').eq('stage', 'evaluation').order('last_updated_at', { ascending: false }),
+    // Show ideas at stage='evaluation' OR ideas with at least one scored concept (includes legacy
+    // concepts stuck at status='accepted' from the older Cowork Phase B flow).
+    const [scoresRes] = await Promise.all([
+      supabase.from('concept_scores').select('concept_id,composite_score,recommendation_tier'),
+    ])
+    const scoreMap = {}
+    for (const s of (scoresRes.data || [])) scoreMap[s.concept_id] = s
+    setScores(scoreMap)
+
+    const [conceptsRes] = await Promise.all([
       supabase.from('product_concepts').select('*').order('rank_within_ingredient'),
-      supabase.from('concept_scores').select('*'),
+    ])
+    const allConcepts = conceptsRes.data || []
+    setConcepts(allConcepts)
+
+    const candidatesWithScoredConcepts = new Set(
+      allConcepts.filter(c => scoreMap[c.id]).map(c => c.candidate_id)
+    )
+
+    const [ideasRes] = await Promise.all([
+      supabase.from('idea_candidates').select('*')
+        .or(`stage.eq.evaluation,id.in.(${Array.from(candidatesWithScoredConcepts).join(',') || 'null'})`)
+        .order('last_updated_at', { ascending: false }),
     ])
     setIdeas(ideasRes.data || [])
-    setConcepts(conceptsRes.data || [])
-    const m = {}
-    for (const s of (scoresRes.data || [])) m[s.concept_id] = s
-    setScores(m)
     setLoading(false)
   }
 
@@ -111,7 +126,10 @@ export default function EvaluationPage() {
                             <p className="text-xs mt-1.5 line-clamp-2" style={{ color: 'var(--text-muted)' }}>{concept.positioning_angle}</p>
                           )}
                         </div>
-                        {concept.status === 'evaluated' && (
+                        {/* Show greenlight controls for any scored concept that hasn't moved to dev yet.
+                            Includes legacy concepts at status='accepted' that got Phase B scored via the
+                            old Cowork flow without ever flipping to 'evaluated'. */}
+                        {score && (concept.status === 'evaluated' || concept.status === 'accepted') && (
                           <div className="flex-shrink-0 flex items-center gap-1.5">
                             <button onClick={() => updateConceptStatus(concept.id, 'greenlit')} className="text-[11px] px-2.5 py-1 rounded" style={{ background: 'var(--green-muted)', color: 'var(--green-text)', border: '1px solid rgba(74,222,128,0.3)' }}>Greenlight →</button>
                             <button onClick={() => updateConceptStatus(concept.id, 'parked')} className="text-[11px] px-2.5 py-1 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-muted)' }}>Park</button>
