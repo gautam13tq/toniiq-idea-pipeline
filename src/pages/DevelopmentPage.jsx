@@ -3,14 +3,19 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
 /**
- * Development — a read-only list of concepts that have been greenlit for
- * development. This is intentionally simple: Toniiq tracks actual development
- * work in Notion + local iCloud folders, not in this app. This page exists
+ * Development — a read-only list of concepts that have been moved into
+ * development. This is intentionally simple: Toniiq tracks actual NPD work
+ * in Notion + local iCloud folders, not in this app. This page exists
  * purely so Gautam has visibility over which concepts are "in flight."
+ *
+ * NOTE on terminology: the underlying DB status is `greenlit` for legacy
+ * reasons, but the UI says "Pending dev" / "Move to Development" because
+ * "greenlight" in Toniiq's process is the FINAL launch approval, not the
+ * decision to start development work.
  */
 
 const STATUS_META = {
-  greenlit: { label: 'Greenlit', bg: 'var(--green-muted)', text: 'var(--green-text)', description: 'Approved. Handoff in progress.' },
+  greenlit: { label: 'Pending dev', bg: 'var(--green-muted)', text: 'var(--green-text)', description: 'Approved for development. No active work logged yet.' },
   in_development: { label: 'In development', bg: 'var(--blue-muted)', text: 'var(--blue-text)', description: 'Active NPD work (Notion + local folders).' },
 }
 
@@ -68,15 +73,15 @@ export default function DevelopmentPage() {
       {concepts.length === 0 ? (
         <div className="text-center py-20 rounded-md border border-dashed" style={{ borderColor: 'var(--border-default)', color: 'var(--text-muted)' }}>
           <div className="text-sm">No concepts in development yet.</div>
-          <div className="text-xs mt-1 opacity-70">Greenlight a concept on the Evaluation page to send it here.</div>
+          <div className="text-xs mt-1 opacity-70">Click "Move to Development" on a scored concept (Evaluation page or concept detail) to send it here.</div>
         </div>
       ) : (
         <div className="space-y-8">
-          {/* Greenlit section — newly approved, not yet in active dev */}
+          {/* Pending-dev section — newly approved for development, not yet in active dev */}
           {greenlit.length > 0 && (
             <section>
               <div className="flex items-center gap-2 mb-3">
-                <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Greenlit</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Pending dev</h2>
                 <span className="text-xs" style={{ color: 'var(--text-faint)' }}>{greenlit.length}</span>
               </div>
               <p className="text-xs mb-3" style={{ color: 'var(--text-faint)' }}>

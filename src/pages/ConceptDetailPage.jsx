@@ -1322,12 +1322,13 @@ export default function ConceptDetailPage() {
                     <ActionButton onClick={() => updateStatus('parked')} disabled={actionLoading || concept.status === 'parked'} variant="secondary">
                       ⏸ Park
                     </ActionButton>
-                    {/* Greenlight is available for any scored concept (evaluated OR
-                        legacy accepted-with-score). The actual move-to-dev happens after greenlight
-                        when the user clicks "Mark in development" on the Development page. */}
+                    {/* Move-to-Development is available for any scored concept (evaluated OR
+                        legacy accepted-with-score). NOTE: this is NOT the final product greenlight —
+                        that's a separate launch decision later. This just queues the concept for
+                        active development work. */}
                     {(concept.status === 'evaluated' || (concept.status === 'accepted' && conceptScores)) && (
                       <ActionButton onClick={() => updateStatus('greenlit')} disabled={actionLoading} variant="success">
-                        ✓✓ Greenlight → Development
+                        → Move to Development
                       </ActionButton>
                     )}
                     {concept.status === 'greenlit' && (

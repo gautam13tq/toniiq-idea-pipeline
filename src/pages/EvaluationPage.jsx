@@ -131,7 +131,7 @@ export default function EvaluationPage() {
                             old Cowork flow without ever flipping to 'evaluated'. */}
                         {score && (concept.status === 'evaluated' || concept.status === 'accepted') && (
                           <div className="flex-shrink-0 flex items-center gap-1.5">
-                            <button onClick={() => updateConceptStatus(concept.id, 'greenlit')} className="text-[11px] px-2.5 py-1 rounded" style={{ background: 'var(--green-muted)', color: 'var(--green-text)', border: '1px solid rgba(74,222,128,0.3)' }}>Greenlight →</button>
+                            <button onClick={() => updateConceptStatus(concept.id, 'greenlit')} className="text-[11px] px-2.5 py-1 rounded" style={{ background: 'var(--green-muted)', color: 'var(--green-text)', border: '1px solid rgba(74,222,128,0.3)' }} title="Move concept to the Development queue (separate from final launch greenlight)">→ Move to Development</button>
                             <button onClick={() => updateConceptStatus(concept.id, 'parked')} className="text-[11px] px-2.5 py-1 rounded" style={{ background: 'var(--bg-active)', color: 'var(--text-muted)' }}>Park</button>
                             <button onClick={() => { if (confirm(`Reject "${concept.concept_name}"?`)) updateConceptStatus(concept.id, 'rejected') }} className="text-[11px] px-2.5 py-1 rounded" style={{ background: 'var(--red-muted)', color: 'var(--red-text)', border: '1px solid rgba(248,113,113,0.3)' }}>Reject</button>
                           </div>
