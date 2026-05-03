@@ -1,18 +1,26 @@
 /**
  * phase-a-gather — Phase A steps 1 & 2 (Datarova + Reddit)
  *
- * Trigger: POST with { pending_action_id } OR { candidate_id } (the latter
- * creates a pending action). Called from pg_cron dispatcher or directly from UI.
+ * Trigger: POST with { pending_action_id } OR { candidate_id }. Called from
+ * pg_cron dispatcher or directly from UI.
  *
  * Flow:
  *   1. Load candidate + pending action
- *   2. Datarova: expand keywords via Sonnet, batch-query, compute growth, write datarova_enrichments
- *   3. Apify Reddit: scrape posts, Sonnet analyzes sentiment+pain points, write reddit_concept_research
- *   4. Update pending_action context with step statuses
- *   5. Self-chain to phase-a-think (science + synthesis)
+ *   2. Keyword harvest (NO Sonnet) — Amazon Autocomplete + bulk Datarova
+ *      snapshots + parent term anchors. Validate via Datarova batch query
+ *      (3-month window, latest non-zero record per keyword). Write
+ *      datarova_enrichments.
+ *   3. Apify Reddit: scrape posts, Sonnet analyzes sentiment+pain points,
+ *      write reddit_concept_research.
+ *   4. Update pending_action context with step statuses.
+ *   5. Self-chain to phase-a-think (science + synthesis).
  *
- * DATA INTEGRITY: Every keyword volume and every Reddit quote is traceable to
- * a real API call (Datarova/Apify). No invented numbers, no fabricated quotes.
+ * DATA INTEGRITY: Every keyword comes from a real customer-search source
+ * (Amazon Autocomplete = what people actually type, or bulk Datarova = already
+ * indexed in their corpus). Every Reddit quote traces to a real Apify call.
+ * No invented numbers, no fabricated quotes. Sonnet is NOT used to generate
+ * keywords (it hallucinated plausible-but-unindexed variants); Sonnet is only
+ * used to analyze Reddit posts.
  */
 
 import { corsHeaders } from '../_shared/cors.ts'
@@ -73,11 +81,15 @@ Deno.serve(async (req) => {
     // ── STEP 1: DATAROVA ─────────────────────────────────────────────────
     await setActionStatus(sb, actionId, 'in_progress', { context_merge: { datarova: 'running' } })
 
-    // Build keyword list: union of (a) Sonnet-generated variants, (b) parent term,
-    // (c) bulk-known-good keywords already in datarova_snapshots for this candidate.
-    // Datarova has no fuzzy match — querying terms it doesn't index returns empty.
-    // Without (b)+(c), sparsely-indexed ingredients (e.g. bromelain) get 0 keywords.
-    const sonnetKeywords = await generateKeywordList(secrets.anthropic_api_key, candidate.ingredient_name)
+    // v4 keyword harvest — NO Sonnet keyword generation.
+    // Sonnet hallucinates plausible-but-unreal keywords (e.g. "creatine hmb 500mg powder unflavored")
+    // that Datarova has no data for, leading to <20% hit rate on niche ingredients. Replaced with
+    // real customer-behavior sources, validated by Datarova at the end.
+    //
+    // Sources:
+    //  1. Amazon Search Autocomplete via Apify pintostudio actor — REAL customer queries
+    //  2. Bulk Datarova snapshots — already-confirmed keywords with known volume
+    //  3. Anchor terms — parent + parent+supplement always included
     const { data: bulkRows } = await sb.from('datarova_snapshots')
       .select('keyword, search_volume')
       .eq('candidate_id', candidateId)
@@ -85,12 +97,21 @@ Deno.serve(async (req) => {
       .limit(20)
     const bulkKnown = (bulkRows || []).map((r: any) => r.keyword).filter(Boolean)
     const parentTerm = candidate.ingredient_name.toLowerCase().trim()
+    const autocompleteSuggestions = await harvestAutocomplete(secrets.apify_api_token, parentTerm)
+    await setActionStatus(sb, actionId, 'in_progress', {
+      context_merge: { keyword_harvest: { autocomplete: autocompleteSuggestions.length, bulk: bulkKnown.length } },
+    })
+
     const dedup = new Set<string>()
-    const keywords: string[] = []
-    for (const k of [parentTerm, `${parentTerm} supplement`, ...bulkKnown, ...sonnetKeywords]) {
+    const allKeywords: string[] = []
+    for (const k of [parentTerm, `${parentTerm} supplement`, ...bulkKnown, ...autocompleteSuggestions]) {
       const norm = String(k).toLowerCase().trim()
-      if (norm && !dedup.has(norm)) { dedup.add(norm); keywords.push(norm) }
+      if (!norm || norm.length < 3 || norm.length > 100 || dedup.has(norm)) continue
+      dedup.add(norm)
+      allKeywords.push(norm)
     }
+    // Hard cap to keep Datarova batch reasonable (API is comfortable with 80-100 keywords)
+    const keywords = allKeywords.slice(0, 100)
     // Pick snapshot date: previous full month (Datarova lags 1-2 mo)
     const now = new Date()
     const snapshotDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1))
@@ -272,24 +293,49 @@ Deno.serve(async (req) => {
 
 // ── Helpers ────────────────────────────────────────────────────────────
 
-async function generateKeywordList(apiKey: string, ingredient: string): Promise<string[]> {
-  const r = await anthropicCall(apiKey, {
-    model: SONNET,
-    max_tokens: 1500,
-    system: `You are a supplement market research keyword expansion agent for Toniiq. Given an ingredient or concept, return 25-35 Amazon-style search keywords as a JSON array of strings. Include: (1) the parent term, (2) dosage variants (e.g., "500mg", "1000mg"), (3) format variants (capsules, powder, softgels, liquid), (4) 2-3 major brand + ingredient combos (e.g., "nutricost {ingredient}"), (5) 3-5 use-case variants (e.g., "{ingredient} for sleep"), (6) 2-3 relevant combos with other ingredients, (7) if the input contains an angle phrase like "liposomal X" or "X for men", INCLUDE THE EXACT ANGLE PHRASE as a keyword so we can measure its specific demand. Return ONLY a JSON array, no commentary. No hallucinated brand names — stick to well-known supplement brands (Nutricost, NOW Foods, Life Extension, Thorne, Doctor's Best, Sports Research).`,
-    messages: [{ role: 'user', content: `Ingredient/concept: "${ingredient}"` }],
-  })
-  const text = extractText(r)
-  try {
-    const arr = extractJson<string[]>(text)
-    if (!Array.isArray(arr)) throw new Error('not an array')
-    const cleaned = arr.map(k => String(k).trim()).filter(k => k.length > 0 && k.length < 100).slice(0, 40)
-    if (cleaned.length === 0) throw new Error('empty after cleaning')
-    return cleaned
-  } catch (e) {
-    // Fallback: basic expansion
-    return [ingredient, `${ingredient} supplement`, `${ingredient} capsules`, `${ingredient} powder`, `${ingredient} 500mg`, `${ingredient} 1000mg`, `${ingredient} benefits`]
+/**
+ * Harvest real customer-search keywords from Amazon's autocomplete index.
+ * Each query stem fires one Apify call. Stems chosen to span dosage / format /
+ * use-case / brand / quality angles. Run in parallel for speed.
+ *
+ * Replaces the prior Sonnet-based keyword generator. Sonnet hallucinated
+ * plausible-but-unindexed variants (~80% fail rate on niche ingredients).
+ * Autocomplete returns what people actually type.
+ */
+const AUTOCOMPLETE_SUFFIXES = [
+  '',                // base query
+  ' supplement',     // supplement-specific
+  ' capsules',       // format
+  ' powder',         // format
+  ' for',            // use-case discovery (returns "X for women", "X for sleep", etc.)
+  ' with',           // combo discovery
+  ' best',           // quality / brand discovery
+  ' organic',        // premium tier
+]
+
+async function harvestAutocomplete(apifyToken: string, ingredient: string): Promise<string[]> {
+  const stems = AUTOCOMPLETE_SUFFIXES.map(s => `${ingredient}${s}`.trim())
+  // For multi-word ingredients (e.g. "aged garlic extract"), also harvest on the core noun
+  const words = ingredient.split(/\s+/)
+  if (words.length >= 3) {
+    const short = words.slice(-2).join(' ')
+    if (short !== ingredient) stems.push(short)
   }
+
+  const results = await Promise.all(stems.map(async (q) => {
+    try {
+      const data = await apifyRunSync(apifyToken, 'pintostudio/amazon-search-autocomplete-scraper',
+        { query: q, countryIso: 'us' }, 30_000)
+      // Output shape: [{value: "phrase"}, ...]
+      return Array.isArray(data)
+        ? data.map((d: any) => (d?.value || d?.suggestion || d?.phrase || '').trim()).filter(Boolean)
+        : []
+    } catch (e) {
+      console.error(`autocomplete failed for "${q}": ${(e as Error).message}`)
+      return []
+    }
+  }))
+  return results.flat()
 }
 
 async function analyzeRedditPosts(apiKey: string, ingredient: string, posts: any[]): Promise<any> {
