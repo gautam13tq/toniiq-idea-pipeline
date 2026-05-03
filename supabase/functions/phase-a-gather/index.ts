@@ -95,12 +95,22 @@ Deno.serve(async (req) => {
     const now = new Date()
     const snapshotDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1))
     const snapshotStr = firstOfMonth(snapshotDate)
+    // Datarova lag is 1-2 months — single-day query can miss data even for known
+    // keywords. Query a 3-month window and pick the latest record with clicks > 0.
+    const threeMoAgo = firstOfMonth(new Date(Date.UTC(snapshotDate.getUTCFullYear(), snapshotDate.getUTCMonth() - 2, 1)))
 
     const snapshot = await datarovaKeywords(secrets.datarova_api_key, {
-      keywords, start: snapshotStr, end: snapshotStr,
+      keywords, start: threeMoAgo, end: snapshotStr,
     })
-    const withData = snapshot.filter(k => (k.records?.[0]?.clicks || 0) > 0)
-    const sorted = [...withData].sort((a, b) => (b.records[0].clicks || 0) - (a.records[0].clicks || 0))
+    // Per keyword: find the latest month with clicks > 0 (may be older than the requested end_date due to Datarova lag)
+    const pickLatest = (recs: any[]): any | null => {
+      const sorted = [...(recs || [])].sort((a, b) => (b.start_date || '').localeCompare(a.start_date || ''))
+      return sorted.find(r => (r.clicks || 0) > 0) || null
+    }
+    type WithRecord = { keyword: string; record: any }
+    const withData: WithRecord[] = snapshot.map(k => ({ keyword: k.keyword, record: pickLatest(k.records as any[]) }))
+      .filter((x: WithRecord) => x.record !== null)
+    const sorted = [...withData].sort((a, b) => (b.record.clicks || 0) - (a.record.clicks || 0))
     const topKeywords = sorted.slice(0, 8).map(k => k.keyword)
 
     // 12-month time series for growth on top keywords (only if we have top keywords)
@@ -128,11 +138,12 @@ Deno.serve(async (req) => {
 
     // Build related_keywords array
     const relatedKeywords = withData.map(k => {
-      const r = k.records[0]
+      const r = k.record
       const g = growthMap[k.keyword] || {}
       return {
         keyword: k.keyword, clicks: r.clicks || 0, sales: r.sales || 0, conversion: r.conversion_rate || 0,
         growth_3m_pct: g.growth_3m_pct ?? null, growth_6m_pct: g.growth_6m_pct ?? null, growth_yoy_pct: g.growth_yoy_pct ?? null,
+        snapshot_month: r.start_date || null,
       }
     })
     const totalClicks = relatedKeywords.reduce((s, k) => s + (k.clicks || 0), 0)
@@ -142,8 +153,8 @@ Deno.serve(async (req) => {
     const primaryGrowth = primary ? growthMap[primary.keyword] : null
 
     // Compute datarova_deep_score (0-10): volume + growth + conversion
-    const primaryClicks = primary?.records[0]?.clicks || 0
-    const primaryConv = primary?.records[0]?.conversion_rate || 0
+    const primaryClicks = primary?.record?.clicks || 0
+    const primaryConv = primary?.record?.conversion_rate || 0
     const volumeScore = primaryClicks >= 100000 ? 5 : primaryClicks >= 10000 ? 4 : primaryClicks >= 1000 ? 3 : primaryClicks >= 500 ? 2 : primaryClicks >= 100 ? 1 : 0
     const yoy = primaryGrowth?.growth_yoy_pct ?? 0
     const growthBonus = yoy > 100 ? 3 : yoy > 50 ? 2 : yoy > 20 ? 1 : yoy > 0 ? 0 : -1
@@ -168,7 +179,7 @@ Deno.serve(async (req) => {
       total_monthly_clicks: totalClicks, total_monthly_sales: totalSales,
       avg_conversion_rate: weightedConv, weighted_avg_conversion: weightedConv,
       primary_keyword: primary?.keyword, primary_keyword_clicks: primaryClicks,
-      primary_keyword_sales: primary?.records[0]?.sales || 0,
+      primary_keyword_sales: primary?.record?.sales || 0,
       primary_keyword_conversion: primaryConv,
       growth_3m_clicks_pct: primaryGrowth?.growth_3m_pct ?? null,
       growth_6m_clicks_pct: primaryGrowth?.growth_6m_pct ?? null,
