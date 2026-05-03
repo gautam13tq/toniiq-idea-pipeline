@@ -298,16 +298,19 @@ export default function DiscoveryPage() {
 
       // Load all data sources in parallel
       const [datarovaRes, redditRes, scienceRes, linksRes] = await Promise.all([
-        supabase.from('datarova_enrichments').select('*').eq('candidate_id', candidateId).maybeSingle(),
-        supabase.from('reddit_concept_research').select('*').eq('candidate_id', candidateId).maybeSingle(),
-        supabase.from('science_concept_research').select('*').eq('candidate_id', candidateId).maybeSingle(),
+        // Multiple Phase A runs accumulate one row each — use the most recent.
+        // .maybeSingle() returns null when >1 row exists, which silently hides good data.
+        supabase.from('datarova_enrichments').select('*').eq('candidate_id', candidateId).order('enriched_at', { ascending: false }).limit(1),
+        supabase.from('reddit_concept_research').select('*').eq('candidate_id', candidateId).order('researched_at', { ascending: false }).limit(1),
+        supabase.from('science_concept_research').select('*').eq('candidate_id', candidateId).order('researched_at', { ascending: false }).limit(1),
         // Use junction table to find ALL concepts linked to this ingredient (primary + secondary)
         supabase.from('concept_ingredient_links').select('concept_id').eq('candidate_id', candidateId),
       ])
 
-      if (datarovaRes.data) setDatarova(datarovaRes.data)
-      if (redditRes.data) setRedditResearch(redditRes.data)
-      if (scienceRes.data) setScienceResearch(scienceRes.data)
+      // .limit(1) returns an array — unwrap to a single row
+      if (datarovaRes.data?.[0]) setDatarova(datarovaRes.data[0])
+      if (redditRes.data?.[0]) setRedditResearch(redditRes.data[0])
+      if (scienceRes.data?.[0]) setScienceResearch(scienceRes.data[0])
 
       // Load the actual concept details for linked concepts
       const conceptIds = (linksRes.data || []).map(l => l.concept_id)
