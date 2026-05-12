@@ -226,36 +226,36 @@ Important:
 async function runChunkPass(apiKey: string, rows: MarketRow[], chunkIndex: number) {
   const response = await anthropicCall(apiKey, {
     model: CHUNK_MODEL,
-    // 8-12 shortlist picks per chunk with full pillar_scores + evidence_refs + risks
-    // run ~400-500 tokens each. 6000 gives comfortable headroom over the 4500 ceiling
-    // that was clipping responses mid-JSON.
-    max_tokens: 6000,
+    // Chunk pass is triage. Keep it lean — terse reasoning, no evidence_refs
+    // (those land in the final pass). 10000 gives Sonnet room without
+    // re-truncating; earlier 4500/6000 caps were both being clipped.
+    max_tokens: 10000,
     temperature: 0.2,
     system: curationSystemPrompt(),
     messages: [{
       role: 'user',
-      content: `Review this chunk of monthly market rows and shortlist the best 8-12 candidates for final review.
+      content: `Review this chunk of monthly market rows and shortlist the best 6-10 candidates for final review.
 
-Return STRICT JSON:
+This is TRIAGE, not final analysis. Keep reasoning terse — full evidence and rationale are written in the final pass. Each "reason" field MUST be ≤15 words. "thesis" ≤20 words. Skip evidence_refs in this pass.
+
+Return STRICT JSON only (no prose, no code fences):
 {
   "shortlist": [
     {
       "candidate_id": "uuid",
-      "idea_title": "specific Toniiq product opportunity",
+      "idea_title": "specific Toniiq product opportunity (≤8 words)",
       "strategic_score": 0-100,
       "recommendation_label": "launch_priority|strong_candidate|watchlist|pass",
       "pillar_scores": {
-        "market_size_intent": {"score": 0-10, "reason": "..."},
-        "early_market_access": {"score": 0-10, "reason": "..."},
-        "growth_timing": {"score": 0-10, "reason": "..."},
-        "differentiation_hypothesis": {"score": 0-10, "reason": "..."}
+        "market_size_intent": {"score": 0-10, "reason": "≤15 words"},
+        "early_market_access": {"score": 0-10, "reason": "≤15 words"},
+        "growth_timing": {"score": 0-10, "reason": "≤15 words"},
+        "differentiation_hypothesis": {"score": 0-10, "reason": "≤15 words"}
       },
-      "thesis": "why this might be a Toniiq idea",
-      "evidence_refs": [{"source": "poe|datarova|pipeline|registry", "label": "...", "value": "..."}],
-      "risks": ["..."],
+      "thesis": "≤20 words",
+      "risks": ["≤1 risk, ≤10 words"],
       "duplicate_status": "new|prior_pick|in_research|in_evaluation|in_development|registry_overlap",
-      "status_flags": {"already_known": false, "needs_phase_a": true},
-      "next_action": "..."
+      "needs_phase_a": true
     }
   ]
 }
