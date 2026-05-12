@@ -3,21 +3,14 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import {
   buildOpportunityPrompt,
-  buildReviewDraft,
-  confidenceForScore,
   formatGrowth,
   formatNumber,
   formatUsd,
-  getMarketSignals,
   normalizeIdeaName,
-  priorityForScore,
-  scoreOpportunity,
-  sortByPriorityThenScore,
 } from '../lib/opportunity'
 
 const TABS = [
   { key: 'queue', label: 'Review Queue' },
-  { key: 'suggested', label: 'Suggested' },
   { key: 'manual', label: 'Manual Ideas' },
   { key: 'watching', label: 'Watching' },
   { key: 'closed', label: 'Parked / Dismissed' },
@@ -25,6 +18,7 @@ const TABS = [
 
 const STATUSES = ['new', 'reviewing', 'watching', 'queued_research', 'researching', 'parked', 'dismissed', 'promoted']
 const PRIORITIES = ['urgent', 'high', 'medium', 'low']
+const PRIORITY_ORDER = { urgent: 0, high: 1, medium: 2, low: 3 }
 
 function mondayString(date = new Date()) {
   const d = new Date(date)
@@ -33,20 +27,25 @@ function mondayString(date = new Date()) {
   return d.toISOString().slice(0, 10)
 }
 
-function marketRows(snapshots, candidates, reviews) {
-  const candidateMap = new Map(candidates.map(candidate => [candidate.id, candidate]))
-  const reviewMap = new Map(reviews.map(review => [review.candidate_id, review]))
-  const latestImport = snapshots.reduce((latest, row) => row.import_date > latest ? row.import_date : latest, '')
-  const latest = snapshots
-    .filter(snapshot => snapshot.import_date === latestImport && candidateMap.has(snapshot.candidate_id))
-    .map(snapshot => {
-      const candidate = candidateMap.get(snapshot.candidate_id)
-      const review = reviewMap.get(snapshot.candidate_id) || null
-      const signals = getMarketSignals(snapshot)
-      const score = scoreOpportunity(snapshot)
-      return { id: snapshot.id, snapshot, candidate, review, signals, score, priority: review?.priority || priorityForScore(score) }
-    })
-  return { latestImport, latest }
+function latestImportDate(snapshots) {
+  return snapshots.reduce((latest, row) => row.import_date > latest ? row.import_date : latest, '')
+}
+
+function nullableScore(value) {
+  if (value === '' || value === null || value === undefined) return null
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return null
+  return Math.max(0, Math.min(100, Math.round(parsed)))
+}
+
+function sortRows(a, b) {
+  const pa = PRIORITY_ORDER[a.priority] ?? 9
+  const pb = PRIORITY_ORDER[b.priority] ?? 9
+  if (pa !== pb) return pa - pb
+  const sa = a.score ?? -1
+  const sb = b.score ?? -1
+  if (sa !== sb) return sb - sa
+  return new Date(b.review.created_at || 0) - new Date(a.review.created_at || 0)
 }
 
 function reviewRows(reviews, candidates, snapshots) {
@@ -61,15 +60,13 @@ function reviewRows(reviews, candidates, snapshots) {
       const candidate = candidateMap.get(review.candidate_id)
       if (!candidate) return null
       const snapshot = latestSnapshotByCandidate.get(review.candidate_id) || {}
-      const score = review.toniiq_fit_score ?? scoreOpportunity(snapshot)
       return {
         id: review.id,
         review,
         candidate,
         snapshot,
-        score,
-        priority: review.priority || priorityForScore(score),
-        signals: getMarketSignals(snapshot),
+        score: review.toniiq_fit_score,
+        priority: review.priority || 'medium',
       }
     })
     .filter(Boolean)
@@ -120,24 +117,16 @@ export default function OpportunityQueuePage() {
     return () => { ignore = true }
   }, [])
 
-  const { latestImport, latest } = useMemo(
-    () => marketRows(snapshots, candidates, reviews),
-    [snapshots, candidates, reviews]
-  )
+  const latestImport = useMemo(() => latestImportDate(snapshots), [snapshots])
   const persistedRows = useMemo(
     () => reviewRows(reviews, candidates, snapshots),
     [reviews, candidates, snapshots]
-  )
-  const suggestedRows = useMemo(
-    () => latest.filter(row => row.score >= 65 && !row.review && !row.signals.isRootNoise).sort(sortByPriorityThenScore),
-    [latest]
   )
 
   const visibleRows = useMemo(() => {
     const q = search.trim().toLowerCase()
     let rows
-    if (tab === 'suggested') rows = suggestedRows
-    else if (tab === 'manual') rows = persistedRows.filter(row => row.review.source === 'manual')
+    if (tab === 'manual') rows = persistedRows.filter(row => row.review.source === 'manual')
     else if (tab === 'watching') rows = persistedRows.filter(row => row.review.status === 'watching')
     else if (tab === 'closed') rows = persistedRows.filter(row => ['parked', 'dismissed'].includes(row.review.status))
     else rows = persistedRows.filter(row => ['new', 'reviewing', 'queued_research', 'researching'].includes(row.review.status))
@@ -148,16 +137,16 @@ export default function OpportunityQueuePage() {
         const text = [
           row.candidate.ingredient_name,
           row.candidate.category,
-          row.review?.signal_type,
-          row.review?.rationale,
-          row.review?.next_action,
+          row.review.signal_type,
+          row.review.rationale,
+          row.review.next_action,
           row.snapshot?.customer_need,
-          ...(row.review?.signal_tags || row.signals?.wedgeHits || []),
+          ...(row.review.signal_tags || []),
         ].filter(Boolean).join(' ').toLowerCase()
         return text.includes(q)
       })
-      .sort(sortByPriorityThenScore)
-  }, [persistedRows, search, suggestedRows, tab])
+      .sort(sortRows)
+  }, [persistedRows, search, tab])
 
   const selected = useMemo(
     () => visibleRows.find(row => row.id === selectedId) || visibleRows[0] || null,
@@ -166,8 +155,7 @@ export default function OpportunityQueuePage() {
 
   const draft = useMemo(() => {
     if (!selected) return null
-    const base = selected.review || buildReviewDraft(selected.snapshot, selected.candidate)
-    return { ...base, ...draftPatch }
+    return { ...selected.review, ...draftPatch }
   }, [selected, draftPatch])
 
   function switchTab(nextTab) {
@@ -188,17 +176,17 @@ export default function OpportunityQueuePage() {
   async function upsertReviewForRow(row, overrides = {}) {
     if (!row) return null
     setSaving(true)
-    const base = row.review || buildReviewDraft(row.snapshot, row.candidate)
-    const score = Number(overrides.toniiq_fit_score ?? base.toniiq_fit_score ?? row.score ?? 50)
+    const base = row.review || {}
+    const score = nullableScore(overrides.toniiq_fit_score ?? base.toniiq_fit_score)
     const payload = {
       candidate_id: row.candidate.id,
-      source: overrides.source || base.source || 'poe',
+      source: overrides.source || base.source || 'manual',
       status: overrides.status || base.status || 'new',
-      priority: overrides.priority || base.priority || priorityForScore(score),
-      signal_type: overrides.signal_type || base.signal_type || row.signals.signalType || 'unclassified',
-      signal_tags: overrides.signal_tags || base.signal_tags || row.signals.wedgeHits || [],
+      priority: overrides.priority || base.priority || 'medium',
+      signal_type: overrides.signal_type || base.signal_type || 'unclassified',
+      signal_tags: overrides.signal_tags || base.signal_tags || [],
       toniiq_fit_score: score,
-      confidence: overrides.confidence || base.confidence || confidenceForScore(score),
+      confidence: score === null ? null : (overrides.confidence || base.confidence || 'medium'),
       rationale: overrides.rationale || base.rationale || null,
       next_action: overrides.next_action || base.next_action || null,
       decision_notes: overrides.decision_notes || base.decision_notes || null,
@@ -241,7 +229,7 @@ export default function OpportunityQueuePage() {
       context: {
         ingredient_name: row.candidate.ingredient_name,
         source: 'opportunity_queue',
-        opportunity_review_id: review?.id,
+        opportunity_review_id: review.id,
       },
     }).select('id').single()
     if (actionError) {
@@ -257,7 +245,8 @@ export default function OpportunityQueuePage() {
 
   async function copyPrompt(row = selected) {
     if (!row) return
-    await navigator.clipboard.writeText(buildOpportunityPrompt({ candidate: row.candidate, snapshot: row.snapshot, review: row.review || draft }))
+    const review = row.id === selected?.id ? (draft || row.review) : row.review
+    await navigator.clipboard.writeText(buildOpportunityPrompt({ candidate: row.candidate, snapshot: row.snapshot, review }))
     setCopiedId(row.id)
     setTimeout(() => setCopiedId(null), 1400)
   }
@@ -299,8 +288,8 @@ export default function OpportunityQueuePage() {
       priority: manual.urgency,
       signal_type: 'manual idea',
       signal_tags: ['manual'],
-      toniiq_fit_score: manual.urgency === 'urgent' ? 80 : manual.urgency === 'high' ? 70 : 55,
-      confidence: 'medium',
+      toniiq_fit_score: null,
+      confidence: null,
       source_context: manual.source_context.trim() || null,
       initial_hypothesis: manual.initial_hypothesis.trim() || null,
       rationale: manual.initial_hypothesis.trim() || 'Manual idea captured for later research.',
@@ -324,6 +313,7 @@ export default function OpportunityQueuePage() {
 
   const openCount = persistedRows.filter(row => ['new', 'reviewing', 'queued_research', 'researching'].includes(row.review.status)).length
   const highCount = persistedRows.filter(row => ['urgent', 'high'].includes(row.review.priority) && !['dismissed', 'parked'].includes(row.review.status)).length
+  const manualCount = persistedRows.filter(row => row.review.source === 'manual').length
 
   return (
     <div className="min-h-screen">
@@ -337,8 +327,7 @@ export default function OpportunityQueuePage() {
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <MetricPill label={`${openCount} open`} tone="blue" />
               <MetricPill label={`${highCount} high priority`} tone="amber" />
-              <MetricPill label={`${suggestedRows.length} suggested from atlas`} tone="green" />
-              <MetricPill label={`${persistedRows.filter(row => row.review.source === 'manual').length} manual ideas`} />
+              <MetricPill label={`${manualCount} manual ideas`} />
             </div>
           </div>
           <div className="flex w-full flex-col gap-2 sm:w-auto sm:min-w-[420px]">
@@ -358,7 +347,7 @@ export default function OpportunityQueuePage() {
             </select>
             <textarea value={manual.source_context} onChange={event => setManual(prev => ({ ...prev, source_context: event.target.value }))} placeholder="Where did this come from?" className="t-input p-3 text-sm lg:col-span-3" rows={2} />
             <textarea value={manual.initial_hypothesis} onChange={event => setManual(prev => ({ ...prev, initial_hypothesis: event.target.value }))} placeholder="Why might this be a Toniiq idea?" className="t-input p-3 text-sm lg:col-span-3" rows={2} />
-            <div className="lg:col-span-3 flex justify-end">
+            <div className="flex justify-end lg:col-span-3">
               <button disabled={saving} className="t-btn">{saving ? 'Saving...' : 'Create idea'}</button>
             </div>
           </form>
@@ -393,7 +382,6 @@ export default function OpportunityQueuePage() {
                     saving={saving}
                     copied={copiedId === row.id}
                     onOpen={() => openRow(row)}
-                    onSave={() => upsertReviewForRow(row)}
                     onQueueResearch={() => queueResearch(row)}
                     onCopy={() => copyPrompt(row)}
                   />
@@ -430,25 +418,25 @@ function MetricPill({ label, tone = 'neutral' }) {
   return <span className="rounded border px-2 py-1" style={{ background: style.bg, color: style.color, borderColor: style.border }}>{label}</span>
 }
 
-function OpportunityRow({ row, selected, saving, copied, onOpen, onSave, onQueueResearch, onCopy }) {
+function OpportunityRow({ row, selected, copied, onOpen, onQueueResearch, onCopy }) {
   const review = row.review
+  const score = review.toniiq_fit_score === null || review.toniiq_fit_score === undefined ? null : review.toniiq_fit_score
   return (
     <div className="px-4 py-4" style={{ background: selected ? 'var(--bg-hover)' : 'transparent' }}>
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <button onClick={onOpen} className="min-w-0 flex-1 text-left">
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>{row.candidate.ingredient_name}</span>
-            <SmallBadge>{review?.priority || row.priority}</SmallBadge>
-            <SmallBadge>{review?.status || 'suggested'}</SmallBadge>
-            <SmallBadge>{review?.signal_type || row.signals.signalType}</SmallBadge>
-            <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{review?.toniiq_fit_score ?? row.score}/100</span>
+            <SmallBadge>{review.priority}</SmallBadge>
+            <SmallBadge>{review.status}</SmallBadge>
+            <SmallBadge>{review.signal_type}</SmallBadge>
+            <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{score === null ? 'unscored' : `${score}/100 strategic`}</span>
           </div>
           <p className="mt-1 line-clamp-2 text-xs" style={{ color: 'var(--text-muted)' }}>
-            {review?.rationale || buildReviewDraft(row.snapshot, row.candidate).rationale}
+            {review.rationale || review.initial_hypothesis || 'Review this opportunity and decide the next action.'}
           </p>
         </button>
         <div className="flex shrink-0 flex-wrap gap-1.5">
-          {!review && <button onClick={onSave} disabled={saving} className="t-btn-ghost px-2.5 py-1 text-[11px]">{saving ? 'Adding...' : 'Add'}</button>}
           <button onClick={onQueueResearch} className="t-btn-ghost px-2.5 py-1 text-[11px]">Run research</button>
           <button onClick={onCopy} className="t-btn-ghost px-2.5 py-1 text-[11px]">{copied ? 'Copied' : 'Prompt'}</button>
         </div>
@@ -466,6 +454,7 @@ function OpportunityRow({ row, selected, saving, copied, onOpen, onSave, onQueue
 function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQueueResearch, onCopy }) {
   if (!row || !draft) return <div className="p-6 text-sm" style={{ color: 'var(--text-muted)' }}>Select an opportunity.</div>
   const prompt = buildOpportunityPrompt({ candidate: row.candidate, snapshot: row.snapshot, review: draft })
+  const scoreValue = draft.toniiq_fit_score === null || draft.toniiq_fit_score === undefined ? '' : draft.toniiq_fit_score
 
   return (
     <div className="p-5">
@@ -477,7 +466,7 @@ function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQ
         </div>
         <h2 className="text-xl font-semibold leading-tight" style={{ color: 'var(--text-primary)' }}>{row.candidate.ingredient_name}</h2>
         <div className="mt-2 text-xs" style={{ color: 'var(--text-muted)' }}>
-          {row.candidate.stage} · {draft.toniiq_fit_score ?? row.score}/100 Toniiq fit
+          {row.candidate.stage} · {scoreValue === '' ? 'no strategic score' : `${scoreValue}/100 strategic score`}
         </div>
       </div>
 
@@ -486,7 +475,7 @@ function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQ
           <SelectField label="Status" value={draft.status || 'new'} options={STATUSES} onChange={value => patchDraft('status', value)} />
           <SelectField label="Priority" value={draft.priority || 'medium'} options={PRIORITIES} onChange={value => patchDraft('priority', value)} />
           <InputField label="Signal type" value={draft.signal_type || ''} onChange={value => patchDraft('signal_type', value)} />
-          <InputField label="Toniiq fit" type="number" value={draft.toniiq_fit_score ?? row.score} onChange={value => patchDraft('toniiq_fit_score', value)} />
+          <InputField label="Strategic score" type="number" value={scoreValue} onChange={value => patchDraft('toniiq_fit_score', value)} />
         </div>
         <TextAreaField label="Rationale" value={draft.rationale || ''} onChange={value => patchDraft('rationale', value)} rows={4} />
         <TextAreaField label="Next action" value={draft.next_action || ''} onChange={value => patchDraft('next_action', value)} rows={2} />
