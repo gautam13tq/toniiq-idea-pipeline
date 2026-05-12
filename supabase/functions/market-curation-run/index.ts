@@ -232,10 +232,10 @@ Important:
 async function runChunkPass(apiKey: string, rows: MarketRow[], chunkIndex: number) {
   const response = await anthropicCall(apiKey, {
     model: CHUNK_MODEL,
-    // Chunk pass is triage. ~8 picks × 150 tokens each = ~1.2K typical.
-    // Hard ceiling of 2000 prevents runaway generation. The new truncation
-    // guard will throw clearly if hit, so we'd know to raise.
-    max_tokens: 2000,
+    // v8 instrumented run hit max_tokens=2000 cleanly — Sonnet wanted more for
+    // 6-8 picks × ~250 tokens. 3500 fits 8 picks comfortably. At observed ~67
+    // tok/sec that's ≤55s per chunk.
+    max_tokens: 3500,
     temperature: 0.2,
     system: curationSystemPrompt(),
     messages: [{
@@ -276,9 +276,9 @@ ${JSON.stringify(rows.map(toLlmRow))}`,
 async function runFinalPass(apiKey: string, finalists: any[], count: number) {
   const response = await anthropicCall(apiKey, {
     model: FINAL_MODEL,
-    // Hard ceiling matched to wall-clock budget. 8 picks × ~250 tokens = 2K.
-    // 2500 cap means at Sonnet ~50 tps the final pass finishes in ≤50s.
-    max_tokens: 2500,
+    // 8 picks × ~350 tokens (with evidence_refs + weight) = ~2.8K. 4000 cap
+    // at observed ~67 tok/sec means ≤60s wall for the final pass.
+    max_tokens: 4000,
     temperature: 0.15,
     system: curationSystemPrompt(),
     messages: [{
@@ -383,17 +383,22 @@ Deno.serve(async (req) => {
     const t0 = Date.now()
     console.log(`[curate] data_loaded rows=${marketRows.length} chunks=${chunks.length} t=${Date.now()-t0}ms`)
 
+    // Parallel chunks. With ≤2 chunks × ~10K input tokens each = ≤20K total
+    // input, well under Anthropic's 30K input-tokens/min Sonnet limit. Saves
+    // ~25-40s vs sequential, critical for fitting Supabase's 150s wall clock.
+    const tcAll = Date.now()
+    const chunkOutcomes = await Promise.all(
+      chunks.map((c, i) => runChunkPass(anthropicApiKey, c, i).then(r => ({ ...r, index: i })))
+    )
     const chunkResults: any[] = []
-    for (let i = 0; i < chunks.length; i += 1) {
-      const tc = Date.now()
-      const result = await runChunkPass(anthropicApiKey, chunks[i], i)
-      console.log(`[curate] chunk ${i+1}/${chunks.length} done in ${Date.now()-tc}ms shortlist=${result.parsed.shortlist?.length || 0}`)
+    for (const result of chunkOutcomes) {
+      console.log(`[curate] chunk ${result.index+1} shortlist=${result.parsed.shortlist?.length || 0}`)
       usage.chunk.push(result.usage)
-      chunkResults.push(...(result.parsed.shortlist || []).map((item: any) => ({ ...item, chunk_index: i })))
+      chunkResults.push(...(result.parsed.shortlist || []).map((item: any) => ({ ...item, chunk_index: result.index })))
     }
 
     const tf = Date.now()
-    console.log(`[curate] chunks_total=${tf-t0}ms finalists=${chunkResults.length}, starting final pass`)
+    console.log(`[curate] chunks_total=${tf-tcAll}ms finalists=${chunkResults.length}, starting final pass`)
     const final = await runFinalPass(anthropicApiKey, chunkResults, count)
     console.log(`[curate] final_pass done in ${Date.now()-tf}ms picks=${final.parsed.picks?.length || 0}`)
     usage.final = final.usage
