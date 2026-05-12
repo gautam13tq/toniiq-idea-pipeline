@@ -226,7 +226,10 @@ Important:
 async function runChunkPass(apiKey: string, rows: MarketRow[], chunkIndex: number) {
   const response = await anthropicCall(apiKey, {
     model: CHUNK_MODEL,
-    max_tokens: 4500,
+    // 8-12 shortlist picks per chunk with full pillar_scores + evidence_refs + risks
+    // run ~400-500 tokens each. 6000 gives comfortable headroom over the 4500 ceiling
+    // that was clipping responses mid-JSON.
+    max_tokens: 6000,
     temperature: 0.2,
     system: curationSystemPrompt(),
     messages: [{
@@ -267,7 +270,11 @@ ${JSON.stringify(rows.map(toLlmRow))}`,
 async function runFinalPass(apiKey: string, finalists: any[], count: number) {
   const response = await anthropicCall(apiKey, {
     model: FINAL_MODEL,
-    max_tokens: 7000,
+    // Final pass returns up to 20 picks with full pillar_scores (4 pillars with
+    // score+weight+reason), thesis, evidence_refs[], risks[], next_action — ~500
+    // tokens per pick. The previous 7000 cap was the root cause of the truncation
+    // that broke JSON parsing on May 12.
+    max_tokens: 12000,
     temperature: 0.15,
     system: curationSystemPrompt(),
     messages: [{

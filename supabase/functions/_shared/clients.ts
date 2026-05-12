@@ -102,7 +102,13 @@ export async function anthropicCall(apiKey: string, opts: AnthropicOpts): Promis
     body: JSON.stringify(opts),
   })
   if (!res.ok) throw new Error(`Anthropic ${res.status}: ${(await res.text()).slice(0, 500)}`)
-  return await res.json()
+  const json = await res.json()
+  // Surface truncation explicitly so callers can fail fast with a useful error
+  // instead of throwing a confusing JSON.parse error on a half-written response.
+  if (json.stop_reason === 'max_tokens') {
+    throw new Error(`Anthropic response truncated at max_tokens (${opts.max_tokens}). Raise max_tokens or reduce output size.`)
+  }
+  return json
 }
 
 /** Extract clean text from Anthropic response, concatenating all text blocks. */
@@ -114,11 +120,58 @@ export function extractText(r: { content: any[] }): string {
     .trim()
 }
 
-/** Extract a ```json ... ``` fenced block or parse whole message as JSON. */
+/**
+ * Robust JSON extractor for LLM text output.
+ *
+ * Handles:
+ *   1. Properly fenced ```json ... ``` blocks
+ *   2. Half-fenced blocks (opening ```json with no closing fence — happens on
+ *      truncated responses or when the model just forgets to close)
+ *   3. Bare JSON with no fences
+ *   4. Prose-prefixed JSON ("Here's the JSON: { ... }")
+ *
+ * Strategy: strip any leading ```json / ``` prefix, then balance-match braces
+ * from the first { to find the JSON object boundary. This survives trailing
+ * prose, partial closing fences, and truncated tails.
+ */
 export function extractJson<T = any>(text: string): T {
-  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/)
-  const raw = fence ? fence[1] : text
-  return JSON.parse(raw.trim())
+  let body = text.trim()
+
+  // 1. Strip a leading ```json or ``` opener if present.
+  body = body.replace(/^```(?:json)?\s*/i, '')
+  // 2. Strip a trailing ``` closer if present.
+  body = body.replace(/\s*```\s*$/i, '')
+  body = body.trim()
+
+  // Direct parse attempt — covers well-formed responses.
+  try { return JSON.parse(body) } catch { /* fall through to brace match */ }
+
+  // 3. Find the first { or [ and balance-match to the corresponding close.
+  const startIdx = body.search(/[\{\[]/)
+  if (startIdx === -1) throw new Error(`No JSON object/array found in response. Preview: ${body.slice(0, 200)}`)
+
+  const open = body[startIdx]
+  const close = open === '{' ? '}' : ']'
+  let depth = 0
+  let inString = false
+  let escape = false
+  let endIdx = -1
+  for (let i = startIdx; i < body.length; i++) {
+    const ch = body[i]
+    if (escape) { escape = false; continue }
+    if (ch === '\\') { escape = true; continue }
+    if (ch === '"') { inString = !inString; continue }
+    if (inString) continue
+    if (ch === open) depth++
+    else if (ch === close) {
+      depth--
+      if (depth === 0) { endIdx = i; break }
+    }
+  }
+  if (endIdx === -1) {
+    throw new Error(`JSON appears truncated — found opening '${open}' but no matching close. Preview: ${body.slice(0, 200)}…${body.slice(-200)}`)
+  }
+  return JSON.parse(body.slice(startIdx, endIdx + 1))
 }
 
 // ── Pending actions helpers ──────────────────────────────────────────────
