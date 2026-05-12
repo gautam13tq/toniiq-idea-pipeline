@@ -21,6 +21,10 @@ const FINAL_MODEL = OPUS
 const CHUNK_MODEL = SONNET
 const CHUNK_SIZE = 70
 const FINAL_PICK_COUNT = 20
+// Cap rows fed to the LLM. POE returns ~500 rows; top 200 by volume covers
+// every credible opportunity and stays under both Supabase's 150s function
+// timeout and Anthropic's 30K input-tokens/min Sonnet rate limit.
+const MAX_ROWS_TO_SCORE = 200
 
 const NOISE_PATTERNS = [
   'ryze', 'mary ruth', 'ritual', 'garden of life', 'nature made', 'olly',
@@ -359,27 +363,28 @@ Deno.serve(async (req) => {
     const loadError = poeRes.error || candidatesRes.error || datarovaRes.error || picksRes.error || registryRes.error
     if (loadError) throw new Error(`Could not load market context: ${loadError.message}`)
 
-    const marketRows = buildMarketRows(
+    const allMarketRows = buildMarketRows(
       poeRes.data || [],
       candidatesRes.data || [],
       datarovaRes.data || [],
       picksRes.data || [],
       registryRes.data || []
     )
+    // Cap to top-N by POE volume (already sorted by the SQL query). Reduces
+    // LLM token spend and keeps us under Supabase + Anthropic limits.
+    const marketRows = allMarketRows.slice(0, MAX_ROWS_TO_SCORE)
 
     const chunks = chunk(marketRows, CHUNK_SIZE)
     const usage = { chunk: [] as any[], final: null as any }
 
-    // Run all Sonnet chunk passes in parallel — Anthropic handles the concurrency
-    // and the Supabase Edge Function has a 150s wall-clock cap. Sequential was
-    // taking ~120s for 8 chunks; parallel finishes in ~20-30s.
-    const chunkOutcomes = await Promise.all(
-      chunks.map((c, i) => runChunkPass(anthropicApiKey, c, i).then(r => ({ ...r, index: i })))
-    )
+    // Sequential chunk loop. With top-200 rows / 70-per-chunk = 3 chunks at
+    // ~20s each, total ~60s. Sequential avoids tripping Anthropic's 30K
+    // input-tokens/min Sonnet rate limit that bounded parallelism hit.
     const chunkResults: any[] = []
-    for (const result of chunkOutcomes) {
+    for (let i = 0; i < chunks.length; i += 1) {
+      const result = await runChunkPass(anthropicApiKey, chunks[i], i)
       usage.chunk.push(result.usage)
-      chunkResults.push(...(result.parsed.shortlist || []).map((item: any) => ({ ...item, chunk_index: result.index })))
+      chunkResults.push(...(result.parsed.shortlist || []).map((item: any) => ({ ...item, chunk_index: i })))
     }
 
     const final = await runFinalPass(anthropicApiKey, chunkResults, count)
