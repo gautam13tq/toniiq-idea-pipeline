@@ -16,14 +16,17 @@ import {
   svcClient,
 } from '../_shared/clients.ts'
 
-const PROMPT_VERSION = 'market-curation-v1'
-const FINAL_MODEL = OPUS
+const PROMPT_VERSION = 'market-curation-v2'
+// Both passes run on Sonnet. Opus final pass was generating ~10K tokens at
+// ~30-50 tok/sec, taking 100-200s alone and blowing Supabase's 150s wall
+// clock. Sonnet runs the same prompt at ~60-80 tok/sec — fast enough that
+// the full pipeline (chunks + final) fits in budget. Strategic-reasoning
+// quality is acceptable for monthly Market Atlas picks (these are LLM
+// hypotheses, not Phase B truth).
+const FINAL_MODEL = SONNET
 const CHUNK_MODEL = SONNET
 const CHUNK_SIZE = 70
-const FINAL_PICK_COUNT = 20
-// Cap rows fed to the LLM. POE returns ~500 rows; top 200 by volume covers
-// every credible opportunity and stays under both Supabase's 150s function
-// timeout and Anthropic's 30K input-tokens/min Sonnet rate limit.
+const FINAL_PICK_COUNT = 12
 const MAX_ROWS_TO_SCORE = 200
 
 const NOISE_PATTERNS = [
@@ -274,11 +277,10 @@ ${JSON.stringify(rows.map(toLlmRow))}`,
 async function runFinalPass(apiKey: string, finalists: any[], count: number) {
   const response = await anthropicCall(apiKey, {
     model: FINAL_MODEL,
-    // Final pass returns up to 20 picks with full pillar_scores (4 pillars with
-    // score+weight+reason), thesis, evidence_refs[], risks[], next_action — ~500
-    // tokens per pick. The previous 7000 cap was the root cause of the truncation
-    // that broke JSON parsing on May 12.
-    max_tokens: 12000,
+    // ~10 picks × ~350 tokens each = ~3.5K output. 5000 gives headroom.
+    // Larger caps don't speed Sonnet up but can extend wall-clock if model
+    // generates more, so size for actual need.
+    max_tokens: 5000,
     temperature: 0.15,
     system: curationSystemPrompt(),
     messages: [{
@@ -288,7 +290,11 @@ async function runFinalPass(apiKey: string, finalists: any[], count: number) {
 Be selective. Remove duplicates. Prefer ideas with a clear product thesis and defensible Toniiq angle.
 Keep already-in-development ideas only if the market signal suggests a materially new angle.
 
-Return STRICT JSON:
+CONCISE OUTPUT REQUIRED: each pillar "reason" ≤20 words. "thesis" ≤30 words.
+"evidence_refs" max 3 items with brief label/value. "risks" max 2 items, ≤15 words each.
+"next_action" ≤20 words.
+
+Return STRICT JSON only (no prose, no code fences):
 {
   "summary": "1-3 sentence monthly readout",
   "picks": [
@@ -301,17 +307,17 @@ Return STRICT JSON:
       "recommendation_label": "launch_priority|strong_candidate|watchlist|pass",
       "strategic_score": 0-100,
       "pillar_scores": {
-        "market_size_intent": {"score": 0-10, "weight": 0.20, "reason": "..."},
-        "early_market_access": {"score": 0-10, "weight": 0.25, "reason": "..."},
-        "growth_timing": {"score": 0-10, "weight": 0.20, "reason": "..."},
-        "differentiation_hypothesis": {"score": 0-10, "weight": 0.35, "reason": "..."}
+        "market_size_intent": {"score": 0-10, "weight": 0.20, "reason": "≤20 words"},
+        "early_market_access": {"score": 0-10, "weight": 0.25, "reason": "≤20 words"},
+        "growth_timing": {"score": 0-10, "weight": 0.20, "reason": "≤20 words"},
+        "differentiation_hypothesis": {"score": 0-10, "weight": 0.35, "reason": "≤20 words"}
       },
-      "thesis": "source-grounded Toniiq product thesis",
+      "thesis": "≤30 words, source-grounded",
       "evidence_refs": [{"source": "poe|datarova|pipeline|registry", "label": "...", "value": "..."}],
-      "risks": ["..."],
+      "risks": ["≤15 words"],
       "duplicate_status": "new|prior_pick|in_research|in_evaluation|in_development|registry_overlap",
       "status_flags": {"already_known": false, "needs_phase_a": true},
-      "next_action": "..."
+      "next_action": "≤20 words"
     }
   ]
 }
