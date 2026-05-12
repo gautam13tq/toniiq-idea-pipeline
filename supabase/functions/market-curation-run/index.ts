@@ -276,9 +276,10 @@ ${JSON.stringify(rows.map(toLlmRow))}`,
 async function runFinalPass(apiKey: string, finalists: any[], count: number) {
   const response = await anthropicCall(apiKey, {
     model: FINAL_MODEL,
-    // 8 picks × ~350 tokens (with evidence_refs + weight) = ~2.8K. 4000 cap
-    // at observed ~67 tok/sec means ≤60s wall for the final pass.
-    max_tokens: 4000,
+    // v9 hit max_tokens=4000 cleanly in ~45s — Sonnet wanted more for 8 picks.
+    // Bumping to 6000: at observed ~67 tok/sec that's ~90s wall, leaving ~50s
+    // for parallel chunks (~40s) + setup + db (~10s) = 140s, fits 150s cap.
+    max_tokens: 6000,
     temperature: 0.15,
     system: curationSystemPrompt(),
     messages: [{
