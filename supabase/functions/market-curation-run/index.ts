@@ -368,13 +368,18 @@ Deno.serve(async (req) => {
     )
 
     const chunks = chunk(marketRows, CHUNK_SIZE)
-    const chunkResults: any[] = []
     const usage = { chunk: [] as any[], final: null as any }
 
-    for (let i = 0; i < chunks.length; i += 1) {
-      const result = await runChunkPass(anthropicApiKey, chunks[i], i)
+    // Run all Sonnet chunk passes in parallel — Anthropic handles the concurrency
+    // and the Supabase Edge Function has a 150s wall-clock cap. Sequential was
+    // taking ~120s for 8 chunks; parallel finishes in ~20-30s.
+    const chunkOutcomes = await Promise.all(
+      chunks.map((c, i) => runChunkPass(anthropicApiKey, c, i).then(r => ({ ...r, index: i })))
+    )
+    const chunkResults: any[] = []
+    for (const result of chunkOutcomes) {
       usage.chunk.push(result.usage)
-      chunkResults.push(...(result.parsed.shortlist || []).map((item: any) => ({ ...item, chunk_index: i })))
+      chunkResults.push(...(result.parsed.shortlist || []).map((item: any) => ({ ...item, chunk_index: result.index })))
     }
 
     const final = await runFinalPass(anthropicApiKey, chunkResults, count)
