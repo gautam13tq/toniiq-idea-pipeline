@@ -1,10 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { supabase } from '../lib/supabase'
 
-// v5 Nav: 5 idea-lifecycle states + detail pages for deep views
 const NAV_SECTIONS = [
+  {
+    label: 'Operating',
+    items: [
+      { path: '/today', label: 'Today', icon: '●', countType: 'pending' },
+      { path: '/market', label: 'Market Atlas', icon: '△', countType: 'market' },
+      { path: '/opportunities', label: 'Opportunities', icon: '◇', countType: 'opportunities' },
+    ]
+  },
   {
     label: 'Lifecycle',
     items: [
@@ -23,19 +30,46 @@ export default function Layout({ children }) {
   const [expanded, setExpanded] = useState(false)
   const [stageCounts, setStageCounts] = useState({})
   const [pendingCount, setPendingCount] = useState(0)
+  const [opportunityCount, setOpportunityCount] = useState(0)
+  const [marketCount, setMarketCount] = useState(0)
 
   useEffect(() => {
-    loadCounts()
-  }, [location.pathname])
+    let ignore = false
 
-  async function loadCounts() {
-    const { data } = await supabase.from('idea_candidates').select('stage')
-    const counts = {}
-    for (const row of (data || [])) counts[row.stage] = (counts[row.stage] || 0) + 1
-    setStageCounts(counts)
-    const { count } = await supabase.from('pending_actions').select('*', { count: 'exact', head: true }).in('status', ['pending', 'in_progress'])
-    setPendingCount(count || 0)
-  }
+    async function fetchCounts() {
+      const { data } = await supabase.from('idea_candidates').select('stage')
+      const counts = {}
+      for (const row of (data || [])) counts[row.stage] = (counts[row.stage] || 0) + 1
+      const { count } = await supabase.from('pending_actions').select('*', { count: 'exact', head: true }).in('status', ['pending', 'in_progress'])
+      const { count: openOpportunities } = await supabase
+        .from('opportunity_reviews')
+        .select('*', { count: 'exact', head: true })
+        .in('status', ['new', 'reviewing', 'queued_research', 'researching', 'watching'])
+      const { data: latestSnapshot } = await supabase
+        .from('poe_snapshots')
+        .select('import_date')
+        .order('import_date', { ascending: false })
+        .limit(1)
+        .single()
+      let latestCount = 0
+      if (latestSnapshot?.import_date) {
+        const { count: countLatest } = await supabase
+          .from('poe_snapshots')
+          .select('*', { count: 'exact', head: true })
+          .eq('import_date', latestSnapshot.import_date)
+        latestCount = countLatest || 0
+      }
+
+      if (ignore) return
+      setStageCounts(counts)
+      setPendingCount(count || 0)
+      setOpportunityCount(openOpportunities || 0)
+      setMarketCount(latestCount)
+    }
+
+    fetchCounts()
+    return () => { ignore = true }
+  }, [location.pathname])
 
   return (
     <div className="flex min-h-screen" style={{ background: 'var(--bg-base)' }}>
@@ -62,7 +96,7 @@ export default function Layout({ children }) {
             transition: 'padding 0.2s',
           }}
         >
-          <NavLink to="/inbox" className="block" style={{ whiteSpace: 'nowrap' }}>
+          <NavLink to="/today" className="block" style={{ whiteSpace: 'nowrap' }}>
             {expanded ? (
               <h1 className="text-sm font-bold tracking-widest uppercase" style={{ color: 'var(--text-primary)', letterSpacing: '0.15em' }}>
                 TONIIQ
@@ -95,7 +129,13 @@ export default function Layout({ children }) {
               <ul className="space-y-0.5">
                 {section.items.map(item => {
                   const isActive = location.pathname.startsWith(item.path)
-                  const count = stageCounts[item.countStage]
+                  const count = item.countType === 'pending'
+                    ? pendingCount
+                    : item.countType === 'opportunities'
+                      ? opportunityCount
+                      : item.countType === 'market'
+                        ? marketCount
+                        : stageCounts[item.countStage]
                   return (
                     <li key={item.path}>
                       <NavLink

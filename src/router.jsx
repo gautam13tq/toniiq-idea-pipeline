@@ -1,5 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import AppLayout from './AppLayout'
+import TodayPage from './pages/TodayPage'
+import MarketAtlasPage from './pages/MarketAtlasPage'
+import OpportunityQueuePage from './pages/OpportunityQueuePage'
 import InboxPage from './pages/InboxPage'
 import ResearchPage from './pages/ResearchPage'
 import EvaluationPage from './pages/EvaluationPage'
@@ -17,7 +20,12 @@ export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      { path: '/', element: <Navigate to="/inbox" replace /> },
+      { path: '/', element: <Navigate to="/today" replace /> },
+
+      // Operating cockpit pages
+      { path: '/today', element: <TodayPage /> },
+      { path: '/market', element: <MarketAtlasPage /> },
+      { path: '/opportunities', element: <OpportunityQueuePage /> },
 
       // 5 lifecycle state pages
       { path: '/inbox', element: <InboxPage /> },
