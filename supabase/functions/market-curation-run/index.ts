@@ -16,18 +16,17 @@ import {
   svcClient,
 } from '../_shared/clients.ts'
 
-const PROMPT_VERSION = 'market-curation-v2'
-// Both passes run on Sonnet. Opus final pass was generating ~10K tokens at
-// ~30-50 tok/sec, taking 100-200s alone and blowing Supabase's 150s wall
-// clock. Sonnet runs the same prompt at ~60-80 tok/sec — fast enough that
-// the full pipeline (chunks + final) fits in budget. Strategic-reasoning
-// quality is acceptable for monthly Market Atlas picks (these are LLM
-// hypotheses, not Phase B truth).
+const PROMPT_VERSION = 'market-curation-v3'
+// Sized to fit Supabase's hard 150s Edge Function wall clock.
+// Observed per-call latency on Sonnet 4.5:
+//   - Chunk pass (70 rows in, ~10 picks out, ≤1K output): ~19s
+//   - Final pass (10 picks out, ~2.5K output): ~55-70s
+// Budget: 2 chunks × 19s + final ~65s = ~103s. Leaves margin for network/db.
 const FINAL_MODEL = SONNET
 const CHUNK_MODEL = SONNET
 const CHUNK_SIZE = 70
-const FINAL_PICK_COUNT = 12
-const MAX_ROWS_TO_SCORE = 200
+const FINAL_PICK_COUNT = 10
+const MAX_ROWS_TO_SCORE = 140
 
 const NOISE_PATTERNS = [
   'ryze', 'mary ruth', 'ritual', 'garden of life', 'nature made', 'olly',
