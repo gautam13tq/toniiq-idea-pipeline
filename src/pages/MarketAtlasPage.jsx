@@ -27,6 +27,13 @@ const FEEDBACK = [
   { value: 'strong_no', label: 'Strong no' },
 ]
 
+const PILLAR_CONFIG = [
+  { key: 'market_size_intent', label: 'Market Size & Intent', weight: '20%', signalKey: 'market_size_intent' },
+  { key: 'early_market_access', label: 'Early Market Access', weight: '25%', signalKey: 'early_market_access' },
+  { key: 'growth_timing', label: 'Growth & Timing', weight: '20%', signalKey: 'growth_timing' },
+  { key: 'differentiation_hypothesis', label: 'Toniiq Differentiation', weight: '35%', signalKey: 'differentiation_proxy' },
+]
+
 function latestImportDate(snapshots) {
   return snapshots.reduce((latest, row) => row.import_date > latest ? row.import_date : latest, '')
 }
@@ -57,6 +64,76 @@ function formatDateTime(value) {
 function safeList(value) {
   if (Array.isArray(value)) return value
   return []
+}
+
+function safeObject(value) {
+  if (value && typeof value === 'object' && !Array.isArray(value)) return value
+  return {}
+}
+
+function asNumber(value) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) ? parsed : null
+}
+
+function formatScore(value, digits = 1) {
+  const parsed = asNumber(value)
+  if (parsed === null) return '-'
+  return parsed.toFixed(Number.isInteger(parsed) ? 0 : digits)
+}
+
+function formatIndexedScore(value) {
+  const parsed = asNumber(value)
+  if (parsed === null) return '-'
+  return Math.round(parsed * 100).toString()
+}
+
+function formatLabel(value) {
+  return String(value || '')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, letter => letter.toUpperCase())
+}
+
+function toneForAccess(value) {
+  const score = asNumber(value)
+  if (score === null) return 'neutral'
+  if (score < 2.5) return 'red'
+  if (score < 4.5) return 'amber'
+  return 'green'
+}
+
+function toneForMoat(value) {
+  const score = asNumber(value)
+  if (score === null) return 'neutral'
+  if (score >= 0.65) return 'red'
+  if (score >= 0.4) return 'amber'
+  return 'green'
+}
+
+function getSignals(pick) {
+  return safeObject(pick.computed_signals)
+}
+
+function getKeepaSnapshot(pick) {
+  return safeObject(safeObject(pick.competitive_snapshot).keepa)
+}
+
+function getPillarRows(pick) {
+  const pillars = safeObject(pick.pillar_scores)
+  const signals = getSignals(pick)
+  return PILLAR_CONFIG.map(config => {
+    const stored = safeObject(pillars[config.key])
+    const signalScore = asNumber(signals[config.signalKey])
+    const storedScore = asNumber(stored.score)
+    const score = signalScore !== null
+      ? signalScore
+      : (storedScore !== null && storedScore <= 1 ? storedScore * 10 : storedScore)
+    return {
+      ...config,
+      score,
+      reason: stored.reason,
+    }
+  })
 }
 
 function scoreTone(score) {
@@ -556,7 +633,12 @@ function PickCard({ pick, saving, feedbackDraft, setFeedbackDraft, onAdd, onRese
   const tone = scoreTone(Number(pick.strategic_score || 0))
   const evidence = safeList(pick.evidence_refs)
   const risks = safeList(pick.risks)
-  const pillars = pick.pillar_scores || {}
+  const signals = getSignals(pick)
+  const keepa = getKeepaSnapshot(pick)
+  const pillars = getPillarRows(pick)
+  const accessScore = asNumber(signals.early_market_access)
+  const reviewMoat = asNumber(signals.review_moat)
+  const isCompetitive = (accessScore !== null && accessScore < 4.5) || (reviewMoat !== null && reviewMoat >= 0.4)
 
   return (
     <article className="rounded-lg border p-5" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
@@ -565,6 +647,8 @@ function PickCard({ pick, saving, feedbackDraft, setFeedbackDraft, onAdd, onRese
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded text-sm font-semibold" style={{ background: 'var(--bg-active)', color: 'var(--text-primary)' }}>{pick.rank}</span>
             <span className="rounded border px-2 py-1 text-xs font-medium" style={{ background: tone.bg, color: tone.color, borderColor: tone.border }}>{pick.strategic_score ?? '-'} strategic</span>
+            {signals.deterministic_score !== undefined && <Badge tone="blue">Stage A {Math.round(Number(signals.deterministic_score))}</Badge>}
+            {pick.lens && <Badge>{formatLabel(pick.lens)}</Badge>}
             <Badge>{pick.recommendation_label}</Badge>
             {pick.duplicate_status && <Badge>{pick.duplicate_status}</Badge>}
             {pick.promoted_review_id && <Badge tone="green">queued</Badge>}
@@ -581,15 +665,29 @@ function PickCard({ pick, saving, feedbackDraft, setFeedbackDraft, onAdd, onRese
 
       {pick.thesis && <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{pick.thesis}</p>}
       {pick.next_action && <Callout label="Next action" value={pick.next_action} />}
+      {isCompetitive && (
+        <CompetitionCallout
+          accessScore={accessScore}
+          reviewMoat={reviewMoat}
+          keepa={keepa}
+        />
+      )}
+
+      <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+        <SignalCard label="Access" value={`${formatScore(accessScore)}/10`} tone={toneForAccess(accessScore)} />
+        <SignalCard label="Review Moat" value={`${formatIndexedScore(reviewMoat)}/100`} tone={toneForMoat(reviewMoat)} />
+        <SignalCard label="Best BSR" value={keepa.bsr_best ? `#${formatNumber(keepa.bsr_best)}` : '-'} />
+        <SignalCard label="Review p50" value={formatNumber(keepa.review_p50)} />
+      </div>
 
       <div className="mt-4 grid gap-2 md:grid-cols-2">
-        {Object.entries(pillars).map(([key, value]) => (
-          <div key={key} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-base)' }}>
+        {pillars.map(pillar => (
+          <div key={pillar.key} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-base)' }}>
             <div className="flex items-center justify-between gap-2">
-              <div className="text-[10px] font-semibold uppercase" style={{ color: 'var(--text-faint)' }}>{key.replace(/_/g, ' ')}</div>
-              <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{value?.score ?? '-'}/10</div>
+              <div className="text-[10px] font-semibold uppercase" style={{ color: 'var(--text-faint)' }}>{pillar.label} · {pillar.weight}</div>
+              <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{formatScore(pillar.score)}/10</div>
             </div>
-            {value?.reason && <p className="mt-1 line-clamp-2 text-xs" style={{ color: 'var(--text-muted)' }}>{value.reason}</p>}
+            {pillar.reason && <p className="mt-1 line-clamp-2 text-xs" style={{ color: 'var(--text-muted)' }}>{pillar.reason}</p>}
           </div>
         ))}
       </div>
@@ -695,11 +793,39 @@ function MetricPill({ label, tone = 'neutral' }) {
   return <span className="rounded border px-2 py-1" style={{ background: style.bg, color: style.color, borderColor: style.border }}>{label}</span>
 }
 
+function SignalCard({ label, value, tone = 'neutral' }) {
+  const style = tone === 'green'
+    ? { bg: 'var(--green-muted)', color: 'var(--green-text)', border: 'rgba(74,222,128,0.3)' }
+    : tone === 'amber'
+      ? { bg: 'var(--amber-muted)', color: 'var(--amber-text)', border: 'rgba(251,191,36,0.3)' }
+      : tone === 'red'
+        ? { bg: 'var(--red-muted)', color: 'var(--red-text)', border: 'rgba(248,113,113,0.3)' }
+        : { bg: 'var(--bg-base)', color: 'var(--text-primary)', border: 'var(--border-default)' }
+  return (
+    <div className="rounded-md border px-3 py-2" style={{ background: style.bg, borderColor: style.border }}>
+      <div className="text-[10px] font-semibold uppercase" style={{ color: 'var(--text-faint)' }}>{label}</div>
+      <div className="mt-0.5 text-sm font-semibold" style={{ color: style.color }}>{value}</div>
+    </div>
+  )
+}
+
+function CompetitionCallout({ accessScore, reviewMoat, keepa }) {
+  return (
+    <div className="mt-4 rounded-md border p-3 text-xs leading-relaxed" style={{ borderColor: 'rgba(251,191,36,0.35)', background: 'var(--amber-muted)', color: 'var(--amber-text)' }}>
+      Competitive validation required: access {formatScore(accessScore)}/10, review moat {formatIndexedScore(reviewMoat)}/100, review p50 {formatNumber(keepa.review_p50)}, best BSR {keepa.bsr_best ? `#${formatNumber(keepa.bsr_best)}` : '-'}.
+    </div>
+  )
+}
+
 function Badge({ children, tone = 'neutral' }) {
   const style = tone === 'green'
     ? { bg: 'var(--green-muted)', color: 'var(--green-text)' }
     : tone === 'blue'
       ? { bg: 'var(--blue-muted)', color: 'var(--blue-text)' }
+      : tone === 'amber'
+        ? { bg: 'var(--amber-muted)', color: 'var(--amber-text)' }
+        : tone === 'red'
+          ? { bg: 'var(--red-muted)', color: 'var(--red-text)' }
       : { bg: 'var(--bg-active)', color: 'var(--text-muted)' }
   return <span className="rounded px-1.5 py-0.5 text-[10px] font-medium" style={{ background: style.bg, color: style.color }}>{children}</span>
 }

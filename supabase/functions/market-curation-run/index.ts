@@ -578,17 +578,17 @@ function defaultPillarScores(scored: ScoredCandidate, pick: any) {
   const fitReason = pick.fit_reason || pick.wedge_specifics || 'Toniiq angle needs Phase A validation.'
   return {
     market_size_intent: {
-      score: Number((m.market_size_intent / 10).toFixed(1)),
+      score: Number(m.market_size_intent.toFixed(1)),
       weight: 0.20,
       reason: 'POE/Datarova demand and price context.',
     },
     early_market_access: {
-      score: Number((m.early_market_access / 10).toFixed(1)),
+      score: Number(m.early_market_access.toFixed(1)),
       weight: 0.25,
       reason: 'Keepa review moat and concentration proxy.',
     },
     growth_timing: {
-      score: Number((m.growth_timing / 10).toFixed(1)),
+      score: Number(m.growth_timing.toFixed(1)),
       weight: 0.20,
       reason: 'POE 90d/180d and Datarova trend.',
     },
