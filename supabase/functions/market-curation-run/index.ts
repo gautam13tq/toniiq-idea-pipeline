@@ -279,7 +279,7 @@ function competitionGate(metrics: {
   review_moat: number
   attackability: number
   growth_timing?: number
-}, enrichment: EnrichmentRow, poe?: PoeRow): {
+}, enrichment: EnrichmentRow): {
   score_cap: number
   max_recommendation: RecommendationLabel
   reasons: string[]
@@ -294,11 +294,6 @@ function competitionGate(metrics: {
   const reviewP50 = n(enrichment.review_p50)
   const distinctBrands = n(enrichment.distinct_brands)
   const growthTiming = n(metrics.growth_timing)
-  const evidenceText = normalize([
-    enrichment.query,
-    poe?.customer_need,
-    ...(Array.isArray(enrichment.top_results) ? enrichment.top_results.slice(0, 5).map(product => product.title) : []),
-  ].filter(Boolean).join(' '))
 
   const apply = (cap: number, recommendation: RecommendationLabel, reason: string) => {
     scoreCap = Math.min(scoreCap, cap)
@@ -306,26 +301,20 @@ function competitionGate(metrics: {
     reasons.push(reason)
   }
 
-  if (earlyAccess < 2.5) apply(68, 'watchlist', 'early_access_below_2_5')
-  else if (earlyAccess < 3.5) apply(70, 'watchlist', 'early_access_below_3_5')
-  else if (earlyAccess < 4.0) apply(76, 'strong_candidate', 'early_access_below_launch_threshold')
+  if (earlyAccess < 2.0) apply(72, 'watchlist', 'early_access_below_2_0')
+  else if (earlyAccess < 3.0) apply(78, 'strong_candidate', 'early_access_below_3_0')
+  else if (earlyAccess < 3.6) apply(82, 'strong_candidate', 'early_access_below_launch_threshold')
 
-  if (reviewMoat >= 0.60) apply(68, 'watchlist', 'review_moat_above_60')
-  else if (reviewMoat >= 0.45) apply(70, 'watchlist', 'review_moat_above_45')
+  if (reviewMoat >= 0.75) apply(72, 'watchlist', 'review_moat_above_75')
+  else if (reviewMoat >= 0.60) apply(78, 'strong_candidate', 'review_moat_above_60')
 
-  if (attackability < 0.08) apply(68, 'watchlist', 'attackability_below_08')
-  else if (attackability < 0.14) apply(74, 'strong_candidate', 'attackability_below_14')
+  if (attackability < 0.04) apply(72, 'watchlist', 'attackability_below_04')
+  else if (attackability < 0.10) apply(78, 'strong_candidate', 'attackability_below_10')
 
   if (growthTiming > 0 && growthTiming < 4.0) apply(76, 'strong_candidate', 'growth_below_launch_threshold')
 
   if (leaderBsr > 0 && leaderBsr <= 500 && (reviewMoat >= 0.35 || reviewP50 >= 5_000 || (distinctBrands > 0 && distinctBrands <= 3))) {
     apply(68, 'watchlist', 'dominant_top_bsr_leader')
-  }
-
-  if (/\b(pinworm|parasite|parasites|medicine|children|kids|kid|family 2)\b/.test(evidenceText)) {
-    apply(58, 'watchlist', 'pharma_or_children_treatment_intent')
-  } else if (/\b(high blood pressure|hypertension|diabetes|blood sugar|glp 1|weight loss)\b/.test(evidenceText)) {
-    apply(76, 'strong_candidate', 'regulated_claim_language')
   }
 
   return {
@@ -387,7 +376,7 @@ function scoreCandidate(poe: PoeRow, candidate: CandidateRow, enrichment: Enrich
     review_moat: reviewMoat,
     attackability,
     growth_timing: growthTiming,
-  }, enrichment, poe)
+  }, enrichment)
   const compositeScore = Math.min(rawCompositeScore, gate.score_cap)
 
   const metrics = {
@@ -495,7 +484,7 @@ function llmCandidate(scored: ScoredCandidate) {
     raw_deterministic_score: m.raw_composite_score,
     competition_gate: {
       score_cap: m.score_cap,
-      max_recommendation: competitionGate(m, e, p).max_recommendation,
+      max_recommendation: competitionGate(m, e).max_recommendation,
       reasons: m.competition_gate_reasons,
     },
     computed_pillars: {
@@ -568,8 +557,8 @@ Guardrails:
 - Keepa monthly_sold is only an Amazon badge/bracket signal. Treat BSR/reviews as directional ASIN evidence, not exact sales truth.
 - Prefer specific launchable wedges over huge root categories.
 - Penalize fortress markets unless there is a precise wedge Toniiq can own.
-- Recommendation labels are gated by access: launch_priority requires early_market_access >= 4.0, review_moat < 0.45, attackability >= 0.14, growth_timing >= 4.0, and no dominant_top_bsr_leader gate.
-- Treat pharma-adjacent, children/kids treatment, parasite/pinworm, or disease-treatment intent as watchlist/pass unless Gautam explicitly reframes it into a compliant supplement angle later.
+- Recommendation labels are gated by access: launch_priority requires early_market_access >= 3.6, review_moat < 0.60, attackability >= 0.10, growth_timing >= 4.0, and no dominant_top_bsr_leader gate.
+- Regulated, pharma-adjacent, children/kids, parasite/pinworm, or disease-treatment language may be mentioned as risk, but should not mechanically block selection if the market evidence is strong.
 - If competition_gate.max_recommendation is watchlist, do not call the idea launch_priority or strong_candidate even when demand is huge.
 - Penalize generic, brand-led, non-supplement, or already-known ideas.
 - Evidence must cite only fields supplied in the candidate JSON.
@@ -617,7 +606,7 @@ function registryMatch(candidate: CandidateRow, registryRows: RegistryRow[]) {
 async function runFinalPass(apiKey: string, candidates: ScoredCandidate[], count: number) {
   const response = await anthropicCall(apiKey, {
     model: FINAL_MODEL,
-    max_tokens: 3500,
+    max_tokens: 5500,
     temperature: 0.15,
     system: curationSystemPrompt(),
     messages: [{
@@ -863,7 +852,7 @@ Deno.serve(async (req) => {
       const risks = Array.isArray(pick.risks)
         ? pick.risks
         : (pick.risk ? [pick.risk] : [])
-      const gate = competitionGate(scoredPick.metrics, scoredPick.enrichment, scoredPick.poe)
+      const gate = competitionGate(scoredPick.metrics, scoredPick.enrichment)
       const originalRecommendation = normalizeRecommendation(pick.recommendation_label)
       const recommendationLabel = capRecommendation(originalRecommendation, gate.max_recommendation)
       const originalStrategicScore = pick.strategic_score === null || pick.strategic_score === undefined
@@ -933,7 +922,7 @@ Deno.serve(async (req) => {
         const risks = Array.isArray(pick.risks)
           ? pick.risks
           : (pick.risk ? [pick.risk] : [])
-        const gate = competitionGate(scoredPick.metrics, scoredPick.enrichment, scoredPick.poe)
+        const gate = competitionGate(scoredPick.metrics, scoredPick.enrichment)
         const originalStrategicScore = pick.strategic_score === null || pick.strategic_score === undefined
           ? scoredPick.metrics.composite_score
           : Math.round(Number(pick.strategic_score))

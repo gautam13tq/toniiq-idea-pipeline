@@ -351,7 +351,7 @@ export default function MarketAtlasPage() {
     setRunning(true)
     setError('')
     const { data, error: invokeError } = await supabase.functions.invoke('market-curation-run', {
-      body: { import_date: importDate, count: 12, max_rows: 100, llm_candidate_limit: 45 },
+      body: { import_date: importDate, count: 16, max_rows: 200, llm_candidate_limit: 70 },
     })
     if (invokeError) {
       setError(invokeError.message)
