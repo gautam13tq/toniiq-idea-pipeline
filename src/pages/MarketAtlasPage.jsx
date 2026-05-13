@@ -8,6 +8,9 @@ const VIEWS = [
   { key: 'raw', label: 'Raw POE Audit' },
 ]
 
+const CURRENT_CURATION_VERSION = 'market-curation-v4'
+const CURATION_RUN_ENABLED = false
+
 const SORT_OPTIONS = [
   { key: 'volume', label: '90d volume' },
   { key: 'growth90', label: '90d growth' },
@@ -66,6 +69,10 @@ function statusTone(status) {
   if (status === 'completed') return 'green'
   if (status === 'failed') return 'red'
   return 'amber'
+}
+
+function isCurrentCurationRun(run) {
+  return String(run?.prompt_version || '').startsWith(CURRENT_CURATION_VERSION)
 }
 
 function readRows({ snapshots, candidates, reviews, picks }) {
@@ -140,6 +147,7 @@ export default function MarketAtlasPage() {
   const [candidates, setCandidates] = useState([])
   const [reviews, setReviews] = useState([])
   const [runs, setRuns] = useState([])
+  const [legacyRunCount, setLegacyRunCount] = useState(0)
   const [picks, setPicks] = useState([])
   const [selectedRunId, setSelectedRunId] = useState('')
   const [view, setView] = useState('picks')
@@ -170,8 +178,10 @@ export default function MarketAtlasPage() {
     setSnapshots(snapshotsRes.data || [])
     setCandidates(candidatesRes.data || [])
     setReviews(reviewsRes.data || [])
-    setRuns(runsRes.data || [])
-    if (!selectedRunId && runsRes.data?.[0]) setSelectedRunId(runsRes.data[0].id)
+    const currentRuns = (runsRes.data || []).filter(isCurrentCurationRun)
+    setRuns(currentRuns)
+    setLegacyRunCount((runsRes.data || []).length - currentRuns.length)
+    if (!selectedRunId && currentRuns[0]) setSelectedRunId(currentRuns[0].id)
     setLoading(false)
   }
 
@@ -244,12 +254,18 @@ export default function MarketAtlasPage() {
 
   async function reloadRunsAndPicks(nextRunId) {
     const { data: runData } = await supabase.from('market_curation_runs').select('*').order('created_at', { ascending: false }).limit(12)
-    setRuns(runData || [])
+    const currentRuns = (runData || []).filter(isCurrentCurationRun)
+    setRuns(currentRuns)
+    setLegacyRunCount((runData || []).length - currentRuns.length)
     if (nextRunId) setSelectedRunId(nextRunId)
-    else if (!selectedRunId && runData?.[0]) setSelectedRunId(runData[0].id)
+    else if (!selectedRunId && currentRuns[0]) setSelectedRunId(currentRuns[0].id)
   }
 
   async function runMonthlyCuration() {
+    if (!CURATION_RUN_ENABLED) {
+      setError('Market Atlas v4 curation is disabled while Keepa Stage A calibration is running. Use Raw POE Audit until the v4 scoring function is wired.')
+      return
+    }
     if (!importDate) return
     const ok = confirm(`Run monthly AI curation for POE import ${importDate}?\n\nThis will use Anthropic to produce a strategic shortlist from the POE + Datarova data.`)
     if (!ok) return
@@ -407,6 +423,7 @@ export default function MarketAtlasPage() {
               <MetricPill label={`${rows.length} raw POE rows`} />
               <MetricPill label={`${visiblePicks.length} AI picks`} tone="green" />
               <MetricPill label={`${queuedCount} queued`} tone="blue" />
+              {legacyRunCount > 0 && <MetricPill label={`${legacyRunCount} legacy runs retired`} tone="amber" />}
               {selectedRun && <MetricPill label={`Run ${selectedRun.status}`} tone={statusTone(selectedRun.status)} />}
               {selectedRun && <MetricPill label={`Updated ${formatDateTime(selectedRun.completed_at || selectedRun.started_at)}`} />}
             </div>
@@ -419,8 +436,13 @@ export default function MarketAtlasPage() {
                 placeholder="Search AI picks or raw POE rows"
                 className="t-input h-10 min-w-0 flex-1 px-3 text-sm"
               />
-              <button onClick={runMonthlyCuration} disabled={running || !importDate} className="t-btn h-10 shrink-0">
-                {running ? 'Running...' : 'Run monthly curation'}
+              <button
+                onClick={runMonthlyCuration}
+                disabled={running || !importDate || !CURATION_RUN_ENABLED}
+                title={!CURATION_RUN_ENABLED ? 'V4 curation will be enabled after Keepa Stage A top-20/top-50 calibration.' : undefined}
+                className="t-btn h-10 shrink-0"
+              >
+                {running ? 'Running...' : CURATION_RUN_ENABLED ? 'Run monthly curation' : 'Curation v4 calibrating'}
               </button>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row">
@@ -486,8 +508,8 @@ function MonthlyPicksView({ picks, selectedRun, savingId, feedbackDraft, setFeed
   if (!selectedRun) {
     return (
       <EmptyState
-        title="No monthly curation run yet"
-        body="Run monthly curation after a POE import to create a stored Claude-ranked shortlist."
+        title="Monthly AI Picks are recalibrating"
+        body="The legacy v3 picks have been retired. Keepa Stage A is being calibrated before the next stored shortlist is generated."
       />
     )
   }
