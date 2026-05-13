@@ -286,15 +286,15 @@ async function keepaTokenStatus(apiKey: string) {
   return keepaGet('/token', {}, apiKey)
 }
 
-async function waitForKeepaTokens(apiKey: string, maxWaitMs: number) {
+async function waitForKeepaTokens(apiKey: string, maxWaitMs: number, minTokens = 1) {
   const started = Date.now()
   while (true) {
     const status = await keepaTokenStatus(apiKey)
-    if (Number(status.tokensLeft || 0) > 0) return status
+    if (Number(status.tokensLeft || 0) >= minTokens) return status
     const refillMs = Math.max(5_000, Number(status.refillIn || 30_000) + 1_000)
     const elapsed = Date.now() - started
     if (elapsed + refillMs > maxWaitMs) {
-      throw new Error(`not_enough_keepa_tokens_retry_later tokensLeft=${status.tokensLeft} refillIn=${status.refillIn}`)
+      throw new Error(`not_enough_keepa_tokens_retry_later tokensLeft=${status.tokensLeft} minTokens=${minTokens} refillIn=${status.refillIn}`)
     }
     await new Promise(resolve => setTimeout(resolve, refillMs))
   }
@@ -349,7 +349,7 @@ async function runKeepaQuery(apiKey: string, query: string, opts: {
     perPage: 50,
   }
 
-  await waitForKeepaTokens(apiKey, opts.tokenWaitMs)
+  await waitForKeepaTokens(apiKey, opts.tokenWaitMs, opts.keepAsins + 20)
   const finder = await keepaGet('/query/', {
     domain: KEEPA_DOMAIN_US,
     selection: JSON.stringify(selection),
@@ -370,7 +370,7 @@ async function runKeepaQuery(apiKey: string, query: string, opts: {
     }
   }
 
-  await waitForKeepaTokens(apiKey, opts.tokenWaitMs)
+  await waitForKeepaTokens(apiKey, opts.tokenWaitMs, opts.keepAsins + 5)
   const enriched = await keepaGet('/product', {
     domain: KEEPA_DOMAIN_US,
     asin: asinList.join(','),
@@ -447,8 +447,9 @@ async function enrichRow(sb: any, keepaKey: string, row: PoeRow, opts: {
   skipExisting: boolean
   keepAsins: number
   tokenWaitMs: number
+  queryTypes: Set<QueryJob['query_type']> | null
 }) {
-  const jobs = buildQueryJobs(row)
+  const jobs = buildQueryJobs(row).filter(job => !opts.queryTypes || opts.queryTypes.has(job.query_type))
   if (jobs.length === 0) return { written: 0, errors: [`POE row ${row.id} has no usable queries`] }
 
   let toProcess = jobs
@@ -622,6 +623,9 @@ Deno.serve(async (req) => {
         skipExisting,
         keepAsins,
         tokenWaitMs,
+        queryTypes: Array.isArray(body.query_types) && body.query_types.length
+          ? new Set(body.query_types.filter((value: string) => ['customer_need', 'top_term_1', 'top_term_2', 'top_term_3'].includes(value)))
+          : null,
       })
       totalWritten += result.written
       processed.push(row.id)
