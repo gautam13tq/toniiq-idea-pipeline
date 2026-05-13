@@ -562,6 +562,7 @@ Guardrails:
 - If competition_gate.max_recommendation is watchlist, do not call the idea launch_priority or strong_candidate even when demand is huge.
 - Penalize generic, brand-led, non-supplement, or already-known ideas.
 - Evidence must cite only fields supplied in the candidate JSON.
+- The idea_title, cluster_name, thesis, and next_action must stay anchored to the selected candidate's candidate_name, customer_need, query, or top_terms. Never rename a candidate into an unrelated ingredient or format.
 - Return strict JSON only.`
 }
 
@@ -640,6 +641,8 @@ Return STRICT JSON only:
     }
   ]
 }
+
+Grounding rule: every pick must be directly about the selected candidate's candidate_name/customer_need/query/top_terms. If you cannot make a source-grounded Toniiq thesis for that exact candidate, omit it.
 
 Candidates:
 ${JSON.stringify(candidates.map(llmCandidate))}`,
@@ -727,6 +730,70 @@ function defaultEvidenceRefs(scored: ScoredCandidate) {
   return refs
 }
 
+const GROUNDING_STOPWORDS = new Set([
+  'and', 'for', 'with', 'the', 'plus', 'support', 'supplement', 'supplements',
+  'formula', 'capsules', 'capsule', 'powder', 'gummies', 'gummy', 'liquid',
+  'drops', 'mix', 'women', 'woman', 'men', 'kids', 'teens', 'human', 'humans',
+])
+
+function sourceTokens(scored: ScoredCandidate) {
+  const terms = [
+    scored.candidate.ingredient_name,
+    scored.candidate.ingredient_name_normalized,
+    scored.poe.customer_need,
+    scored.poe.top_search_term_1,
+    scored.poe.top_search_term_2,
+    scored.poe.top_search_term_3,
+    scored.enrichment.query,
+  ]
+
+  return new Set(terms
+    .join(' ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(/\s+/)
+    .filter(token => token.length >= 3 && !GROUNDING_STOPWORDS.has(token)))
+}
+
+function pickTokens(pick: any) {
+  return String([
+    pick.idea_title,
+    pick.cluster_name,
+    pick.wedge_specifics,
+    pick.fit_reason,
+    pick.thesis,
+    pick.next_action,
+  ].filter(Boolean).join(' '))
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(/\s+/)
+    .filter(token => token.length >= 3 && !GROUNDING_STOPWORDS.has(token))
+}
+
+function pickIsSourceGrounded(pick: any, scored: ScoredCandidate) {
+  const allowed = sourceTokens(scored)
+  return pickTokens(pick).some(token => allowed.has(token))
+}
+
+async function loadKeepaEnrichments(sb: any, snapshotIds: string[]) {
+  const rows: EnrichmentRow[] = []
+  const chunkSize = 75
+
+  for (let index = 0; index < snapshotIds.length; index += chunkSize) {
+    const chunk = snapshotIds.slice(index, index + chunkSize)
+    const { data, error } = await sb
+      .from('poe_competitive_enrichments')
+      .select('*')
+      .in('poe_snapshot_id', chunk)
+      .eq('source', 'keepa_product_finder')
+
+    if (error) throw error
+    rows.push(...(data || []))
+  }
+
+  return rows
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
 
@@ -771,21 +838,20 @@ Deno.serve(async (req) => {
 
     const poeRows = poeRes.data || []
     const snapshotIds = poeRows.map((row: PoeRow) => row.id)
-    const enrichmentRes = snapshotIds.length
-      ? await sb
-        .from('poe_competitive_enrichments')
-        .select('*')
-        .in('poe_snapshot_id', snapshotIds)
-        .eq('source', 'keepa_product_finder')
-      : { data: [], error: null }
-    if (enrichmentRes.error) throw new Error(`Could not load Keepa enrichments: ${enrichmentRes.error.message}`)
+    let enrichmentRows: EnrichmentRow[] = []
+    try {
+      enrichmentRows = snapshotIds.length ? await loadKeepaEnrichments(sb, snapshotIds) : []
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      throw new Error(`Could not load Keepa enrichments: ${message}`)
+    }
 
     const candidateMap = new Map((candidatesRes.data || []).map((row: CandidateRow) => [row.id, row]))
     const drMap = latestDatarovaByCandidate(datarovaRes.data || [])
     const registryRows = registryRes.data || []
 
     const enrichmentsBySnapshot = new Map<string, EnrichmentRow[]>()
-    for (const enrichment of enrichmentRes.data || []) {
+    for (const enrichment of enrichmentRows) {
       if (!enrichmentsBySnapshot.has(enrichment.poe_snapshot_id)) enrichmentsBySnapshot.set(enrichment.poe_snapshot_id, [])
       enrichmentsBySnapshot.get(enrichment.poe_snapshot_id)!.push(enrichment)
     }
@@ -840,6 +906,7 @@ Deno.serve(async (req) => {
       .filter((pick: any) => scoredById.has(pick.curation_candidate_id))
       .filter((pick: any) => {
         const scoredPick = scoredById.get(pick.curation_candidate_id)!
+        if (!pickIsSourceGrounded(pick, scoredPick)) return false
         const key = scoredPick.candidate.id
         if (seenCandidates.has(key)) return false
         seenCandidates.add(key)

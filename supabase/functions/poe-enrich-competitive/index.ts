@@ -353,7 +353,7 @@ async function runKeepaQuery(apiKey: string, query: string, opts: {
     perPage: 50,
   }
 
-  await waitForKeepaTokens(apiKey, opts.tokenWaitMs, opts.keepAsins + 20)
+  await waitForKeepaTokens(apiKey, opts.tokenWaitMs, opts.keepAsins + 10)
   const finder = await keepaGet('/query/', {
     domain: KEEPA_DOMAIN_US,
     selection: JSON.stringify(selection),
@@ -374,7 +374,7 @@ async function runKeepaQuery(apiKey: string, query: string, opts: {
     }
   }
 
-  await waitForKeepaTokens(apiKey, opts.tokenWaitMs, opts.keepAsins + 5)
+  await waitForKeepaTokens(apiKey, opts.tokenWaitMs, opts.keepAsins)
   const enriched = await keepaGet('/product', {
     domain: KEEPA_DOMAIN_US,
     asin: asinList.join(','),
@@ -577,7 +577,7 @@ Deno.serve(async (req) => {
     const skipExisting = body.skip_existing !== false
     const batchSize = Math.max(1, Math.min(5, Number(body.batch_size || 1)))
     const batchOffset = Math.max(0, Number(body.batch_offset || 0))
-    const keepAsins = Math.max(10, Math.min(50, Number(body.keep_asins || DEFAULT_KEEP_ASINS)))
+    const keepAsins = Math.max(5, Math.min(50, Number(body.keep_asins || DEFAULT_KEEP_ASINS)))
     const tokenWaitMs = Math.max(0, Math.min(130_000, Number(body.keepa_token_wait_ms || 45_000)))
 
     let rows: PoeRow[]
