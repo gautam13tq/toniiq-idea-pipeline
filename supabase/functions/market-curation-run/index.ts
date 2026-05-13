@@ -140,7 +140,10 @@ interface ScoredCandidate {
     early_market_access: number
     growth_timing: number
     differentiation_proxy: number
+    raw_composite_score: number
+    score_cap: number
     composite_score: number
+    competition_gate_reasons: string[]
   }
   filter_drops: string[]
   high_return_warning: boolean
@@ -254,6 +257,84 @@ function resultQualityScore(enrichment: EnrichmentRow) {
   return clamp((countScore * 0.45) + (singleScore * 0.35) + (coverageScore * 0.20))
 }
 
+type RecommendationLabel = 'launch_priority' | 'strong_candidate' | 'watchlist' | 'pass'
+
+const RECOMMENDATION_ORDER: Record<RecommendationLabel, number> = {
+  pass: 0,
+  watchlist: 1,
+  strong_candidate: 2,
+  launch_priority: 3,
+}
+
+function moreConservativeRecommendation(a: RecommendationLabel, b: RecommendationLabel): RecommendationLabel {
+  return RECOMMENDATION_ORDER[a] <= RECOMMENDATION_ORDER[b] ? a : b
+}
+
+function capRecommendation(label: RecommendationLabel, maxLabel: RecommendationLabel): RecommendationLabel {
+  return RECOMMENDATION_ORDER[label] <= RECOMMENDATION_ORDER[maxLabel] ? label : maxLabel
+}
+
+function competitionGate(metrics: {
+  early_market_access: number
+  review_moat: number
+  attackability: number
+  growth_timing?: number
+}, enrichment: EnrichmentRow, poe?: PoeRow): {
+  score_cap: number
+  max_recommendation: RecommendationLabel
+  reasons: string[]
+} {
+  let scoreCap = 100
+  let maxRecommendation: RecommendationLabel = 'launch_priority'
+  const reasons: string[] = []
+  const earlyAccess = n(metrics.early_market_access)
+  const reviewMoat = n(metrics.review_moat)
+  const attackability = n(metrics.attackability)
+  const leaderBsr = n(enrichment.bsr_best)
+  const reviewP50 = n(enrichment.review_p50)
+  const distinctBrands = n(enrichment.distinct_brands)
+  const growthTiming = n(metrics.growth_timing)
+  const evidenceText = normalize([
+    enrichment.query,
+    poe?.customer_need,
+    ...(Array.isArray(enrichment.top_results) ? enrichment.top_results.slice(0, 5).map(product => product.title) : []),
+  ].filter(Boolean).join(' '))
+
+  const apply = (cap: number, recommendation: RecommendationLabel, reason: string) => {
+    scoreCap = Math.min(scoreCap, cap)
+    maxRecommendation = moreConservativeRecommendation(maxRecommendation, recommendation)
+    reasons.push(reason)
+  }
+
+  if (earlyAccess < 2.5) apply(68, 'watchlist', 'early_access_below_2_5')
+  else if (earlyAccess < 3.5) apply(70, 'watchlist', 'early_access_below_3_5')
+  else if (earlyAccess < 4.0) apply(76, 'strong_candidate', 'early_access_below_launch_threshold')
+
+  if (reviewMoat >= 0.60) apply(68, 'watchlist', 'review_moat_above_60')
+  else if (reviewMoat >= 0.45) apply(70, 'watchlist', 'review_moat_above_45')
+
+  if (attackability < 0.08) apply(68, 'watchlist', 'attackability_below_08')
+  else if (attackability < 0.14) apply(74, 'strong_candidate', 'attackability_below_14')
+
+  if (growthTiming > 0 && growthTiming < 4.0) apply(76, 'strong_candidate', 'growth_below_launch_threshold')
+
+  if (leaderBsr > 0 && leaderBsr <= 500 && (reviewMoat >= 0.35 || reviewP50 >= 5_000 || (distinctBrands > 0 && distinctBrands <= 3))) {
+    apply(68, 'watchlist', 'dominant_top_bsr_leader')
+  }
+
+  if (/\b(pinworm|parasite|parasites|medicine|children|kids|kid|family 2)\b/.test(evidenceText)) {
+    apply(58, 'watchlist', 'pharma_or_children_treatment_intent')
+  } else if (/\b(high blood pressure|hypertension|diabetes|blood sugar|glp 1|weight loss)\b/.test(evidenceText)) {
+    apply(76, 'strong_candidate', 'regulated_claim_language')
+  }
+
+  return {
+    score_cap: scoreCap,
+    max_recommendation: maxRecommendation,
+    reasons: [...new Set(reasons)],
+  }
+}
+
 function lensFor(scored: Omit<ScoredCandidate, 'lens'>): ScoredCandidate['lens'] {
   const { metrics } = scored
   if (metrics.specificity >= 0.72 && metrics.attackability >= 0.18) return 'launch_wedge'
@@ -298,9 +379,16 @@ function scoreCandidate(poe: PoeRow, candidate: CandidateRow, enrichment: Enrich
   const growthTiming = clamp((growth * 0.72) + (acceleration * 0.18) + (poe.flagged_high_opportunity ? 0.10 : 0)) * 10
   const differentiationProxy = clamp((specificity * 0.45) + (pScore * 0.20) + ((1 - reviewMoat) * 0.20) + (quality * 0.15)) * 10
   const coreOpportunity = clamp(attackability * growth * pModifier * specificity)
-  const compositeScore = Math.round(clamp(
+  const rawCompositeScore = Math.round(clamp(
     (marketSizeIntent * 0.20 + earlyMarketAccess * 0.25 + growthTiming * 0.20 + differentiationProxy * 0.35) / 10,
   ) * 100)
+  const gate = competitionGate({
+    early_market_access: earlyMarketAccess,
+    review_moat: reviewMoat,
+    attackability,
+    growth_timing: growthTiming,
+  }, enrichment, poe)
+  const compositeScore = Math.min(rawCompositeScore, gate.score_cap)
 
   const metrics = {
     click_concentration: clickConcentration,
@@ -318,7 +406,10 @@ function scoreCandidate(poe: PoeRow, candidate: CandidateRow, enrichment: Enrich
     early_market_access: earlyMarketAccess,
     growth_timing: growthTiming,
     differentiation_proxy: differentiationProxy,
+    raw_composite_score: rawCompositeScore,
+    score_cap: gate.score_cap,
     composite_score: compositeScore,
+    competition_gate_reasons: gate.reasons,
   }
 
   const partial = {
@@ -401,6 +492,12 @@ function llmCandidate(scored: ScoredCandidate) {
     stage: scored.candidate.stage,
     category: scored.candidate.category,
     deterministic_score: m.composite_score,
+    raw_deterministic_score: m.raw_composite_score,
+    competition_gate: {
+      score_cap: m.score_cap,
+      max_recommendation: competitionGate(m, e, p).max_recommendation,
+      reasons: m.competition_gate_reasons,
+    },
     computed_pillars: {
       market_size_intent: Number(m.market_size_intent.toFixed(1)),
       early_market_access: Number(m.early_market_access.toFixed(1)),
@@ -471,6 +568,9 @@ Guardrails:
 - Keepa monthly_sold is only an Amazon badge/bracket signal. Treat BSR/reviews as directional ASIN evidence, not exact sales truth.
 - Prefer specific launchable wedges over huge root categories.
 - Penalize fortress markets unless there is a precise wedge Toniiq can own.
+- Recommendation labels are gated by access: launch_priority requires early_market_access >= 4.0, review_moat < 0.45, attackability >= 0.14, growth_timing >= 4.0, and no dominant_top_bsr_leader gate.
+- Treat pharma-adjacent, children/kids treatment, parasite/pinworm, or disease-treatment intent as watchlist/pass unless Gautam explicitly reframes it into a compliant supplement angle later.
+- If competition_gate.max_recommendation is watchlist, do not call the idea launch_priority or strong_candidate even when demand is huge.
 - Penalize generic, brand-led, non-supplement, or already-known ideas.
 - Evidence must cite only fields supplied in the candidate JSON.
 - Return strict JSON only.`
@@ -560,7 +660,7 @@ ${JSON.stringify(candidates.map(llmCandidate))}`,
 }
 
 function normalizeRecommendation(value: string) {
-  if (['launch_priority', 'strong_candidate', 'watchlist', 'pass'].includes(value)) return value
+  if (['launch_priority', 'strong_candidate', 'watchlist', 'pass'].includes(value)) return value as RecommendationLabel
   return 'watchlist'
 }
 
@@ -763,8 +863,17 @@ Deno.serve(async (req) => {
       const risks = Array.isArray(pick.risks)
         ? pick.risks
         : (pick.risk ? [pick.risk] : [])
+      const gate = competitionGate(scoredPick.metrics, scoredPick.enrichment, scoredPick.poe)
+      const originalRecommendation = normalizeRecommendation(pick.recommendation_label)
+      const recommendationLabel = capRecommendation(originalRecommendation, gate.max_recommendation)
+      const originalStrategicScore = pick.strategic_score === null || pick.strategic_score === undefined
+        ? scoredPick.metrics.composite_score
+        : Math.round(Number(pick.strategic_score))
+      const strategicScore = Math.min(originalStrategicScore, gate.score_cap)
       const computedSignals = {
         deterministic_score: scoredPick.metrics.composite_score,
+        raw_deterministic_score: scoredPick.metrics.raw_composite_score,
+        score_cap: scoredPick.metrics.score_cap,
         market_size_intent: scoredPick.metrics.market_size_intent,
         early_market_access: scoredPick.metrics.early_market_access,
         growth_timing: scoredPick.metrics.growth_timing,
@@ -773,6 +882,10 @@ Deno.serve(async (req) => {
         review_moat: scoredPick.metrics.review_moat,
         specificity: scoredPick.metrics.specificity,
         core_opportunity: scoredPick.metrics.core_opportunity,
+        competition_gate_reasons: gate.reasons,
+        max_recommendation: gate.max_recommendation,
+        original_recommendation_label: originalRecommendation,
+        original_strategic_score: originalStrategicScore,
         filter_drops: scoredPick.filter_drops,
       }
       return {
@@ -783,14 +896,20 @@ Deno.serve(async (req) => {
         cluster_name: pick.cluster_name || scoredPick.poe.customer_need,
         idea_title: pick.idea_title || pick.cluster_name || scoredPick.poe.customer_need,
         rank: index + 1,
-        recommendation_label: normalizeRecommendation(pick.recommendation_label),
-        strategic_score: pick.strategic_score === null || pick.strategic_score === undefined ? scoredPick.metrics.composite_score : Math.round(Number(pick.strategic_score)),
-        pillar_scores: defaultPillarScores(scoredPick, pick),
+        recommendation_label: recommendationLabel,
+        strategic_score: strategicScore,
+        pillar_scores: defaultPillarScores(scoredPick, { ...pick, strategic_score: strategicScore }),
         thesis: pick.thesis || null,
         evidence_refs: defaultEvidenceRefs(scoredPick),
         risks,
         duplicate_status: pick.duplicate_status || (scoredPick.registry_match ? 'registry_overlap' : 'new'),
-        status_flags: { already_known: Boolean(scoredPick.registry_match), needs_phase_a: true },
+        status_flags: {
+          already_known: Boolean(scoredPick.registry_match),
+          needs_phase_a: true,
+          competition_gate_reasons: gate.reasons,
+          original_recommendation_label: originalRecommendation,
+          original_strategic_score: originalStrategicScore,
+        },
         next_action: pick.next_action || null,
         lens: scoredPick.lens,
         source_poe_snapshot_id: scoredPick.poe.id,
@@ -814,15 +933,20 @@ Deno.serve(async (req) => {
         const risks = Array.isArray(pick.risks)
           ? pick.risks
           : (pick.risk ? [pick.risk] : [])
+        const gate = competitionGate(scoredPick.metrics, scoredPick.enrichment, scoredPick.poe)
+        const originalStrategicScore = pick.strategic_score === null || pick.strategic_score === undefined
+          ? scoredPick.metrics.composite_score
+          : Math.round(Number(pick.strategic_score))
+        const strategicScore = Math.min(originalStrategicScore, gate.score_cap)
         return sb.from('market_curation_candidates').update({
-          playbook_fit: Math.max(0, Math.min(10, Math.round(n(pick.strategic_score, scoredPick.metrics.composite_score) / 10))),
+          playbook_fit: Math.max(0, Math.min(10, Math.round(strategicScore / 10))),
           wedge_lever: normalizeWedge(pick.wedge_lever),
           wedge_specifics: pick.wedge_specifics || null,
           fit_reason: pick.fit_reason || null,
           thesis: pick.thesis || null,
           risks,
           promoted_to_picks: true,
-          composite_score: pick.strategic_score === null || pick.strategic_score === undefined ? scoredPick.metrics.composite_score : Math.round(Number(pick.strategic_score)),
+          composite_score: strategicScore,
         }).eq('id', scoredPick.id)
       }))
     }

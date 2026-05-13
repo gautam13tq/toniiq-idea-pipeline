@@ -351,7 +351,7 @@ export default function MarketAtlasPage() {
     setRunning(true)
     setError('')
     const { data, error: invokeError } = await supabase.functions.invoke('market-curation-run', {
-      body: { import_date: importDate, count: 12, max_rows: 50, llm_candidate_limit: 30 },
+      body: { import_date: importDate, count: 12, max_rows: 100, llm_candidate_limit: 45 },
     })
     if (invokeError) {
       setError(invokeError.message)
@@ -638,6 +638,8 @@ function PickCard({ pick, saving, feedbackDraft, setFeedbackDraft, onAdd, onRese
   const pillars = getPillarRows(pick)
   const accessScore = asNumber(signals.early_market_access)
   const reviewMoat = asNumber(signals.review_moat)
+  const gateReasons = safeList(signals.competition_gate_reasons)
+  const originalScore = asNumber(signals.original_strategic_score)
   const isCompetitive = (accessScore !== null && accessScore < 4.5) || (reviewMoat !== null && reviewMoat >= 0.4)
 
   return (
@@ -648,6 +650,7 @@ function PickCard({ pick, saving, feedbackDraft, setFeedbackDraft, onAdd, onRese
             <span className="flex h-7 w-7 items-center justify-center rounded text-sm font-semibold" style={{ background: 'var(--bg-active)', color: 'var(--text-primary)' }}>{pick.rank}</span>
             <span className="rounded border px-2 py-1 text-xs font-medium" style={{ background: tone.bg, color: tone.color, borderColor: tone.border }}>{pick.strategic_score ?? '-'} strategic</span>
             {signals.deterministic_score !== undefined && <Badge tone="blue">Stage A {Math.round(Number(signals.deterministic_score))}</Badge>}
+            {gateReasons.length > 0 && <Badge tone="amber">Competition gated</Badge>}
             {pick.lens && <Badge>{formatLabel(pick.lens)}</Badge>}
             <Badge>{pick.recommendation_label}</Badge>
             {pick.duplicate_status && <Badge>{pick.duplicate_status}</Badge>}
@@ -670,6 +673,14 @@ function PickCard({ pick, saving, feedbackDraft, setFeedbackDraft, onAdd, onRese
           accessScore={accessScore}
           reviewMoat={reviewMoat}
           keepa={keepa}
+        />
+      )}
+      {gateReasons.length > 0 && (
+        <GateCallout
+          originalScore={originalScore}
+          finalScore={pick.strategic_score}
+          maxRecommendation={signals.max_recommendation}
+          reasons={gateReasons}
         />
       )}
 
@@ -813,6 +824,17 @@ function CompetitionCallout({ accessScore, reviewMoat, keepa }) {
   return (
     <div className="mt-4 rounded-md border p-3 text-xs leading-relaxed" style={{ borderColor: 'rgba(251,191,36,0.35)', background: 'var(--amber-muted)', color: 'var(--amber-text)' }}>
       Competitive validation required: access {formatScore(accessScore)}/10, review moat {formatIndexedScore(reviewMoat)}/100, review p50 {formatNumber(keepa.review_p50)}, best BSR {keepa.bsr_best ? `#${formatNumber(keepa.bsr_best)}` : '-'}.
+    </div>
+  )
+}
+
+function GateCallout({ originalScore, finalScore, maxRecommendation, reasons }) {
+  const scoreText = originalScore !== null && Number(originalScore) !== Number(finalScore)
+    ? `Score gated from ${Math.round(originalScore)} to ${finalScore}. `
+    : ''
+  return (
+    <div className="mt-2 rounded-md border p-3 text-xs leading-relaxed" style={{ borderColor: 'rgba(251,191,36,0.35)', background: 'var(--bg-base)', color: 'var(--text-muted)' }}>
+      {scoreText}Max recommendation: {formatLabel(maxRecommendation)}. Gate: {reasons.map(formatLabel).join(', ')}.
     </div>
   )
 }
