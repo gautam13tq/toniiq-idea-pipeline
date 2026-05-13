@@ -53,24 +53,54 @@ export function firstOfMonth(date: Date): string {
 }
 
 // ── Apify ────────────────────────────────────────────────────────────────
+/**
+ * Apify run-sync call. ONE retry on TIMED-OUT or 5xx (transient Apify errors).
+ * Per-call timeout enforced via AbortController + Apify's own timeout param.
+ */
 export async function apifyRunSync(apiToken: string, actor: string, input: unknown, timeoutMs = 180_000): Promise<any[]> {
-  // run-sync-get-dataset-items blocks until complete OR timeout, returns dataset as JSON
   const actorSlug = actor.replace('/', '~')
   const url = `https://api.apify.com/v2/acts/${actorSlug}/run-sync-get-dataset-items?token=${apiToken}&timeout=${Math.floor(timeoutMs / 1000)}`
-  const controller = new AbortController()
-  const t = setTimeout(() => controller.abort(), timeoutMs + 5000)
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
-      signal: controller.signal,
-    })
-    if (!res.ok) throw new Error(`Apify ${actor} ${res.status}: ${(await res.text()).slice(0, 400)}`)
-    return await res.json()
-  } finally {
-    clearTimeout(t)
+
+  async function attempt(): Promise<{ ok: true; data: any[] } | { ok: false; retryable: boolean; error: string }> {
+    const controller = new AbortController()
+    const t = setTimeout(() => controller.abort(), timeoutMs + 5000)
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input),
+        signal: controller.signal,
+      })
+      if (res.ok) {
+        return { ok: true, data: await res.json() }
+      }
+      const body = (await res.text()).slice(0, 400)
+      // TIMED-OUT (often transient — Apify runner overload) and 5xx are retryable
+      const isTimedOut = body.includes('TIMED-OUT') || body.includes('timed-out')
+      const isServerErr = res.status >= 500
+      return {
+        ok: false,
+        retryable: isTimedOut || isServerErr,
+        error: `${res.status}: ${body}`,
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      return { ok: false, retryable: msg.includes('aborted') || msg.includes('network'), error: `network: ${msg}` }
+    } finally {
+      clearTimeout(t)
+    }
   }
+
+  const first = await attempt()
+  if (first.ok) return first.data
+  if (!first.retryable) throw new Error(`Apify ${actor} ${first.error}`)
+
+  // ONE retry after brief pause
+  console.warn(`Apify ${actor} ${first.error} — retrying once after 3s`)
+  await new Promise(r => setTimeout(r, 3000))
+  const second = await attempt()
+  if (second.ok) return second.data
+  throw new Error(`Apify ${actor} (after 1 retry) ${second.error}`)
 }
 
 // ── Anthropic ────────────────────────────────────────────────────────────
@@ -91,24 +121,88 @@ export interface AnthropicOpts {
   thinking?: { type: 'enabled'; budget_tokens: number }
 }
 
+/**
+ * Anthropic Messages API call with auto-retry on transient errors.
+ *
+ * Retry policy (added 2026-05-13 after Phase A runs failed from 429 rate limits
+ * when 3 pipelines ran in parallel and overflowed the 30K Sonnet input-tokens/min cap):
+ *  - 429 rate_limit_error: 3 attempts with 8s / 20s / 45s backoff (jittered)
+ *  - 5xx server errors: 2 attempts with 3s / 10s backoff
+ *  - 529 overloaded_error: same as 429
+ *  - Network errors (fetch throws): 2 attempts with 2s / 5s backoff
+ *  - Other 4xx (auth, bad request, content policy): no retry, throw immediately
+ *
+ * Max total retry time: 73s on rate limits + Anthropic call time. Caller's
+ * Supabase wall-clock budget should be sized to account for one retry.
+ */
 export async function anthropicCall(apiKey: string, opts: AnthropicOpts): Promise<{ content: any[]; usage: any; stop_reason: string }> {
-  const res = await fetch(`${ANTHROPIC_BASE}/messages`, {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(opts),
-  })
-  if (!res.ok) throw new Error(`Anthropic ${res.status}: ${(await res.text()).slice(0, 500)}`)
-  const json = await res.json()
-  // Surface truncation explicitly so callers can fail fast with a useful error
-  // instead of throwing a confusing JSON.parse error on a half-written response.
-  if (json.stop_reason === 'max_tokens') {
-    throw new Error(`Anthropic response truncated at max_tokens (${opts.max_tokens}). Raise max_tokens or reduce output size.`)
+  const RATE_LIMIT_BACKOFFS = [8000, 20000, 45000]
+  const SERVER_ERR_BACKOFFS = [3000, 10000]
+  const NETWORK_ERR_BACKOFFS = [2000, 5000]
+
+  let rateLimitAttempt = 0
+  let serverErrAttempt = 0
+  let networkErrAttempt = 0
+
+  while (true) {
+    let res: Response
+    try {
+      res = await fetch(`${ANTHROPIC_BASE}/messages`, {
+        method: 'POST',
+        headers: {
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(opts),
+      })
+    } catch (netErr) {
+      const errMsg = netErr instanceof Error ? netErr.message : String(netErr)
+      if (networkErrAttempt < NETWORK_ERR_BACKOFFS.length) {
+        const wait = NETWORK_ERR_BACKOFFS[networkErrAttempt]
+        console.warn(`anthropicCall network error (${errMsg}) — retry ${networkErrAttempt + 1} after ${wait}ms`)
+        await new Promise(r => setTimeout(r, wait))
+        networkErrAttempt++
+        continue
+      }
+      throw new Error(`Anthropic network: ${errMsg}`)
+    }
+
+    if (res.ok) {
+      const json = await res.json()
+      // Surface truncation explicitly so callers can fail fast with a useful error
+      // instead of throwing a confusing JSON.parse error on a half-written response.
+      if (json.stop_reason === 'max_tokens') {
+        throw new Error(`Anthropic response truncated at max_tokens (${opts.max_tokens}). Raise max_tokens or reduce output size.`)
+      }
+      return json
+    }
+
+    const body = (await res.text()).slice(0, 500)
+
+    // 429 rate limit or 529 overloaded → retry with jittered exponential backoff
+    if ((res.status === 429 || res.status === 529) && rateLimitAttempt < RATE_LIMIT_BACKOFFS.length) {
+      const base = RATE_LIMIT_BACKOFFS[rateLimitAttempt]
+      const jitter = Math.floor(Math.random() * (base * 0.25))
+      const wait = base + jitter
+      console.warn(`anthropicCall ${res.status} (rate limit/overloaded) — retry ${rateLimitAttempt + 1}/${RATE_LIMIT_BACKOFFS.length} after ${wait}ms`)
+      await new Promise(r => setTimeout(r, wait))
+      rateLimitAttempt++
+      continue
+    }
+
+    // 5xx server error → brief retry
+    if (res.status >= 500 && serverErrAttempt < SERVER_ERR_BACKOFFS.length) {
+      const wait = SERVER_ERR_BACKOFFS[serverErrAttempt]
+      console.warn(`anthropicCall ${res.status} server error — retry ${serverErrAttempt + 1} after ${wait}ms`)
+      await new Promise(r => setTimeout(r, wait))
+      serverErrAttempt++
+      continue
+    }
+
+    // Non-retryable or retries exhausted
+    throw new Error(`Anthropic ${res.status}: ${body}`)
   }
-  return json
 }
 
 /** Extract clean text from Anthropic response, concatenating all text blocks. */
@@ -202,16 +296,38 @@ export async function setActionStatus(
   await sb.from('pending_actions').update(updates).eq('id', actionId)
 }
 
-/** Self-invoke the next Edge Function in the Phase A chain. */
+/**
+ * Self-invoke the next Edge Function in the Phase A chain.
+ *
+ * TRUE fire-and-forget via pg_net (2026-05-13 v4 — the one that actually works).
+ *
+ * History:
+ *  - v1: `await fetch(...)` — blocked caller for the full invoked-function
+ *        runtime. Caller hit 150s wall clock waiting for response.
+ *  - v2: EdgeRuntime.waitUntil(fetch). Bound caller lifetime to fetch's full
+ *        response; if caller hit wall clock first, Deno aborted the in-flight
+ *        fetch and the target function never even spawned.
+ *  - v3: AbortController-based dispatch with 2s race. Same root issue — Deno
+ *        cancels in-flight fetches when the function exits, and Supabase
+ *        appears to tie spawned-function lifetime to the connection.
+ *  - v4 (current): pg_net.http_post via Postgres RPC. The request is enqueued
+ *        in postgres background workers and fired without any client-side
+ *        connection holding it open. Decoupled from Deno's lifecycle entirely.
+ *        The Edge Function returns after a single RPC call (~50-100ms).
+ *
+ * Requires: dispatch_edge_function() RPC must exist in the Supabase project
+ * (migration 2026-05-13_add_dispatch_edge_function_via_pg_net).
+ */
 export async function invokeFunction(name: string, body: Record<string, any>) {
-  const url = Deno.env.get('SUPABASE_URL')
-  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-  if (!url || !key) throw new Error('Cannot invoke — SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY missing')
-  // Fire-and-forget by not awaiting fully; we still await the HTTP send so the invocation starts
-  const endpoint = `${url.replace('.supabase.co', '.supabase.co')}/functions/v1/${name}`
-  await fetch(endpoint, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+  const sb = svcClient()
+  // The RPC reads the anon JWT from Vault internally via get_internal_auth_header(),
+  // matching the proven pattern used by all the other Supabase crons in this project.
+  // No need to pass the key through this layer.
+  const { error } = await sb.rpc('dispatch_edge_function', {
+    p_function_name: name,
+    p_body: body,
   })
+  if (error) {
+    throw new Error(`invokeFunction(${name}) via pg_net RPC failed: ${error.message}`)
+  }
 }
