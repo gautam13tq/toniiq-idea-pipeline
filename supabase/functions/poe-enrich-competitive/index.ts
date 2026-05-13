@@ -35,7 +35,8 @@ const PRODUCT_NOISE_PATTERNS = [
   'dog treats', 'lickable', 'topper', 'purée', 'puree',
   'skin care', 'skincare', 'toner', 'toner pad', 'serum', 'face cream',
   'facial', 'acrylic paint', 'phone case', 'iphone', 'magsafe',
-  'topical', 'lotion', 'body oil', 'hair oil',
+  'topical', 'lotion', 'body oil', 'hair oil', 'cup sleeve', 'neoprene',
+  'essential oil', 'diffuser', 'aromatherapy',
 ]
 
 const BRAND_PATTERNS = [
@@ -191,7 +192,10 @@ function keepaSearchTitle(query: string) {
   if (/\b(supplement|supplements|capsule|capsules|powder|powders|softgel|softgels|tablet|tablets|drops|gummy|gummies)\b/.test(text)) {
     return query
   }
-  return `${query} supplement`
+  if (text.startsWith('vitamin ')) return `${query} supplement`
+  if (text === 'oregano oil') return 'oregano oil capsules'
+  if (text === 'mushroom coffee') return 'mushroom coffee supplement'
+  return query
 }
 
 function percentile(values: number[], p: number): number | null {
@@ -574,7 +578,7 @@ Deno.serve(async (req) => {
     const batchSize = Math.max(1, Math.min(5, Number(body.batch_size || 1)))
     const batchOffset = Math.max(0, Number(body.batch_offset || 0))
     const keepAsins = Math.max(10, Math.min(50, Number(body.keep_asins || DEFAULT_KEEP_ASINS)))
-    const tokenWaitMs = Math.max(0, Math.min(90_000, Number(body.keepa_token_wait_ms || 45_000)))
+    const tokenWaitMs = Math.max(0, Math.min(130_000, Number(body.keepa_token_wait_ms || 45_000)))
 
     let rows: PoeRow[]
 
