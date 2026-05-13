@@ -9,7 +9,7 @@ const VIEWS = [
 ]
 
 const CURRENT_CURATION_VERSION = 'market-curation-v4'
-const CURATION_RUN_ENABLED = false
+const CURATION_RUN_ENABLED = true
 
 const SORT_OPTIONS = [
   { key: 'volume', label: '90d volume' },
@@ -72,7 +72,7 @@ function statusTone(status) {
 }
 
 function isCurrentCurationRun(run) {
-  return String(run?.prompt_version || '').startsWith(CURRENT_CURATION_VERSION)
+  return String(run?.prompt_version || '').startsWith(CURRENT_CURATION_VERSION) && run?.status !== 'failed'
 }
 
 function readRows({ snapshots, candidates, reviews, picks }) {
@@ -178,9 +178,10 @@ export default function MarketAtlasPage() {
     setSnapshots(snapshotsRes.data || [])
     setCandidates(candidatesRes.data || [])
     setReviews(reviewsRes.data || [])
-    const currentRuns = (runsRes.data || []).filter(isCurrentCurationRun)
+    const runRows = runsRes.data || []
+    const currentRuns = runRows.filter(isCurrentCurationRun)
     setRuns(currentRuns)
-    setLegacyRunCount((runsRes.data || []).length - currentRuns.length)
+    setLegacyRunCount(runRows.filter(run => !String(run?.prompt_version || '').startsWith(CURRENT_CURATION_VERSION)).length)
     if (!selectedRunId && currentRuns[0]) setSelectedRunId(currentRuns[0].id)
     setLoading(false)
   }
@@ -254,16 +255,17 @@ export default function MarketAtlasPage() {
 
   async function reloadRunsAndPicks(nextRunId) {
     const { data: runData } = await supabase.from('market_curation_runs').select('*').order('created_at', { ascending: false }).limit(12)
-    const currentRuns = (runData || []).filter(isCurrentCurationRun)
+    const runRows = runData || []
+    const currentRuns = runRows.filter(isCurrentCurationRun)
     setRuns(currentRuns)
-    setLegacyRunCount((runData || []).length - currentRuns.length)
+    setLegacyRunCount(runRows.filter(run => !String(run?.prompt_version || '').startsWith(CURRENT_CURATION_VERSION)).length)
     if (nextRunId) setSelectedRunId(nextRunId)
     else if (!selectedRunId && currentRuns[0]) setSelectedRunId(currentRuns[0].id)
   }
 
   async function runMonthlyCuration() {
     if (!CURATION_RUN_ENABLED) {
-      setError('Market Atlas v4 curation is disabled while Keepa Stage A calibration is running. Use Raw POE Audit until the v4 scoring function is wired.')
+      setError('Market Atlas v4 curation is temporarily disabled while calibration is running. Use Raw POE Audit until the v4 scoring function is ready.')
       return
     }
     if (!importDate) return
@@ -439,7 +441,7 @@ export default function MarketAtlasPage() {
               <button
                 onClick={runMonthlyCuration}
                 disabled={running || !importDate || !CURATION_RUN_ENABLED}
-                title={!CURATION_RUN_ENABLED ? 'V4 curation will be enabled after Keepa Stage A top-20/top-50 calibration.' : undefined}
+                title={!CURATION_RUN_ENABLED ? 'V4 curation is temporarily disabled during calibration.' : undefined}
                 className="t-btn h-10 shrink-0"
               >
                 {running ? 'Running...' : CURATION_RUN_ENABLED ? 'Run monthly curation' : 'Curation v4 calibrating'}
