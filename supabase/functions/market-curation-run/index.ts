@@ -117,6 +117,17 @@ interface RegistryRow {
   last_updated: string | null
 }
 
+interface PriorPickFeedback {
+  candidate_id: string | null
+  idea_title: string | null
+  primary_query: string | null
+  feedback_rating: string | null
+  feedback_notes: string | null
+  dismissed_at: string | null
+  promoted_review_id: string | null
+  created_at: string | null
+}
+
 interface ScoredCandidate {
   id: string
   poe: PoeRow
@@ -148,6 +159,7 @@ interface ScoredCandidate {
   filter_drops: string[]
   high_return_warning: boolean
   lens: 'launch_wedge' | 'niche_root' | 'anomalous_growth'
+  prior_feedback?: PriorPickFeedback | null
 }
 
 function n(value: unknown, fallback = 0) {
@@ -535,6 +547,14 @@ function llmCandidate(scored: ScoredCandidate) {
     },
     pipeline: {
       registry_match: scored.registry_match,
+      prior_feedback: scored.prior_feedback ? {
+        idea_title: scored.prior_feedback.idea_title,
+        primary_query: scored.prior_feedback.primary_query,
+        feedback_rating: scored.prior_feedback.feedback_rating,
+        feedback_notes: scored.prior_feedback.feedback_notes,
+        dismissed: Boolean(scored.prior_feedback.dismissed_at),
+        promoted_review_id: scored.prior_feedback.promoted_review_id,
+      } : null,
       filter_drops: scored.filter_drops,
       high_return_warning: scored.high_return_warning,
     },
@@ -556,7 +576,10 @@ Guardrails:
 - This is not Phase B. Do not invent Amazon revenue, exact monthly ASIN sales, TikTok stats, clinical claims, or supplier prices.
 - Keepa monthly_sold is only an Amazon badge/bracket signal. Treat BSR/reviews as directional ASIN evidence, not exact sales truth.
 - Prefer specific launchable wedges over huge root categories.
+- Prioritize genuinely new, smaller Toniiq-style niche wedges. Validators that Toniiq already found are useful signal, but should not crowd out new opportunities.
+- Use prior_feedback strictly: do not re-pick dismissed/no-fit ideas; treat yes/strong_yes prior picks as validators unless a materially new format or angle is present.
 - Penalize fortress markets unless there is a precise wedge Toniiq can own.
+- Kids/gummies are usually not current Toniiq fit; mention only if exceptionally compelling.
 - Recommendation labels are gated by access: launch_priority requires early_market_access >= 3.6, review_moat < 0.60, attackability >= 0.10, growth_timing >= 4.0, and no dominant_top_bsr_leader gate.
 - Regulated, pharma-adjacent, children/kids, parasite/pinworm, or disease-treatment language may be mentioned as risk, but should not mechanically block selection if the market evidence is strong.
 - If competition_gate.max_recommendation is watchlist, do not call the idea launch_priority or strong_candidate even when demand is huge.
@@ -604,6 +627,41 @@ function registryMatch(candidate: CandidateRow, registryRows: RegistryRow[]) {
   }
 }
 
+function latestFeedbackByCandidate(rows: PriorPickFeedback[]) {
+  const map = new Map<string, PriorPickFeedback>()
+  for (const row of rows || []) {
+    if (!row.candidate_id) continue
+    const current = map.get(row.candidate_id)
+    if (!current || String(row.created_at || '') > String(current.created_at || '')) {
+      map.set(row.candidate_id, row)
+    }
+  }
+  return map
+}
+
+function isNegativeFeedback(feedback: PriorPickFeedback | null | undefined) {
+  if (!feedback) return false
+  return Boolean(feedback.dismissed_at) || ['no', 'strong_no'].includes(String(feedback.feedback_rating || ''))
+}
+
+function feedbackPenalty(scored: ScoredCandidate) {
+  const feedback = scored.prior_feedback
+  let penalty = 0
+
+  if (feedback) {
+    if (isNegativeFeedback(feedback)) return 40
+    if (feedback.promoted_review_id) penalty += 14
+    if (['strong_yes', 'yes'].includes(String(feedback.feedback_rating || ''))) penalty += 8
+    else if (feedback.feedback_rating === 'maybe') penalty += 4
+    else penalty += 5
+  }
+
+  if (scored.registry_match) penalty += 10
+  if (['development', 'evaluation'].includes(String(scored.candidate.stage || '').toLowerCase())) penalty += 8
+
+  return penalty
+}
+
 async function runFinalPass(apiKey: string, candidates: ScoredCandidate[], count: number) {
   const response = await anthropicCall(apiKey, {
     model: FINAL_MODEL,
@@ -616,6 +674,7 @@ async function runFinalPass(apiKey: string, candidates: ScoredCandidate[], count
 
 Be selective. The best answer may be fewer than ${count} picks if the evidence is not good enough.
 Remove duplicates across queries. Prefer a specific Toniiq thesis over a generic market.
+Aim for a deeper shortlist of genuinely new niche wedges, not a short list of known validators. Known good prior ideas can appear only when the candidate gives a materially new format or demand angle.
 Do not rescue a candidate with outside knowledge. If the evidence is weak, pass.
 Use compact wording. The code will attach the numeric evidence and pillar scores after your selection.
 Do not include target price ranges in next_action. Say "validate price band" if price needs Phase B review.
@@ -829,7 +888,7 @@ Deno.serve(async (req) => {
       sb.from('poe_snapshots').select('*').eq('import_date', importDate).order('search_volume_90d', { ascending: false, nullsFirst: false }).limit(maxRows),
       sb.from('idea_candidates').select('id, ingredient_name, ingredient_name_normalized, category, stage'),
       sb.from('datarova_snapshots').select('candidate_id, keyword, import_date, search_volume, search_volume_trend, conversion_rate, avg_price, monthly_revenue_est').order('import_date', { ascending: false }),
-      sb.from('market_curation_picks').select('candidate_id, feedback_rating, dismissed_at, promoted_review_id, created_at').is('dismissed_at', null),
+      sb.from('market_curation_picks').select('candidate_id, idea_title, primary_query, feedback_rating, feedback_notes, dismissed_at, promoted_review_id, created_at').order('created_at', { ascending: false }).limit(500),
       sb.from('npd_registry_products').select('product, queue, state, priority, lv_band, last_updated'),
     ])
 
@@ -848,6 +907,7 @@ Deno.serve(async (req) => {
 
     const candidateMap = new Map((candidatesRes.data || []).map((row: CandidateRow) => [row.id, row]))
     const drMap = latestDatarovaByCandidate(datarovaRes.data || [])
+    const feedbackMap = latestFeedbackByCandidate(priorPicksRes.data || [])
     const registryRows = registryRes.data || []
 
     const enrichmentsBySnapshot = new Map<string, EnrichmentRow[]>()
@@ -869,7 +929,9 @@ Deno.serve(async (req) => {
       const match = registryMatch(candidate, registryRows)
       const datarova = drMap.get(poe.candidate_id) || null
       for (const enrichment of enrichments) {
-        scored.push(scoreCandidate(poe, candidate, enrichment, datarova, match))
+        const item = scoreCandidate(poe, candidate, enrichment, datarova, match)
+        item.prior_feedback = feedbackMap.get(candidate.id) || null
+        scored.push(item)
       }
     }
 
@@ -880,7 +942,6 @@ Deno.serve(async (req) => {
       if (insertCandidatesError) throw new Error(`Could not insert curation candidates: ${insertCandidatesError.message}`)
     }
 
-    const priorPickedCandidates = new Set((priorPicksRes.data || []).map((row: any) => row.candidate_id).filter(Boolean))
     const eligible = scored
       .filter(item => !item.filter_drops.some(drop => [
         'generic_or_non_actionable_root',
@@ -889,9 +950,10 @@ Deno.serve(async (req) => {
         'thin_keepa_result_set',
         'legacy_or_missing_keepa_source',
       ].includes(drop)))
+      .filter(item => !isNegativeFeedback(item.prior_feedback))
       .sort((a, b) => {
-        const priorPenaltyA = priorPickedCandidates.has(a.candidate.id) ? 8 : 0
-        const priorPenaltyB = priorPickedCandidates.has(b.candidate.id) ? 8 : 0
+        const priorPenaltyA = feedbackPenalty(a)
+        const priorPenaltyB = feedbackPenalty(b)
         return (b.metrics.composite_score - priorPenaltyB) - (a.metrics.composite_score - priorPenaltyA)
       })
       .slice(0, llmCandidateLimit)
