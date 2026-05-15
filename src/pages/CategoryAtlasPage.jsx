@@ -419,7 +419,7 @@ export default function CategoryAtlasPage() {
     }
     setScoring(true)
     const { data, error: invokeError } = await supabase.functions.invoke('category-atlas-score-run', {
-      body: { import_id: currentImport.id, limit: 5, keep_asins: 24 },
+      body: { import_id: currentImport.id, limit: 5, keep_asins: 50 },
     })
     setScoring(false)
     if (invokeError) {

@@ -13,7 +13,8 @@ import { svcClient } from '../_shared/clients.ts'
 const SCORING_VERSION = 'category-atlas-v4-keepa-stage-a'
 const KEEPA_BASE = 'https://api.keepa.com'
 const KEEPA_DOMAIN_US = 1
-const DEFAULT_KEEP_ASINS = 24
+const DEFAULT_KEEP_ASINS = 50
+const ASIN_RE = /^[A-Z0-9]{10}$/
 
 type RecommendationLabel = 'launch_priority' | 'strong_candidate' | 'watchlist' | 'pass'
 
@@ -36,6 +37,10 @@ interface CategoryEntry {
 
 interface KeepaProduct {
   asin: string
+  parent_asin: string | null
+  product_key: string
+  duplicate_asins: string[]
+  variant_count: number
   title: string
   brand: string
   price: number | null
@@ -82,6 +87,10 @@ const INGREDIENT_WORDS = new Set([
   'berberine', 'cinnamon', 'ceylon', 'bitter', 'melon', 'gymnema', 'chromium',
   'turmeric', 'curcumin', 'ashwagandha', 'magnesium', 'creatine', 'hmb',
   'resveratrol', 'quercetin', 'fisetin', 'spermidine', 'nmn', 'nad',
+  'glutathione', 'dihydromyricetin', 'dhm', 'milk', 'thistle', 'alpha',
+  'lipoic', 'ala', 'vitamin', 'electrolytes', 'willow', 'bark', 'pqq',
+  'coq10', 'nac', 'cysteine', 'selenium', 'choline', 'dandelion', 'beetroot',
+  'artichoke',
   'probiotic', 'akkermansia', 'lactobacillus', 'bifidobacterium',
   'garlic', 'pomegranate', 'moringa', 'astaxanthin', 'apigenin',
 ])
@@ -89,6 +98,15 @@ const INGREDIENT_WORDS = new Set([
 const STACK_MARKERS = [
   ' with ', ' plus ', '+', 'complex', 'blend', 'stack', 'multi', 'all-in-one',
   'formula',
+]
+
+const FAMILY_NORMALIZATION_PATTERNS: Array<[RegExp, string]> = [
+  [/\bpack\s+of\s+\d+\b/g, ' '],
+  [/\b\d+\s*[- ]?\s*pack\b/g, ' '],
+  [/\b\d+\s*[- ]?\s*day\s+supply\b/g, ' '],
+  [/\b\d+\s*(count|ct|capsules?|caps|softgels?|tablets?|tabs|servings?|fl\.?\s*oz|oz|ml|milliliters?)\b/g, ' '],
+  [/\b\d+(\.\d+)?\s*(mg|mcg|g|gram|grams)\b/g, ' '],
+  [/\b\d+\s*in\s*1\b/g, ' '],
 ]
 
 const PRODUCT_NOISE_PATTERNS = [
@@ -124,6 +142,28 @@ function normalize(value: string) {
     .replace(/[^a-z0-9+\s-]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
+}
+
+function canonicalFamilyTitle(title: string) {
+  let value = normalize(title)
+  for (const [pattern, replacement] of FAMILY_NORMALIZATION_PATTERNS) {
+    value = value.replace(pattern, replacement)
+  }
+  return value
+    .replace(/\b(pack|bundle|bottle|bottles|month|months)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .slice(0, 18)
+    .join(' ')
+}
+
+function productFamilyKey(brand: string, title: string, parentAsin: string | null, asin: string, reviews = 0, rank: number | null = null) {
+  const normalizedBrand = normalize(brand) || 'unknown-brand'
+  if (rank && rank > 0) return `${normalizedBrand}|rank-family:${Math.round(rank / 25)}`
+  if (parentAsin && ASIN_RE.test(parentAsin) && parentAsin !== asin) return `parent:${parentAsin}`
+  if (reviews >= 50) return `${normalizedBrand}|review-family:${reviews}`
+  return `${normalizedBrand}|${canonicalFamilyTitle(title)}`
 }
 
 function queryTokens(query: string) {
@@ -192,7 +232,7 @@ function classifyProduct(query: string, title: string): {
 
   if (missing.length > 0) return { classification: 'adjacent', missing_query_tokens: missing, other_ingredient_hits: otherIngredientHits }
   const hasStackMarker = STACK_MARKERS.some(marker => text.includes(marker))
-  if ((hasStackMarker && otherIngredientHits.length >= 1) || otherIngredientHits.length >= 3) {
+  if ((hasStackMarker && otherIngredientHits.length >= 2) || otherIngredientHits.length >= 3) {
     return { classification: 'stack', missing_query_tokens: [], other_ingredient_hits: otherIngredientHits }
   }
   return { classification: 'exact', missing_query_tokens: [], other_ingredient_hits: otherIngredientHits }
@@ -235,26 +275,84 @@ async function waitForKeepaTokens(apiKey: string, maxWaitMs: number, minTokens =
 
 function normalizeKeepaProduct(query: string, raw: any): KeepaProduct | null {
   const asin = String(raw.asin || '').toUpperCase()
-  if (!/^[A-Z0-9]{10}$/.test(asin)) return null
+  if (!ASIN_RE.test(asin)) return null
+  const parentAsin = String(raw.parentAsin || '').toUpperCase()
+  const parent_asin = ASIN_RE.test(parentAsin) ? parentAsin : null
   const title = String(raw.title || '').slice(0, 300).trim()
   if (!title) return null
   const stats = raw.stats || {}
   const price = priceFromCents(statValue(stats, 'current', 18) || statValue(stats, 'current', 1) || statValue(stats, 'avg30', 18) || statValue(stats, 'avg30', 1))
   const ratingRaw = statValue(stats, 'current', 16)
   const classified = classifyProduct(query, title)
+  const brand = String(raw.brand || raw.manufacturer || '').slice(0, 120)
+  const reviews = statValue(stats, 'current', 17) || 0
+  const bsr_current = statValue(stats, 'current', 3)
+  const bsr_avg30 = statValue(stats, 'avg30', 3)
   return {
     asin,
+    parent_asin,
+    product_key: productFamilyKey(brand, title, parent_asin, asin, reviews, bsr_current || bsr_avg30),
+    duplicate_asins: [asin],
+    variant_count: 1,
     title,
-    brand: String(raw.brand || raw.manufacturer || '').slice(0, 120),
+    brand,
     price,
     rating: ratingRaw === null ? null : Math.round(ratingRaw) / 10,
-    reviews: statValue(stats, 'current', 17) || 0,
+    reviews,
     monthly_sold: finiteNumber(raw.monthlySold) || 0,
-    bsr_current: statValue(stats, 'current', 3),
-    bsr_avg30: statValue(stats, 'avg30', 3),
+    bsr_current,
+    bsr_avg30,
     bsr_avg90: statValue(stats, 'avg90', 3),
     ...classified,
   }
+}
+
+function titleLooksLikeVariant(title: string) {
+  const text = normalize(title)
+  return /\b(pack\s+of\s+\d+|\d+\s*[- ]?\s*pack|\d+\s*[- ]?\s*day\s+supply)\b/.test(text)
+}
+
+function mergeProductFamily(existing: KeepaProduct, incoming: KeepaProduct) {
+  const existingMonthlySold = existing.monthly_sold
+  const existingReviews = existing.reviews
+  existing.duplicate_asins = [...new Set([...existing.duplicate_asins, incoming.asin, ...incoming.duplicate_asins])]
+  existing.variant_count = existing.duplicate_asins.length
+  existing.monthly_sold += incoming.monthly_sold
+  existing.reviews = Math.max(existing.reviews, incoming.reviews)
+  if (incoming.rating && (!existing.rating || incoming.reviews >= existingReviews)) existing.rating = incoming.rating
+  if (!existing.price || (incoming.price && !titleLooksLikeVariant(incoming.title) && incoming.price < existing.price)) existing.price = incoming.price
+
+  const existingRank = existing.bsr_current || existing.bsr_avg30 || 999_999_999
+  const incomingRank = incoming.bsr_current || incoming.bsr_avg30 || 999_999_999
+  if (incomingRank < existingRank) {
+    existing.bsr_current = incoming.bsr_current
+    existing.bsr_avg30 = incoming.bsr_avg30
+    existing.bsr_avg90 = incoming.bsr_avg90
+  }
+
+  const preferIncomingTitle = titleLooksLikeVariant(existing.title) && !titleLooksLikeVariant(incoming.title)
+  if (preferIncomingTitle || incoming.monthly_sold > existingMonthlySold) {
+    existing.title = incoming.title
+    existing.asin = incoming.asin
+  }
+
+  if (existing.classification !== 'exact' && incoming.classification === 'exact') existing.classification = incoming.classification
+  existing.other_ingredient_hits = [...new Set([...existing.other_ingredient_hits, ...incoming.other_ingredient_hits])].slice(0, 12)
+  existing.missing_query_tokens = [...new Set([...existing.missing_query_tokens, ...incoming.missing_query_tokens])]
+}
+
+function dedupeProductFamilies(products: KeepaProduct[]) {
+  const families = new Map<string, KeepaProduct>()
+  for (const product of products) {
+    const existing = families.get(product.product_key)
+    if (existing) mergeProductFamily(existing, { ...product, duplicate_asins: [...product.duplicate_asins] })
+    else families.set(product.product_key, { ...product, duplicate_asins: [...product.duplicate_asins] })
+  }
+  return [...families.values()].sort((a, b) => {
+    const aRank = a.bsr_current || a.bsr_avg30 || 999_999_999
+    const bRank = b.bsr_current || b.bsr_avg30 || 999_999_999
+    return aRank - bRank || (b.monthly_sold - a.monthly_sold) || (b.reviews - a.reviews)
+  })
 }
 
 async function runKeepaQuery(apiKey: string, query: string, keepAsins: number, tokenWaitMs: number): Promise<KeepaAggregate> {
@@ -272,7 +370,7 @@ async function runKeepaQuery(apiKey: string, query: string, keepAsins: number, t
 
   const asinList = (finder.asinList || [])
     .map((asin: string) => String(asin || '').toUpperCase())
-    .filter((asin: string) => /^[A-Z0-9]{10}$/.test(asin))
+    .filter((asin: string) => ASIN_RE.test(asin))
     .slice(0, keepAsins)
 
   if (!asinList.length) {
@@ -329,8 +427,10 @@ function emptyAggregate(error: string, tokens = 0, refillRate: number | null = n
 }
 
 function computeAggregates(products: KeepaProduct[]): Omit<KeepaAggregate, 'tokens_consumed' | 'refill_rate'> {
-  const exact = products.filter(p => p.classification === 'exact')
-  const usable = exact.length >= 5 ? exact : products.filter(p => p.classification !== 'noise' && p.classification !== 'adjacent')
+  const uniqueProducts = dedupeProductFamilies(products)
+  const rawExact = products.filter(p => p.classification === 'exact')
+  const exact = uniqueProducts.filter(p => p.classification === 'exact')
+  const usable = exact.length >= 5 ? exact : uniqueProducts.filter(p => p.classification !== 'noise' && p.classification !== 'adjacent')
   const top10 = usable.slice(0, 10)
   const withMonthlySold = top10.filter(p => p.monthly_sold > 0)
   const reviews = top10.map(p => p.reviews).filter(r => r > 0)
@@ -342,11 +442,14 @@ function computeAggregates(products: KeepaProduct[]): Omit<KeepaAggregate, 'toke
   const top3BadgeSales = withMonthlySold.slice(0, 3).reduce((sum, product) => sum + product.monthly_sold, 0)
   const result_quality = {
     scored_count: top10.length,
+    unique_result_count: uniqueProducts.length,
     exact_count: exact.length,
-    stack_count: products.filter(p => p.classification === 'stack').length,
-    adjacent_count: products.filter(p => p.classification === 'adjacent').length,
+    raw_exact_count: rawExact.length,
+    stack_count: uniqueProducts.filter(p => p.classification === 'stack').length,
+    adjacent_count: uniqueProducts.filter(p => p.classification === 'adjacent').length,
     monthly_sold_coverage: withMonthlySold.length,
     raw_result_count: products.length,
+    duplicate_variant_count: Math.max(0, products.length - uniqueProducts.length),
     scoring_basis: exact.length >= 5 ? 'exact' : 'non_adjacent_non_noise',
   }
   return {
@@ -624,6 +727,9 @@ Deno.serve(async (req) => {
             result_quality: enrichment.result_quality,
             top_products: enrichment.top_results.slice(0, 12).map(product => ({
               asin: product.asin,
+              parent_asin: product.parent_asin,
+              duplicate_asins: product.duplicate_asins,
+              variant_count: product.variant_count,
               brand: product.brand,
               title: product.title,
               reviews: product.reviews,
@@ -634,6 +740,7 @@ Deno.serve(async (req) => {
               bsr_avg30: product.bsr_avg30,
               classification: product.classification,
               missing_query_tokens: product.missing_query_tokens,
+              other_ingredient_hits: product.other_ingredient_hits,
             })),
           },
           guardrail: 'Exact primary_keyword competitive set only; parent-market fallback is not allowed.',
