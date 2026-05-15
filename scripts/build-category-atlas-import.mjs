@@ -11,7 +11,7 @@ const PRODUCT_DEV_ROOT = process.env.PRODUCT_DEV_ROOT
 const QUERY_DATE = '2026-05-15'
 const IMPORT_KEY = 'category-atlas-core-four-2026-05-15'
 const SOURCE_VERSION = 'category-atlas-core-four-v1'
-const SCORING_VERSION = 'category-atlas-market-scoring-v1'
+const SCORING_VERSION = 'category-atlas-v4-keepa-stage-a'
 const IMPORT_ID = uuidFromString(IMPORT_KEY)
 
 const CATEGORY_CONFIG = [
@@ -101,166 +101,38 @@ function riskFromText(...parts) {
   return 'low'
 }
 
-function tierBase(tier) {
-  const text = String(tier || '').toLowerCase()
-  if (text.includes('tier 1a')) return 8.5
-  if (text.includes('tier 1')) return 8
-  if (text.includes('tier 2')) return 6.5
-  if (text.includes('tier 3')) return 4.5
-  if (text.includes('watch')) return 3.5
-  if (text.includes('avoid') || text.includes('exclude')) return 1.5
-  return 5
-}
-
-function demandScore(clicks, sales, cvr) {
-  const clickScore = clicks >= 250000 ? 10
-    : clicks >= 100000 ? 9
-      : clicks >= 50000 ? 8
-        : clicks >= 20000 ? 6.5
-          : clicks >= 5000 ? 5
-            : clicks >= 1000 ? 3
-              : clicks > 0 ? 1.5
-                : 0
-  const salesScore = sales >= 30000 ? 10
-    : sales >= 10000 ? 9
-      : sales >= 5000 ? 8
-        : sales >= 1000 ? 6
-          : sales >= 250 ? 4
-            : sales > 0 ? 2
-              : 0
-  const cvrAdj = cvr >= 25 ? 1
-    : cvr >= 15 ? 0.5
-      : cvr > 0 && cvr < 5 ? -1
-        : 0
-  return clamp((clickScore * 0.7) + (salesScore * 0.3) + cvrAdj, 0, 10)
-}
-
-function growthScore(growthPct) {
-  if (growthPct === null || growthPct === undefined) return 4
-  return growthPct >= 300 ? 10
-    : growthPct >= 150 ? 9
-      : growthPct >= 75 ? 8
-        : growthPct >= 35 ? 7
-          : growthPct >= 10 ? 6
-            : growthPct >= 0 ? 5
-              : growthPct >= -25 ? 3
-                : 1.5
-}
-
-function accessScore(entry) {
-  let score = tierBase(entry.tier)
-  if ((entry.supplier_match_count || entry.supplier_count || 0) > 0) score += 0.5
-  if ((entry.product_match_count || entry.primary_product_match_count || 0) > 0) score += 0.5
-  if (entry.risk_level === 'medium') score -= 1
-  if (entry.risk_level === 'high') score -= 3
-  return clamp(score, 0, 10)
-}
-
-function differentiationScore(entry) {
-  const payload = entry.source_payload || {}
-  const values = [
-    payload.active_marker_score,
-    payload.marker_awareness_score,
-    payload.science_score,
-    payload.fit_score,
-    payload.feasibility_score,
-    payload.identity_score,
-    payload.toniiq_fit_score,
-    payload.portfolio_fit_score,
-  ].map(num).filter(value => value !== null)
-
-  if (values.length) {
-    const avgFivePoint = values.reduce((sum, value) => sum + value, 0) / values.length
-    return clamp(avgFivePoint * 2, 0, 10)
+function primaryKeywordFor(entry) {
+  const best = String(entry.best_keyword || '').trim()
+  const name = String(entry.name || '').trim()
+  const category = String(entry.category_id || '')
+  const lowerBest = best.toLowerCase()
+  if (category === 'liposomal') {
+    if (lowerBest.includes('liposomal')) return best
+    return `liposomal ${name}`.trim()
   }
-
-  let score = tierBase(entry.tier)
-  const text = [
-    entry.name,
-    entry.strategic_read,
-    entry.toniiq_status,
-    payload.active_wedge,
-    payload.bio_issue,
-    payload.tier_logic,
-  ].filter(Boolean).join(' ').toLowerCase()
-
-  if (/(marker|standard|branded|strain|liposomal|phytosome|dihydro|high-cfu|specific|patent|delivery|bioavailability|stack)/.test(text)) score += 1
-  if ((entry.supplier_count || 0) > 0) score += 0.5
-  if (entry.risk_level === 'high') score -= 2
-  return clamp(score, 0, 10)
+  if (best) return best
+  return name
 }
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value))
-}
-
-function round1(value) {
-  return Math.round(value * 10) / 10
-}
-
-function scoreEntry(entry) {
-  const market = demandScore(entry.latest_clicks || 0, entry.latest_sales || 0, entry.weighted_conversion_pct || entry.best_keyword_cvr || 0)
-  const access = accessScore(entry)
-  const growth = growthScore(entry.best_keyword_growth)
-  const differentiation = differentiationScore(entry)
-  const strategic = Math.round((market * 0.20 + access * 0.25 + growth * 0.20 + differentiation * 0.35) * 10)
-  const recommendation = strategic >= 85 ? 'launch_priority'
-    : strategic >= 70 ? 'strong_candidate'
-      : strategic >= 50 ? 'watchlist'
-        : 'pass'
-  const confidence = confidenceFor(entry, market)
-  const pillar_scores = {
-    market_size_intent: {
-      score: round1(market),
-      weight: 0.20,
-      reason: `Demand ${formatMetric(entry.latest_clicks)} clicks / ${formatMetric(entry.latest_sales)} sales; best keyword ${entry.best_keyword || 'none'}.`,
-    },
-    early_market_access: {
-      score: round1(access),
-      weight: 0.25,
-      reason: `${entry.tier || 'No tier'}; risk ${entry.risk_level}; supplier/product overlap used only as category-level access proxy.`,
-    },
-    growth_timing: {
-      score: round1(growth),
-      weight: 0.20,
-      reason: entry.best_keyword_growth === null || entry.best_keyword_growth === undefined
-        ? 'No focused growth metric in source row; neutral-low timing score applied.'
-        : `Best keyword growth ${entry.best_keyword_growth}%.`,
-    },
-    differentiation_hypothesis: {
-      score: round1(differentiation),
-      weight: 0.35,
-      reason: entry.strategic_read || entry.toniiq_status || 'Category atlas fit proxy.',
-    },
-  }
+function markPendingV4(entry) {
+  const primaryKeyword = primaryKeywordFor(entry)
   return {
     ...entry,
-    strategic_score: strategic,
-    recommendation_label: recommendation,
-    score_confidence: confidence,
-    pillar_scores,
+    primary_keyword: primaryKeyword,
+    score_status: 'pending_v4',
+    strategic_score: null,
+    recommendation_label: null,
+    score_confidence: null,
+    pillar_scores: {},
     computed_signals: {
-      market_size_intent: round1(market),
-      early_market_access: round1(access),
-      growth_timing: round1(growth),
-      differentiation_hypothesis: round1(differentiation),
       scoring_version: SCORING_VERSION,
+      score_status: 'pending_v4',
+      primary_keyword: primaryKeyword,
       source_category_score: entry.source_payload?.strategic_score ?? null,
+      source_tier: entry.tier || null,
     },
-    scoring_notes: [
-      `Scored through ${SCORING_VERSION}.`,
-      'Uses sourced category atlas demand and qualitative evidence; not a Phase B score.',
-      'Keepa/Phase B competitive enrichment still required before R&D commitment.',
-    ].join(' '),
+    scoring_notes: `Pending ${SCORING_VERSION}. This row is not scored until Keepa Stage A runs on the exact primary keyword: ${primaryKeyword}.`,
   }
-}
-
-function confidenceFor(entry, market) {
-  if ((entry.latest_clicks || 0) <= 0) return 'low'
-  if (entry.risk_level === 'high') return 'low'
-  if (!entry.best_keyword || market < 3) return 'low'
-  if (entry.best_keyword_growth === null || entry.best_keyword_growth === undefined) return 'medium'
-  return 'high'
 }
 
 function formatMetric(value) {
@@ -281,7 +153,7 @@ function actionFromTier(tier, fallback = '') {
 function normalizeLiposomal(data) {
   const entries = data.rows.map(row => {
     const risk = riskFromText(row.tier, row.science, row.bio_issue, row.tier_logic)
-    return scoreEntry({
+    return markPendingV4({
       category_id: 'liposomal',
       entry_key: slugify(row.ingredient),
       name: row.ingredient,
@@ -327,7 +199,7 @@ function normalizeLiposomal(data) {
 function normalizeProbiotics(data) {
   const entries = data.opportunities.map(row => {
     const risk = riskFromText(row.tier, row.interpretation, row.toniiq_status)
-    return scoreEntry({
+    return markPendingV4({
       category_id: 'probiotics',
       entry_key: slugify(row.name),
       name: row.name,
@@ -374,7 +246,7 @@ function normalizeProbiotics(data) {
 function normalizeLongevity(data) {
   const entries = data.matrix.map(row => {
     const risk = riskFromText(row.tier, row.hype_risk, row.compliance_risk, row.boundary_read, row.strategic_read)
-    return scoreEntry({
+    return markPendingV4({
       category_id: 'longevity',
       entry_key: slugify(row.name),
       name: row.name,
@@ -421,7 +293,7 @@ function normalizeLongevity(data) {
 function normalizeBotanical(data) {
   const entries = data.opportunities.map(row => {
     const risk = riskFromText(row.tier, row.interpretation, row.science_specificity)
-    return scoreEntry({
+    return markPendingV4({
       category_id: 'botanical_extracts',
       entry_key: slugify(row.name),
       name: row.name,
@@ -514,11 +386,11 @@ function buildSql(categories, entries, evidence) {
   out.push('delete from category_atlas_keyword_evidence where import_id = ' + sqlString(IMPORT_ID) + '::uuid;')
   out.push('')
 
-  out.push('insert into category_atlas_entries (id, import_id, category_id, entry_key, name, normalized_name, tier, mechanism_lane, route_or_format, latest_clicks, latest_sales, weighted_conversion_pct, best_keyword, best_keyword_clicks, best_keyword_sales, best_keyword_cvr, best_keyword_growth, strategic_score, recommendation_label, score_confidence, pillar_scores, computed_signals, scoring_notes, toniiq_status, supplier_status, risk_level, risk_notes, strategic_read, next_action, source_payload) values')
+  out.push('insert into category_atlas_entries (id, import_id, category_id, entry_key, name, normalized_name, tier, mechanism_lane, route_or_format, latest_clicks, latest_sales, weighted_conversion_pct, best_keyword, best_keyword_clicks, best_keyword_sales, best_keyword_cvr, best_keyword_growth, primary_keyword, score_status, strategic_score, recommendation_label, score_confidence, pillar_scores, computed_signals, scoring_notes, toniiq_status, supplier_status, risk_level, risk_notes, strategic_read, next_action, source_payload) values')
   out.push(entries.map(entry => {
     const id = entry.id
-    return `  (${sqlString(id)}::uuid, ${sqlString(IMPORT_ID)}::uuid, ${sqlString(entry.category_id)}, ${sqlString(entry.entry_key)}, ${sqlString(entry.name)}, ${sqlString(entry.normalized_name)}, ${sqlString(entry.tier)}, ${sqlString(entry.mechanism_lane)}, ${sqlString(entry.route_or_format)}, ${sqlNumber(entry.latest_clicks)}, ${sqlNumber(entry.latest_sales)}, ${sqlNumber(entry.weighted_conversion_pct)}, ${sqlString(entry.best_keyword)}, ${sqlNumber(entry.best_keyword_clicks)}, ${sqlNumber(entry.best_keyword_sales)}, ${sqlNumber(entry.best_keyword_cvr)}, ${sqlNumber(entry.best_keyword_growth)}, ${sqlNumber(entry.strategic_score)}, ${sqlString(entry.recommendation_label)}, ${sqlString(entry.score_confidence)}, ${sqlJson(entry.pillar_scores)}, ${sqlJson(entry.computed_signals)}, ${sqlString(entry.scoring_notes)}, ${sqlString(entry.toniiq_status)}, ${sqlString(entry.supplier_status)}, ${sqlString(entry.risk_level)}, ${sqlString(entry.risk_notes)}, ${sqlString(entry.strategic_read)}, ${sqlString(entry.next_action)}, ${sqlJson(entry.source_payload)})`
-  }).join(',\n') + '\non conflict (import_id, category_id, entry_key) do update set name = excluded.name, normalized_name = excluded.normalized_name, tier = excluded.tier, mechanism_lane = excluded.mechanism_lane, route_or_format = excluded.route_or_format, latest_clicks = excluded.latest_clicks, latest_sales = excluded.latest_sales, weighted_conversion_pct = excluded.weighted_conversion_pct, best_keyword = excluded.best_keyword, best_keyword_clicks = excluded.best_keyword_clicks, best_keyword_sales = excluded.best_keyword_sales, best_keyword_cvr = excluded.best_keyword_cvr, best_keyword_growth = excluded.best_keyword_growth, strategic_score = excluded.strategic_score, recommendation_label = excluded.recommendation_label, score_confidence = excluded.score_confidence, pillar_scores = excluded.pillar_scores, computed_signals = excluded.computed_signals, scoring_notes = excluded.scoring_notes, toniiq_status = excluded.toniiq_status, supplier_status = excluded.supplier_status, risk_level = excluded.risk_level, risk_notes = excluded.risk_notes, strategic_read = excluded.strategic_read, next_action = excluded.next_action, source_payload = excluded.source_payload, updated_at = now();')
+    return `  (${sqlString(id)}::uuid, ${sqlString(IMPORT_ID)}::uuid, ${sqlString(entry.category_id)}, ${sqlString(entry.entry_key)}, ${sqlString(entry.name)}, ${sqlString(entry.normalized_name)}, ${sqlString(entry.tier)}, ${sqlString(entry.mechanism_lane)}, ${sqlString(entry.route_or_format)}, ${sqlNumber(entry.latest_clicks)}, ${sqlNumber(entry.latest_sales)}, ${sqlNumber(entry.weighted_conversion_pct)}, ${sqlString(entry.best_keyword)}, ${sqlNumber(entry.best_keyword_clicks)}, ${sqlNumber(entry.best_keyword_sales)}, ${sqlNumber(entry.best_keyword_cvr)}, ${sqlNumber(entry.best_keyword_growth)}, ${sqlString(entry.primary_keyword)}, ${sqlString(entry.score_status)}, ${sqlNumber(entry.strategic_score)}, ${sqlString(entry.recommendation_label)}, ${sqlString(entry.score_confidence)}, ${sqlJson(entry.pillar_scores)}, ${sqlJson(entry.computed_signals)}, ${sqlString(entry.scoring_notes)}, ${sqlString(entry.toniiq_status)}, ${sqlString(entry.supplier_status)}, ${sqlString(entry.risk_level)}, ${sqlString(entry.risk_notes)}, ${sqlString(entry.strategic_read)}, ${sqlString(entry.next_action)}, ${sqlJson(entry.source_payload)})`
+  }).join(',\n') + `\non conflict (import_id, category_id, entry_key) do update set name = excluded.name, normalized_name = excluded.normalized_name, tier = excluded.tier, mechanism_lane = excluded.mechanism_lane, route_or_format = excluded.route_or_format, latest_clicks = excluded.latest_clicks, latest_sales = excluded.latest_sales, weighted_conversion_pct = excluded.weighted_conversion_pct, best_keyword = excluded.best_keyword, best_keyword_clicks = excluded.best_keyword_clicks, best_keyword_sales = excluded.best_keyword_sales, best_keyword_cvr = excluded.best_keyword_cvr, best_keyword_growth = excluded.best_keyword_growth, primary_keyword = excluded.primary_keyword, score_status = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.score_status else excluded.score_status end, strategic_score = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.strategic_score else excluded.strategic_score end, recommendation_label = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.recommendation_label else excluded.recommendation_label end, score_confidence = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.score_confidence else excluded.score_confidence end, pillar_scores = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.pillar_scores else excluded.pillar_scores end, computed_signals = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.computed_signals else excluded.computed_signals end, scoring_notes = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.scoring_notes else excluded.scoring_notes end, toniiq_status = excluded.toniiq_status, supplier_status = excluded.supplier_status, risk_level = excluded.risk_level, risk_notes = excluded.risk_notes, strategic_read = excluded.strategic_read, next_action = excluded.next_action, source_payload = excluded.source_payload, updated_at = now();`)
   out.push('')
 
   if (evidence.length) {
@@ -555,7 +427,13 @@ function main() {
     allEvidence.push(...normalized.evidence.filter(row => row.keyword && row.entry_key))
   }
 
-  allEntries.sort((a, b) => (b.strategic_score || 0) - (a.strategic_score || 0) || a.name.localeCompare(b.name))
+  allEntries.sort((a, b) => {
+    const scoreDelta = (b.strategic_score || -1) - (a.strategic_score || -1)
+    if (scoreDelta) return scoreDelta
+    const demandDelta = (b.latest_clicks || 0) - (a.latest_clicks || 0)
+    if (demandDelta) return demandDelta
+    return a.name.localeCompare(b.name)
+  })
 
   const sql = buildSql(categories, allEntries, allEvidence)
   fs.writeFileSync(path.join(APP_ROOT, 'supabase', 'seed_category_atlas.sql'), sql)

@@ -4,6 +4,9 @@ import { formatNumber, normalizeIdeaName } from '../lib/opportunity'
 
 const SORT_OPTIONS = [
   { key: 'score', label: 'Strategic score' },
+  { key: 'attackability', label: 'Attackability' },
+  { key: 'review_moat', label: 'Review moat' },
+  { key: 'bsr', label: 'Best BSR' },
   { key: 'demand', label: 'Clicks' },
   { key: 'sales', label: 'Sales' },
   { key: 'conversion', label: 'Conversion' },
@@ -16,6 +19,13 @@ const RECOMMENDATION_LABELS = {
   strong_candidate: 'Strong Candidate',
   watchlist: 'Watchlist',
   pass: 'Pass',
+}
+
+const STATUS_LABELS = {
+  pending_v4: 'Pending',
+  scoring: 'Scoring',
+  scored: 'Done',
+  failed: 'Failed',
 }
 
 let previewAtlasCache = null
@@ -38,6 +48,7 @@ function previewImport(previewAtlas) {
 }
 
 function scoreTone(score) {
+  if (score === null || score === undefined || score === '') return 'neutral'
   if (score >= 85) return 'green'
   if (score >= 70) return 'amber'
   if (score >= 50) return 'blue'
@@ -72,6 +83,7 @@ function searchableText(entry, categoryMap) {
     entry.name,
     entry.tier,
     entry.best_keyword,
+    entry.primary_keyword,
     entry.mechanism_lane,
     entry.toniiq_status,
     entry.supplier_status,
@@ -83,12 +95,40 @@ function searchableText(entry, categoryMap) {
 function sortEntries(entries, sortBy) {
   return [...entries].sort((a, b) => {
     if (sortBy === 'name') return a.name.localeCompare(b.name)
+    const aScored = scoreStatus(a) === 'scored'
+    const bScored = scoreStatus(b) === 'scored'
+    if (['score', 'attackability', 'review_moat', 'bsr'].includes(sortBy) && aScored !== bScored) return bScored ? 1 : -1
+    if (sortBy === 'attackability') return Number(b.attackability || 0) - Number(a.attackability || 0)
+    if (sortBy === 'review_moat') return Number(a.review_moat || 0) - Number(b.review_moat || 0)
+    if (sortBy === 'bsr') return Number(a.best_bsr || 999999999) - Number(b.best_bsr || 999999999)
     if (sortBy === 'demand') return Number(b.latest_clicks || 0) - Number(a.latest_clicks || 0)
     if (sortBy === 'sales') return Number(b.latest_sales || 0) - Number(a.latest_sales || 0)
     if (sortBy === 'conversion') return Number(b.weighted_conversion_pct || 0) - Number(a.weighted_conversion_pct || 0)
     if (sortBy === 'growth') return Number(b.best_keyword_growth || 0) - Number(a.best_keyword_growth || 0)
+    if (!aScored && !bScored) return Number(b.latest_clicks || 0) - Number(a.latest_clicks || 0)
     return Number(b.strategic_score || 0) - Number(a.strategic_score || 0)
   })
+}
+
+function scoreStatus(entry) {
+  if (entry.score_status) return entry.score_status
+  const version = entry.computed_signals?.scoring_version || ''
+  if (version.includes('category-atlas-v4') && entry.strategic_score !== null && entry.strategic_score !== undefined) return 'scored'
+  return 'pending_v4'
+}
+
+function statusTone(status) {
+  if (status === 'scored') return 'green'
+  if (status === 'failed') return 'red'
+  if (status === 'scoring') return 'amber'
+  return 'neutral'
+}
+
+function metricValue(value, digits = 3) {
+  if (value === null || value === undefined || value === '') return '-'
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return '-'
+  return parsed.toFixed(digits)
 }
 
 function sourceContext(entry, categoryMap) {
@@ -119,10 +159,12 @@ export default function CategoryAtlasPage() {
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('all')
   const [recommendationFilter, setRecommendationFilter] = useState('all')
+  const [statusFilter, setStatusFilter] = useState('all')
   const [sortBy, setSortBy] = useState('score')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [savingId, setSavingId] = useState(null)
+  const [scoring, setScoring] = useState(false)
 
   useEffect(() => {
     let ignore = false
@@ -208,19 +250,54 @@ export default function CategoryAtlasPage() {
     let rows = entries
     if (categoryFilter !== 'all') rows = rows.filter(entry => entry.category_id === categoryFilter)
     if (recommendationFilter !== 'all') rows = rows.filter(entry => entry.recommendation_label === recommendationFilter)
+    if (statusFilter !== 'all') rows = rows.filter(entry => scoreStatus(entry) === statusFilter)
     if (q) rows = rows.filter(entry => searchableText(entry, categoryMap).includes(q))
     return sortEntries(rows, sortBy)
-  }, [entries, categoryFilter, recommendationFilter, search, sortBy, categoryMap])
+  }, [entries, categoryFilter, recommendationFilter, statusFilter, search, sortBy, categoryMap])
 
   const stats = useMemo(() => {
     const launch = entries.filter(entry => entry.recommendation_label === 'launch_priority').length
     const strong = entries.filter(entry => entry.recommendation_label === 'strong_candidate').length
+    const scored = entries.filter(entry => scoreStatus(entry) === 'scored').length
+    const pending = entries.filter(entry => ['pending_v4', 'scoring', 'failed'].includes(scoreStatus(entry))).length
     const promoted = entries.filter(entry => entry.promoted_review_id).length
-    return { launch, strong, promoted }
+    return { launch, strong, scored, pending, promoted }
   }, [entries])
+
+  async function refreshEntries(importId = currentImport?.id) {
+    if (!importId || currentImport?.source === 'bundled_preview') return
+    const { data, error: entriesError } = await supabase
+      .from('category_atlas_entries')
+      .select('*')
+      .eq('import_id', importId)
+      .order('strategic_score', { ascending: false, nullsFirst: false })
+    if (!entriesError) setEntries(data || [])
+  }
+
+  async function runScoringBatch() {
+    if (!currentImport?.id || currentImport?.source === 'bundled_preview') {
+      alert('Category Atlas v4 scoring needs the Supabase Category Atlas tables and Edge Function deployed first.')
+      return
+    }
+    setScoring(true)
+    const { data, error: invokeError } = await supabase.functions.invoke('category-atlas-score-run', {
+      body: { import_id: currentImport.id, limit: 5, keep_asins: 24 },
+    })
+    setScoring(false)
+    if (invokeError) {
+      alert(invokeError.message)
+      return
+    }
+    await refreshEntries(currentImport.id)
+    alert(`V4 scoring batch complete: ${data?.scored || 0} scored, ${data?.failed || 0} failed.`)
+  }
 
   async function addToOpportunities(entry) {
     if (!entry) return
+    if (scoreStatus(entry) !== 'scored') {
+      alert('This row needs exact-keyword v4 Keepa scoring before it can be added to Opportunities.')
+      return
+    }
     setSavingId(entry.id)
     const normalized = normalizeIdeaName(entry.name)
     let candidate = null
@@ -323,10 +400,12 @@ export default function CategoryAtlasPage() {
           <div>
             <h1 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>Category Atlas</h1>
             <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-              Category-first opportunity map scored through the Market Atlas strategic model.
+              Category-first opportunity map scored only after exact-keyword Keepa Stage A v4 analysis.
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <MetricPill label={`${entries.length} entries`} />
+              <MetricPill label={`${stats.scored} v4 scored`} tone="green" />
+              <MetricPill label={`${stats.pending} pending`} />
               <MetricPill label={`${stats.launch} launch priority`} tone="green" />
               <MetricPill label={`${stats.strong} strong`} tone="amber" />
               <MetricPill label={`${stats.promoted} promoted`} tone="blue" />
@@ -346,9 +425,19 @@ export default function CategoryAtlasPage() {
                 {SORT_OPTIONS.map(option => <option key={option.key} value={option.key}>{option.label}</option>)}
               </select>
               <select value={recommendationFilter} onChange={event => setRecommendationFilter(event.target.value)} className="t-input h-10 px-3 text-sm">
-                <option value="all">All scores</option>
+                <option value="all">All recommendations</option>
                 {Object.entries(RECOMMENDATION_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
               </select>
+              <select value={statusFilter} onChange={event => setStatusFilter(event.target.value)} className="t-input h-10 px-3 text-sm">
+                <option value="all">All status</option>
+                <option value="pending_v4">Pending</option>
+                <option value="scoring">Scoring</option>
+                <option value="scored">Done</option>
+                <option value="failed">Failed</option>
+              </select>
+              <button onClick={runScoringBatch} disabled={scoring} className="t-btn h-10 shrink-0">
+                {scoring ? 'Scoring...' : 'Run v4 scoring'}
+              </button>
             </div>
             <div className="flex flex-wrap gap-1">
               <FilterChip active={categoryFilter === 'all'} onClick={() => setCategoryFilter('all')}>All</FilterChip>
@@ -369,14 +458,15 @@ export default function CategoryAtlasPage() {
               <table className="t-table">
                 <thead>
                   <tr>
-                    <th>Score</th>
+                    <th>Status</th>
                     <th>Category</th>
                     <th>Opportunity</th>
-                    <th>Tier</th>
+                    <th>Primary Keyword</th>
                     <th className="text-right">Clicks</th>
-                    <th className="text-right">Sales</th>
-                    <th>Best Keyword</th>
-                    <th>Risk</th>
+                    <th className="text-right">Attack</th>
+                    <th className="text-right">Moat</th>
+                    <th className="text-right">Best BSR</th>
+                    <th>Gate</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -433,39 +523,33 @@ function FilterChip({ active, onClick, children }) {
 }
 
 function EntryRow({ entry, selected, category, saving, onSelect, onPromote }) {
+  const status = scoreStatus(entry)
+  const gates = entry.competition_gate?.reasons || entry.computed_signals?.competition_gate_reasons || []
   return (
     <tr style={{ background: selected ? 'var(--bg-hover)' : 'transparent' }}>
       <td onClick={onSelect} className="cursor-pointer">
-        <span className="rounded border px-2 py-1 text-xs font-semibold" style={toneStyle(scoreTone(entry.strategic_score || 0))}>
-          {entry.strategic_score ?? '-'}
+        <span className="rounded border px-2 py-1 text-xs font-semibold" style={toneStyle(status === 'scored' ? scoreTone(entry.strategic_score) : statusTone(status))}>
+          {status === 'scored' ? `${entry.strategic_score}` : STATUS_LABELS[status] || status}
         </span>
       </td>
       <td onClick={onSelect} className="cursor-pointer text-xs" style={{ color: 'var(--text-muted)' }}>{category}</td>
       <td onClick={onSelect} className="cursor-pointer">
         <div className="font-medium" style={{ color: 'var(--text-primary)' }}>{entry.name}</div>
         <div className="mt-1 text-xs" style={{ color: 'var(--text-faint)' }}>
-          {RECOMMENDATION_LABELS[entry.recommendation_label] || entry.recommendation_label || 'Unscored'} · {entry.score_confidence || 'medium'} confidence
+          {RECOMMENDATION_LABELS[entry.recommendation_label] || entry.recommendation_label || 'Awaiting exact Keepa'} · {entry.lens || 'no lens yet'}
         </div>
       </td>
-      <td onClick={onSelect} className="cursor-pointer max-w-[220px] text-xs" style={{ color: 'var(--text-muted)' }}>{entry.tier || '-'}</td>
+      <td onClick={onSelect} className="cursor-pointer max-w-[220px] text-xs" style={{ color: 'var(--text-muted)' }}>{entry.primary_keyword || entry.best_keyword || '-'}</td>
       <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{formatNumber(entry.latest_clicks)}</td>
-      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{formatNumber(entry.latest_sales)}</td>
-      <td onClick={onSelect} className="cursor-pointer text-xs" style={{ color: 'var(--text-muted)' }}>
-        {entry.best_keyword || '-'}
-        {entry.best_keyword_growth !== null && entry.best_keyword_growth !== undefined && (
-          <span className="ml-1" style={{ color: Number(entry.best_keyword_growth) >= 0 ? 'var(--green-text)' : 'var(--red-text)' }}>
-            {formatGrowth(entry.best_keyword_growth)}
-          </span>
-        )}
-      </td>
-      <td onClick={onSelect} className="cursor-pointer">
-        <span className="rounded border px-1.5 py-0.5 text-[10px]" style={toneStyle(entry.risk_level === 'high' ? 'red' : entry.risk_level === 'medium' ? 'amber' : 'neutral')}>
-          {entry.risk_level || 'low'}
-        </span>
-      </td>
+      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{metricValue(entry.attackability)}</td>
+      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{metricValue(entry.review_moat)}</td>
+      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{entry.best_bsr ? `#${formatNumber(entry.best_bsr)}` : '-'}</td>
+      <td onClick={onSelect} className="cursor-pointer text-xs" style={{ color: 'var(--text-muted)' }}>{gates.length ? gates[0].replace(/_/g, ' ') : '-'}</td>
       <td>
         {entry.promoted_review_id ? (
           <span className="text-xs" style={{ color: 'var(--green-text)' }}>In queue</span>
+        ) : status !== 'scored' ? (
+          <span className="text-xs" style={{ color: 'var(--text-faint)' }}>Score first</span>
         ) : (
           <button onClick={onPromote} disabled={saving} className="t-btn-ghost px-2.5 py-1 text-[11px]">
             {saving ? 'Adding...' : 'Add'}
@@ -480,34 +564,80 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
   if (!entry) return <div className="p-6 text-sm" style={{ color: 'var(--text-muted)' }}>Select an entry.</div>
   const pillars = entry.pillar_scores || {}
   const topEvidence = evidence.filter(row => row.has_data).slice(0, 10)
+  const status = scoreStatus(entry)
+  const keepa = entry.competitive_snapshot?.keepa || {}
+  const topProducts = keepa.top_products || []
+  const gates = entry.competition_gate?.reasons || entry.computed_signals?.competition_gate_reasons || []
 
   return (
     <div className="p-5">
       <div className="mb-5">
         <div className="mb-2 flex flex-wrap gap-2">
           <SmallBadge>{category}</SmallBadge>
-          <SmallBadge>{entry.score_confidence || 'medium'} confidence</SmallBadge>
+          <SmallBadge>{STATUS_LABELS[status] || status}</SmallBadge>
+          <SmallBadge>{entry.score_confidence || 'no'} confidence</SmallBadge>
           <SmallBadge>{entry.risk_level || 'low'} risk</SmallBadge>
         </div>
         <h2 className="text-xl font-semibold leading-tight" style={{ color: 'var(--text-primary)' }}>{entry.name}</h2>
         <div className="mt-2 flex items-center gap-2">
-          <span className="rounded border px-2 py-1 text-sm font-semibold" style={toneStyle(scoreTone(entry.strategic_score || 0))}>{entry.strategic_score ?? '-'}/100</span>
-          <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{RECOMMENDATION_LABELS[entry.recommendation_label] || entry.recommendation_label}</span>
+          <span className="rounded border px-2 py-1 text-sm font-semibold" style={toneStyle(status === 'scored' ? scoreTone(entry.strategic_score) : statusTone(status))}>{status === 'scored' ? `${entry.strategic_score}/100` : STATUS_LABELS[status] || status}</span>
+          <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{RECOMMENDATION_LABELS[entry.recommendation_label] || entry.recommendation_label || 'Exact Keepa scoring required'}</span>
         </div>
       </div>
 
       <DrawerSection title="Action">
-        <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{entry.next_action || 'Review this category-atlas row.'}</p>
+        <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+          {status === 'scored'
+            ? (entry.next_action || 'Review this scored category-atlas row.')
+            : `Pending exact-query v4 scoring for ${entry.primary_keyword || entry.best_keyword || entry.name}.`}
+        </p>
         {entry.promoted_review_id ? (
           <div className="rounded border p-3 text-sm" style={toneStyle('green')}>Already added to Opportunities.</div>
+        ) : status !== 'scored' ? (
+          <div className="rounded border p-3 text-sm" style={toneStyle('amber')}>Run v4 scoring before adding to Opportunities.</div>
         ) : (
           <button onClick={onPromote} disabled={saving} className="t-btn">{saving ? 'Adding...' : 'Add to Opportunities'}</button>
         )}
       </DrawerSection>
 
+      <DrawerSection title="Exact Competitive Set">
+        <div className="grid grid-cols-2 gap-3">
+          <Readout label="Primary keyword" value={entry.primary_keyword || entry.best_keyword || '-'} />
+          <Readout label="Best BSR" value={entry.best_bsr ? `#${formatNumber(entry.best_bsr)}` : '-'} />
+          <Readout label="Attackability" value={metricValue(entry.attackability)} />
+          <Readout label="Review moat" value={metricValue(entry.review_moat)} />
+          <Readout label="Review p50" value={formatNumber(entry.review_p50)} />
+          <Readout label="Exact competitors" value={formatNumber(entry.exact_competitor_count)} />
+        </div>
+        {gates.length > 0 && (
+          <div className="mt-3 rounded-md border p-3 text-xs" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)', color: 'var(--text-muted)' }}>
+            Gate: {gates.map(item => item.replace(/_/g, ' ')).join(', ')}
+          </div>
+        )}
+        {topProducts.length > 0 && (
+          <div className="mt-3 space-y-2">
+            {topProducts.slice(0, 6).map(product => (
+              <div key={product.asin} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{product.brand || product.asin}</div>
+                  <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{product.classification}</div>
+                </div>
+                <div className="mt-1 line-clamp-2 text-xs" style={{ color: 'var(--text-muted)' }}>{product.title}</div>
+                <div className="mt-1 text-xs" style={{ color: 'var(--text-faint)' }}>
+                  BSR {product.bsr_current ? `#${formatNumber(product.bsr_current)}` : '-'} · {formatNumber(product.reviews)} reviews · {product.monthly_sold_badge ? `${formatNumber(product.monthly_sold_badge)} badge` : 'no badge'}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </DrawerSection>
+
       <DrawerSection title="Score Breakdown">
-        <div className="space-y-2">
-          {Object.entries(pillars).map(([key, value]) => (
+        {Object.keys(pillars).length === 0 ? (
+          <div className="rounded border p-3 text-sm" style={toneStyle('neutral')}>No score breakdown until exact Keepa v4 scoring is complete.</div>
+        ) : (
+          <div className="space-y-2">
+            {Object.entries(pillars).map(([key, value]) => (
             <div key={key} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
               <div className="flex items-center justify-between gap-3">
                 <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{key.replace(/_/g, ' ')}</div>
@@ -515,8 +645,9 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
               </div>
               {value?.reason && <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{value.reason}</p>}
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </DrawerSection>
 
       <DrawerSection title="Market Evidence">
