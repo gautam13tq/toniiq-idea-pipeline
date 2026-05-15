@@ -322,7 +322,7 @@ export default function OpportunityQueuePage() {
           <div>
             <h1 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>Opportunity Queue</h1>
             <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-              Human review layer above the POE Market Atlas. Latest POE import: {latestImport || 'none'}.
+              Human review layer above Inbox, Market Atlas, and Category Atlas. Latest POE import: {latestImport || 'none'}.
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <MetricPill label={`${openCount} open`} tone="blue" />
@@ -497,6 +497,7 @@ function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQ
         <div className="mt-3 flex flex-wrap gap-2">
           <Link to={`/discovery/${row.candidate.id}`} className="rounded border px-2.5 py-1 text-xs" style={{ borderColor: 'var(--border-default)', color: 'var(--blue-text)' }}>Discovery page</Link>
           <Link to="/market" className="rounded border px-2.5 py-1 text-xs" style={{ borderColor: 'var(--border-default)', color: 'var(--text-muted)' }}>Market Atlas</Link>
+          <Link to="/category-atlas" className="rounded border px-2.5 py-1 text-xs" style={{ borderColor: 'var(--border-default)', color: 'var(--text-muted)' }}>Category Atlas</Link>
         </div>
       </DrawerSection>
 

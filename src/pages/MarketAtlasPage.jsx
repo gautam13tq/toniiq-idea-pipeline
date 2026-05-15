@@ -5,7 +5,6 @@ import { formatGrowth, formatNumber, formatUsd } from '../lib/opportunity'
 
 const VIEWS = [
   { key: 'picks', label: 'Monthly AI Picks' },
-  { key: 'raw', label: 'Raw POE Audit' },
 ]
 
 const CURRENT_CURATION_VERSION = 'market-curation-v4'
@@ -496,10 +495,9 @@ export default function MarketAtlasPage() {
           <div>
             <h1 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>Market Atlas</h1>
             <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-              Monthly POE data plus stored Claude strategic curation. Latest POE import: {importDate || 'none'}.
+              Stored AI curation from POE, Datarova, and Keepa. Raw POE universe now lives in Inbox. Latest POE import: {importDate || 'none'}.
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
-              <MetricPill label={`${rows.length} raw POE rows`} />
               <MetricPill label={`${visiblePicks.length} AI picks`} tone="green" />
               <MetricPill label={`${queuedCount} queued`} tone="blue" />
               {legacyRunCount > 0 && <MetricPill label={`${legacyRunCount} legacy runs retired`} tone="amber" />}
@@ -512,7 +510,7 @@ export default function MarketAtlasPage() {
               <input
                 value={search}
                 onChange={event => setSearch(event.target.value)}
-                placeholder="Search AI picks or raw POE rows"
+                placeholder="Search AI picks"
                 className="t-input h-10 min-w-0 flex-1 px-3 text-sm"
               />
               <button

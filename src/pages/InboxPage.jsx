@@ -5,12 +5,12 @@ import CandidateDetail from '../components/CandidateDetail'
 import FilterBar from '../components/FilterBar'
 import StatsBar from '../components/StatsBar'
 import ResearchJobStatus from '../components/ResearchJobStatus'
+import { formatGrowth, formatNumber, formatUsd } from '../lib/opportunity'
 
 /**
- * Inbox — raw ideas that haven't been screened yet.
- * Matches the old Discovery page quality: stats bar, filter bar, sortable
- * table with POE + Datarova data, clickable rows open CandidateDetail sidebar.
- * Promoting an idea out of Inbox queues it for Phase A research.
+ * Inbox — full Product Opportunity Explorer universe.
+ * This is the source-map view for POE rows. Promoting a row adds it to
+ * Opportunities; Phase A research starts from the Opportunities queue.
  */
 
 const CATEGORIES = [
@@ -37,23 +37,23 @@ export default function InboxPage() {
     sortDir: 'desc',
   })
 
-  useEffect(() => { loadData() }, [])
-
   async function loadData() {
     setLoading(true)
     const [candidatesRes, poeRes, datarovaRes, picksRes] = await Promise.all([
-      supabase.from('idea_candidates').select('*').eq('stage', 'inbox'),
+      supabase.from('idea_candidates').select('*'),
       supabase.from('poe_snapshots').select('*'),
       supabase.from('datarova_snapshots').select('*'),
       supabase.from('claude_weekly_picks').select('*, idea_candidates(ingredient_name, category, stage)').order('week_date', { ascending: false }).order('rank'),
     ])
 
-    setCandidates(candidatesRes.data || [])
+    const poeRows = poeRes.data || []
+    const latestImportDate = poeRows.reduce((latest, row) => row.import_date > latest ? row.import_date : latest, '')
+    const latestRows = poeRows.filter(row => row.import_date === latestImportDate)
+    const latestIds = new Set(latestRows.map(row => row.candidate_id))
+    setCandidates((candidatesRes.data || []).filter(candidate => latestIds.has(candidate.id)))
 
     const poeMap = {}
-    for (const row of (poeRes.data || [])) {
-      if (!poeMap[row.candidate_id] || row.import_date > poeMap[row.candidate_id].import_date) poeMap[row.candidate_id] = row
-    }
+    for (const row of latestRows) poeMap[row.candidate_id] = row
     setPoeData(poeMap)
 
     const drMap = {}
@@ -66,14 +66,19 @@ export default function InboxPage() {
     setLoading(false)
   }
 
+  useEffect(() => {
+    Promise.resolve().then(loadData)
+  }, [])
+
   const filtered = useCallback(() => {
     let result = [...candidates]
-    const { search, category, showPicks, flaggedOnly, sortBy, sortDir } = filters
+    const { search, category, stage, showPicks, flaggedOnly, sortBy, sortDir } = filters
 
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(c => c.ingredient_name.toLowerCase().includes(q))
     }
+    if (stage !== 'all') result = result.filter(c => c.stage === stage)
     if (category === 'Uncategorized') result = result.filter(c => !c.category)
     else if (category !== 'All Categories') result = result.filter(c => c.category === category)
     if (showPicks) {
@@ -116,13 +121,7 @@ export default function InboxPage() {
 
   async function updateCandidate(id, updates) {
     await supabase.from('idea_candidates').update(updates).eq('id', id)
-    // If stage changed out of inbox, remove from list
-    if (updates.stage && updates.stage !== 'inbox') {
-      setCandidates(prev => prev.filter(c => c.id !== id))
-      setSelectedId(null)
-    } else {
-      setCandidates(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c))
-    }
+    setCandidates(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c))
   }
 
   async function deleteCandidate(id) {
@@ -141,21 +140,50 @@ export default function InboxPage() {
     setSelectedId(null)
   }
 
-  async function promoteToResearch(id) {
+  function buildPoeContext(idea) {
+    const poe = poeData[idea.id]
+    const datarova = datarovaData[idea.id]
+    return [
+      `Inbox / POE universe row: ${idea.ingredient_name}`,
+      `Current lifecycle stage: ${idea.stage}`,
+      `Category: ${idea.category || 'n/a'}`,
+      poe ? `Customer need: ${poe.customer_need || 'n/a'}` : null,
+      poe ? `Top terms: ${[poe.top_search_term_1, poe.top_search_term_2, poe.top_search_term_3].filter(Boolean).join(', ') || 'n/a'}` : null,
+      poe ? `90d search volume: ${formatNumber(poe.search_volume_90d)}` : null,
+      poe ? `90d growth: ${formatGrowth(poe.search_volume_growth_90d)}` : null,
+      poe ? `180d growth: ${formatGrowth(poe.search_volume_growth_180d)}` : null,
+      poe ? `Avg price: ${formatUsd(poe.avg_price_usd)}` : null,
+      poe ? `POE import: ${poe.import_date}` : null,
+      datarova ? `Datarova keyword: ${datarova.keyword}; conversion ${datarova.conversion_rate ?? 'n/a'}%; trend ${formatGrowth(datarova.search_volume_trend)}` : null,
+      'No Category Atlas or Market Atlas strategic score has been assigned in this source view.',
+    ].filter(Boolean).join('\n')
+  }
+
+  async function addToOpportunities(id) {
     const idea = candidates.find(c => c.id === id)
     if (!idea) return
-    if (!confirm(`Run research on "${idea.ingredient_name}"? This kicks off ~5-8 minutes of automated work (keyword + Reddit + science + concept synthesis).`)) return
-    // 1. Insert pending action
-    const { data: action, error } = await supabase.from('pending_actions').insert({
-      entity_type: 'idea', entity_id: id, action: 'run_phase_a', triggered_by: 'ui',
-      context: { ingredient_name: idea.ingredient_name },
-    }).select('id').single()
-    if (error) { alert(`Failed to queue: ${error.message}`); return }
-    // 2. Fire-and-forget invoke the Edge Function. Don't await — runs several minutes.
-    supabase.functions.invoke('phase-a-gather', { body: { pending_action_id: action.id } }).catch(e => {
-      console.error('Failed to invoke phase-a-gather:', e)
-    })
-    alert(`Research started for "${idea.ingredient_name}". Results will appear on the Research page in ~5-8 min.`)
+    const poe = poeData[id]
+    const { error } = await supabase
+      .from('opportunity_reviews')
+      .upsert({
+        candidate_id: id,
+        source: 'poe',
+        status: 'new',
+        priority: poe?.flagged_high_opportunity ? 'high' : 'medium',
+        signal_type: 'poe_universe',
+        signal_tags: ['inbox', 'poe', poe?.flagged_high_opportunity ? 'high_opportunity' : null].filter(Boolean),
+        toniiq_fit_score: null,
+        confidence: null,
+        rationale: 'Added from the full POE universe for human strategic review.',
+        next_action: 'Review this POE row in Opportunities and decide whether it deserves Phase A research.',
+        source_context: buildPoeContext(idea),
+        reviewed_at: new Date().toISOString(),
+      }, { onConflict: 'candidate_id' })
+    if (error) {
+      alert(`Failed to add opportunity: ${error.message}`)
+      return
+    }
+    alert(`Added "${idea.ingredient_name}" to Opportunities.`)
   }
 
   if (loading) {
@@ -163,7 +191,7 @@ export default function InboxPage() {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto mb-4" style={{ borderBottomColor: 'var(--blue)' }}></div>
-          <p style={{ color: 'var(--text-muted)' }}>Loading inbox...</p>
+          <p style={{ color: 'var(--text-muted)' }}>Loading POE universe...</p>
         </div>
       </div>
     )
@@ -176,7 +204,7 @@ export default function InboxPage() {
       <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: 'var(--border-default)' }}>
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>Inbox</h1>
         <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
-          {candidates.length} raw idea{candidates.length !== 1 ? 's' : ''} not yet screened. Click a row to inspect POE/Datarova data, then queue for research.
+          {candidates.length} latest POE row{candidates.length !== 1 ? 's' : ''}. Click a row to inspect POE/Datarova data, then add the right ideas to Opportunities.
         </p>
       </div>
 
@@ -203,9 +231,10 @@ export default function InboxPage() {
           picks={picks.filter(p => p.candidate_id === selectedId)}
           onClose={() => setSelectedId(null)}
           onUpdate={(updates) => updateCandidate(selectedId, updates)}
-          onQueueResearch={() => promoteToResearch(selectedId)}
+          onQueueResearch={() => addToOpportunities(selectedId)}
           onDelete={() => deleteCandidate(selectedId)}
           jobStatus={<ResearchJobStatus candidateId={selectedId} />}
+          primaryActionLabel="Add to Opportunities"
         />
       )}
     </div>

@@ -5,17 +5,17 @@ import { supabase } from '../lib/supabase'
 
 const NAV_SECTIONS = [
   {
-    label: 'Operating',
+    label: 'Source Selection',
     items: [
-      { path: '/today', label: 'Today', icon: '●', countType: 'pending' },
-      { path: '/market', label: 'Market Atlas', icon: '△', countType: 'market' },
+      { path: '/inbox', label: 'Inbox', icon: '□', countType: 'inboxUniverse' },
+      { path: '/market', label: 'Market Atlas', icon: '△' },
+      { path: '/category-atlas', label: 'Category Atlas', icon: '◈', countType: 'categoryAtlas' },
       { path: '/opportunities', label: 'Opportunities', icon: '◇', countType: 'opportunities' },
     ]
   },
   {
     label: 'Lifecycle',
     items: [
-      { path: '/inbox', label: 'Inbox', icon: '□', countStage: 'inbox' },
       { path: '/research', label: 'Research', icon: '◎', countStage: 'research' },
       { path: '/evaluation', label: 'Evaluation', icon: '◉', countStage: 'evaluation' },
       { path: '/development', label: 'Development', icon: '▣', countStage: 'development' },
@@ -31,7 +31,8 @@ export default function Layout({ children }) {
   const [stageCounts, setStageCounts] = useState({})
   const [pendingCount, setPendingCount] = useState(0)
   const [opportunityCount, setOpportunityCount] = useState(0)
-  const [marketCount, setMarketCount] = useState(0)
+  const [inboxUniverseCount, setInboxUniverseCount] = useState(0)
+  const [categoryAtlasCount, setCategoryAtlasCount] = useState(0)
 
   useEffect(() => {
     let ignore = false
@@ -59,12 +60,28 @@ export default function Layout({ children }) {
           .eq('import_date', latestSnapshot.import_date)
         latestCount = countLatest || 0
       }
+      const { data: latestCategoryImport } = await supabase
+        .from('category_atlas_imports')
+        .select('id')
+        .eq('status', 'completed')
+        .order('generated_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      let latestCategoryCount = 0
+      if (latestCategoryImport?.id) {
+        const { count: countCategoryEntries } = await supabase
+          .from('category_atlas_entries')
+          .select('*', { count: 'exact', head: true })
+          .eq('import_id', latestCategoryImport.id)
+        latestCategoryCount = countCategoryEntries || 0
+      }
 
       if (ignore) return
       setStageCounts(counts)
       setPendingCount(count || 0)
       setOpportunityCount(openOpportunities || 0)
-      setMarketCount(latestCount)
+      setInboxUniverseCount(latestCount)
+      setCategoryAtlasCount(latestCategoryCount)
     }
 
     fetchCounts()
@@ -96,7 +113,7 @@ export default function Layout({ children }) {
             transition: 'padding 0.2s',
           }}
         >
-          <NavLink to="/today" className="block" style={{ whiteSpace: 'nowrap' }}>
+          <NavLink to="/opportunities" className="block" style={{ whiteSpace: 'nowrap' }}>
             {expanded ? (
               <h1 className="text-sm font-bold tracking-widest uppercase" style={{ color: 'var(--text-primary)', letterSpacing: '0.15em' }}>
                 TONIIQ
@@ -133,8 +150,10 @@ export default function Layout({ children }) {
                     ? pendingCount
                     : item.countType === 'opportunities'
                       ? opportunityCount
-                      : item.countType === 'market'
-                        ? marketCount
+                      : item.countType === 'inboxUniverse'
+                        ? inboxUniverseCount
+                        : item.countType === 'categoryAtlas'
+                          ? categoryAtlasCount
                         : stageCounts[item.countStage]
                   return (
                     <li key={item.path}>
@@ -197,7 +216,7 @@ export default function Layout({ children }) {
                 >Sign out</button>
               </div>
             )}
-            <p className="text-[10px]" style={{ color: 'var(--text-faint)' }}>v5.0 · 5-state model</p>
+            <p className="text-[10px]" style={{ color: 'var(--text-faint)' }}>v6.1 · category atlas</p>
           </div>
         )}
       </aside>

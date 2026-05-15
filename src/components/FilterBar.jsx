@@ -33,10 +33,11 @@ export default function FilterBar({ filters, setFilters, categories, resultCount
         className="t-input"
       >
         <option value="all">All Stages</option>
-        <option value="raw">Raw</option>
-        <option value="screened">Screened</option>
-        <option value="enriched">Enriched</option>
-        <option value="scored">Scored</option>
+        <option value="inbox">Inbox</option>
+        <option value="research">Research</option>
+        <option value="evaluation">Evaluation</option>
+        <option value="development">Development</option>
+        <option value="archive">Archive</option>
       </select>
 
       {/* Toggle buttons */}

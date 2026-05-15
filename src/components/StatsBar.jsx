@@ -1,7 +1,5 @@
 export default function StatsBar({ candidates, poeData, datarovaData }) {
   const total = candidates.length
-  const withPoe = candidates.filter(c => c.source_poe).length
-  const withDatarova = candidates.filter(c => c.source_datarova).length
   const flagged = Object.values(poeData).filter(p => p.flagged_high_opportunity).length
   const multiSource = candidates.filter(c => (c.source_count || 0) >= 2).length
 

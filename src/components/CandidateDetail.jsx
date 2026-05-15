@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
-import { supabase } from '../lib/supabase'
 
 const STAGE_ORDER = ['inbox', 'research', 'evaluation', 'development']
 const STAGE_LABELS = { inbox: 'Inbox', research: 'Research', evaluation: 'Evaluation', development: 'Development', archive: 'Archive' }
@@ -27,30 +26,12 @@ function formatUsd(n) {
   return '$' + n.toFixed(2)
 }
 
-export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch, onDelete, jobStatus }) {
+export default function CandidateDetail({ candidate, poe, datarova, picks, onClose, onUpdate, onQueueResearch, onDelete, jobStatus, primaryActionLabel = '◎ Run Research' }) {
   const [notes, setNotes] = useState(candidate.notes || '')
   const [saving, setSaving] = useState(false)
   const [killReason, setKillReason] = useState('')
   const [showKill, setShowKill] = useState(false)
   const [deleting, setDeleting] = useState(false)
-  const [poeHistory, setPoeHistory] = useState(null)
-  const [datarovaHistory, setDatarovaHistory] = useState(null)
-
-  // Load history on mount
-  useEffect(() => {
-    if (candidate.id) {
-      supabase.from('poe_snapshots')
-        .select('*')
-        .eq('candidate_id', candidate.id)
-        .order('import_date')
-        .then(({ data }) => setPoeHistory(data || []))
-
-      supabase.from('datarova_snapshots')
-        .select('*')
-        .eq('candidate_id', candidate.id)
-        .then(({ data }) => setDatarovaHistory(data || []))
-    }
-  }, [candidate.id])
 
   async function saveNotes() {
     setSaving(true)
@@ -139,7 +120,7 @@ export default function CandidateDetail({ candidate, poe, datarova, picks, onClo
                   className="px-4 py-2 text-sm font-medium rounded-lg transition-colors"
                   style={{ background: 'var(--blue-muted)', color: 'var(--blue-text)', border: '1px solid rgba(59,130,246,0.3)' }}
                 >
-                  ◎ Run Research
+                  {primaryActionLabel}
                 </button>
               )}
               {candidate.stage !== 'inbox' && candidate.stage !== 'archive' && (
