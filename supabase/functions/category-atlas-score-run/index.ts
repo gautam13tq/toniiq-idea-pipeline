@@ -592,6 +592,7 @@ Deno.serve(async (req) => {
 
     let scored = 0
     let failed = 0
+    let deferred = 0
     let keepaTokens = 0
     const results: any[] = []
 
@@ -672,8 +673,14 @@ Deno.serve(async (req) => {
         scored += 1
         results.push({ id: entry.id, name: entry.name, primary_keyword: keyword, score: scoredEntry.composite_score, attackability: scoredEntry.metrics.attackability, review_moat: scoredEntry.metrics.review_moat })
       } catch (error) {
-        failed += 1
         const message = error instanceof Error ? error.message.slice(0, 500) : String(error).slice(0, 500)
+        if (message.startsWith('not_enough_keepa_tokens_retry_later')) {
+          deferred += 1
+          await sb.from('category_atlas_entries').update({ score_status: 'pending_v4', score_error: message, score_run_id: runId, primary_keyword: keyword }).eq('id', entry.id)
+          results.push({ id: entry.id, name: entry.name, primary_keyword: keyword, deferred: 'keepa_tokens', error: message })
+          break
+        }
+        failed += 1
         await sb.from('category_atlas_entries').update({ score_status: 'failed', score_error: message, score_run_id: runId, primary_keyword: keyword }).eq('id', entry.id)
         results.push({ id: entry.id, name: entry.name, primary_keyword: keyword, error: message })
       }
@@ -688,7 +695,7 @@ Deno.serve(async (req) => {
       completed_at: new Date().toISOString(),
     }).eq('id', runId)
 
-    return new Response(JSON.stringify({ ok: true, run_id: runId, scored, failed, keepa_tokens_consumed: keepaTokens, results }), {
+    return new Response(JSON.stringify({ ok: true, run_id: runId, scored, failed, deferred, keepa_tokens_consumed: keepaTokens, results }), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     })
   } catch (error) {
