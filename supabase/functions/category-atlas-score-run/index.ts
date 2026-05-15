@@ -356,7 +356,7 @@ function dedupeProductFamilies(products: KeepaProduct[]) {
 }
 
 async function runKeepaQuery(apiKey: string, query: string, keepAsins: number, tokenWaitMs: number): Promise<KeepaAggregate> {
-  await waitForKeepaTokens(apiKey, tokenWaitMs, keepAsins + 10)
+  await waitForKeepaTokens(apiKey, tokenWaitMs, keepAsins * 2 + 10)
   const finder = await keepaGet('/query/', {
     domain: KEEPA_DOMAIN_US,
     selection: JSON.stringify({
