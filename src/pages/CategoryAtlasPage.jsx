@@ -4,9 +4,9 @@ import { formatNumber, normalizeIdeaName } from '../lib/opportunity'
 
 const SORT_OPTIONS = [
   { key: 'score', label: 'Strategic score' },
-  { key: 'attackability', label: 'Attackability' },
-  { key: 'review_moat', label: 'Review moat' },
-  { key: 'bsr', label: 'Best BSR' },
+  { key: 'attackability', label: 'Competitive opening' },
+  { key: 'review_moat', label: 'Review barrier' },
+  { key: 'bsr', label: 'Best sales rank' },
   { key: 'demand', label: 'Clicks' },
   { key: 'sales', label: 'Sales' },
   { key: 'conversion', label: 'Conversion' },
@@ -26,6 +26,31 @@ const STATUS_LABELS = {
   scoring: 'Scoring',
   scored: 'Done',
   failed: 'Failed',
+}
+
+const PILLAR_LABELS = {
+  market_size_intent: 'Demand & Intent',
+  early_market_access: 'Competitive Opening',
+  growth_timing: 'Momentum',
+  differentiation_proxy: 'Toniiq Wedge',
+  differentiation_hypothesis: 'Toniiq Wedge',
+}
+
+const GATE_LABELS = {
+  early_access_below_2_0: 'Very hard to enter',
+  early_access_below_3_0: 'Limited opening',
+  early_access_below_launch_threshold: 'Opening below launch threshold',
+  review_moat_above_75: 'High review barrier',
+  review_moat_above_60: 'Meaningful review barrier',
+  attackability_below_04: 'Very weak opening',
+  attackability_below_10: 'Small opening',
+  growth_below_launch_threshold: 'Weak timing',
+  dominant_top_bsr_leader: 'Dominant market leader',
+  no_exact_competitors: 'No exact competitor set',
+  thin_exact_competitor_set: 'Thin exact competitor set',
+  thin_keepa_result_set: 'Thin Keepa result set',
+  low_stage_a_score: 'Low Stage A score',
+  fortress_root_market: 'Fortress root market',
 }
 
 let previewAtlasCache = null
@@ -55,6 +80,14 @@ function scoreTone(score) {
   return 'neutral'
 }
 
+function scoreLabel(score) {
+  if (score === null || score === undefined || score === '') return 'Unscored'
+  if (score >= 85) return 'Launch priority'
+  if (score >= 70) return 'Strong candidate'
+  if (score >= 50) return 'Worth reviewing'
+  return 'Low priority'
+}
+
 function toneStyle(tone) {
   if (tone === 'green') return { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'rgba(74,222,128,0.3)' }
   if (tone === 'amber') return { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'rgba(251,191,36,0.3)' }
@@ -72,6 +105,22 @@ function formatGrowth(value) {
   if (value === null || value === undefined || value === '') return '-'
   const parsed = Number(value)
   return `${parsed >= 0 ? '+' : ''}${parsed.toFixed(1)}%`
+}
+
+function formatCompact(value) {
+  if (value === null || value === undefined || value === '') return '-'
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return '-'
+  if (Math.abs(parsed) >= 1_000_000) return `${(parsed / 1_000_000).toFixed(parsed >= 10_000_000 ? 0 : 1)}M`
+  if (Math.abs(parsed) >= 1_000) return `${(parsed / 1_000).toFixed(parsed >= 10_000 ? 0 : 1)}K`
+  return Math.round(parsed).toLocaleString()
+}
+
+function formatIndex(value) {
+  if (value === null || value === undefined || value === '') return '-'
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return '-'
+  return `${Math.round(parsed * 100)}/100`
 }
 
 function categoryText(entry, categoryMap) {
@@ -124,11 +173,100 @@ function statusTone(status) {
   return 'neutral'
 }
 
-function metricValue(value, digits = 3) {
-  if (value === null || value === undefined || value === '') return '-'
+function gateLabel(value) {
+  if (!value) return ''
+  return GATE_LABELS[value] || String(value).replace(/_/g, ' ')
+}
+
+function pillarLabel(key) {
+  return PILLAR_LABELS[key] || key.replace(/_/g, ' ')
+}
+
+function band(tone, label, detail = '') {
+  return { tone, label, detail }
+}
+
+function competitiveOpeningBand(value) {
   const parsed = Number(value)
-  if (!Number.isFinite(parsed)) return '-'
-  return parsed.toFixed(digits)
+  if (!Number.isFinite(parsed)) return band('neutral', 'Pending')
+  if (parsed >= 0.18) return band('green', 'Open', formatIndex(parsed))
+  if (parsed >= 0.10) return band('blue', 'Workable', formatIndex(parsed))
+  if (parsed >= 0.04) return band('amber', 'Tight', formatIndex(parsed))
+  return band('red', 'Hard', formatIndex(parsed))
+}
+
+function reviewBarrierBand(value) {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return band('neutral', 'Pending')
+  if (parsed < 0.25) return band('green', 'Low', formatIndex(parsed))
+  if (parsed < 0.50) return band('blue', 'Medium', formatIndex(parsed))
+  if (parsed < 0.75) return band('amber', 'High', formatIndex(parsed))
+  return band('red', 'Fortress', formatIndex(parsed))
+}
+
+function salesRankBand(value) {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed) || parsed <= 0) return band('neutral', 'Pending')
+  if (parsed <= 2_000) return band('green', 'Very active', `#${formatCompact(parsed)}`)
+  if (parsed <= 10_000) return band('blue', 'Active', `#${formatCompact(parsed)}`)
+  if (parsed <= 50_000) return band('amber', 'Niche', `#${formatCompact(parsed)}`)
+  return band('neutral', 'Thin', `#${formatCompact(parsed)}`)
+}
+
+function typicalReviewBand(value) {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed) || parsed <= 0) return band('neutral', 'Pending')
+  if (parsed < 500) return band('green', 'Low reviews', formatCompact(parsed))
+  if (parsed < 2_000) return band('blue', 'Moderate reviews', formatCompact(parsed))
+  if (parsed < 8_000) return band('amber', 'High reviews', formatCompact(parsed))
+  return band('red', 'Very high reviews', formatCompact(parsed))
+}
+
+function exactCompetitorBand(value) {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed) || parsed <= 0) return band('red', 'No clean set')
+  if (parsed < 5) return band('amber', 'Thin set', `${parsed} matches`)
+  if (parsed < 12) return band('blue', 'Usable set', `${parsed} matches`)
+  return band('green', 'Good set', `${parsed} matches`)
+}
+
+function productMatchLabel(value) {
+  if (value === 'exact') return 'Exact match'
+  if (value === 'stack') return 'Stack / blend'
+  if (value === 'adjacent') return 'Adjacent'
+  if (value === 'noise') return 'Filtered noise'
+  return value || 'Competitor'
+}
+
+function productMatchTone(value) {
+  if (value === 'exact') return 'green'
+  if (value === 'stack') return 'blue'
+  if (value === 'adjacent') return 'amber'
+  if (value === 'noise') return 'red'
+  return 'neutral'
+}
+
+function scorePillars(pillars) {
+  return Object.entries(pillars || {}).map(([key, value]) => {
+    const score = Number(value?.score)
+    const weight = Number(value?.weight || 0)
+    const points = Number.isFinite(score) ? score * weight * 10 : null
+    return { key, label: pillarLabel(key), score, weight, points, reason: value?.reason || '' }
+  })
+}
+
+function scoreSummary(entry, gates, pillars) {
+  const status = scoreStatus(entry)
+  if (status !== 'scored') return `Pending exact Keepa scoring for ${entry.primary_keyword || entry.best_keyword || entry.name}.`
+  const sorted = [...pillars].filter(item => Number.isFinite(item.score)).sort((a, b) => b.score - a.score)
+  const strongest = sorted[0]?.label
+  const weakest = [...sorted].sort((a, b) => a.score - b.score)[0]?.label
+  const gate = gates[0] ? gateLabel(gates[0]) : ''
+  return [
+    `${entry.strategic_score}/100 means ${scoreLabel(entry.strategic_score).toLowerCase()}.`,
+    strongest ? `Best support: ${strongest}.` : null,
+    gate ? `Main constraint: ${gate}.` : weakest ? `Main constraint: ${weakest}.` : null,
+  ].filter(Boolean).join(' ')
 }
 
 function sourceContext(entry, categoryMap) {
@@ -451,21 +589,21 @@ export default function CategoryAtlasPage() {
         </div>
       </div>
 
-      <div className="grid xl:grid-cols-[minmax(0,1fr)_480px]">
+      <div className="grid xl:grid-cols-[minmax(0,1fr)_560px]">
         <main className="min-w-0 p-6">
           <div className="overflow-hidden rounded-lg border" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
             <div className="overflow-x-auto">
               <table className="t-table">
                 <thead>
                   <tr>
-                    <th>Status</th>
+                    <th>Score</th>
                     <th>Category</th>
                     <th>Opportunity</th>
-                    <th>Primary Keyword</th>
-                    <th className="text-right">Clicks</th>
-                    <th className="text-right">Attack</th>
-                    <th className="text-right">Moat</th>
-                    <th className="text-right">Best BSR</th>
+                    <th>Search Target</th>
+                    <th className="text-right">Demand</th>
+                    <th>Opening</th>
+                    <th>Review Barrier</th>
+                    <th>Sales Rank</th>
                     <th>Gate</th>
                     <th>Action</th>
                   </tr>
@@ -522,9 +660,23 @@ function FilterChip({ active, onClick, children }) {
   )
 }
 
+function TableBand({ item }) {
+  return (
+    <div className="min-w-[86px]">
+      <span className="rounded border px-2 py-1 text-[11px] font-semibold" style={toneStyle(item.tone)}>
+        {item.label}
+      </span>
+      {item.detail && <div className="mt-1 text-[10px]" style={{ color: 'var(--text-faint)' }}>{item.detail}</div>}
+    </div>
+  )
+}
+
 function EntryRow({ entry, selected, category, saving, onSelect, onPromote }) {
   const status = scoreStatus(entry)
   const gates = entry.competition_gate?.reasons || entry.computed_signals?.competition_gate_reasons || []
+  const opening = competitiveOpeningBand(entry.attackability)
+  const barrier = reviewBarrierBand(entry.review_moat)
+  const salesRank = salesRankBand(entry.best_bsr)
   return (
     <tr style={{ background: selected ? 'var(--bg-hover)' : 'transparent' }}>
       <td onClick={onSelect} className="cursor-pointer">
@@ -540,11 +692,11 @@ function EntryRow({ entry, selected, category, saving, onSelect, onPromote }) {
         </div>
       </td>
       <td onClick={onSelect} className="cursor-pointer max-w-[220px] text-xs" style={{ color: 'var(--text-muted)' }}>{entry.primary_keyword || entry.best_keyword || '-'}</td>
-      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{formatNumber(entry.latest_clicks)}</td>
-      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{metricValue(entry.attackability)}</td>
-      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{metricValue(entry.review_moat)}</td>
-      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{entry.best_bsr ? `#${formatNumber(entry.best_bsr)}` : '-'}</td>
-      <td onClick={onSelect} className="cursor-pointer text-xs" style={{ color: 'var(--text-muted)' }}>{gates.length ? gates[0].replace(/_/g, ' ') : '-'}</td>
+      <td onClick={onSelect} className="cursor-pointer text-right font-mono text-xs">{formatCompact(entry.latest_clicks)}</td>
+      <td onClick={onSelect} className="cursor-pointer"><TableBand item={opening} /></td>
+      <td onClick={onSelect} className="cursor-pointer"><TableBand item={barrier} /></td>
+      <td onClick={onSelect} className="cursor-pointer"><TableBand item={salesRank} /></td>
+      <td onClick={onSelect} className="cursor-pointer text-xs" style={{ color: 'var(--text-muted)' }}>{gates.length ? gateLabel(gates[0]) : '-'}</td>
       <td>
         {entry.promoted_review_id ? (
           <span className="text-xs" style={{ color: 'var(--green-text)' }}>In queue</span>
@@ -568,6 +720,13 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
   const keepa = entry.competitive_snapshot?.keepa || {}
   const topProducts = keepa.top_products || []
   const gates = entry.competition_gate?.reasons || entry.computed_signals?.competition_gate_reasons || []
+  const drivers = scorePillars(pillars)
+  const opening = competitiveOpeningBand(entry.attackability)
+  const barrier = reviewBarrierBand(entry.review_moat)
+  const salesRank = salesRankBand(entry.best_bsr)
+  const typicalReviews = typicalReviewBand(entry.review_p50)
+  const competitorSet = exactCompetitorBand(entry.exact_competitor_count)
+  const targetKeyword = entry.primary_keyword || entry.best_keyword || entry.name
 
   return (
     <div className="p-5">
@@ -581,15 +740,26 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
         <h2 className="text-xl font-semibold leading-tight" style={{ color: 'var(--text-primary)' }}>{entry.name}</h2>
         <div className="mt-2 flex items-center gap-2">
           <span className="rounded border px-2 py-1 text-sm font-semibold" style={toneStyle(status === 'scored' ? scoreTone(entry.strategic_score) : statusTone(status))}>{status === 'scored' ? `${entry.strategic_score}/100` : STATUS_LABELS[status] || status}</span>
-          <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{RECOMMENDATION_LABELS[entry.recommendation_label] || entry.recommendation_label || 'Exact Keepa scoring required'}</span>
+          <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{RECOMMENDATION_LABELS[entry.recommendation_label] || entry.recommendation_label || 'Exact Keepa scoring required'} · {scoreLabel(entry.strategic_score)}</span>
         </div>
       </div>
+
+      <DrawerSection title="Score Read">
+        <div className="rounded-md border p-4" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>{scoreSummary(entry, gates, drivers)}</p>
+          {drivers.length > 0 && (
+            <div className="mt-4 space-y-3">
+              {drivers.map(driver => <ScoreDriver key={driver.key} driver={driver} />)}
+            </div>
+          )}
+        </div>
+      </DrawerSection>
 
       <DrawerSection title="Action">
         <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
           {status === 'scored'
             ? (entry.next_action || 'Review this scored category-atlas row.')
-            : `Pending exact-query v4 scoring for ${entry.primary_keyword || entry.best_keyword || entry.name}.`}
+            : `Pending exact-query v4 scoring for ${targetKeyword}.`}
         </p>
         {entry.promoted_review_id ? (
           <div className="rounded border p-3 text-sm" style={toneStyle('green')}>Already added to Opportunities.</div>
@@ -600,35 +770,30 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
         )}
       </DrawerSection>
 
-      <DrawerSection title="Exact Competitive Set">
+      <DrawerSection title="Market Snapshot">
         <div className="grid grid-cols-2 gap-3">
-          <Readout label="Primary keyword" value={entry.primary_keyword || entry.best_keyword || '-'} />
-          <Readout label="Best BSR" value={entry.best_bsr ? `#${formatNumber(entry.best_bsr)}` : '-'} />
-          <Readout label="Attackability" value={metricValue(entry.attackability)} />
-          <Readout label="Review moat" value={metricValue(entry.review_moat)} />
-          <Readout label="Review p50" value={formatNumber(entry.review_p50)} />
-          <Readout label="Exact competitors" value={formatNumber(entry.exact_competitor_count)} />
+          <SnapshotCard label="Search target" value={targetKeyword} detail="Exact query scored" />
+          <SnapshotCard label="Sales rank" value={salesRank.label} detail={salesRank.detail} tone={salesRank.tone} />
+          <SnapshotCard label="Competitive opening" value={opening.label} detail={opening.detail} tone={opening.tone} />
+          <SnapshotCard label="Review barrier" value={barrier.label} detail={barrier.detail} tone={barrier.tone} />
+          <SnapshotCard label="Typical reviews" value={typicalReviews.label} detail={typicalReviews.detail} tone={typicalReviews.tone} />
+          <SnapshotCard label="Competitor set" value={competitorSet.label} detail={competitorSet.detail} tone={competitorSet.tone} />
         </div>
         {gates.length > 0 && (
           <div className="mt-3 rounded-md border p-3 text-xs" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)', color: 'var(--text-muted)' }}>
-            Gate: {gates.map(item => item.replace(/_/g, ' ')).join(', ')}
+            Score gates: {gates.map(gateLabel).join(', ')}
           </div>
         )}
+      </DrawerSection>
+
+      <DrawerSection title="Competitors">
         {topProducts.length > 0 && (
-          <div className="mt-3 space-y-2">
-            {topProducts.slice(0, 6).map(product => (
-              <div key={product.asin} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{product.brand || product.asin}</div>
-                  <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{product.classification}</div>
-                </div>
-                <div className="mt-1 line-clamp-2 text-xs" style={{ color: 'var(--text-muted)' }}>{product.title}</div>
-                <div className="mt-1 text-xs" style={{ color: 'var(--text-faint)' }}>
-                  BSR {product.bsr_current ? `#${formatNumber(product.bsr_current)}` : '-'} · {formatNumber(product.reviews)} reviews · {product.monthly_sold_badge ? `${formatNumber(product.monthly_sold_badge)} badge` : 'no badge'}
-                </div>
-              </div>
-            ))}
+          <div className="space-y-2">
+            {topProducts.slice(0, 8).map(product => <CompetitorCard key={product.asin} product={product} />)}
           </div>
+        )}
+        {topProducts.length === 0 && (
+          <div className="rounded border p-3 text-sm" style={toneStyle('neutral')}>No competitor cards stored yet.</div>
         )}
       </DrawerSection>
 
@@ -640,7 +805,7 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
             {Object.entries(pillars).map(([key, value]) => (
             <div key={key} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
               <div className="flex items-center justify-between gap-3">
-                <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{key.replace(/_/g, ' ')}</div>
+                <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{pillarLabel(key)}</div>
                 <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{value?.score ?? '-'}/10 · {Math.round((value?.weight || 0) * 100)}%</div>
               </div>
               {value?.reason && <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{value.reason}</p>}
@@ -673,19 +838,7 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
         {topEvidence.length === 0 ? (
           <div className="text-sm" style={{ color: 'var(--text-muted)' }}>No keyword rows with data for this entry.</div>
         ) : (
-          <div className="space-y-2">
-            {topEvidence.map(row => (
-              <div key={row.id} className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{row.keyword}</div>
-                  <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{formatNumber(row.clicks)} clicks</div>
-                </div>
-                <div className="mt-1 text-xs" style={{ color: 'var(--text-faint)' }}>
-                  {formatNumber(row.sales)} sales · {formatPct(row.conversion_rate_pct)} CVR · {formatGrowth(row.growth_pct)}
-                </div>
-              </div>
-            ))}
-          </div>
+          <KeywordTable rows={topEvidence} />
         )}
       </DrawerSection>
 
@@ -698,6 +851,104 @@ function EntryDrawer({ entry, category, evidence, saving, onPromote }) {
 
 function DrawerSection({ title, children }) {
   return <section className="mb-5"><h3 className="mb-2 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{title}</h3>{children}</section>
+}
+
+function ScoreDriver({ driver }) {
+  const width = Number.isFinite(driver.score) ? Math.max(0, Math.min(100, driver.score * 10)) : 0
+  const tone = driver.score >= 7 ? 'green' : driver.score >= 5 ? 'blue' : driver.score >= 3 ? 'amber' : 'red'
+  return (
+    <div>
+      <div className="mb-1 flex items-center justify-between gap-3">
+        <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{driver.label}</div>
+        <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+          {Number.isFinite(driver.points) ? `${driver.points.toFixed(0)} pts` : '-'} · {Number.isFinite(driver.score) ? `${driver.score.toFixed(1)}/10` : '-'}
+        </div>
+      </div>
+      <div className="h-2 overflow-hidden rounded-full" style={{ background: 'var(--bg-active)' }}>
+        <div className="h-full rounded-full" style={{ width: `${width}%`, background: toneStyle(tone).color }} />
+      </div>
+      {driver.reason && <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{driver.reason}</p>}
+    </div>
+  )
+}
+
+function SnapshotCard({ label, value, detail, tone = 'neutral' }) {
+  return (
+    <div className="rounded-md border p-3" style={{ borderColor: toneStyle(tone).borderColor, background: 'var(--bg-card)' }}>
+      <div className="text-[10px] font-semibold uppercase" style={{ color: 'var(--text-faint)' }}>{label}</div>
+      <div className="mt-1 text-sm font-semibold" style={{ color: tone === 'neutral' ? 'var(--text-primary)' : toneStyle(tone).color }}>{value || '-'}</div>
+      {detail && <div className="mt-1 text-[11px]" style={{ color: 'var(--text-muted)' }}>{detail}</div>}
+    </div>
+  )
+}
+
+function CompetitorCard({ product }) {
+  const amazonUrl = product.asin ? `https://www.amazon.com/dp/${product.asin}` : null
+  return (
+    <article className="rounded-md border p-3" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{product.brand || product.asin}</div>
+            <span className="rounded border px-1.5 py-0.5 text-[10px] font-medium" style={toneStyle(productMatchTone(product.classification))}>
+              {productMatchLabel(product.classification)}
+            </span>
+          </div>
+          <div className="mt-1 line-clamp-2 text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{product.title}</div>
+        </div>
+        {amazonUrl && (
+          <a href={amazonUrl} target="_blank" rel="noreferrer" className="shrink-0 rounded border px-2 py-1 text-[11px]" style={{ borderColor: 'var(--border-default)', color: 'var(--text-muted)', background: 'var(--bg-active)' }}>
+            Open
+          </a>
+        )}
+      </div>
+      <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
+        <MiniStat label="Rank" value={product.bsr_current ? `#${formatCompact(product.bsr_current)}` : '-'} />
+        <MiniStat label="Reviews" value={formatCompact(product.reviews)} />
+        <MiniStat label="Badge" value={product.monthly_sold_badge ? formatCompact(product.monthly_sold_badge) : '-'} />
+      </div>
+    </article>
+  )
+}
+
+function MiniStat({ label, value }) {
+  return (
+    <div className="rounded border px-2 py-1.5" style={{ borderColor: 'var(--border-subtle)', background: 'var(--bg-base)' }}>
+      <div className="text-[10px] uppercase" style={{ color: 'var(--text-faint)' }}>{label}</div>
+      <div className="mt-0.5 font-semibold" style={{ color: 'var(--text-primary)' }}>{value}</div>
+    </div>
+  )
+}
+
+function KeywordTable({ rows }) {
+  return (
+    <div className="overflow-hidden rounded-md border" style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)' }}>
+      <table className="w-full text-xs">
+        <thead style={{ color: 'var(--text-faint)', background: 'var(--bg-base)' }}>
+          <tr>
+            <th className="px-3 py-2 text-left font-semibold">Keyword</th>
+            <th className="px-3 py-2 text-right font-semibold">Clicks</th>
+            <th className="px-3 py-2 text-right font-semibold">CVR</th>
+            <th className="px-3 py-2 text-right font-semibold">Growth</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(row => (
+            <tr key={row.id} className="border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+              <td className="px-3 py-2">
+                <a href={`https://www.amazon.com/s?k=${encodeURIComponent(row.keyword)}`} target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)' }}>
+                  {row.keyword}
+                </a>
+              </td>
+              <td className="px-3 py-2 text-right font-mono" style={{ color: 'var(--text-muted)' }}>{formatCompact(row.clicks)}</td>
+              <td className="px-3 py-2 text-right font-mono" style={{ color: 'var(--text-muted)' }}>{formatPct(row.conversion_rate_pct)}</td>
+              <td className="px-3 py-2 text-right font-mono" style={{ color: Number(row.growth_pct) >= 0 ? 'var(--green-text)' : 'var(--red-text)' }}>{formatGrowth(row.growth_pct)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 function SmallBadge({ children }) {
