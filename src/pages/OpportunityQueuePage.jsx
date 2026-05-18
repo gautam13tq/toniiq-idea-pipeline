@@ -19,6 +19,7 @@ const TABS = [
 const STATUSES = ['new', 'reviewing', 'watching', 'queued_research', 'researching', 'parked', 'dismissed', 'promoted']
 const PRIORITIES = ['urgent', 'high', 'medium', 'low']
 const PRIORITY_ORDER = { urgent: 0, high: 1, medium: 2, low: 3 }
+const SHELVED_TAG = 'shelved_from_opportunities'
 
 function mondayString(date = new Date()) {
   const d = new Date(date)
@@ -48,6 +49,10 @@ function sortRows(a, b) {
   return new Date(b.review.created_at || 0) - new Date(a.review.created_at || 0)
 }
 
+function isShelvedReview(review) {
+  return (review?.signal_tags || []).includes(SHELVED_TAG)
+}
+
 function reviewRows(reviews, candidates, snapshots) {
   const candidateMap = new Map(candidates.map(candidate => [candidate.id, candidate]))
   const latestSnapshotByCandidate = new Map()
@@ -70,6 +75,7 @@ function reviewRows(reviews, candidates, snapshots) {
       }
     })
     .filter(Boolean)
+    .filter(row => !isShelvedReview(row.review))
 }
 
 export default function OpportunityQueuePage() {
@@ -243,6 +249,47 @@ export default function OpportunityQueuePage() {
     alert(`Research queued for ${row.candidate.ingredient_name}.`)
   }
 
+  async function shelveOpportunity(row = selected) {
+    if (!row?.review?.id) return
+    setSaving(true)
+
+    const reviewId = row.review.id
+    const reviewedAt = new Date().toISOString()
+    const signalTags = Array.from(new Set([...(row.review.signal_tags || []), SHELVED_TAG]))
+    const shelvedNote = `Shelved from Opportunities on ${reviewedAt.slice(0, 10)}. Source row remains in its atlas.`
+    const decisionNotes = row.review.decision_notes
+      ? `${row.review.decision_notes}\n\n${shelvedNote}`
+      : shelvedNote
+
+    const { error: updateError } = await supabase
+      .from('opportunity_reviews')
+      .update({
+        status: 'dismissed',
+        signal_tags: signalTags,
+        decision_notes: decisionNotes,
+        reviewed_at: reviewedAt,
+      })
+      .eq('id', reviewId)
+
+    if (updateError) {
+      alert(updateError.message)
+      setSaving(false)
+      return
+    }
+
+    Promise.all([
+      supabase.from('category_atlas_entries').update({ promoted_review_id: null }).eq('promoted_review_id', reviewId),
+      supabase.from('market_curation_picks').update({ promoted_review_id: null }).eq('promoted_review_id', reviewId),
+    ]).catch(error => console.error(error))
+
+    setReviews(prev => prev.filter(review => review.id !== reviewId))
+    if (selected?.id === row.id) {
+      setSelectedId(null)
+      setDraftPatch({})
+    }
+    setSaving(false)
+  }
+
   async function copyPrompt(row = selected) {
     if (!row) return
     const review = row.id === selected?.id ? (draft || row.review) : row.review
@@ -383,6 +430,7 @@ export default function OpportunityQueuePage() {
                     copied={copiedId === row.id}
                     onOpen={() => openRow(row)}
                     onQueueResearch={() => queueResearch(row)}
+                    onShelve={() => shelveOpportunity(row)}
                     onCopy={() => copyPrompt(row)}
                   />
                 ))}
@@ -399,6 +447,7 @@ export default function OpportunityQueuePage() {
             copied={selected && copiedId === selected.id}
             onSave={saveDraft}
             onQueueResearch={() => queueResearch(selected)}
+            onShelve={() => shelveOpportunity(selected)}
             onCopy={() => copyPrompt(selected)}
           />
         </aside>
@@ -418,7 +467,7 @@ function MetricPill({ label, tone = 'neutral' }) {
   return <span className="rounded border px-2 py-1" style={{ background: style.bg, color: style.color, borderColor: style.border }}>{label}</span>
 }
 
-function OpportunityRow({ row, selected, copied, onOpen, onQueueResearch, onCopy }) {
+function OpportunityRow({ row, selected, saving, copied, onOpen, onQueueResearch, onShelve, onCopy }) {
   const review = row.review
   const score = review.toniiq_fit_score === null || review.toniiq_fit_score === undefined ? null : review.toniiq_fit_score
   return (
@@ -437,8 +486,17 @@ function OpportunityRow({ row, selected, copied, onOpen, onQueueResearch, onCopy
           </p>
         </button>
         <div className="flex shrink-0 flex-wrap gap-1.5">
-          <button onClick={onQueueResearch} className="t-btn-ghost px-2.5 py-1 text-[11px]">Run research</button>
-          <button onClick={onCopy} className="t-btn-ghost px-2.5 py-1 text-[11px]">{copied ? 'Copied' : 'Prompt'}</button>
+          <button onClick={onQueueResearch} disabled={saving} className="t-btn-ghost px-2.5 py-1 text-[11px]">Run research</button>
+          <button
+            onClick={onShelve}
+            disabled={saving}
+            title="Remove from Opportunities while keeping the source row in its atlas."
+            className="t-btn-ghost px-2.5 py-1 text-[11px]"
+            style={{ color: 'var(--text-faint)' }}
+          >
+            Shelve
+          </button>
+          <button onClick={onCopy} disabled={saving} className="t-btn-ghost px-2.5 py-1 text-[11px]">{copied ? 'Copied' : 'Prompt'}</button>
         </div>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-xs" style={{ color: 'var(--text-faint)' }}>
@@ -451,7 +509,7 @@ function OpportunityRow({ row, selected, copied, onOpen, onQueueResearch, onCopy
   )
 }
 
-function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQueueResearch, onCopy }) {
+function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQueueResearch, onShelve, onCopy }) {
   if (!row || !draft) return <div className="p-6 text-sm" style={{ color: 'var(--text-muted)' }}>Select an opportunity.</div>
   const prompt = buildOpportunityPrompt({ candidate: row.candidate, snapshot: row.snapshot, review: draft })
   const scoreValue = draft.toniiq_fit_score === null || draft.toniiq_fit_score === undefined ? '' : draft.toniiq_fit_score
@@ -481,7 +539,16 @@ function OpportunityDrawer({ row, draft, patchDraft, saving, copied, onSave, onQ
         <TextAreaField label="Next action" value={draft.next_action || ''} onChange={value => patchDraft('next_action', value)} rows={2} />
         <TextAreaField label="Decision notes" value={draft.decision_notes || ''} onChange={value => patchDraft('decision_notes', value)} rows={3} />
         <div className="mt-3 flex flex-wrap justify-end gap-2">
-          <button onClick={onQueueResearch} className="t-btn-ghost">Run research</button>
+          <button
+            onClick={onShelve}
+            disabled={saving}
+            title="Remove from Opportunities while keeping the source row in its atlas."
+            className="t-btn-ghost"
+            style={{ color: 'var(--text-faint)' }}
+          >
+            Shelve
+          </button>
+          <button onClick={onQueueResearch} disabled={saving} className="t-btn-ghost">Run research</button>
           <button onClick={() => onSave()} disabled={saving} className="t-btn">{saving ? 'Saving...' : 'Save'}</button>
         </div>
       </DrawerSection>
