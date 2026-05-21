@@ -1,28 +1,73 @@
 /**
- * phase-b-evaluate — Phase B end-to-end evaluation for an accepted concept
+ * phase-b-evaluate v5 — hybrid competitive scoring for an accepted concept.
  *
- * Trigger: POST { pending_action_id } where the action is run_phase_b on a concept.
- * Auto-queued by the product_concepts trigger when a concept moves to status='accepted'.
+ * Pipeline (~120-180s end-to-end):
+ *   1. Frame inference (Sonnet) — pick broad_hero vs strict_modifier, hero
+ *      ingredient, delivery modifier (if any), 4-8 buyer-style queries.
+ *   2. Datarova demand packet — 12-month keyword market for the query packet
+ *      with growth windows (3m/6m/12m) and weighted conversion.
+ *   3. Apify Axesso discovery + Keepa /product enrichment (via shared
+ *      _shared/hybrid_scoring.ts) → classified competitor set (included /
+ *      adjacent / excluded), bucket-driven by the frame.
+ *   4. Quality gate — refuses to publish a composite when:
+ *        - Datarova rows insufficient for primary keyword (< 100 monthly clicks
+ *          or < 5 keyword rows with click data); → quality_gate_status=failed_demand
+ *        - included competitor count below 5 for broad_hero or 3 for strict_modifier,
+ *          OR < 80% have Keepa data → quality_gate_status=failed_competitive
+ *   5. Pillar scores —
+ *        - Market Demand & Intent (20%)
+ *        - Market Growth (15%) with per-window breakdown
+ *        - Competitive Landscape (35%) — weighted sum of 7 sub-signals
+ *        - Toniiq Differentiation (30%) — Opus on classified competitor set
+ *   6. Competition gate — caps composite/tier when review-moat, spec-wedge,
+ *      BSR, premium-tier, or strict_modifier counts are weak.
+ *   7. Persist concept_scores with composite + all pillar breakdowns + frame +
+ *      data quality summary. Only AFTER successful insert and verification read-back
+ *      do we set concept.status = 'evaluated'.
  *
- * Modules (all run sequentially, ~90-120s total):
- *   B1. Amazon Competitive — Apify axesso_data/amazon-search-scraper, top 15 by sales
- *   B2. TikTok Trend       — Apify clockworks/tiktok-scraper, ~80 videos
- *   B3. Google Trends      — Sonnet web-synthesis (training-knowledge-based) for YoY + direction
- *   B4. Differentiation    — Sonnet 6-vector framework, 12-point auto-kill at ≤3
- *   B5. Composite Scoring  — Computed from B1-B4 (Market 20% / Rev-Reviews 30% / Growth 20% / Diff 30%)
+ * DATA INTEGRITY: every numeric score traces to a real Apify run, Keepa
+ * /product call, or Datarova response. The quality gate is the explicit
+ * mechanism that prevents fabricated composites — if data is too thin, the
+ * pending_action is marked failed with a clear reason. NO TIER 1 estimates.
  *
- * Writes: concept_competitive_research, concept_tiktok_research, concept_google_trends, concept_scores
- * On success: sets concept.status='evaluated' (rollup trigger moves idea to stage='evaluation')
+ * Replaces v1 (commit 84c73aa). v1 wrote scores even when Apify's shallow
+ * search returned no monthly-sold badges; the rev/review ratio defaulted to
+ * an arbitrary midpoint and composite_score was meaningless. v1's TikTok
+ * branch is dropped entirely — too noisy, too memory-hungry, and not a
+ * data-quality signal we can rely on.
  *
- * DATA INTEGRITY: Every Amazon product, TikTok metric, and trend signal traces to a real
- * Apify run or Sonnet analysis of real data. Watchdog auto-fails superseded runs.
+ * Writes:
+ *   - concept_scores (v5 columns: competitive_frame, pillar_*, competition_gate,
+ *     quality_gate_status, data_quality_summary, scoring_version)
+ *   - concept_competitive_research (Keepa-enriched competitor snapshot,
+ *     replaces the old Apify-only snapshot)
+ *   - concept_google_trends — DEPRECATED but still written with a stub
+ *     pointing to Datarova as the new growth source (preserves the FK so
+ *     existing UI doesn't break).
+ *   - concept_tiktok_research — NOT written. Table preserved for history.
+ *
+ * Pending_action context tracks step-by-step progress for debugging.
  */
 
 import { corsHeaders } from '../_shared/cors.ts'
 import {
-  svcClient, loadSecrets, apifyRunSync, anthropicCall,
-  extractText, extractJson, SONNET, setActionStatus,
+  svcClient, loadSecrets, anthropicCall, datarovaKeywords,
+  extractText, extractJson, SONNET, OPUS, setActionStatus,
 } from '../_shared/clients.ts'
+import {
+  runHybridQuery, HybridFrame, HybridAggregate, HybridProduct,
+  clamp, n, normalize, percentile,
+} from '../_shared/hybrid_scoring.ts'
+
+const SCORING_VERSION = 'phase-b-v5-hybrid-competitive'
+const DEFAULT_KEEP_ASINS = 40
+const KEEPA_TOKEN_WAIT_MS = 60_000
+
+type RecommendationTier = 'launch_priority' | 'strong_candidate' | 'watchlist' | 'needs_work' | 'pass'
+
+const TIER_ORDER: Record<RecommendationTier, number> = {
+  pass: 0, needs_work: 1, watchlist: 2, strong_candidate: 3, launch_priority: 4,
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
@@ -32,6 +77,8 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}))
     const sb = svcClient()
     const secrets = await loadSecrets(sb)
+    const keepaKey = await loadKeepaKey(sb)
+
     actionId = body.pending_action_id
     const conceptId = body.concept_id
 
@@ -51,18 +98,22 @@ Deno.serve(async (req) => {
     }
     actionId = resolvedActionId
 
-    // Fetch action + concept + ingredient name
+    // Fetch action + concept + candidate
     const { data: action, error: aErr } = await sb.from('pending_actions').select('*').eq('id', resolvedActionId).single()
     if (aErr || !action) throw new Error(`Action not found: ${aErr?.message}`)
     resolvedConceptId = action.entity_id
     const { data: concept, error: cErr } = await sb.from('product_concepts').select('*').eq('id', resolvedConceptId).single()
     if (cErr || !concept) throw new Error(`Concept not found: ${cErr?.message}`)
-    const { data: candidate } = await sb.from('idea_candidates').select('ingredient_name').eq('id', concept.candidate_id).single()
+    const { data: candidate } = await sb.from('idea_candidates').select('ingredient_name,category,subcategory').eq('id', concept.candidate_id).single()
     const ingredientName = candidate?.ingredient_name || concept.concept_name
 
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
-      notes: `Evaluating "${concept.concept_name}"`,
-      context_merge: { phase_b_started: new Date().toISOString(), concept_name: concept.concept_name },
+      notes: `Evaluating "${concept.concept_name}" (v5 hybrid)`,
+      context_merge: {
+        phase_b_started: new Date().toISOString(),
+        concept_name: concept.concept_name,
+        scoring_version: SCORING_VERSION,
+      },
     })
 
     // Watchdog: fail any other in_progress run_phase_b for this concept older than 5 min
@@ -74,80 +125,190 @@ Deno.serve(async (req) => {
       .neq('id', resolvedActionId)
       .lt('started_at', new Date(Date.now() - 5 * 60 * 1000).toISOString())
 
-    // ── B1: AMAZON COMPETITIVE ───────────────────────────────────────────
-    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { amazon: 'running' } })
-    const amazonResult = await runAmazonCompetitive(sb, secrets, concept, ingredientName, resolvedConceptId)
+    // ── STEP 1: FRAME INFERENCE ──────────────────────────────────────────
+    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'frame_inference' } })
+    const frame = await inferCompetitiveFrame(secrets.anthropic_api_key, concept, ingredientName, candidate)
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
-      context_merge: { amazon: 'done', amazon_stats: { products: amazonResult.topProducts.length, score: amazonResult.competitionScore } },
+      context_merge: {
+        step: 'frame_done',
+        frame_summary: { frame: frame.frame, hero: frame.hero_ingredient, modifier: frame.delivery_modifier || null, queries: frame.query_packet.length },
+      },
     })
 
-    // ── B2: TIKTOK ───────────────────────────────────────────────────────
-    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { tiktok: 'running' } })
-    const tiktokResult = await runTikTok(sb, secrets, concept, ingredientName, resolvedConceptId)
+    // ── STEP 2: DEMAND PACKET (Datarova) ──────────────────────────────────
+    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'datarova' } })
+    const demandPacket = await fetchDatarovaPacket(secrets.datarova_api_key, frame)
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
-      context_merge: { tiktok: 'done', tiktok_stats: { videos: tiktokResult.totalVideos, score: tiktokResult.tiktokScore } },
+      context_merge: {
+        step: 'datarova_done',
+        demand_summary: {
+          rows: demandPacket.rows.length,
+          primary_clicks: demandPacket.primary_keyword_clicks,
+          market_growth_12m: demandPacket.growth_12m_pct,
+        },
+      },
     })
 
-    // ── B3: GOOGLE TRENDS ────────────────────────────────────────────────
-    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { google_trends: 'running' } })
-    const trendsResult = await runGoogleTrends(sb, secrets, concept, ingredientName, resolvedConceptId)
+    // ── STEP 3: HYBRID DISCOVERY + KEEPA ENRICHMENT ──────────────────────
+    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'hybrid_discovery' } })
+    const enrichment = await runHybridQuery(frame, secrets.apify_api_token, keepaKey, DEFAULT_KEEP_ASINS, KEEPA_TOKEN_WAIT_MS)
+    const auditProducts = enrichment.audit_products || []
+    const included = auditProducts.filter(p => p.bucket === 'included')
+    const adjacent = auditProducts.filter(p => p.bucket === 'adjacent')
+    const excluded = auditProducts.filter(p => p.bucket === 'excluded')
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
-      context_merge: { google_trends: 'done', trends_stats: { score: trendsResult.googleTrendsScore, yoy: trendsResult.yoyGrowthPct } },
+      context_merge: {
+        step: 'hybrid_done',
+        competitor_summary: {
+          discovered: (enrichment.result_quality as any)?.discovery_result_count || 0,
+          included: included.length,
+          adjacent: adjacent.length,
+          excluded: excluded.length,
+          monthly_sold_coverage: enrichment.monthly_sold_coverage,
+          keepa_tokens: enrichment.tokens_consumed,
+        },
+      },
     })
 
-    // ── B4: DIFFERENTIATION ──────────────────────────────────────────────
-    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { differentiation: 'running' } })
-    const diffResult = await runDifferentiation(secrets, concept, ingredientName, amazonResult)
+    // ── STEP 4: QUALITY GATE ─────────────────────────────────────────────
+    const gate = qualityGate(frame, demandPacket, enrichment, included)
+    if (gate.status !== 'passed') {
+      // Persist enrichment data and frame even on quality-gate failure so the
+      // audit trail is visible; mark the row with no composite_score so the
+      // concept doesn't get promoted to status='evaluated'.
+      await writeCompetitiveResearch(sb, resolvedConceptId, frame, demandPacket, enrichment, auditProducts)
+      await sb.from('concept_scores').insert({
+        concept_id: resolvedConceptId,
+        scoring_version: SCORING_VERSION,
+        competitive_frame: frame,
+        composite_score: null,
+        recommendation_tier: 'pass',
+        quality_gate_status: gate.status,
+        data_quality_summary: gate.summary,
+        overall_assessment: `Quality gate failed: ${gate.reason}. No composite score published.`,
+        scored_at: new Date().toISOString(),
+      })
+      await setActionStatus(sb, resolvedActionId, 'failed', {
+        notes: `Quality gate ${gate.status}: ${gate.reason}`,
+        context_merge: { quality_gate: gate, completed_at: new Date().toISOString() },
+      })
+      return new Response(JSON.stringify({ ok: false, quality_gate: gate.status, reason: gate.reason }), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }, status: 200,
+      })
+    }
+    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'gate_passed' } })
+
+    // ── STEP 5: PILLAR SCORES ────────────────────────────────────────────
+    const demandPillar = computeDemandPillar(demandPacket)
+    const growthPillar = computeGrowthPillar(demandPacket)
+    const competitivePillar = computeCompetitivePillar(included, enrichment, concept)
+
+    await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'differentiation' } })
+    const diffPillar = await runDifferentiation(secrets.anthropic_api_key, concept, ingredientName, frame, included, enrichment)
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
-      context_merge: { differentiation: 'done', diff_stats: { total: diffResult.diffTotal, vectors_available: diffResult.vectorsAvailable } },
+      context_merge: {
+        step: 'differentiation_done',
+        diff_summary: { score: diffPillar.score, total: diffPillar.vector_total },
+      },
     })
 
-    // ── B5: COMPOSITE SCORING ────────────────────────────────────────────
-    const compositeResult = computeComposite({
-      amazon: amazonResult,
-      tiktok: tiktokResult,
-      trends: trendsResult,
-      diff: diffResult,
-    })
+    // ── STEP 6: COMPOSITE + COMPETITION GATE ─────────────────────────────
+    const weights = { demand: 0.20, growth: 0.15, competitive: 0.35, differentiation: 0.30 }
+    let rawComposite = (
+      demandPillar.score * weights.demand +
+      growthPillar.score * weights.growth +
+      competitivePillar.score * weights.competitive +
+      diffPillar.score * weights.differentiation
+    ) * 10
 
-    await sb.from('concept_scores').insert({
+    const competitionGateResult = applyCompetitionGate(competitivePillar, frame, included, concept)
+    const cappedComposite = Math.min(rawComposite, competitionGateResult.composite_cap)
+    const naiveTier = labelForScore(cappedComposite)
+    const cappedTier = capTier(naiveTier, competitionGateResult.tier_cap)
+
+    if (!Number.isFinite(cappedComposite)) {
+      throw new Error(`composite_score not finite (raw=${rawComposite}, cap=${competitionGateResult.composite_cap})`)
+    }
+
+    // ── STEP 7: PERSIST ──────────────────────────────────────────────────
+    await writeCompetitiveResearch(sb, resolvedConceptId, frame, demandPacket, enrichment, auditProducts)
+    // Write a stub trends row for FK preservation; growth pillar lives in concept_scores now.
+    await writeGoogleTrendsStub(sb, resolvedConceptId, demandPacket, growthPillar)
+
+    const { error: scoreErr } = await sb.from('concept_scores').insert({
       concept_id: resolvedConceptId,
-      amazon_competitive_score: amazonResult.opportunityScore,
-      tiktok_score: tiktokResult.tiktokScore,
-      google_trends_score: trendsResult.googleTrendsScore,
-      differentiation_score: Math.round((diffResult.diffTotal / 12) * 10),
-      diff_vectors_available: diffResult.vectorsAvailable,
-      diff_competitive_gap: diffResult.competitiveGap,
-      diff_form_factor_fit: diffResult.formFactorFit,
-      diff_pricing_headroom: diffResult.pricingHeadroom,
-      diff_total: diffResult.diffTotal,
-      diff_vector_details: diffResult.vectorDetails,
-      composite_score: compositeResult.compositeScore,
-      composite_weights: compositeResult.weights,
-      recommendation_tier: compositeResult.tier,
-      overall_assessment: compositeResult.overallAssessment,
-      opportunity_signals: compositeResult.opportunitySignals,
-      risk_factors: compositeResult.riskFactors,
-      next_steps: compositeResult.nextSteps,
+      scoring_version: SCORING_VERSION,
+      // v5 fields
+      competitive_frame: frame,
+      pillar_demand_score: demandPillar.score,
+      pillar_growth_score: growthPillar.score,
+      pillar_growth_details: growthPillar.details,
+      pillar_competitive_score: competitivePillar.score,
+      pillar_competitive_subsignals: competitivePillar.subsignals,
+      pillar_diff_score: diffPillar.score,
+      competition_gate: competitionGateResult,
+      quality_gate_status: 'passed',
+      data_quality_summary: gate.summary,
+      // Composite
+      composite_score: Number(cappedComposite.toFixed(2)),
+      composite_weights: weights,
+      recommendation_tier: cappedTier,
+      overall_assessment: buildAssessment(frame, cappedComposite, cappedTier, demandPillar, growthPillar, competitivePillar, diffPillar, competitionGateResult),
+      opportunity_signals: buildOpportunitySignals(demandPillar, growthPillar, competitivePillar, diffPillar),
+      risk_factors: buildRiskFactors(demandPillar, growthPillar, competitivePillar, competitionGateResult),
+      next_steps: buildNextSteps(cappedTier),
+      // Legacy v1 columns (kept for backward compat with existing UI components)
+      amazon_competitive_score: Math.round(competitivePillar.score),
+      tiktok_score: null,
+      google_trends_score: Math.round(growthPillar.score),
+      differentiation_score: Math.round(diffPillar.score),
+      keyword_demand_score: Math.round(demandPillar.score),
+      diff_vectors_available: diffPillar.vectors_available,
+      diff_competitive_gap: diffPillar.competitive_gap,
+      diff_form_factor_fit: diffPillar.form_factor_fit,
+      diff_pricing_headroom: diffPillar.pricing_headroom,
+      diff_total: diffPillar.vector_total,
+      diff_vector_details: diffPillar.vector_details,
       scored_at: new Date().toISOString(),
     })
+    if (scoreErr) throw new Error(`concept_scores insert failed: ${scoreErr.message}`)
 
-    // ── Mark concept as evaluated → triggers rollup to stage='evaluation' ─
+    // Verify read-back
+    const { data: verify } = await sb.from('concept_scores').select('composite_score, quality_gate_status')
+      .eq('concept_id', resolvedConceptId).order('scored_at', { ascending: false }).limit(1).maybeSingle()
+    if (!verify || verify.composite_score == null || verify.quality_gate_status !== 'passed') {
+      throw new Error(`concept_scores read-back failed: ${JSON.stringify(verify)}`)
+    }
+
     await sb.from('product_concepts').update({
       status: 'evaluated', decided_at: new Date().toISOString(), updated_at: new Date().toISOString(),
     }).eq('id', resolvedConceptId)
 
     await setActionStatus(sb, resolvedActionId, 'completed', {
-      notes: `Phase B complete. Composite ${compositeResult.compositeScore.toFixed(1)} (${compositeResult.tier}).`,
-      context_merge: { composite_score: compositeResult.compositeScore, tier: compositeResult.tier, completed_at: new Date().toISOString() },
+      notes: `Phase B v5 complete. Composite ${cappedComposite.toFixed(1)} (${cappedTier}). Frame: ${frame.frame}/${frame.hero_ingredient}.`,
+      context_merge: {
+        composite_score: cappedComposite, tier: cappedTier, frame_summary: frame,
+        completed_at: new Date().toISOString(),
+      },
     })
 
     return new Response(JSON.stringify({
-      ok: true, concept_id: resolvedConceptId, composite: compositeResult.compositeScore, tier: compositeResult.tier,
+      ok: true, concept_id: resolvedConceptId,
+      composite: Number(cappedComposite.toFixed(2)),
+      tier: cappedTier,
+      frame: { frame: frame.frame, hero: frame.hero_ingredient, modifier: frame.delivery_modifier },
+      pillars: {
+        demand: demandPillar.score,
+        growth: growthPillar.score,
+        competitive: competitivePillar.score,
+        differentiation: diffPillar.score,
+      },
+      gate: competitionGateResult,
+      data_quality: gate.summary,
     }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
-    console.error('phase-b-evaluate error:', msg)
+    console.error('phase-b-evaluate v5 error:', msg)
     if (actionId) {
       try {
         const sb = svcClient()
@@ -161,501 +322,652 @@ Deno.serve(async (req) => {
 })
 
 // ═══════════════════════════════════════════════════════════════════════
-// MODULE B1: AMAZON COMPETITIVE
+// STEP 1: FRAME INFERENCE
 // ═══════════════════════════════════════════════════════════════════════
 
-interface AmazonResult {
-  topProducts: any[]
-  totalCompetitors: number
-  medianPrice: number
-  medianReviews: number
-  maxReviews: number
-  avgRating: number
-  competitionScore: number
-  opportunityScore: number
-  pricingTiers: any
-  positioningGaps: string[]
-  directCompetitors: any[]
-  premiumTierCount: number
-  productsWith10kReviews: number
-  brandConcentration: string
-  reviewMoats: string
-  overallAssessment: string
-  opportunitySignals: string[]
-  riskFactors: string[]
-  searchQueries: string[]
-}
-
-const ASIN_RE = /^B0[A-Z0-9]{8}$/
-
-async function runAmazonCompetitive(sb: any, secrets: any, concept: any, ingredientName: string, conceptId: string): Promise<AmazonResult> {
-  // Build 3-5 search queries from concept + ingredient
-  const queries = buildAmazonQueries(concept, ingredientName)
-
-  // axesso actor takes `input: [{keyword, domainCode, sortBy, maxPages, category}, ...]`
-  const apifyInput = {
-    input: queries.map(q => ({
-      keyword: q,
-      domainCode: 'com',
-      sortBy: 'relevanceblender',
-      maxPages: 2,
-      category: 'aps',
-    })),
-  }
-  const rawResults = await apifyRunSync(secrets.apify_api_token, 'axesso_data/amazon-search-scraper', apifyInput, 90_000)
-
-  // Normalize + dedupe by ASIN
-  const seen = new Set<string>()
-  const products: any[] = []
-  for (const r of (rawResults || [])) {
-    const asin = (r.asin || '').toUpperCase()
-    if (!ASIN_RE.test(asin)) continue
-    if (seen.has(asin)) continue
-    seen.add(asin)
-    const reviews = parseInt(String(r.countReview || r.numberOfReviews || 0).replace(/[^\d]/g, '')) || 0
-    const rating = parseFloat(String(r.productRating || r.rating || 0)) || 0
-    const price = parseFloat(String(r.price || 0)) || 0
-    const monthlySales = parseInt(String(r.salesVolume || r.monthlySales || 0).replace(/[^\d]/g, '')) || 0
-    const title = String(r.productDescription || r.title || '').slice(0, 250)
-    if (!title || price <= 0) continue
-    products.push({
-      asin,
-      title,
-      price,
-      rating,
-      reviews,
-      monthly_sales: monthlySales,
-      brand: extractBrand(title),
-      product: title.split(',')[0].slice(0, 80),
-      count: extractCount(title),
-      format: extractFormat(title),
-      amazon_url: `https://www.amazon.com/dp/${asin}`,
-    })
-  }
-
-  // Sort by monthly_sales desc (fallback to reviews if salesVolume not populated)
-  products.sort((a, b) => (b.monthly_sales || b.reviews) - (a.monthly_sales || a.reviews))
-  const top15 = products.slice(0, 15)
-
-  // Aggregate stats
-  const totalCompetitors = products.length
-  const prices = top15.map(p => p.price).filter(p => p > 0).sort((a, b) => a - b)
-  const reviews = top15.map(p => p.reviews).filter(r => r > 0).sort((a, b) => a - b)
-  const ratings = top15.map(p => p.rating).filter(r => r > 0)
-  const medianPrice = prices.length ? prices[Math.floor(prices.length / 2)] : 0
-  const medianReviews = reviews.length ? reviews[Math.floor(reviews.length / 2)] : 0
-  const maxReviews = reviews.length ? Math.max(...reviews) : 0
-  const avgRating = ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0
-  const productsWith10kReviews = top15.filter(p => p.reviews >= 10000).length
-  const premiumTierCount = top15.filter(p => p.price >= medianPrice * 1.5).length
-
-  // Sonnet analysis: positioning gaps, direct competitors, scores, assessment
-  const analysis = await analyzeAmazonResults(secrets.anthropic_api_key, concept, ingredientName, top15, {
-    medianPrice, medianReviews, maxReviews, avgRating, totalCompetitors,
-  })
-
-  // Insert
-  await sb.from('concept_competitive_research').insert({
-    concept_id: conceptId,
-    search_queries: queries,
-    search_date: new Date().toISOString().slice(0, 10),
-    top_products: top15,
-    total_competitors: totalCompetitors,
-    median_price: medianPrice,
-    price_range_low: prices[0] || null,
-    price_range_high: prices[prices.length - 1] || null,
-    median_reviews: medianReviews,
-    max_reviews: maxReviews,
-    avg_rating: Number(avgRating.toFixed(2)),
-    products_with_10k_reviews: productsWith10kReviews,
-    premium_tier_count: premiumTierCount,
-    pricing_tiers: analysis.pricing_tiers,
-    direct_competitors: analysis.direct_competitors,
-    positioning_gaps: analysis.positioning_gaps,
-    brand_concentration: analysis.brand_concentration,
-    review_moats: analysis.review_moats,
-    differentiation_assessment: analysis.differentiation_assessment,
-    price_positioning: analysis.price_positioning,
-    competition_score: analysis.competition_score,
-    opportunity_score: analysis.opportunity_score,
-    overall_assessment: analysis.overall_assessment,
-    opportunity_signals: analysis.opportunity_signals,
-    risk_factors: analysis.risk_factors,
-    listing_quality_assessment: analysis.listing_quality_assessment,
-    premium_tier_analysis: analysis.premium_tier_analysis,
-    researched_at: new Date().toISOString(),
-  })
-
-  return {
-    topProducts: top15, totalCompetitors, medianPrice, medianReviews, maxReviews, avgRating,
-    competitionScore: analysis.competition_score, opportunityScore: analysis.opportunity_score,
-    pricingTiers: analysis.pricing_tiers, positioningGaps: analysis.positioning_gaps,
-    directCompetitors: analysis.direct_competitors, premiumTierCount, productsWith10kReviews,
-    brandConcentration: analysis.brand_concentration, reviewMoats: analysis.review_moats,
-    overallAssessment: analysis.overall_assessment, opportunitySignals: analysis.opportunity_signals,
-    riskFactors: analysis.risk_factors, searchQueries: queries,
-  }
-}
-
-function buildAmazonQueries(concept: any, ingredientName: string): string[] {
-  const base = ingredientName.toLowerCase().trim()
-  const queries = new Set<string>()
-  queries.add(base)
-  queries.add(`${base} supplement`)
-  // Concept-specific terms (from name and positioning)
-  const conceptName = (concept.concept_name || '').toLowerCase()
-  if (conceptName && conceptName !== base) {
-    // Add concept name as a query if it's distinct from the parent term
-    queries.add(conceptName.split('—')[0].trim().slice(0, 60))
-  }
-  // Add a "premium" variant for Toniiq's lane
-  queries.add(`${base} premium`)
-  return Array.from(queries).slice(0, 5)
-}
-
-function extractBrand(title: string): string {
-  // First word(s) before comma/dash, capitalized
-  const m = title.match(/^([A-Z][A-Za-z0-9'&.\s]+?)(?:[,\-—:]|$)/)
-  if (m) return m[1].trim().slice(0, 30)
-  return title.split(' ').slice(0, 2).join(' ').slice(0, 30)
-}
-
-function extractCount(title: string): number {
-  // Match "120 capsules", "60 ct", "90 servings"
-  const m = title.match(/(\d{2,4})\s*(?:capsules|ct|count|servings|tablets|softgels|gummies|caps|pills)/i)
-  return m ? parseInt(m[1]) : 0
-}
-
-function extractFormat(title: string): string {
-  const t = title.toLowerCase()
-  if (t.includes('softgel')) return 'Softgel'
-  if (t.includes('gummy') || t.includes('gummies')) return 'Gummy'
-  if (t.includes('powder')) return 'Powder'
-  if (t.includes('liquid')) return 'Liquid'
-  if (t.includes('tablet')) return 'Tablet'
-  if (t.includes('capsule') || t.includes('caps')) return 'Capsule'
-  return 'Capsule'
-}
-
-async function analyzeAmazonResults(apiKey: string, concept: any, ingredientName: string, top15: any[], stats: any): Promise<any> {
+async function inferCompetitiveFrame(apiKey: string, concept: any, ingredientName: string, candidate: any): Promise<HybridFrame> {
   const r = await anthropicCall(apiKey, {
     model: SONNET,
-    max_tokens: 3000,
-    system: `You are a competitive intelligence analyst for Toniiq, a premium supplement brand. Analyze the top Amazon competitors for a product concept and return STRICT JSON. DATA INTEGRITY: every claim must be supported by the supplied product list — do NOT invent brands or specifications.
+    max_tokens: 1500,
+    system: `You are a competitive frame analyst for Toniiq supplement product development. Your job: given a product concept, determine the correct competitive frame and produce a query packet for Amazon competitor discovery.
 
-Return this exact JSON structure (no markdown, no commentary):
+THE TWO FRAMES:
+- broad_hero — the hero ingredient defines the competitive lane. Includes single-ingredient products of the hero AND multi-active complexes where the hero is the undisputed lead (named prominently in title, dosed as primary).
+- strict_modifier — delivery technology IS the differentiation. Liposomal / phytosome / micellar / enhanced-absorption qualifier on a hero ingredient. Must have BOTH hero + delivery modifier in the title.
+
+Examples:
+- "Liposomal Astaxanthin" → strict_modifier, hero=astaxanthin, modifier=liposomal
+- "Quercefit 5-in-1" → strict_modifier, hero=quercetin, modifier=phytosome (Quercefit IS the phytosome form of quercetin)
+- "Cayenne + MCT Thermogenic Softgels" → broad_hero, hero=cayenne (MCT is positioning within the lane, not a delivery modifier)
+- "Nattokinase 5-in-1" → broad_hero, hero=nattokinase
+- "Dandelion Root Extract 10:1" → broad_hero, hero=dandelion root
+- "S. boulardii 30B" → broad_hero, hero=saccharomyces boulardii
+
+QUERY PACKET (4-8 buyer-style search queries):
+- Include the bare hero ingredient, "hero supplement", and meaningful variants buyers actually search.
+- For strict_modifier: queries MUST combine hero + modifier (e.g. "liposomal astaxanthin", "astaxanthin liposomal").
+- Do NOT include "premium", "best", brand names, or pet/topical/food variants.
+- Keep queries short and natural (2-4 words).
+
+INCLUSION RULES: list the title tokens that classify a product as "in lane" (default: [hero]).
+EXCLUSION RULES: list tokens that exclude (pets, topical, food, wrong category).
+REASONING: 1-2 sentences explaining your call.
+
+Return STRICT JSON (no markdown, no commentary):
 {
-  "direct_competitors": [{"brand": "...", "threat_level": "high|medium|low", "differentiation": "..."}],
-  "positioning_gaps": ["gap 1", "gap 2", "gap 3"],
-  "pricing_tiers": {"budget": "$X-$Y — description", "mid": "$X-$Y — description", "premium": "$X-$Y — description"},
-  "brand_concentration": "Description: top 3 brands hold X% / fragmented / consolidated",
-  "review_moats": "Description: how many products have >10K reviews and what that means",
-  "differentiation_assessment": "How Toniiq could differentiate against this competitive set",
-  "price_positioning": "Where Toniiq should price (e.g. $X-$Y mid-premium)",
-  "competition_score": 0-10 integer (0=wide open, 10=ultra-saturated),
-  "opportunity_score": 0-10 integer (0=no opportunity, 10=greenfield),
-  "overall_assessment": "2-3 sentences on market state",
-  "opportunity_signals": ["signal 1", "signal 2"],
-  "risk_factors": ["risk 1", "risk 2"],
-  "listing_quality_assessment": "Brief: are top listings polished or weak? How could Toniiq beat them?",
-  "premium_tier_analysis": "Brief: who plays in premium tier and what they offer"
+  "frame": "broad_hero" | "strict_modifier",
+  "hero_ingredient": "...",
+  "delivery_modifier": "..." or null,
+  "primary_lane_query": "...",
+  "query_packet": ["...", "...", ...],
+  "inclusion_rules": ["..."],
+  "exclusion_rules": ["..."],
+  "reasoning": "..."
 }`,
     messages: [{
       role: 'user',
       content: `Concept: "${concept.concept_name}"
 Ingredient: "${ingredientName}"
+Category: ${candidate?.category || '(unknown)'} / ${candidate?.subcategory || '(unknown)'}
+Format: ${concept.format || '(unknown)'}
+Target dosage: ${concept.target_dosage || '(unknown)'}
 Positioning: ${concept.positioning_angle || '(none)'}
-
-Aggregate stats: ${JSON.stringify(stats)}
-
-Top 15 competitors (sorted by monthly sales):
-${JSON.stringify(top15.map(p => ({
-  brand: p.brand, title: p.title, price: p.price, rating: p.rating,
-  reviews: p.reviews, monthly_sales: p.monthly_sales, count: p.count, format: p.format,
-})), null, 1)}`,
+Key ingredients: ${JSON.stringify(concept.key_ingredients || [])}`,
     }],
   })
   const text = extractText(r)
+  const parsed = extractJson<any>(text)
+  // Build HybridFrame
+  const heroIngredient = String(parsed.hero_ingredient || ingredientName).trim()
+  const modifier = parsed.delivery_modifier ? String(parsed.delivery_modifier).trim() : undefined
+  const frame: HybridFrame = {
+    frame: parsed.frame === 'strict_modifier' ? 'strict_modifier' : 'broad_hero',
+    hero_ingredient: heroIngredient,
+    delivery_modifier: modifier,
+    query_packet: Array.isArray(parsed.query_packet) ? parsed.query_packet.map((q: any) => String(q || '').trim()).filter(Boolean).slice(0, 8) : [],
+    include_terms: Array.isArray(parsed.inclusion_rules) && parsed.inclusion_rules.length > 0
+      ? parsed.inclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean)
+      : [heroIngredient],
+    require_any: modifier ? [modifier] : [],
+    exclude_terms: Array.isArray(parsed.exclusion_rules)
+      ? parsed.exclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean)
+      : [],
+    stack_terms: [],
+  }
+  // Attach reasoning + primary_lane_query for audit trail (extra fields on frame object)
+  ;(frame as any).reasoning = String(parsed.reasoning || '').slice(0, 600)
+  ;(frame as any).primary_lane_query = String(parsed.primary_lane_query || frame.query_packet[0] || heroIngredient)
+  return frame
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// STEP 2: DATAROVA DEMAND PACKET
+// ═══════════════════════════════════════════════════════════════════════
+
+interface DemandPacket {
+  source: 'datarova' | 'fallback'
+  queries: string[]
+  rows: Array<{
+    keyword: string
+    monthly_records: Array<{ month: string; clicks: number; sales: number }>
+    latest_clicks: number
+    latest_sales: number
+    weighted_conversion_pct: number | null
+  }>
+  primary_keyword: string | null
+  primary_keyword_clicks: number | null
+  primary_keyword_sales: number | null
+  total_clicks: number | null
+  total_sales: number | null
+  weighted_conversion_pct: number | null
+  growth_3m_pct: number | null
+  growth_6m_pct: number | null
+  growth_12m_pct: number | null
+  latest_month: string | null
+  baseline_month: string | null
+  total_monthly_data_points: number
+  error?: string
+}
+
+function monthKey(date: Date) {
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-01`
+}
+
+function addMonths(date: Date, offset: number) {
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + offset, 1))
+}
+
+function latestCompleteMonth() {
+  const now = new Date()
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1))
+}
+
+async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame): Promise<DemandPacket> {
+  const queries = [...new Set(frame.query_packet.map(q => normalize(q)).filter(Boolean))].slice(0, 12)
+  const empty = (error?: string): DemandPacket => ({
+    source: 'fallback', queries,
+    rows: [],
+    primary_keyword: null, primary_keyword_clicks: null, primary_keyword_sales: null,
+    total_clicks: null, total_sales: null, weighted_conversion_pct: null,
+    growth_3m_pct: null, growth_6m_pct: null, growth_12m_pct: null,
+    latest_month: null, baseline_month: null, total_monthly_data_points: 0,
+    error,
+  })
+  if (!queries.length) return empty('empty_query_packet')
+
   try {
-    return extractJson(text)
-  } catch (e) {
+    const end = latestCompleteMonth()
+    const start = addMonths(end, -12)
+    const records = await datarovaKeywords(apiKey, {
+      keywords: queries,
+      start: monthKey(start),
+      end: monthKey(end),
+      marketplace: 'US',
+    })
+
+    const rows = records.map((item: any) => {
+      const keyword = String(item.keyword || '').trim()
+      const sorted = [...(item.records || [])]
+        .filter((r: any) => (r.start_date || r.date))
+        .sort((a: any, b: any) => String(a.start_date || a.date).localeCompare(String(b.start_date || b.date)))
+      const monthly_records = sorted.map((r: any) => ({
+        month: String(r.start_date || r.date).slice(0, 10),
+        clicks: n(r.clicks),
+        sales: n(r.sales),
+      }))
+      const latest = [...monthly_records].reverse().find(r => r.clicks > 0 || r.sales > 0) || monthly_records.at(-1)
+      const totalClicks = monthly_records.reduce((s, r) => s + r.clicks, 0)
+      const totalSales = monthly_records.reduce((s, r) => s + r.sales, 0)
+      return {
+        keyword,
+        monthly_records,
+        latest_clicks: latest?.clicks || 0,
+        latest_sales: latest?.sales || 0,
+        weighted_conversion_pct: totalClicks > 0 ? Number(((totalSales / totalClicks) * 100).toFixed(1)) : null,
+      }
+    }).filter(r => r.keyword && (r.latest_clicks > 0 || r.latest_sales > 0))
+
+    // Aggregate monthly totals across rows
+    const monthTotals = new Map<string, { clicks: number; sales: number }>()
+    for (const row of rows) {
+      for (const m of row.monthly_records) {
+        const cur = monthTotals.get(m.month) || { clicks: 0, sales: 0 }
+        cur.clicks += m.clicks
+        cur.sales += m.sales
+        monthTotals.set(m.month, cur)
+      }
+    }
+    const months = [...monthTotals.keys()].sort()
+    const latestMonth = [...months].reverse().find(m => (monthTotals.get(m)?.clicks || 0) > 0) || months.at(-1) || null
+    const latestIdx = latestMonth ? months.indexOf(latestMonth) : -1
+    const latestTotals = latestMonth ? monthTotals.get(latestMonth) : null
+
+    const windowGrowth = (windowMonths: number): number | null => {
+      if (latestIdx < windowMonths) return null
+      const recent = months.slice(latestIdx - windowMonths + 1, latestIdx + 1)
+      const prior = months.slice(Math.max(0, latestIdx - 2 * windowMonths + 1), latestIdx - windowMonths + 1)
+      if (!recent.length || !prior.length) return null
+      const recentAvg = recent.reduce((s, m) => s + (monthTotals.get(m)?.clicks || 0), 0) / recent.length
+      const priorAvg = prior.reduce((s, m) => s + (monthTotals.get(m)?.clicks || 0), 0) / prior.length
+      if (priorAvg <= 0) return null
+      return Number((((recentAvg - priorAvg) / priorAvg) * 100).toFixed(1))
+    }
+
+    const yoyGrowth = (): number | null => {
+      if (!latestMonth || latestIdx < 12) return null
+      const latestClicks = monthTotals.get(latestMonth)?.clicks || 0
+      const baselineMonth = months[latestIdx - 12]
+      const baselineClicks = monthTotals.get(baselineMonth)?.clicks || 0
+      if (baselineClicks <= 0) return null
+      return Number((((latestClicks - baselineClicks) / baselineClicks) * 100).toFixed(1))
+    }
+
+    const baselineMonth = (latestMonth && latestIdx >= 12) ? months[latestIdx - 12] : (months[0] || null)
+
+    const primary = [...rows].sort((a, b) => b.latest_clicks - a.latest_clicks)[0] || null
+    const totalClicks = latestTotals?.clicks || 0
+    const totalSales = latestTotals?.sales || 0
+
     return {
-      direct_competitors: [], positioning_gaps: [`LLM parse error: ${(e as Error).message}`],
-      pricing_tiers: { budget: '—', mid: '—', premium: '—' },
-      brand_concentration: 'Parse error', review_moats: 'Parse error',
-      differentiation_assessment: 'Parse error', price_positioning: 'Parse error',
-      competition_score: 5, opportunity_score: 5, overall_assessment: 'Parse error',
-      opportunity_signals: [], risk_factors: [],
-      listing_quality_assessment: 'Parse error', premium_tier_analysis: 'Parse error',
+      source: 'datarova', queries, rows,
+      primary_keyword: primary?.keyword || null,
+      primary_keyword_clicks: primary?.latest_clicks ?? null,
+      primary_keyword_sales: primary?.latest_sales ?? null,
+      total_clicks: totalClicks || null,
+      total_sales: totalSales || null,
+      weighted_conversion_pct: totalClicks > 0 ? Number(((totalSales / totalClicks) * 100).toFixed(1)) : null,
+      growth_3m_pct: windowGrowth(3),
+      growth_6m_pct: windowGrowth(6),
+      growth_12m_pct: yoyGrowth(),
+      latest_month: latestMonth,
+      baseline_month: baselineMonth,
+      total_monthly_data_points: months.length,
     }
+  } catch (err) {
+    return empty(err instanceof Error ? err.message.slice(0, 300) : String(err).slice(0, 300))
   }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// MODULE B2: TIKTOK
+// STEP 4: QUALITY GATE
 // ═══════════════════════════════════════════════════════════════════════
 
-interface TikTokResult {
-  totalVideos: number
-  organicVideos: number
-  adVideos: number
-  totalPlays: number
-  totalLikes: number
-  avgEngagementRate: number
-  topHashtags: any[]
-  creatorTiers: any
-  topVideos: any[]
-  contentThemes: string[]
-  trendLifecycle: string
-  tiktokScore: number
+type QualityStatus = 'passed' | 'failed_demand' | 'failed_competitive' | 'failed_frame'
+
+interface QualityGateResult {
+  status: QualityStatus
+  reason: string
+  summary: any
 }
 
-async function runTikTok(sb: any, secrets: any, concept: any, ingredientName: string, conceptId: string): Promise<TikTokResult> {
-  const queries = [
-    ingredientName,
-    `${ingredientName} supplement`,
-    `${ingredientName} benefits`,
-  ]
-  let videos: any[] = []
-  try {
-    videos = await apifyRunSync(secrets.apify_api_token, 'clockworks/tiktok-scraper', {
-      searchQueries: queries, resultsPerPage: 25,
-    }, 90_000)
-  } catch (e) {
-    // TikTok scraper failed — write minimal record and continue
-    console.error('TikTok scraper failed:', (e as Error).message)
+function qualityGate(frame: HybridFrame, demand: DemandPacket, enrichment: HybridAggregate, included: HybridProduct[]): QualityGateResult {
+  const minIncluded = frame.frame === 'strict_modifier' ? 3 : 5
+  const keepaCoveredIncluded = included.filter(p =>
+    (p.bsr_current || p.bsr_avg30) != null && p.reviews > 0 && (p.price || 0) > 0
+  )
+  const monthlySoldCovered = included.filter(p => p.monthly_sold > 0)
+  const keepaCoveragePct = included.length > 0 ? keepaCoveredIncluded.length / included.length : 0
+  const monthlySoldCoveragePct = included.length > 0 ? monthlySoldCovered.length / included.length : 0
+
+  const demandRowsWithData = demand.rows.filter(r => r.latest_clicks > 0).length
+  const primaryClicks = demand.primary_keyword_clicks || 0
+
+  const summary = {
+    frame: frame.frame, hero: frame.hero_ingredient, modifier: frame.delivery_modifier || null,
+    discovery_result_count: (enrichment.result_quality as any)?.discovery_result_count || 0,
+    included_count: included.length,
+    adjacent_count: ((enrichment.result_quality as any)?.adjacent_count || 0),
+    excluded_count: ((enrichment.result_quality as any)?.excluded_count || 0),
+    keepa_coverage_count: keepaCoveredIncluded.length,
+    keepa_coverage_pct: Number((keepaCoveragePct * 100).toFixed(1)),
+    monthly_sold_badge_count: monthlySoldCovered.length,
+    monthly_sold_badge_pct: Number((monthlySoldCoveragePct * 100).toFixed(1)),
+    demand_source: demand.source,
+    demand_rows_with_data: demandRowsWithData,
+    demand_primary_clicks: primaryClicks,
+    demand_total_monthly_data_points: demand.total_monthly_data_points,
+    keepa_tokens_consumed: enrichment.tokens_consumed,
+    min_included_required: minIncluded,
   }
 
-  const organic = videos.filter(v => !v.isAd)
-  const ads = videos.filter(v => v.isAd)
-  const totalPlays = organic.reduce((s, v) => s + (v.playCount || 0), 0)
-  const totalLikes = organic.reduce((s, v) => s + (v.diggCount || 0), 0)
-  const totalShares = organic.reduce((s, v) => s + (v.shareCount || 0), 0)
-  const totalComments = organic.reduce((s, v) => s + (v.commentCount || 0), 0)
-  const totalSaves = organic.reduce((s, v) => s + (v.collectCount || 0), 0)
-  const avgPlays = organic.length ? Math.round(totalPlays / organic.length) : 0
-  const engagementRate = totalPlays > 0 ? ((totalLikes + totalShares + totalComments) / totalPlays) * 100 : 0
-
-  // Hashtag extraction
-  const hashtagCounts = new Map<string, number>()
-  for (const v of organic) {
-    const tags = v.hashtags || (v.text || '').match(/#\w+/g) || []
-    for (const tag of tags) {
-      const t = (typeof tag === 'string' ? tag : tag.name || '').toLowerCase()
-      if (!t.startsWith('#')) continue
-      hashtagCounts.set(t, (hashtagCounts.get(t) || 0) + 1)
+  // Demand gate
+  //
+  // Default: ≥5 keyword rows with click data AND primary keyword ≥100 clicks.
+  // Niche-strain exception: if the primary keyword is strong (≥1,000 clicks)
+  // we accept ≥2 rows with click data. This catches concepts like
+  // "S. boulardii 30B" where Datarova tracks the parent term densely but
+  // siblings sparsely — the primary signal is unambiguous so we don't punish
+  // the concept for the narrowness of the surrounding cluster.
+  if (demand.source !== 'datarova') {
+    return { status: 'failed_demand', reason: `Datarova demand packet unavailable (source=${demand.source}, error=${demand.error || 'unknown'})`, summary }
+  }
+  if (primaryClicks < 100) {
+    return { status: 'failed_demand', reason: `Demand data insufficient: primary keyword "${demand.primary_keyword}" only ${primaryClicks} monthly clicks (need ≥100)`, summary }
+  }
+  const strongPrimary = primaryClicks >= 1000
+  if (demandRowsWithData < 5 && !(strongPrimary && demandRowsWithData >= 2)) {
+    return {
+      status: 'failed_demand',
+      reason: `Demand data insufficient: ${demandRowsWithData} Datarova rows with click data, primary keyword ${primaryClicks} clicks (need ≥5 rows, OR ≥2 rows when primary keyword ≥1,000 clicks)`,
+      summary,
     }
   }
-  const topHashtags = Array.from(hashtagCounts.entries())
-    .sort((a, b) => b[1] - a[1]).slice(0, 8)
-    .map(([hashtag, views]) => ({ hashtag, views }))
 
-  // Creator tier estimation from author follower counts when present
-  const creatorTiers = { mega_1m_plus: 0, macro_500k_1m: 0, mid_50k_500k: 0, micro_1k_50k: 0 }
-  for (const v of organic) {
-    const followers = v.authorMeta?.fans || v.author?.followerCount || 0
-    if (followers >= 1_000_000) creatorTiers.mega_1m_plus++
-    else if (followers >= 500_000) creatorTiers.macro_500k_1m++
-    else if (followers >= 50_000) creatorTiers.mid_50k_500k++
-    else if (followers >= 1_000) creatorTiers.micro_1k_50k++
+  // Competitive gate
+  if (included.length < minIncluded) {
+    return { status: 'failed_competitive', reason: `Competitive data insufficient: ${included.length}/${minIncluded} included competitors after classification (frame=${frame.frame})`, summary }
+  }
+  if (keepaCoveragePct < 0.8) {
+    return { status: 'failed_competitive', reason: `Competitive data insufficient: only ${keepaCoveredIncluded.length}/${included.length} (${(keepaCoveragePct * 100).toFixed(0)}%) included competitors have Keepa BSR/reviews/price data (need ≥80%)`, summary }
   }
 
-  // Top videos by plays
-  const topVideos = [...organic].sort((a, b) => (b.playCount || 0) - (a.playCount || 0)).slice(0, 5).map(v => ({
-    date: (v.createTimeISO || v.createTime || '').slice(0, 10),
-    plays: v.playCount || 0,
-    likes: v.diggCount || 0,
-    description: String(v.text || v.description || '').slice(0, 200),
-  }))
+  return { status: 'passed', reason: 'all gates passed', summary }
+}
 
-  // Per-query breakdown
-  const queryBreakdown: any = {}
-  for (const q of queries) {
-    const qVids = organic.filter(v => (v.searchHashtag?.name || v.input || v.query || '').toLowerCase().includes(q.toLowerCase()))
-    queryBreakdown[q] = { videos: qVids.length, total_plays: qVids.reduce((s, v) => s + (v.playCount || 0), 0) }
+// ═══════════════════════════════════════════════════════════════════════
+// STEP 5: PILLAR SCORES
+// ═══════════════════════════════════════════════════════════════════════
+
+interface PillarResult {
+  score: number  // 0-10
+  details?: any
+  subsignals?: any
+}
+
+function computeDemandPillar(demand: DemandPacket): PillarResult {
+  // Primary keyword clicks tier: 0-4 pts
+  const clicks = demand.primary_keyword_clicks || 0
+  let clicksPts = 0
+  if (clicks >= 100_000) clicksPts = 4
+  else if (clicks >= 10_000) clicksPts = 3
+  else if (clicks >= 1_000) clicksPts = 2
+  else if (clicks >= 100) clicksPts = 1
+
+  // Aggregate cluster volume (sum of latest clicks across rows): 0-3 pts
+  const aggClicks = demand.rows.reduce((s, r) => s + r.latest_clicks, 0)
+  let aggPts = 0
+  if (aggClicks >= 200_000) aggPts = 3
+  else if (aggClicks >= 50_000) aggPts = 2
+  else if (aggClicks >= 10_000) aggPts = 1
+
+  // Conversion intent: 0-3 pts
+  const cvr = demand.weighted_conversion_pct || 0
+  let cvrPts = 0
+  if (cvr >= 30) cvrPts = 3
+  else if (cvr >= 20) cvrPts = 2
+  else if (cvr >= 15) cvrPts = 1
+
+  const score = clicksPts + aggPts + cvrPts  // max 10
+  return {
+    score,
+    details: {
+      primary_clicks: clicks,
+      primary_clicks_pts: clicksPts,
+      aggregate_cluster_clicks: aggClicks,
+      aggregate_cluster_pts: aggPts,
+      weighted_conversion_pct: cvr,
+      conversion_pts: cvrPts,
+    },
   }
+}
 
-  // Sonnet analysis: themes + lifecycle + score
-  const analysis = await analyzeTikTokResults(secrets.anthropic_api_key, concept, ingredientName, organic, ads, {
-    totalPlays, totalLikes, avgPlays, engagementRate, organicCount: organic.length, adCount: ads.length,
-  })
+function computeGrowthPillar(demand: DemandPacket): PillarResult {
+  const mapWindow = (pct: number | null): number => {
+    if (pct === null) return 4  // unknown defaults to neutral-positive
+    if (pct > 100) return 10
+    if (pct > 50) return 8
+    if (pct > 20) return 6
+    if (pct > 0) return 4
+    if (pct > -20) return 2
+    return 0
+  }
+  const w3 = mapWindow(demand.growth_3m_pct)
+  const w6 = mapWindow(demand.growth_6m_pct)
+  const w12 = mapWindow(demand.growth_12m_pct)
+  // Weighted: 3m 40%, 6m 30%, 12m 30%
+  const score = (w3 * 0.40) + (w6 * 0.30) + (w12 * 0.30)
 
-  await sb.from('concept_tiktok_research').insert({
-    concept_id: conceptId,
-    search_queries: queries,
-    total_videos: videos.length,
-    organic_videos: organic.length,
-    ad_videos: ads.length,
-    total_plays: totalPlays,
-    total_likes: totalLikes,
-    total_shares: totalShares,
-    total_comments: totalComments,
-    total_saves: totalSaves,
-    avg_plays_per_video: avgPlays,
-    avg_engagement_rate: Number(engagementRate.toFixed(2)),
-    top_hashtags: topHashtags,
-    creator_tiers: creatorTiers,
-    top_videos: topVideos,
-    query_breakdown: queryBreakdown,
-    content_themes: analysis.content_themes,
-    trend_lifecycle: analysis.trend_lifecycle,
-    tiktok_score: analysis.tiktok_score,
-    key_signals: analysis.key_signals,
-    overall_assessment: analysis.overall_assessment,
-    researched_at: new Date().toISOString(),
-  })
+  // Trajectory shape
+  let shape = 'unknown'
+  const g3 = demand.growth_3m_pct ?? 0
+  const g6 = demand.growth_6m_pct ?? 0
+  const g12 = demand.growth_12m_pct ?? 0
+  if (g3 > 20 && g6 > 20 && g12 > 20) shape = 'consistent strong growth'
+  else if (g12 > 50 && g3 < 10) shape = 'long-term explosive but recent flattening'
+  else if (g12 < 0 && g3 > 20) shape = 'recent rebound from decline'
+  else if (g3 < -10 && g6 < -10 && g12 < -10) shape = 'consistent decline'
+  else if (Math.abs(g3) < 10 && Math.abs(g6) < 10 && Math.abs(g12) < 10) shape = 'stable mature market'
+  else if (g12 > 0 && g3 > 0) shape = 'growth with variance'
+  else if (g12 < 0 && g3 < 0) shape = 'declining'
+  else shape = 'mixed signals'
 
   return {
-    totalVideos: videos.length, organicVideos: organic.length, adVideos: ads.length,
-    totalPlays, totalLikes, avgEngagementRate: engagementRate,
-    topHashtags, creatorTiers, topVideos,
-    contentThemes: analysis.content_themes, trendLifecycle: analysis.trend_lifecycle,
-    tiktokScore: analysis.tiktok_score,
+    score: Number(score.toFixed(2)),
+    details: {
+      growth_3m_pct: demand.growth_3m_pct,
+      growth_6m_pct: demand.growth_6m_pct,
+      growth_12m_pct: demand.growth_12m_pct,
+      window_scores: { w3, w6, w12 },
+      window_weights: { w3: 0.40, w6: 0.30, w12: 0.30 },
+      trajectory_shape: shape,
+      latest_month: demand.latest_month,
+      baseline_month: demand.baseline_month,
+    },
   }
 }
 
-async function analyzeTikTokResults(apiKey: string, concept: any, ingredientName: string, organic: any[], ads: any[], stats: any): Promise<any> {
-  // Compact video sample for the prompt
-  const sample = organic.slice(0, 25).map(v => ({
-    text: String(v.text || '').slice(0, 200),
-    plays: v.playCount || 0,
-    likes: v.diggCount || 0,
-    is_ad: !!v.isAd,
-  }))
-  const r = await anthropicCall(apiKey, {
-    model: SONNET,
-    max_tokens: 1500,
-    system: `You are a TikTok trend analyst for Toniiq's supplement ideation. Analyze a sample of TikTok videos for a concept and return STRICT JSON.
+function computeCompetitivePillar(included: HybridProduct[], enrichment: HybridAggregate, concept: any): PillarResult {
+  // ── 7 sub-signals, each 0-10 ────────────────────────────────────────────
+  // 1. Review moat distribution (25% of pillar)
+  const reviews = included.map(p => p.reviews).filter(r => r > 0).sort((a, b) => a - b)
+  const reviewP50 = percentile(reviews, 0.5) || 0
+  const reviewP90 = percentile(reviews, 0.9) || 0
+  const reviewMax = reviews.length ? Math.max(...reviews) : 0
+  // Lower moat (smaller p50/p90) = higher score (more attackable). p50 < 500 → 10, p50 > 50k → 0
+  const logScale = (val: number, lo: number, hi: number): number => {
+    if (val <= 0) return 10
+    const logVal = Math.log10(val)
+    const logLo = Math.log10(lo)
+    const logHi = Math.log10(hi)
+    return clamp(10 - ((logVal - logLo) / (logHi - logLo)) * 10, 0, 10)
+  }
+  const reviewMoatScore = (logScale(reviewP50, 500, 50_000) * 0.55) + (logScale(reviewP90, 1_000, 100_000) * 0.25) + (logScale(reviewMax, 2_000, 200_000) * 0.20)
 
-Return this exact JSON structure:
-{
-  "content_themes": ["education", "personal_testimony", "brand_partnership", "before_after", ...],
-  "trend_lifecycle": "emerging|growing|mainstream|declining",
-  "tiktok_score": 0-10 integer,
-  "key_signals": ["signal 1", "signal 2"],
-  "overall_assessment": "2-3 sentences"
-}`,
-    messages: [{
-      role: 'user',
-      content: `Concept: "${concept.concept_name}"
-Ingredient: "${ingredientName}"
-Aggregate: ${JSON.stringify(stats)}
-
-Video sample:
-${JSON.stringify(sample, null, 1)}`,
-    }],
-  })
-  const text = extractText(r)
-  try {
-    return extractJson(text)
-  } catch (e) {
-    return {
-      content_themes: [], trend_lifecycle: 'unknown', tiktok_score: 3,
-      key_signals: [`LLM parse error: ${(e as Error).message}`],
-      overall_assessment: 'Parse error',
+  // 2. Revenue/Review efficiency ratio (20%)
+  // monthly_sold * price / reviews; high ratio = healthy velocity, low ratio = mature/saturated
+  const ratios: number[] = []
+  for (const p of included) {
+    if (p.monthly_sold > 0 && (p.price || 0) > 0 && p.reviews > 0) {
+      ratios.push((p.monthly_sold * (p.price || 0)) / p.reviews)
     }
   }
-}
+  const ratioP50 = ratios.length ? percentile(ratios, 0.5) || 0 : 0
+  let revReviewScore = 0
+  if (ratioP50 >= 50) revReviewScore = 10
+  else if (ratioP50 >= 30) revReviewScore = 8
+  else if (ratioP50 >= 15) revReviewScore = 7
+  else if (ratioP50 >= 8) revReviewScore = 5
+  else if (ratioP50 >= 3) revReviewScore = 3
+  else if (ratioP50 > 0) revReviewScore = 1
+  else revReviewScore = 0  // no monthly_sold data — neutral signal handled by quality gate
+  const reviewRevenueAvailable = ratios.length
 
-// ═══════════════════════════════════════════════════════════════════════
-// MODULE B3: GOOGLE TRENDS (web synthesis)
-// ═══════════════════════════════════════════════════════════════════════
+  // 3. BSR concentration (15%)
+  const bsrValues = included.map(p => p.bsr_current || p.bsr_avg30 || 0).filter(b => b > 0).sort((a, b) => a - b)
+  const bsrBest = bsrValues.length ? bsrValues[0] : 0
+  // Locked-up top (best BSR < 200) = low score; diffuse top (best > 5k) = high score
+  let bsrScore = 5
+  if (bsrBest === 0) bsrScore = 5
+  else if (bsrBest <= 200) bsrScore = 2
+  else if (bsrBest <= 1_000) bsrScore = 4
+  else if (bsrBest <= 5_000) bsrScore = 6
+  else if (bsrBest <= 20_000) bsrScore = 8
+  else bsrScore = 10
+  // top-3 cluster: avg of top 3 BSR
+  const top3BsrAvg = bsrValues.length >= 3 ? (bsrValues[0] + bsrValues[1] + bsrValues[2]) / 3 : bsrBest
+  if (top3BsrAvg <= 500 && bsrScore > 4) bsrScore = Math.max(3, bsrScore - 2)
 
-async function runGoogleTrends(sb: any, secrets: any, concept: any, ingredientName: string, conceptId: string) {
-  const r = await anthropicCall(secrets.anthropic_api_key, {
-    model: SONNET,
-    max_tokens: 1500,
-    system: `You are a market trend analyst for Toniiq supplement ideation. Estimate Google Trends signal for a supplement concept based on your training knowledge of the supplement market, public industry reports (Verified Market Reports, Nutra Ingredients, Persistence Market Research), and adjacent search behavior. DATA INTEGRITY: if your knowledge of this category is thin, say so explicitly and score lower confidence — don't fabricate specific numbers.
-
-Return STRICT JSON:
-{
-  "yoy_growth_pct": number (estimated; can be negative),
-  "trend_direction": "declining|stable|rising|breakout|no_data",
-  "google_trends_score": 0-10 integer,
-  "search_terms": ["term 1", "term 2"],
-  "related_queries": {"primary": ["..."], "supporting": ["..."]},
-  "interest_over_time": {"note": "qualitative description; no fabricated monthly numbers"},
-  "key_signals": ["signal 1", "signal 2"],
-  "cross_platform_validation": "Brief: is the signal consistent with what we'd expect from Amazon + TikTok demand?",
-  "overall_assessment": "2-3 sentences"
-}`,
-    messages: [{
-      role: 'user',
-      content: `Concept: "${concept.concept_name}"
-Ingredient: "${ingredientName}"
-Positioning: ${concept.positioning_angle || '(none)'}`,
-    }],
-  })
-  const text = extractText(r)
-  let parsed: any
-  try {
-    parsed = extractJson(text)
-  } catch (e) {
-    parsed = {
-      yoy_growth_pct: null, trend_direction: 'no_data', google_trends_score: 3,
-      search_terms: [], related_queries: {}, interest_over_time: { note: 'parse error' },
-      key_signals: [], cross_platform_validation: '', overall_assessment: 'Parse error',
-    }
+  // 4. Brand concentration (10%)
+  const brandsTop20 = new Set(included.slice(0, 20).map(p => normalize(p.brand)).filter(Boolean))
+  const distinctBrands = brandsTop20.size
+  // Compute top brand share (% of monthly_sold or reviews captured by top brand)
+  const brandSales = new Map<string, number>()
+  for (const p of included.slice(0, 20)) {
+    const b = normalize(p.brand)
+    if (!b) continue
+    const weight = p.monthly_sold > 0 ? p.monthly_sold : p.reviews
+    brandSales.set(b, (brandSales.get(b) || 0) + weight)
   }
-  await sb.from('concept_google_trends').insert({
-    concept_id: conceptId,
-    search_terms: parsed.search_terms,
-    time_range: 'last_12_months',
-    geo: 'US',
-    interest_over_time: parsed.interest_over_time,
-    related_queries: parsed.related_queries,
-    yoy_growth_pct: parsed.yoy_growth_pct,
-    trend_direction: parsed.trend_direction,
-    google_trends_score: parsed.google_trends_score,
-    key_signals: parsed.key_signals,
-    cross_platform_validation: parsed.cross_platform_validation,
-    overall_assessment: parsed.overall_assessment,
-    data_source: 'web_synthesis',
-    researched_at: new Date().toISOString(),
-  })
+  const totalWeight = [...brandSales.values()].reduce((s, w) => s + w, 0)
+  const topBrandWeight = [...brandSales.values()].sort((a, b) => b - a)[0] || 0
+  const topBrandShare = totalWeight > 0 ? topBrandWeight / totalWeight : 0
+  // Diverse (10+ brands, top brand <25%) = 9-10; consolidated (3 brands, top brand >60%) = 1-2
+  let brandScore = 5
+  if (distinctBrands >= 12 && topBrandShare < 0.20) brandScore = 10
+  else if (distinctBrands >= 8 && topBrandShare < 0.30) brandScore = 8
+  else if (distinctBrands >= 6 && topBrandShare < 0.40) brandScore = 6
+  else if (distinctBrands >= 4 && topBrandShare < 0.55) brandScore = 4
+  else if (distinctBrands >= 3) brandScore = 2
+  else brandScore = 1
+
+  // 5. Competitor density (10%)
+  // Sweet spot 15-50 included. <15 = niche-opportunity bonus; >100 = race-to-bottom penalty
+  let densityScore = 5
+  const ic = included.length
+  if (ic >= 15 && ic <= 50) densityScore = 10
+  else if (ic >= 8 && ic < 15) densityScore = 8  // niche opportunity
+  else if (ic >= 50 && ic <= 80) densityScore = 7
+  else if (ic >= 80 && ic <= 100) densityScore = 5
+  else if (ic > 100) densityScore = 3
+  else if (ic >= 5) densityScore = 6
+  else densityScore = 3
+
+  // 6. Premium tier viability (10%)
+  // Share of top-20 at price ≥ $25 AND rating ≥ 4.3 AND reviews ≥ 500
+  const top20 = included.slice(0, 20)
+  const premium = top20.filter(p =>
+    (p.price || 0) >= 25 && (p.rating || 0) >= 4.3 && p.reviews >= 500
+  )
+  const premiumShare = top20.length > 0 ? premium.length / top20.length : 0
+  let premiumScore = 0
+  if (premiumShare >= 0.5) premiumScore = 10
+  else if (premiumShare >= 0.3) premiumScore = 8
+  else if (premiumShare >= 0.2) premiumScore = 6
+  else if (premiumShare >= 0.1) premiumScore = 4
+  else if (premiumShare > 0) premiumScore = 2
+  else premiumScore = 0
+
+  // 7. Spec wedge availability (10%)
+  // Compare top-10 dose claims (extracted heuristically from title) to concept's planned dose
+  const conceptDose = parseDoseFromString(concept.target_dosage || '') || parseDoseFromString(JSON.stringify(concept.key_ingredients || []))
+  const top10 = included.slice(0, 10)
+  const topDoses = top10.map(p => parseDoseFromString(p.title)).filter((d): d is number => d !== null)
+  let specScore = 5
+  if (conceptDose && topDoses.length >= 5) {
+    const maxTopDose = Math.max(...topDoses)
+    const medianTopDose = percentile(topDoses, 0.5) || 0
+    const strictAbove = topDoses.every(d => conceptDose > d)
+    if (strictAbove && conceptDose >= maxTopDose * 1.5) specScore = 10
+    else if (strictAbove) specScore = 8
+    else if (conceptDose >= maxTopDose) specScore = 6
+    else if (conceptDose >= medianTopDose) specScore = 4
+    else specScore = 2
+  } else if (conceptDose && topDoses.length >= 2) {
+    const maxTopDose = Math.max(...topDoses)
+    if (conceptDose > maxTopDose) specScore = 8
+    else if (conceptDose >= maxTopDose * 0.8) specScore = 5
+    else specScore = 3
+  } else {
+    specScore = 5  // insufficient comparable doses extracted
+  }
+
+  // Weighted sum to pillar 0-10
+  const weights = { review_moat: 0.25, rev_review: 0.20, bsr: 0.15, brand: 0.10, density: 0.10, premium: 0.10, spec: 0.10 }
+  const pillarScore = (reviewMoatScore * weights.review_moat) +
+    (revReviewScore * weights.rev_review) +
+    (bsrScore * weights.bsr) +
+    (brandScore * weights.brand) +
+    (densityScore * weights.density) +
+    (premiumScore * weights.premium) +
+    (specScore * weights.spec)
+
   return {
-    yoyGrowthPct: parsed.yoy_growth_pct,
-    trendDirection: parsed.trend_direction,
-    googleTrendsScore: parsed.google_trends_score,
-    overallAssessment: parsed.overall_assessment,
+    score: Number(pillarScore.toFixed(2)),
+    subsignals: {
+      review_moat: {
+        score: Number(reviewMoatScore.toFixed(2)),
+        weight: weights.review_moat,
+        review_p50: reviewP50, review_p90: reviewP90, review_max: reviewMax,
+        reasoning: `p50=${reviewP50.toLocaleString()}, p90=${reviewP90.toLocaleString()}, max=${reviewMax.toLocaleString()} reviews; ${reviewMoatScore >= 7 ? 'low moat — attackable' : reviewMoatScore >= 4 ? 'moderate moat' : 'high moat — entrenched competitors'}`,
+      },
+      rev_review_efficiency: {
+        score: revReviewScore, weight: weights.rev_review,
+        ratio_p50: Number(ratioP50.toFixed(2)),
+        rev_review_data_count: reviewRevenueAvailable,
+        reasoning: `${reviewRevenueAvailable} competitors with revenue+reviews data; p50 ratio ${ratioP50.toFixed(1)} ${revReviewScore >= 7 ? '(healthy velocity)' : revReviewScore >= 4 ? '(moderate)' : '(mature/saturated or sparse data)'}`,
+      },
+      bsr_concentration: {
+        score: bsrScore, weight: weights.bsr,
+        best_bsr: bsrBest, top3_avg_bsr: Number(top3BsrAvg.toFixed(0)),
+        reasoning: `Best BSR ${bsrBest.toLocaleString()}, top-3 avg ${top3BsrAvg.toLocaleString()}; ${bsrScore >= 7 ? 'top is diffuse' : bsrScore >= 4 ? 'moderate concentration' : 'locked-up top'}`,
+      },
+      brand_concentration: {
+        score: brandScore, weight: weights.brand,
+        distinct_brands_top20: distinctBrands,
+        top_brand_share: Number(topBrandShare.toFixed(3)),
+        reasoning: `${distinctBrands} distinct brands in top 20, top brand share ${(topBrandShare * 100).toFixed(1)}%; ${brandScore >= 7 ? 'diverse market' : brandScore >= 4 ? 'moderately concentrated' : 'consolidated'}`,
+      },
+      competitor_density: {
+        score: densityScore, weight: weights.density,
+        included_count: ic,
+        reasoning: ic >= 15 && ic <= 50 ? 'sweet-spot density' : ic < 15 ? 'niche/thin market' : 'crowded — race-to-bottom risk',
+      },
+      premium_tier_viability: {
+        score: premiumScore, weight: weights.premium,
+        premium_count_top20: premium.length,
+        premium_share: Number(premiumShare.toFixed(3)),
+        reasoning: `${premium.length}/${top20.length} top products at ≥$25 AND ≥4.3★ AND ≥500 reviews; ${premiumScore >= 7 ? 'premium tier is viable' : premiumScore >= 4 ? 'narrow premium space' : 'no premium tier present'}`,
+      },
+      spec_wedge: {
+        score: specScore, weight: weights.spec,
+        concept_dose: conceptDose,
+        top10_doses: topDoses,
+        reasoning: conceptDose ? `Concept dose ${conceptDose}, top-10 sample doses [${topDoses.slice(0, 6).join(', ')}]; ${specScore >= 7 ? 'spec wedge exists' : specScore >= 4 ? 'parity with leaders' : 'concept under-doses vs market'}` : 'no comparable dose data extracted',
+      },
+    },
+    details: {
+      pillar_weights: weights,
+      pillar_score: Number(pillarScore.toFixed(2)),
+    },
   }
 }
 
+function parseDoseFromString(text: string): number | null {
+  if (!text) return null
+  // Look for first number followed by mg / billion CFU / IU. Returns the numeric dose.
+  // Examples: "30 billion CFU" → 30; "500 mg" → 500; "1000mg" → 1000; "24mg" → 24
+  // Prefer billion CFU > IU > mg
+  const cfuMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:bn|billion)\s*(?:cfu)?/i)
+  if (cfuMatch) return parseFloat(cfuMatch[1])
+  const mgMatch = text.match(/(\d{1,5}(?:\.\d+)?)\s*mg\b/i)
+  if (mgMatch) return parseFloat(mgMatch[1])
+  const mcgMatch = text.match(/(\d{1,6}(?:\.\d+)?)\s*mcg\b/i)
+  if (mcgMatch) return parseFloat(mcgMatch[1]) / 1000  // normalize to mg-equivalent
+  const iuMatch = text.match(/(\d{1,6}(?:\.\d+)?)\s*iu\b/i)
+  if (iuMatch) return parseFloat(iuMatch[1])
+  return null
+}
+
 // ═══════════════════════════════════════════════════════════════════════
-// MODULE B4: DIFFERENTIATION (6-vector framework)
+// STEP 5b: DIFFERENTIATION (Opus 6-vector)
 // ═══════════════════════════════════════════════════════════════════════
 
-interface DiffResult {
-  vectorsAvailable: number
-  competitiveGap: number
-  formFactorFit: number
-  pricingHeadroom: number
-  diffTotal: number
-  vectorDetails: any
+interface DiffResult extends PillarResult {
+  vectors_available: number
+  competitive_gap: number
+  form_factor_fit: number
+  pricing_headroom: number
+  vector_total: number  // 0-12 (legacy)
+  vector_details: any
   reasoning: string
 }
 
-async function runDifferentiation(secrets: any, concept: any, ingredientName: string, amazonResult: AmazonResult): Promise<DiffResult> {
-  const r = await anthropicCall(secrets.anthropic_api_key, {
-    model: SONNET,
+async function runDifferentiation(
+  apiKey: string,
+  concept: any,
+  ingredientName: string,
+  frame: HybridFrame,
+  included: HybridProduct[],
+  enrichment: HybridAggregate,
+): Promise<DiffResult> {
+  // Build a competitive context from included Keepa-enriched products
+  const topCompetitors = included.slice(0, 8).map(p => ({
+    brand: p.brand, title: p.title.slice(0, 160), price: p.price, rating: p.rating,
+    reviews: p.reviews, monthly_sold: p.monthly_sold, bsr: p.bsr_current || p.bsr_avg30,
+  }))
+
+  const r = await anthropicCall(apiKey, {
+    model: OPUS,
     max_tokens: 2000,
     system: `You are a product differentiation strategist for Toniiq. Assess a concept against Toniiq's 6-vector differentiation framework and return STRICT JSON.
 
 The 6 vectors:
-1. Concentration/Potency — can Toniiq offer a higher dose than the median competitor?
-2. Branded/Patented Ingredient — is there a clinical-grade branded form (e.g. Creapure, KSM-66, Sensoril)?
+1. Concentration/Potency — can Toniiq offer a higher dose than the top competitors?
+2. Branded/Patented Ingredient — is there a clinical-grade branded form (e.g. Creapure, KSM-66, Sensoril, Quercefit, AstaPure)?
 3. Purity/Standardization — can Toniiq stand on tested purity / standardized active compound %?
 4. Multi-Pathway/Stack — does combining with a complementary ingredient unlock a unique angle?
-5. CFU/Strain Specificity — N/A for non-probiotics; only relevant for live cultures.
-6. Bioavailability/Delivery Innovation — liposomal, enteric, sublingual, microbeadlet, etc.
+5. CFU/Strain Specificity — only relevant for live cultures (probiotics, yeast like S. boulardii).
+6. Bioavailability/Delivery Innovation — liposomal, enteric, sublingual, phytosome, etc.
 
-For each vector: available=true/false + 1-sentence justification grounded in the supplied competitive data.
+DATA INTEGRITY: every "available=true" claim must be backed by the supplied competitive data. If the data doesn't support it, set available=false and explain.
+
+For each vector: available (boolean) + 1-sentence justification grounded in supplied data.
 
 Then score:
-- Vectors Available: 0-5 (how many of vectors 1-6 Toniiq could actually deploy)
-- Competitive Gap: 0-3 (how much white space vs. top competitors — 3=clear gap, 0=saturated)
-- Form Factor Fit: 0-2 (capsule fit; 2=natural capsule format, 0=requires capability outside Toniiq)
-- Pricing Headroom: 0-2 (can Toniiq charge $25-45 with healthy margin? 2=yes, 0=commodity floor)
+- vectors_available: 0-5 (how many of vectors 1-6 Toniiq could ACTUALLY deploy)
+- competitive_gap: 0-3 (white space vs top competitors — 3=clear gap, 0=saturated)
+- form_factor_fit: 0-2 (concept's chosen format fits Toniiq's capability — 2=natural capsule/softgel, 0=requires capability outside Toniiq)
+- pricing_headroom: 0-2 (can Toniiq charge $25-45 with healthy margin? 2=clear yes, 0=commodity floor)
 
 Return STRICT JSON:
 {
@@ -677,121 +989,257 @@ Return STRICT JSON:
       role: 'user',
       content: `Concept: "${concept.concept_name}"
 Ingredient: "${ingredientName}"
+Frame: ${frame.frame} (hero=${frame.hero_ingredient}${frame.delivery_modifier ? `, modifier=${frame.delivery_modifier}` : ''})
 Positioning: ${concept.positioning_angle || '(none)'}
 Key ingredients: ${JSON.stringify(concept.key_ingredients || [])}
 Target dosage: ${concept.target_dosage || '(none)'}
 Format: ${concept.format || '(none)'}
 
-Competitive context:
-- Total competitors: ${amazonResult.totalCompetitors}
-- Median price: $${amazonResult.medianPrice}
-- Premium tier count: ${amazonResult.premiumTierCount}
-- Brand concentration: ${amazonResult.brandConcentration}
-- Top competitors: ${JSON.stringify(amazonResult.topProducts.slice(0, 5).map(p => ({ brand: p.brand, title: p.title, price: p.price })))}`,
+Competitive context (Keepa-enriched, ${included.length} included competitors):
+- Price p50: $${enrichment.price_p50 ?? 'n/a'}
+- Review p50: ${enrichment.review_p50?.toLocaleString() ?? 'n/a'} / p90: ${enrichment.review_p90?.toLocaleString() ?? 'n/a'} / max: ${enrichment.review_max?.toLocaleString() ?? 'n/a'}
+- Best BSR: ${enrichment.bsr_best ?? 'n/a'}
+- Distinct brands top-20: ${enrichment.distinct_brands ?? 'n/a'}
+
+Top 8 included competitors:
+${JSON.stringify(topCompetitors, null, 1)}`,
     }],
   })
   const text = extractText(r)
+  let parsed: any
   try {
-    const parsed = extractJson(text)
-    const total = (parsed.vectors_available || 0) + (parsed.competitive_gap || 0) + (parsed.form_factor_fit || 0) + (parsed.pricing_headroom || 0)
-    return {
-      vectorsAvailable: parsed.vectors_available || 0,
-      competitiveGap: parsed.competitive_gap || 0,
-      formFactorFit: parsed.form_factor_fit || 0,
-      pricingHeadroom: parsed.pricing_headroom || 0,
-      diffTotal: total,
-      vectorDetails: parsed.vector_details || {},
-      reasoning: parsed.reasoning || '',
-    }
+    parsed = extractJson(text)
   } catch (e) {
-    return { vectorsAvailable: 0, competitiveGap: 0, formFactorFit: 0, pricingHeadroom: 0, diffTotal: 0, vectorDetails: {}, reasoning: `parse error: ${(e as Error).message}` }
+    return {
+      score: 0, vectors_available: 0, competitive_gap: 0, form_factor_fit: 0, pricing_headroom: 0,
+      vector_total: 0, vector_details: {}, reasoning: `parse_error: ${(e as Error).message}`,
+    }
+  }
+  const vectors_available = Math.max(0, Math.min(5, n(parsed.vectors_available)))
+  const competitive_gap = Math.max(0, Math.min(3, n(parsed.competitive_gap)))
+  const form_factor_fit = Math.max(0, Math.min(2, n(parsed.form_factor_fit)))
+  const pricing_headroom = Math.max(0, Math.min(2, n(parsed.pricing_headroom)))
+  const total = vectors_available + competitive_gap + form_factor_fit + pricing_headroom  // 0-12
+  const score = Number(((total / 12) * 10).toFixed(2))  // 0-10
+  return {
+    score, vectors_available, competitive_gap, form_factor_fit, pricing_headroom,
+    vector_total: total, vector_details: parsed.vector_details || {},
+    reasoning: String(parsed.reasoning || '').slice(0, 500),
   }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// MODULE B5: COMPOSITE SCORING
+// STEP 6: COMPETITION GATE
 // ═══════════════════════════════════════════════════════════════════════
 
-function computeComposite({ amazon, tiktok, trends, diff }: any) {
-  // Pillar 1: Market Size (20%) — derived from total_competitors + total_plays + premium tier
-  // High competitor count + premium tier presence = larger market
-  let marketSize = 5
-  if (amazon.totalCompetitors >= 100) marketSize = 9
-  else if (amazon.totalCompetitors >= 50) marketSize = 8
-  else if (amazon.totalCompetitors >= 20) marketSize = 6
-  else if (amazon.totalCompetitors >= 10) marketSize = 4
-  else marketSize = 2
-  if (tiktok.totalPlays >= 1_000_000) marketSize = Math.min(10, marketSize + 1)
+interface CompetitionGateResult {
+  composite_cap: number
+  tier_cap: RecommendationTier
+  caps_applied: string[]
+}
 
-  // Pillar 2: Rev/Review Ratio (30%) — higher ratio = emerging market with less moat
-  // Use median price × monthly_sales / median_reviews as a proxy
-  const medianRevenue = amazon.medianPrice * (amazon.topProducts[7]?.monthly_sales || 0)
-  const ratio = amazon.medianReviews > 0 ? medianRevenue / amazon.medianReviews : 0
-  let revReview = 5
-  if (ratio >= 50) revReview = 10
-  else if (ratio >= 30) revReview = 8
-  else if (ratio >= 15) revReview = 7
-  else if (ratio >= 8) revReview = 6
-  else if (ratio >= 3) revReview = 5
-  else revReview = 3
+function applyCompetitionGate(
+  competitivePillar: PillarResult,
+  frame: HybridFrame,
+  included: HybridProduct[],
+  concept: any,
+): CompetitionGateResult {
+  const subs: any = competitivePillar.subsignals || {}
+  let cap = 100
+  let tierCap: RecommendationTier = 'launch_priority'
+  const caps_applied: string[] = []
 
-  // Pillar 3: Category Growth (20%) — straight from Google Trends + TikTok signal
-  const categoryGrowth = trends.googleTrendsScore || 5
+  const setCap = (compositeCap: number, newTierCap: RecommendationTier, reason: string) => {
+    cap = Math.min(cap, compositeCap)
+    if (TIER_ORDER[newTierCap] < TIER_ORDER[tierCap]) tierCap = newTierCap
+    caps_applied.push(reason)
+  }
 
-  // Pillar 4: Differentiation (30%) — diff_total / 12 normalized to 0-10
-  const differentiation = Math.round((diff.diffTotal / 12) * 10)
+  // Convert pillar caps (0-10) into composite caps using the 35% weight
+  // Cap pillar at 5 means worst-case competitive contribution = 5 * 10 * 0.35 = 17.5
+  // The other pillars max contribute 65, so overall composite capped at 65 + 17.5 = 82.5.
+  // We translate "cap pillar at 5" to "cap composite at 80" for cleaner UI numbers.
+  const PILLAR_CAP_TO_COMPOSITE: Record<number, number> = { 5: 78, 6: 82 }
 
-  const composite = (marketSize * 0.20 + revReview * 0.30 + categoryGrowth * 0.20 + differentiation * 0.30) * 10
+  if ((subs.review_moat?.score ?? 10) <= 2) {
+    setCap(PILLAR_CAP_TO_COMPOSITE[5], 'strong_candidate', 'review_moat_at_or_below_2_caps_pillar_at_5')
+  }
+  if ((subs.spec_wedge?.score ?? 10) <= 2) {
+    setCap(PILLAR_CAP_TO_COMPOSITE[5], 'strong_candidate', 'spec_wedge_at_or_below_2_caps_pillar_at_5')
+  }
+  const bestBsr = subs.bsr_concentration?.best_bsr ?? 999_999_999
+  if (bestBsr > 0 && bestBsr <= 200) {
+    setCap(PILLAR_CAP_TO_COMPOSITE[6], 'strong_candidate', `dominant_top_bsr_${bestBsr}_caps_pillar_at_6`)
+  }
+  const conceptPrice = parsePlannedPrice(concept)
+  const premium = subs.premium_tier_viability?.score ?? 10
+  if (premium <= 2 && conceptPrice && conceptPrice >= 25) {
+    setCap(PILLAR_CAP_TO_COMPOSITE[5], 'strong_candidate', `premium_tier_weak_${premium}_with_planned_price_${conceptPrice}_caps_pillar_at_5`)
+  }
+  if (frame.frame === 'strict_modifier' && included.length < 3) {
+    if (TIER_ORDER.strong_candidate < TIER_ORDER[tierCap]) tierCap = 'strong_candidate'
+    caps_applied.push(`strict_modifier_with_${included.length}_included_caps_tier_at_strong_candidate`)
+  }
 
-  // Tier
-  let tier = 'pass'
-  if (composite >= 80) tier = 'launch_priority'
-  else if (composite >= 65) tier = 'strong_candidate'
-  else if (composite >= 50) tier = 'needs_work'
+  return { composite_cap: cap, tier_cap: tierCap, caps_applied }
+}
 
-  // Auto-kill at diff <= 3
-  const autoKill = diff.diffTotal <= 3
-  if (autoKill) tier = 'pass'
+function parsePlannedPrice(concept: any): number | null {
+  const fields = [concept.target_price, concept.planned_price, concept.positioning_angle]
+  for (const f of fields) {
+    if (!f) continue
+    const m = String(f).match(/\$\s*(\d{1,3}(?:\.\d{1,2})?)/)
+    if (m) return parseFloat(m[1])
+  }
+  return null
+}
 
-  const opportunitySignals: string[] = []
-  if (marketSize >= 8) opportunitySignals.push(`Large addressable market (${amazon.totalCompetitors} competitors, ${(tiktok.totalPlays / 1e6).toFixed(1)}M TikTok plays)`)
-  if (revReview >= 8) opportunitySignals.push(`High revenue-per-review ratio — market is monetizing efficiently with limited review moats`)
-  if (categoryGrowth >= 7) opportunitySignals.push(`Category trending — Google Trends ${trends.trendDirection || 'rising'}`)
-  if (differentiation >= 8) opportunitySignals.push(`Strong differentiation room — ${diff.vectorsAvailable}/5 vectors available, ${diff.competitiveGap}/3 competitive gap`)
+// ═══════════════════════════════════════════════════════════════════════
+// HELPERS: TIERING, MESSAGING, PERSISTENCE
+// ═══════════════════════════════════════════════════════════════════════
 
-  const riskFactors: string[] = []
-  if (amazon.productsWith10kReviews >= 5) riskFactors.push(`Review moats: ${amazon.productsWith10kReviews} products with 10K+ reviews`)
-  if (amazon.brandConcentration?.toLowerCase().includes('consolidated')) riskFactors.push(`Consolidated market — top 3 brands dominate`)
-  if (categoryGrowth <= 4) riskFactors.push(`Category may be flat or declining`)
-  if (autoKill) riskFactors.push(`AUTO-KILL: differentiation total ${diff.diffTotal}/12 — below threshold`)
+function labelForScore(score: number): RecommendationTier {
+  if (score >= 80) return 'launch_priority'
+  if (score >= 65) return 'strong_candidate'
+  if (score >= 50) return 'watchlist'
+  if (score >= 35) return 'needs_work'
+  return 'pass'
+}
 
-  const nextSteps: string[] = []
+function capTier(label: RecommendationTier, maxLabel: RecommendationTier): RecommendationTier {
+  return TIER_ORDER[label] <= TIER_ORDER[maxLabel] ? label : maxLabel
+}
+
+function buildAssessment(
+  frame: HybridFrame, composite: number, tier: RecommendationTier,
+  d: PillarResult, g: PillarResult, c: PillarResult, df: PillarResult,
+  gate: CompetitionGateResult,
+): string {
+  const capsNote = gate.caps_applied.length ? ` Competition gate: ${gate.caps_applied.join('; ')}.` : ''
+  return `Composite ${composite.toFixed(1)}/100 → ${tier} (${frame.frame}, hero=${frame.hero_ingredient}${frame.delivery_modifier ? `+${frame.delivery_modifier}` : ''}). Pillars: demand ${d.score.toFixed(1)} / growth ${g.score.toFixed(1)} / competitive ${c.score.toFixed(1)} / differentiation ${df.score.toFixed(1)}.${capsNote}`
+}
+
+function buildOpportunitySignals(d: PillarResult, g: PillarResult, c: PillarResult, df: PillarResult): string[] {
+  const out: string[] = []
+  if (d.score >= 7) out.push(`Strong demand pillar (${d.score.toFixed(1)}/10) — primary keyword ${d.details?.primary_clicks?.toLocaleString() || '?'} monthly clicks at ${d.details?.weighted_conversion_pct || '?'}% conversion`)
+  if (g.score >= 7) out.push(`Growth ${g.details?.trajectory_shape || ''}: 3m ${g.details?.growth_3m_pct ?? '?'}%, 6m ${g.details?.growth_6m_pct ?? '?'}%, 12m ${g.details?.growth_12m_pct ?? '?'}%`)
+  if ((c.subsignals?.review_moat?.score ?? 0) >= 7) out.push('Review moat is low — top competitors are not entrenched')
+  if ((c.subsignals?.spec_wedge?.score ?? 0) >= 7) out.push('Spec wedge available — concept dose exceeds top-10 competitors')
+  if ((c.subsignals?.premium_tier_viability?.score ?? 0) >= 7) out.push('Premium tier is viable — multiple top-20 products at ≥$25 with strong ratings')
+  if (df.score >= 7) out.push(`Differentiation ${df.score.toFixed(1)}/10 — ${(df as any).vectors_available || '?'}/5 vectors available, ${(df as any).competitive_gap || '?'}/3 gap`)
+  return out
+}
+
+function buildRiskFactors(d: PillarResult, g: PillarResult, c: PillarResult, gate: CompetitionGateResult): string[] {
+  const out: string[] = []
+  if (d.score <= 4) out.push(`Demand pillar weak (${d.score.toFixed(1)}/10) — primary keyword volume or conversion is below thresholds`)
+  if (g.score <= 3) out.push(`Growth pillar weak (${g.score.toFixed(1)}/10) — trajectory ${g.details?.trajectory_shape || 'declining/flat'}`)
+  if ((c.subsignals?.review_moat?.score ?? 10) <= 3) out.push(`Heavy review moat — p50 ${c.subsignals?.review_moat?.review_p50?.toLocaleString() || '?'}, max ${c.subsignals?.review_moat?.review_max?.toLocaleString() || '?'}`)
+  if ((c.subsignals?.brand_concentration?.score ?? 10) <= 3) out.push(`Brand consolidation — top brand controls ${((c.subsignals?.brand_concentration?.top_brand_share || 0) * 100).toFixed(0)}% of top-20`)
+  if ((c.subsignals?.bsr_concentration?.best_bsr || 0) > 0 && (c.subsignals?.bsr_concentration?.best_bsr || 0) <= 500) out.push(`Top competitor at BSR ${c.subsignals.bsr_concentration.best_bsr.toLocaleString()} — locked-up leader`)
+  if (gate.caps_applied.length) out.push(`Competition gate caps: ${gate.caps_applied.join('; ')}`)
+  return out
+}
+
+function buildNextSteps(tier: RecommendationTier): string[] {
   if (tier === 'launch_priority') {
-    nextSteps.push('Fast-track to formulation + costing')
-    nextSteps.push('Source supplier quotes for branded ingredient form (if applicable)')
-    nextSteps.push('Begin product brief draft')
-  } else if (tier === 'strong_candidate') {
-    nextSteps.push('Address top 1-2 risk factors before greenlight')
-    nextSteps.push('Validate primary differentiation vector with sample sourcing')
-  } else if (tier === 'needs_work') {
-    nextSteps.push('Refine concept positioning to address differentiation gaps')
-    nextSteps.push('Consider alternative angle or pair with stronger concept')
-  } else {
-    nextSteps.push('Pass — return to ideation if positioning shifts')
+    return [
+      'Fast-track to formulation + costing',
+      'Source supplier quotes for hero ingredient',
+      'Begin product brief draft (use _Skills/product-brief)',
+    ]
   }
+  if (tier === 'strong_candidate') {
+    return [
+      'Address top 1-2 risk factors before greenlight',
+      'Validate primary differentiation vector with sample sourcing',
+      'Refine positioning vs review-moat leaders',
+    ]
+  }
+  if (tier === 'watchlist') {
+    return [
+      'Park unless a sharper angle emerges',
+      'Re-score in 90 days if growth trajectory improves',
+    ]
+  }
+  if (tier === 'needs_work') {
+    return [
+      'Refine concept positioning to address differentiation gaps',
+      'Consider alternative angle or pair with stronger concept',
+    ]
+  }
+  return ['Pass — return to ideation if positioning shifts']
+}
 
-  return {
-    compositeScore: Number(composite.toFixed(1)),
-    weights: {
-      market_size: { score: marketSize, weight: 0.20, description: `${amazon.totalCompetitors} competitors; ${amazon.premiumTierCount} in premium tier; TikTok ${(tiktok.totalPlays / 1e6).toFixed(1)}M plays` },
-      rev_review_ratio: { score: revReview, weight: 0.30, description: `Ratio ${ratio.toFixed(1)} (median revenue $${medianRevenue.toFixed(0)} / median reviews ${amazon.medianReviews})` },
-      category_growth: { score: categoryGrowth, weight: 0.20, description: `${trends.trendDirection || 'unknown'}; YoY ${trends.yoyGrowthPct ?? '?'}%` },
-      differentiation_potential: { score: differentiation, weight: 0.30, description: `${diff.diffTotal}/12 (vectors ${diff.vectorsAvailable}/5, gap ${diff.competitiveGap}/3, form ${diff.formFactorFit}/2, pricing ${diff.pricingHeadroom}/2)` },
-    },
-    tier,
-    overallAssessment: `Composite ${composite.toFixed(1)}/100 → ${tier}. ${opportunitySignals[0] || ''} ${riskFactors[0] || ''}`.trim(),
-    opportunitySignals,
-    riskFactors,
-    nextSteps,
-  }
+async function loadKeepaKey(sb: any): Promise<string> {
+  const envKey = Deno.env.get('KEEPA_API_KEY')
+  if (envKey) return envKey
+  const { data, error } = await sb.from('system_config').select('value').eq('key', 'keepa_api_key').maybeSingle()
+  if (error) throw new Error(`keepa_api_key lookup failed: ${error.message}`)
+  if (!data?.value) throw new Error('KEEPA_API_KEY env or keepa_api_key system_config value required')
+  return data.value
+}
+
+async function writeCompetitiveResearch(
+  sb: any, conceptId: string, frame: HybridFrame, demand: DemandPacket,
+  enrichment: HybridAggregate, auditProducts: HybridProduct[],
+) {
+  const included = auditProducts.filter(p => p.bucket === 'included')
+  const top15 = included.slice(0, 15).map(p => ({
+    asin: p.asin, brand: p.brand, title: p.title, price: p.price, rating: p.rating,
+    reviews: p.reviews, monthly_sold: p.monthly_sold, bsr_current: p.bsr_current,
+    bsr_avg30: p.bsr_avg30, lane_fit: p.lane_fit, amazon_url: p.amazon_url || `https://www.amazon.com/dp/${p.asin}`,
+  }))
+  const prices = included.map(p => p.price || 0).filter(v => v > 0).sort((a, b) => a - b)
+  const reviews = included.map(p => p.reviews).filter(v => v > 0).sort((a, b) => a - b)
+  await sb.from('concept_competitive_research').insert({
+    concept_id: conceptId,
+    search_queries: frame.query_packet,
+    search_date: new Date().toISOString().slice(0, 10),
+    top_products: top15,
+    total_competitors: included.length,
+    median_price: enrichment.price_p50,
+    price_range_low: prices[0] || null,
+    price_range_high: prices[prices.length - 1] || null,
+    median_reviews: enrichment.review_p50,
+    max_reviews: enrichment.review_max,
+    avg_rating: enrichment.rating_p50,
+    products_with_10k_reviews: included.filter(p => p.reviews >= 10_000).length,
+    premium_tier_count: included.filter(p => (p.price || 0) >= (enrichment.price_p50 || 0) * 1.5).length,
+    pricing_tiers: null,  // Detailed tiering deferred to UI / on-demand analysis
+    direct_competitors: included.slice(0, 10).map(p => ({ brand: p.brand, title: p.title.slice(0, 120), price: p.price, reviews: p.reviews })),
+    positioning_gaps: [],  // v5 moved this into pillar_competitive_subsignals.spec_wedge / brand_concentration
+    brand_concentration: `${enrichment.distinct_brands || 0} distinct brands in top results`,
+    review_moats: `p50 ${enrichment.review_p50?.toLocaleString() || '?'}; max ${enrichment.review_max?.toLocaleString() || '?'}`,
+    differentiation_assessment: 'See concept_scores.pillar_diff_score and pillar_competitive_subsignals for v5 detail.',
+    price_positioning: enrichment.price_p50 ? `Median competitor at $${enrichment.price_p50.toFixed(2)}` : 'insufficient price data',
+    competition_score: null,  // legacy column; v5 uses pillar_competitive_score
+    opportunity_score: null,  // legacy column; v5 uses composite_score
+    overall_assessment: `v5 hybrid: ${included.length} included / ${(enrichment.result_quality as any)?.adjacent_count || 0} adjacent / ${(enrichment.result_quality as any)?.excluded_count || 0} excluded; ${enrichment.monthly_sold_coverage} with monthly_sold badge`,
+    opportunity_signals: [],
+    risk_factors: [],
+    listing_quality_assessment: 'See concept_scores for v5 audit.',
+    premium_tier_analysis: 'See pillar_competitive_subsignals.premium_tier_viability.',
+    researched_at: new Date().toISOString(),
+  })
+}
+
+async function writeGoogleTrendsStub(sb: any, conceptId: string, demand: DemandPacket, growth: PillarResult) {
+  // Preserves the FK / row for legacy UI; growth pillar truth now lives in concept_scores.
+  await sb.from('concept_google_trends').insert({
+    concept_id: conceptId,
+    search_terms: demand.queries.slice(0, 5),
+    time_range: 'last_12_months',
+    geo: 'US',
+    interest_over_time: { note: 'v5: growth pillar uses Datarova clicks over 12 months; see concept_scores.pillar_growth_details for window breakdown.' },
+    related_queries: {},
+    yoy_growth_pct: demand.growth_12m_pct,
+    trend_direction: growth.details?.trajectory_shape || 'unknown',
+    google_trends_score: Math.round(growth.score),
+    key_signals: [],
+    cross_platform_validation: '',
+    overall_assessment: `v5 stub. Growth derived from Datarova ${demand.queries.length}-keyword packet.`,
+    data_source: 'datarova_via_phase_b_v5',
+    researched_at: new Date().toISOString(),
+  })
 }
