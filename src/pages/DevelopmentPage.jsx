@@ -140,6 +140,8 @@ export default function DevelopmentPage() {
   const [draftPatch, setDraftPatch] = useState({})
   const [formError, setFormError] = useState('')
   const [saving, setSaving] = useState(false)
+  const [reordering, setReordering] = useState(false)
+  const [draggingId, setDraggingId] = useState(null)
   const [copiedId, setCopiedId] = useState(null)
 
   useEffect(() => {
@@ -223,6 +225,7 @@ export default function DevelopmentPage() {
   const benchCount = counts['Greenlight Bench'] || 0
   const activeStatus = activeCount > 13 ? 'over-cap' : activeCount > 10 ? 'above-target' : activeCount < 8 ? 'below-target' : 'healthy'
   const benchStatus = benchCount > 3 ? 'over-cap' : 'healthy'
+  const reorderDisabled = Boolean(search.trim()) || reordering
 
   function openProduct(productId) {
     setSelectedId(productId)
@@ -241,6 +244,70 @@ export default function DevelopmentPage() {
     await navigator.clipboard.writeText(prompt)
     setCopiedId(product.id)
     setTimeout(() => setCopiedId(null), 1600)
+  }
+
+  async function saveQueueOrder(nextRows) {
+    const normalized = nextRows.map((product, index) => ({ ...product, sort_order: index + 1 }))
+    setReordering(true)
+
+    const results = await Promise.all(
+      normalized.map(product => supabase
+        .from('npd_registry_products')
+        .update({ sort_order: product.sort_order })
+        .eq('id', product.id)
+        .select()
+        .single()
+      )
+    )
+
+    const failed = results.find(result => result.error)
+    if (failed) {
+      alert(failed.error.message)
+      setReordering(false)
+      return
+    }
+
+    const updatedById = new Map(results.map(result => [result.data.id, result.data]))
+    setProducts(prev => prev.map(product => updatedById.get(product.id) || product))
+    setDraftPatch(prev => {
+      if (!selected || !updatedById.has(selected.id) || prev.sort_order === undefined) return prev
+      const next = { ...prev }
+      delete next.sort_order
+      return next
+    })
+    setReordering(false)
+  }
+
+  async function moveProductInQueue(productId, direction) {
+    if (search.trim() || reordering) return
+    const currentIndex = queueProducts.findIndex(product => product.id === productId)
+    const nextIndex = currentIndex + direction
+    if (currentIndex < 0 || nextIndex < 0 || nextIndex >= queueProducts.length) return
+
+    const nextRows = [...queueProducts]
+    const [moved] = nextRows.splice(currentIndex, 1)
+    nextRows.splice(nextIndex, 0, moved)
+    await saveQueueOrder(nextRows)
+  }
+
+  async function dropProductInQueue(targetId) {
+    if (search.trim() || reordering || !draggingId || draggingId === targetId) {
+      setDraggingId(null)
+      return
+    }
+
+    const currentIndex = queueProducts.findIndex(product => product.id === draggingId)
+    const nextIndex = queueProducts.findIndex(product => product.id === targetId)
+    if (currentIndex < 0 || nextIndex < 0) {
+      setDraggingId(null)
+      return
+    }
+
+    const nextRows = [...queueProducts]
+    const [moved] = nextRows.splice(currentIndex, 1)
+    nextRows.splice(nextIndex, 0, moved)
+    setDraggingId(null)
+    await saveQueueOrder(nextRows)
   }
 
   async function saveDraft() {
@@ -379,10 +446,22 @@ export default function DevelopmentPage() {
                     key={product.id}
                     product={product}
                     selected={product.id === selectedId}
+                    dragging={draggingId === product.id}
                     copied={copiedId === product.id}
+                    reorderDisabled={reorderDisabled}
+                    canMoveUp={queueProducts[0]?.id !== product.id}
+                    canMoveDown={queueProducts[queueProducts.length - 1]?.id !== product.id}
                     onOpen={() => openProduct(product.id)}
                     onCopy={() => copyPrompt(product)}
                     onMove={queue => requestMove(product, queue)}
+                    onMoveUp={() => moveProductInQueue(product.id, -1)}
+                    onMoveDown={() => moveProductInQueue(product.id, 1)}
+                    onDragStart={() => !reorderDisabled && setDraggingId(product.id)}
+                    onDragEnd={() => setDraggingId(null)}
+                    onDragOver={event => {
+                      if (!reorderDisabled && draggingId && draggingId !== product.id) event.preventDefault()
+                    }}
+                    onDrop={() => dropProductInQueue(product.id)}
                   />
                 ))}
               </div>
@@ -438,7 +517,24 @@ function QueueSummary({ queue, count, search }) {
   )
 }
 
-function ProductRow({ product, selected, copied, onOpen, onCopy, onMove }) {
+function ProductRow({
+  product,
+  selected,
+  dragging,
+  copied,
+  reorderDisabled,
+  canMoveUp,
+  canMoveDown,
+  onOpen,
+  onCopy,
+  onMove,
+  onMoveUp,
+  onMoveDown,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
+  onDrop,
+}) {
   const staleDays = daysSince(product.last_updated)
   const isStale = product.queue === 'Active Development' && staleDays >= 14
   const priorityStyle = badgeStyle(PRIORITY_STYLES, product.priority)
@@ -447,8 +543,17 @@ function ProductRow({ product, selected, copied, onOpen, onCopy, onMove }) {
 
   return (
     <div
+      draggable={!reorderDisabled}
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
       className="px-4 py-4 transition-colors"
-      style={{ background: selected ? 'var(--bg-hover)' : 'transparent' }}
+      style={{
+        background: selected ? 'var(--bg-hover)' : 'transparent',
+        cursor: reorderDisabled ? 'default' : 'grab',
+        opacity: dragging ? 0.55 : 1,
+      }}
     >
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <button onClick={onOpen} className="min-w-0 flex-1 text-left">
@@ -469,6 +574,24 @@ function ProductRow({ product, selected, copied, onOpen, onCopy, onMove }) {
         </button>
 
         <div className="flex shrink-0 flex-wrap gap-1.5">
+          <div className="flex gap-1">
+            <button
+              onClick={onMoveUp}
+              disabled={reorderDisabled || !canMoveUp}
+              title={reorderDisabled ? 'Clear search to reorder' : 'Move up'}
+              className="t-btn-ghost flex h-7 w-7 items-center justify-center p-0 text-xs"
+            >
+              ↑
+            </button>
+            <button
+              onClick={onMoveDown}
+              disabled={reorderDisabled || !canMoveDown}
+              title={reorderDisabled ? 'Clear search to reorder' : 'Move down'}
+              className="t-btn-ghost flex h-7 w-7 items-center justify-center p-0 text-xs"
+            >
+              ↓
+            </button>
+          </div>
           <button onClick={onOpen} className="t-btn-ghost px-2.5 py-1 text-[11px]">Open</button>
           <QueueMoveButton currentQueue={product.queue} onMove={onMove} />
           <button onClick={onCopy} className="t-btn-ghost px-2.5 py-1 text-[11px]">{copied ? 'Copied' : 'Work on this'}</button>
