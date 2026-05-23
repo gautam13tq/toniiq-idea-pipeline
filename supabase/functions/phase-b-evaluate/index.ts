@@ -1,7 +1,20 @@
 /**
- * phase-b-evaluate v5 — hybrid competitive scoring for an accepted concept.
+ * phase-b-evaluate v5.1 — hybrid competitive scoring for an accepted concept.
  *
- * Pipeline (~120-180s end-to-end):
+ * v5.1 (2026-05-23) corrections over v5 first-ship:
+ *   - Differentiation pillar redesigned to "vectors-available": score the
+ *     NICHE's room for Toniiq's 6 playbook vectors, NOT the concept's
+ *     placeholder spec. (v5 first-ship scored against concept.target_dosage
+ *     etc., which at evaluation stage is just a sketch.)
+ *   - INGREDIENT_SPEC_PRIMER inline in the differentiation prompt to prevent
+ *     the "500mg cayenne = 500mg capsaicin" lethal-dose hallucination class.
+ *   - Differentiation model: Sonnet (was briefly Opus during v5.1 build,
+ *     but Opus pushed total runtime past the 6.67-min edge-function limit).
+ *   - Database dispatcher (_invoke_phase_b_evaluate) now sends an
+ *     Authorization header from the supabase_anon_jwt vault secret. Without
+ *     it, verify_jwt=true caused every dispatched call to 401 immediately.
+ *
+ * Pipeline (~90s end-to-end on Sonnet):
  *   1. Frame inference (Sonnet) — pick broad_hero vs strict_modifier, hero
  *      ingredient, delivery modifier (if any), 4-8 buyer-style queries.
  *   2. Datarova demand packet — 12-month keyword market for the query packet
@@ -16,14 +29,15 @@
  *          OR < 80% have Keepa data → quality_gate_status=failed_competitive
  *   5. Pillar scores —
  *        - Market Demand & Intent (20%)
- *        - Market Growth (15%) with per-window breakdown
+ *        - Market Growth (15%) with per-window breakdown (3m/6m/12m, 40/30/30)
  *        - Competitive Landscape (35%) — weighted sum of 7 sub-signals
- *        - Toniiq Differentiation (30%) — Opus on classified competitor set
+ *        - Toniiq Differentiation (30%) — Sonnet over the 6 vectors-available,
+ *          scoring the niche's room (not the concept's spec)
  *   6. Competition gate — caps composite/tier when review-moat, spec-wedge,
  *      BSR, premium-tier, or strict_modifier counts are weak.
  *   7. Persist concept_scores with composite + all pillar breakdowns + frame +
- *      data quality summary. Only AFTER successful insert and verification read-back
- *      do we set concept.status = 'evaluated'.
+ *      data quality summary + diff_vector_details. Only AFTER successful insert
+ *      and verification read-back do we set concept.status = 'evaluated'.
  *
  * DATA INTEGRITY: every numeric score traces to a real Apify run, Keepa
  * /product call, or Datarova response. The quality gate is the explicit
@@ -972,8 +986,12 @@ async function runDifferentiation(
 - When extracting "competitor dose" from a title, capture the WHOLE EXTRACT dose (the prominent number), not a guess at active marker.
 - When comparing potency, compare apples to apples: extract-to-extract OR standardized-active-to-standardized-active.`
 
+  // SONNET (not OPUS): the 6-vector differentiation eval is well-structured and
+  // Sonnet handles it reliably. OPUS pushed total Phase B runtime past the
+  // 6.67-min Supabase edge function limit (caused 11+ min reaper kills on the
+  // 2026-05-23 v5.1 verification runs).
   const r = await anthropicCall(apiKey, {
-    model: OPUS,
+    model: SONNET,
     max_tokens: 2500,
     system: `You are a niche differentiation strategist for Toniiq. Your job is to evaluate whether a given competitive niche has ROOM for Toniiq's differentiation playbook to win — independent of the specific concept's placeholder spec.
 
