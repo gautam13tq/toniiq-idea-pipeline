@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts'
 import PipelineBreadcrumb from '../components/PipelineBreadcrumb'
+import V5ScoringPanel from '../components/V5ScoringPanel'
 
 /* ═══════════════════════════════════════════════════════════
    SHARED UTILITY COMPONENTS
@@ -334,14 +335,16 @@ function extractBrand(title) {
 }
 
 // Calculate revenue-to-reviews ratio for a set of products
+// v5.1 fix: read monthly_sold (the field name v5 hybrid_scoring writes) first.
+// Fall back to legacy field names for pre-v5 rows.
 function calcRevReviewMetrics(products) {
   if (!products || products.length === 0) return null
   const withRevenue = products.map(p => {
     const price = parseFloat(p.price) || 0
-    const sales = p.monthly_sales || p.salesVolume || 0
+    const sales = p.monthly_sold || p.monthly_sales || p.salesVolume || 0
     const reviews = p.reviews || p.countReview || 0
     const revenue = price * sales
-    return { ...p, revenue, reviews: reviews, revPerReview: reviews > 0 ? revenue / reviews : 0 }
+    return { ...p, monthly_sold: sales, revenue, reviews: reviews, revPerReview: reviews > 0 ? revenue / reviews : 0 }
   })
   const top3 = withRevenue.slice(0, 3)
   const top10 = withRevenue.slice(0, 10)
@@ -461,7 +464,7 @@ function CompetitiveResearchPanel({ data }) {
                         )}
                       </td>
                       <td className="py-2 px-2 text-right" style={{ color: 'var(--text-body)' }}>${parseFloat(p.price || 0).toFixed(2)}</td>
-                      <td className="py-2 px-2 text-right font-medium" style={{ color: 'var(--green-text)' }}>{formatNumber(p.monthly_sales || p.salesVolume)}</td>
+                      <td className="py-2 px-2 text-right font-medium" style={{ color: 'var(--green-text)' }}>{formatNumber(p.monthly_sold || p.monthly_sales || p.salesVolume)}</td>
                       <td className="py-2 px-2 text-right" style={{ color: 'var(--green)' }}>${formatNumber(p.revenue)}</td>
                       <td className="py-2 px-2 text-right" style={{ color: 'var(--text-muted)' }}>{formatNumber(p.reviews)}</td>
                       <td className={`py-2 px-2 text-right font-medium`} style={{ color: p.revPerReview >= 100 ? 'var(--green-text)' : p.revPerReview >= 50 ? 'var(--amber-text)' : 'var(--red-text)' }}>
@@ -1436,23 +1439,34 @@ export default function ConceptDetailPage() {
         {/* ── EVALUATION TAB (Phase B) ── */}
         {activeTab === 'evaluation' && hasPhaseB && (
           <div className="space-y-6">
-            {/* Composite Score Hero */}
-            <CompositeScoreHero scores={conceptScores} />
+            {/* v5.1 Scoring Breakdown — transparent pillar + sub-signal view.
+                Renders only if competitive_frame is populated (v5 row). Legacy
+                CompositeScoreHero renders for older pre-v5 evaluations. */}
+            <V5ScoringPanel scores={conceptScores} />
 
-            {/* Amazon Competitive — full width (most important section) */}
+            {/* Legacy composite hero — kept for pre-v5 concepts.
+                v5 rows show V5ScoringPanel above instead. */}
+            {!conceptScores?.competitive_frame && <CompositeScoreHero scores={conceptScores} />}
+
+            {/* Amazon Competitive — competitor table with real Keepa-enriched data.
+                Now reads monthly_sold (v5 field) correctly. */}
             <div className="grid grid-cols-2 gap-6">
               <CompetitiveResearchPanel data={competitiveResearch} />
             </div>
 
-            {/* Other dimension panels in 2-col grid */}
+            {/* Google Trends — fed into Growth pillar in v5 but kept as its
+                own panel for the raw trajectory view. TikTok dropped in v5.1. */}
             <div className="grid grid-cols-2 gap-6">
-              <TikTokResearchPanel data={tiktokResearch} />
               <GoogleTrendsPanel data={googleTrends} />
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              <DifferentiationPanel scores={conceptScores} />
-            </div>
+            {/* Differentiation legacy panel — only shows when v5 panel isn't
+                present (otherwise duplicates the diff pillar). */}
+            {!conceptScores?.competitive_frame && (
+              <div className="grid grid-cols-2 gap-6">
+                <DifferentiationPanel scores={conceptScores} />
+              </div>
+            )}
 
             {/* Next Steps */}
             <NextStepsPanel scores={conceptScores} />

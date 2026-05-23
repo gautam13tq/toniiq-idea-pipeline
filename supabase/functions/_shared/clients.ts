@@ -285,12 +285,23 @@ export async function setActionStatus(
   patch: { notes?: string; context_merge?: Record<string, any> } = {}
 ) {
   const updates: Record<string, any> = { status }
-  if (status === 'in_progress') updates.started_at = new Date().toISOString()
-  if (status === 'completed' || status === 'failed' || status === 'cancelled') updates.completed_at = new Date().toISOString()
+  // Fetch current row so we can:
+  //   1. Set started_at only on the FIRST transition to in_progress (not on every
+  //      context-merge call — used to overwrite started_at every step of the run,
+  //      corrupting elapsed-time math).
+  //   2. Clear completed_at when going back to in_progress (re-entry after a
+  //      previous completion / failure — needed for retries).
+  //   3. Merge context server-side without losing prior keys.
+  const { data: cur } = await sb.from('pending_actions').select('started_at, completed_at, context').eq('id', actionId).single()
+  if (status === 'in_progress') {
+    if (!cur?.started_at) updates.started_at = new Date().toISOString()
+    if (cur?.completed_at) updates.completed_at = null
+  }
+  if (status === 'completed' || status === 'failed' || status === 'cancelled') {
+    updates.completed_at = new Date().toISOString()
+  }
   if (patch.notes !== undefined) updates.notes = patch.notes
   if (patch.context_merge) {
-    // Merge into existing context (Supabase-side would need RPC; do client-side merge)
-    const { data: cur } = await sb.from('pending_actions').select('context').eq('id', actionId).single()
     updates.context = { ...(cur?.context || {}), ...patch.context_merge }
   }
   await sb.from('pending_actions').update(updates).eq('id', actionId)

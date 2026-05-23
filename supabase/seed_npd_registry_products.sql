@@ -1,3 +1,23 @@
+update public.npd_registry_products
+set
+  product = 'Benfotiamine Complex',
+  local_folder_path = 'Product Development/Benfotiamine Complex/',
+  registry_anchor = '#benfotiamine-complex'
+where product = 'Neuropathy Support Complex'
+  and not exists (
+    select 1
+    from public.npd_registry_products existing
+    where existing.product = 'Benfotiamine Complex'
+  );
+
+delete from public.npd_registry_products
+where product = 'Neuropathy Support Complex'
+  and exists (
+    select 1
+    from public.npd_registry_products existing
+    where existing.product = 'Benfotiamine Complex'
+  );
+
 with seed as (
   select *
   from jsonb_to_recordset($json$
@@ -24,15 +44,15 @@ with seed as (
   {
     "product": "Iodine Nasal Spray",
     "queue": "Active Development",
-    "state": "Sourcing",
-    "priority": "medium",
+    "state": "R&D",
+    "priority": "high",
     "lv_score": 85,
     "lv_score_note": null,
     "lv_band": "Attack Now",
     "confidence": "Med",
-    "last_updated": "2026-04-13",
-    "today_action": "Await/chase Mimi; resolve BAC vs potassium sorbate, black bottle, bench samples",
-    "decision_needed": "Is nasal-spray execution risk acceptable if Herbally Yours confirms bench samples?",
+    "last_updated": "2026-05-13",
+    "today_action": "Chase Mimi (COA + black bottle quote + KI %); Jason sample eval",
+    "decision_needed": "Is the bench sample acceptable and does the COA confirm Nasomin-equivalent KI %?",
     "blocker_risk": "Sterility/preservative + new format + nasal-spray packaging",
     "reactivation_trigger": null,
     "local_folder_path": "Product Development/Iodine Nasal Spray/",
@@ -41,22 +61,22 @@ with seed as (
     "sort_order": 2
   },
   {
-    "product": "Neuropathy Support Complex",
+    "product": "Benfotiamine Complex",
     "queue": "Active Development",
-    "state": "Spec Complete",
+    "state": "R&D",
     "priority": "medium",
     "lv_score": 84,
     "lv_score_note": null,
     "lv_band": "Attack Now",
     "confidence": "High",
-    "last_updated": "2026-05-11",
-    "today_action": "Await samples from Phytochem (benfotiamine+ALCAR) and Effepharm (PEA)",
-    "decision_needed": "None - sample requests sent",
-    "blocker_risk": "GDrive upload pending (manual)",
+    "last_updated": "2026-05-13",
+    "today_action": "Await samples from Phytochem (benfotiamine+ALCAR) and Effepharm (PEA). Upload costing+strategy to GDrive (manual).",
+    "decision_needed": "None - R&D handoff complete, samples in flight",
+    "blocker_risk": "GDrive binary upload pending (manual)",
     "reactivation_trigger": null,
-    "local_folder_path": "Product Development/Neuropathy Support Complex/",
+    "local_folder_path": "Product Development/Benfotiamine Complex/",
     "concept_id": "ea4264bb-d660-4c53-b55a-d0a203e3f00e",
-    "registry_anchor": "#neuropathy-support-complex",
+    "registry_anchor": "#benfotiamine-complex",
     "sort_order": 3
   },
   {
@@ -68,10 +88,10 @@ with seed as (
     "lv_score_note": null,
     "lv_band": "Selective Hold",
     "confidence": "Med",
-    "last_updated": "2026-04-22",
-    "today_action": "Active R&D / top greenlight candidate: confirm Peptizyme sample status; resolve DRcaps/copacking/doc drift",
-    "decision_needed": "Is 5-in-1 circulatory positioning strong enough for the complexity?",
-    "blocker_risk": "Sample in transit; DRcaps/copacking question; doc drift",
+    "last_updated": "2026-05-17",
+    "today_action": "Confirm Peptizyme sample status; resolve DRcaps/copacking/doc drift; reply to JBSL (NSK-SD Nattokinase) follow-up",
+    "decision_needed": "Does NSK-SD (JBSL) replace/supplement GeneFerm supply for the 10,000 FU anchor?",
+    "blocker_risk": "Sample in transit; DRcaps/copacking question; enzyme supplier validation",
     "reactivation_trigger": null,
     "local_folder_path": "Product Development/Nattokinase Serrapeptase 5in1/",
     "concept_id": "b8dd1a61-525c-483d-8357-d606ae864d37",
@@ -144,8 +164,8 @@ with seed as (
     "lv_score_note": "Phase B complete; Econ/Exec pending",
     "lv_band": "Selective Hold",
     "confidence": "Med",
-    "last_updated": "2026-05-10",
-    "today_action": "Await CDMO replies (Catalent/Sirio/Vitaquest). Then run decide_greenlight pending_action d9c22de8 (economics gate).",
+    "last_updated": "2026-05-17",
+    "today_action": "Await CDMO replies (Catalent/Sirio/Vitaquest). Review HTC Health Gummies brochure + MOQ note as alternate CMO lead. Then run decide_greenlight pending_action d9c22de8 after economics confirm.",
     "decision_needed": "Greenlight decision after CDMO economics are known (MOQ + unit cost + feasibility).",
     "blocker_risk": "CDMO unit economics unknown; form-factor feasibility at 5g/chew still needs CDMO confirmation.",
     "reactivation_trigger": null,
@@ -159,14 +179,14 @@ with seed as (
     "queue": "Active Development",
     "state": "Concept / initial formulation",
     "priority": "high",
-    "lv_score": 71,
-    "lv_score_note": "alt HMB quote pending",
+    "lv_score": 73,
+    "lv_score_note": "samples requested",
     "lv_band": "Needs One Unlock",
     "confidence": "Med",
-    "last_updated": "2026-05-12",
-    "today_action": "Await ECA / EffePharm HMB replies; then draft costing and decide clean 2-active vs D3 version",
-    "decision_needed": "Does HMB sourcing/economics support a true 3g serving?",
-    "blocker_risk": "NNB quoted $22.89/kg Calcium HMB but no U.S. stock; ECA/EffePharm quote, MOQ, lead time, form, and sample availability pending",
+    "last_updated": "2026-05-15",
+    "today_action": "Await NNB tracking + sample; await ECA PureHMB(TM)+iCreatine(TM) tracking, iCreatine(TM) quote/spec, and GAA response; await EffePharm HMB/GAA response; then bench-test and draft costing",
+    "decision_needed": "Does ECA's application-performance advantage justify the higher PureHMB(TM) cost?",
+    "blocker_risk": "2026-05-15 morning check: no new ECA/EffePharm reply; NNB tracking still pending beyond the 2026-05-14 ships early next week confirmation. Canonical concept is Creatine HMB first, for men second.",
     "reactivation_trigger": null,
     "local_folder_path": "Product Development/Creatine HMB for Men/",
     "concept_id": "e01b942e-9f15-4154-85eb-0deb15e183d7",
@@ -334,11 +354,11 @@ with seed as (
     "lv_score_note": null,
     "lv_band": "Park / Reframe",
     "confidence": "Med",
-    "last_updated": "2026-04-14",
-    "today_action": "No active work unless Udae feedback creates a sharper angle",
-    "decision_needed": "Is there a differentiated Amazon wedge beyond nitric oxide/beet commodity?",
-    "blocker_risk": "Parked by Gautam",
-    "reactivation_trigger": "Udae feedback or a sharper nitric-oxide/beet angle changes conviction",
+    "last_updated": "2026-05-12",
+    "today_action": "Initial 200mg nitrate costing built; no active work unless generic red spinach spec or counsel review creates a sharper wedge",
+    "decision_needed": "Can a 200mg standardized nitrate capsule win at premium pricing without blood-pressure disease claims?",
+    "blocker_risk": "Herbochem 20% red spinach spec unconfirmed; Oxystorm/RedNite quote artifacts need re-check; patent/claim risk",
+    "reactivation_trigger": "Generic red spinach spec, counsel review, or a sharper nitrate-capsule wedge changes conviction",
     "local_folder_path": "Product Development/Beet Root Capsules/",
     "concept_id": "791ea46c-6087-446c-9762-93f7636506f6",
     "registry_anchor": "#beet-root-capsules",

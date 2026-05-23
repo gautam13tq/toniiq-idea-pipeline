@@ -932,6 +932,17 @@ interface DiffResult extends PillarResult {
   reasoning: string
 }
 
+// v5.1 — vectors-available redesign.
+// Old behavior: scored against the CONCEPT's specific spec/dose/format/positioning,
+// which are unreliable placeholders at evaluation stage. Produced bogus "concept
+// dose 4" comparisons for Cayenne (likely parsed mg of capsaicin from a hallucinated
+// spec). The concept_scores it produced couldn't be trusted.
+//
+// New behavior: scores the NICHE's differentiation room — "are there vectors
+// available for Toniiq's playbook to attack, given the competitive landscape?"
+// The concept name/ingredient is context for the LLM; scoring is grounded
+// strictly in the Keepa-enriched competitor set. The concept's final spec
+// is decided downstream in R&D — evaluation just answers "is there room?"
 async function runDifferentiation(
   apiKey: string,
   concept: any,
@@ -940,69 +951,88 @@ async function runDifferentiation(
   included: HybridProduct[],
   enrichment: HybridAggregate,
 ): Promise<DiffResult> {
-  // Build a competitive context from included Keepa-enriched products
-  const topCompetitors = included.slice(0, 8).map(p => ({
-    brand: p.brand, title: p.title.slice(0, 160), price: p.price, rating: p.rating,
+  const topCompetitors = included.slice(0, 12).map(p => ({
+    brand: p.brand, title: p.title.slice(0, 200), price: p.price, rating: p.rating,
     reviews: p.reviews, monthly_sold: p.monthly_sold, bsr: p.bsr_current || p.bsr_avg30,
   }))
 
+  // Ingredient-spec primer — guards against extract-vs-active confusion that
+  // produces hallucinations like "500mg capsaicin" (lethal dose) when buyers
+  // actually mean 500mg cayenne extract. Applied to all LLM steps in this run.
+  const INGREDIENT_SPEC_PRIMER = `INGREDIENT SPEC CONVENTIONS — READ CAREFULLY:
+- Listed dose on a supplement label almost always refers to the WHOLE EXTRACT or PLANT MATERIAL, not the active marker.
+- Examples of common extract-vs-active confusion:
+  • "500mg cayenne pepper" = 500mg of cayenne pepper EXTRACT (or whole-spice powder). Capsaicin (the active) is typically 0.5-5mg per capsule. NEVER assume 500mg of capsaicin — that's a lethal dose.
+  • "Milk thistle 500mg" = 500mg of milk thistle extract. Silymarin (the active) is typically 80% of that = 400mg. Silybin (the most-active subfraction) is ~30% of silymarin = ~120mg.
+  • "Ashwagandha 1000mg" = 1000mg of ashwagandha extract. Withanolides (active) are typically 2.5-10% = 25-100mg.
+  • "Turmeric 1000mg" = 1000mg of turmeric powder OR turmeric extract. Curcuminoids (active) range from 3% (root powder) to 95% (extract).
+  • "Berberine 500mg" = 500mg of berberine HCl (the actual active compound — berberine IS the active, not extracted from a parent).
+  • "Astaxanthin 12mg" = 12mg of astaxanthin (the active itself, usually in oleoresin form).
+  • "Boswellia 500mg" = 500mg of boswellia extract. AKBA (most-active subfraction) is typically 30-65%.
+- When extracting "competitor dose" from a title, capture the WHOLE EXTRACT dose (the prominent number), not a guess at active marker.
+- When comparing potency, compare apples to apples: extract-to-extract OR standardized-active-to-standardized-active.`
+
   const r = await anthropicCall(apiKey, {
     model: OPUS,
-    max_tokens: 2000,
-    system: `You are a product differentiation strategist for Toniiq. Assess a concept against Toniiq's 6-vector differentiation framework and return STRICT JSON.
+    max_tokens: 2500,
+    system: `You are a niche differentiation strategist for Toniiq. Your job is to evaluate whether a given competitive niche has ROOM for Toniiq's differentiation playbook to win — independent of the specific concept's placeholder spec.
 
-The 6 vectors:
-1. Concentration/Potency — can Toniiq offer a higher dose than the top competitors?
-2. Branded/Patented Ingredient — is there a clinical-grade branded form (e.g. Creapure, KSM-66, Sensoril, Quercefit, AstaPure)?
-3. Purity/Standardization — can Toniiq stand on tested purity / standardized active compound %?
-4. Multi-Pathway/Stack — does combining with a complementary ingredient unlock a unique angle?
-5. CFU/Strain Specificity — only relevant for live cultures (probiotics, yeast like S. boulardii).
-6. Bioavailability/Delivery Innovation — liposomal, enteric, sublingual, phytosome, etc.
+CRITICAL FRAMING:
+- The concept supplied below is a high-level idea from Phase A — its spec, dose, format, and positioning are NOT locked. They will be re-decided in R&D after evaluation.
+- DO NOT score "is THIS concept differentiated?" — score "are there differentiation vectors AVAILABLE in this niche for Toniiq?"
+- Your output guides whether the niche is worth pursuing, not whether the concept's draft spec is right.
 
-DATA INTEGRITY: every "available=true" claim must be backed by the supplied competitive data. If the data doesn't support it, set available=false and explain.
+${INGREDIENT_SPEC_PRIMER}
 
-For each vector: available (boolean) + 1-sentence justification grounded in supplied data.
+Toniiq's playbook — the 6 differentiation vectors:
+1. **concentration_potency** — Is competitor standardization VARIED enough that Toniiq can come in higher? (e.g. market sells "ashwagandha 5% withanolides", Toniiq deploys 10%.) If most competitors are already at the ceiling (e.g. all at 95% curcuminoids), the vector is closed. Score 0-10.
+2. **branded_patented_ingredient** — Is a branded/clinical form (Quercefit, Berbevis, KSM-66, Sensoril, Creapure, AstaPure, BCM-95, etc.) deployable here AND under-deployed by competitors? If most competitors already use the branded form, the vector is closed. Score 0-10.
+3. **purity_standardization** — Does the niche have lax purity / spec clarity that Toniiq's tested-purity / lab-verified positioning would stand out against? If competitors all publish COAs and clear specs, closed. Score 0-10.
+4. **multi_pathway_stack** — Would a complementary co-ingredient unlock a positioning angle competitors aren't using? (e.g. saw palmetto + pumpkin seed; quercetin + bromelain.) If the niche is already saturated with stacked products, less differentiating. Score 0-10.
+5. **cfu_strain_specificity** — ONLY for live cultures (probiotics, S. boulardii, etc.). Can Toniiq deploy a clinically-validated strain (HN019, BC30, CNCM I-745, 1714, etc.) competitors aren't using? Score 0-10 for relevant niches, 0 for non-microbial.
+6. **bioavailability_delivery** — Is enhanced delivery (liposomal, phytosome, micellar, enteric) viable here and under-deployed? (Note: if the frame is already strict_modifier on delivery, this vector is largely "spent" on the modifier itself — score it as the room for FURTHER innovation, not the modifier itself.) Score 0-10.
 
-Then score:
-- vectors_available: 0-5 (how many of vectors 1-6 Toniiq could ACTUALLY deploy)
-- competitive_gap: 0-3 (white space vs top competitors — 3=clear gap, 0=saturated)
-- form_factor_fit: 0-2 (concept's chosen format fits Toniiq's capability — 2=natural capsule/softgel, 0=requires capability outside Toniiq)
-- pricing_headroom: 0-2 (can Toniiq charge $25-45 with healthy margin? 2=clear yes, 0=commodity floor)
+For each vector, return:
+- score (0-10) — strictly based on competitive evidence in the supplied data
+- reasoning — 1-2 sentence grounded justification citing specific competitor evidence
+
+Then summarize:
+- vectors_available — count of vectors scoring ≥6 (these are vectors Toniiq could realistically deploy)
+- pillar_score — straight average of the 6 vectors (0-10), then output as scaled 0-10
+- reasoning — 2-3 sentence summary of niche differentiation room overall
+
+DATA INTEGRITY: every score must trace to specific competitor evidence in the supplied data. If you cannot cite evidence for or against a vector, score it 5 (neutral) with a "data insufficient" note. Do NOT invent competitor specs or branded ingredients that aren't in the supplied data.
 
 Return STRICT JSON:
 {
-  "vector_details": {
-    "vector_1_concentration": {"available": true|false, "justification": "..."},
-    "vector_2_branded": {"available": ..., "justification": "..."},
-    "vector_3_purity": {"available": ..., "justification": "..."},
-    "vector_4_multi_pathway": {"available": ..., "justification": "..."},
-    "vector_5_cfu_strain": {"available": ..., "justification": "..."},
-    "vector_6_bioavailability": {"available": ..., "justification": "..."}
+  "vectors": {
+    "concentration_potency": {"score": 0-10, "reasoning": "..."},
+    "branded_patented_ingredient": {"score": 0-10, "reasoning": "..."},
+    "purity_standardization": {"score": 0-10, "reasoning": "..."},
+    "multi_pathway_stack": {"score": 0-10, "reasoning": "..."},
+    "cfu_strain_specificity": {"score": 0-10, "reasoning": "..."},
+    "bioavailability_delivery": {"score": 0-10, "reasoning": "..."}
   },
-  "vectors_available": 0-5,
-  "competitive_gap": 0-3,
-  "form_factor_fit": 0-2,
-  "pricing_headroom": 0-2,
-  "reasoning": "1-2 sentence summary"
+  "vectors_available": 0-6,
+  "pillar_score": 0-10,
+  "reasoning": "..."
 }`,
     messages: [{
       role: 'user',
-      content: `Concept: "${concept.concept_name}"
-Ingredient: "${ingredientName}"
-Frame: ${frame.frame} (hero=${frame.hero_ingredient}${frame.delivery_modifier ? `, modifier=${frame.delivery_modifier}` : ''})
-Positioning: ${concept.positioning_angle || '(none)'}
-Key ingredients: ${JSON.stringify(concept.key_ingredients || [])}
-Target dosage: ${concept.target_dosage || '(none)'}
-Format: ${concept.format || '(none)'}
+      content: `Niche: ${ingredientName} (hero) ${frame.delivery_modifier ? `· ${frame.delivery_modifier} delivery` : ''}
+Frame: ${frame.frame}
+Concept name (for context only — DO NOT score against its spec): "${concept.concept_name}"
 
-Competitive context (Keepa-enriched, ${included.length} included competitors):
+Competitive landscape (Keepa-enriched, ${included.length} included competitors after classification):
 - Price p50: $${enrichment.price_p50 ?? 'n/a'}
-- Review p50: ${enrichment.review_p50?.toLocaleString() ?? 'n/a'} / p90: ${enrichment.review_p90?.toLocaleString() ?? 'n/a'} / max: ${enrichment.review_max?.toLocaleString() ?? 'n/a'}
+- Reviews — p50: ${enrichment.review_p50?.toLocaleString() ?? 'n/a'} / p90: ${enrichment.review_p90?.toLocaleString() ?? 'n/a'} / max: ${enrichment.review_max?.toLocaleString() ?? 'n/a'}
 - Best BSR: ${enrichment.bsr_best ?? 'n/a'}
-- Distinct brands top-20: ${enrichment.distinct_brands ?? 'n/a'}
+- Distinct brands in top-20: ${enrichment.distinct_brands ?? 'n/a'}
 
-Top 8 included competitors:
-${JSON.stringify(topCompetitors, null, 1)}`,
+Top 12 included competitors:
+${JSON.stringify(topCompetitors, null, 1)}
+
+Score the 6 differentiation vectors strictly based on whether this niche has ROOM for Toniiq's playbook — independent of the concept's draft spec.`,
     }],
   })
   const text = extractText(r)
@@ -1015,15 +1045,43 @@ ${JSON.stringify(topCompetitors, null, 1)}`,
       vector_total: 0, vector_details: {}, reasoning: `parse_error: ${(e as Error).message}`,
     }
   }
-  const vectors_available = Math.max(0, Math.min(5, n(parsed.vectors_available)))
-  const competitive_gap = Math.max(0, Math.min(3, n(parsed.competitive_gap)))
-  const form_factor_fit = Math.max(0, Math.min(2, n(parsed.form_factor_fit)))
-  const pricing_headroom = Math.max(0, Math.min(2, n(parsed.pricing_headroom)))
-  const total = vectors_available + competitive_gap + form_factor_fit + pricing_headroom  // 0-12
-  const score = Number(((total / 12) * 10).toFixed(2))  // 0-10
+
+  // Extract per-vector scores; clamp to 0-10.
+  const vectors = parsed.vectors || {}
+  const vectorKeys = [
+    'concentration_potency',
+    'branded_patented_ingredient',
+    'purity_standardization',
+    'multi_pathway_stack',
+    'cfu_strain_specificity',
+    'bioavailability_delivery',
+  ]
+  const vectorScores: number[] = []
+  const vectorDetails: any = {}
+  for (const key of vectorKeys) {
+    const v = vectors[key] || {}
+    const s = Math.max(0, Math.min(10, n(v.score)))
+    vectorScores.push(s)
+    vectorDetails[key] = { score: s, reasoning: String(v.reasoning || '').slice(0, 400) }
+  }
+
+  // vectors_available = count scoring >= 6 (vectors Toniiq could realistically deploy)
+  const vectors_available = vectorScores.filter(s => s >= 6).length
+  // Pillar score = clamped LLM-output, defaulting to average if absent.
+  const computedAvg = vectorScores.length > 0 ? vectorScores.reduce((a, b) => a + b, 0) / vectorScores.length : 0
+  const llm_score = n(parsed.pillar_score)
+  const score = Number((Math.max(0, Math.min(10, llm_score || computedAvg))).toFixed(2))
+
   return {
-    score, vectors_available, competitive_gap, form_factor_fit, pricing_headroom,
-    vector_total: total, vector_details: parsed.vector_details || {},
+    score,
+    vectors_available,
+    // Legacy fields preserved as 0 — they're meaningless under the new framework.
+    // They're kept in the schema for backwards compatibility with pre-v5.1 rows.
+    competitive_gap: 0,
+    form_factor_fit: 0,
+    pricing_headroom: 0,
+    vector_total: vectorScores.reduce((a, b) => a + b, 0),
+    vector_details: vectorDetails,
     reasoning: String(parsed.reasoning || '').slice(0, 500),
   }
 }

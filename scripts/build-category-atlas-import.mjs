@@ -8,10 +8,10 @@ const APP_ROOT = path.resolve(__dirname, '..')
 const PRODUCT_DEV_ROOT = process.env.PRODUCT_DEV_ROOT
   || '/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/Toniiq/Product Development'
 
-const QUERY_DATE = '2026-05-15'
-const IMPORT_KEY = 'category-atlas-core-four-2026-05-15'
-const SOURCE_VERSION = 'category-atlas-core-four-v1'
-const SCORING_VERSION = 'category-atlas-v4-keepa-stage-a'
+const QUERY_DATE = '2026-05-16'
+const IMPORT_KEY = 'category-atlas-core-four-v2-2026-05-16'
+const SOURCE_VERSION = 'category-atlas-core-four-v2-niche-specific'
+const SCORING_VERSION = 'category-atlas-v5-hybrid-competitive'
 const IMPORT_ID = uuidFromString(IMPORT_KEY)
 
 const CATEGORY_CONFIG = [
@@ -102,6 +102,8 @@ function riskFromText(...parts) {
 }
 
 function primaryKeywordFor(entry) {
+  const existing = String(entry.primary_keyword || '').trim()
+  if (existing) return existing
   const best = String(entry.best_keyword || '').trim()
   const name = String(entry.name || '').trim()
   const category = String(entry.category_id || '')
@@ -115,24 +117,7 @@ function primaryKeywordFor(entry) {
 }
 
 function markPendingV4(entry) {
-  const primaryKeyword = primaryKeywordFor(entry)
-  return {
-    ...entry,
-    primary_keyword: primaryKeyword,
-    score_status: 'pending_v4',
-    strategic_score: null,
-    recommendation_label: null,
-    score_confidence: null,
-    pillar_scores: {},
-    computed_signals: {
-      scoring_version: SCORING_VERSION,
-      score_status: 'pending_v4',
-      primary_keyword: primaryKeyword,
-      source_category_score: entry.source_payload?.strategic_score ?? null,
-      source_tier: entry.tier || null,
-    },
-    scoring_notes: `Pending ${SCORING_VERSION}. This row is not scored until Keepa Stage A runs on the exact primary keyword: ${primaryKeyword}.`,
-  }
+  return markPending(entry)
 }
 
 function formatMetric(value) {
@@ -148,6 +133,222 @@ function actionFromTier(tier, fallback = '') {
   if (text.includes('watch')) return 'Keep on watchlist until missing evidence is resolved.'
   if (text.includes('avoid') || text.includes('exclude')) return 'Do not promote without a new strategic reason.'
   return fallback || 'Review and decide whether this belongs in Opportunities.'
+}
+
+const COMMON_COMPETITIVE_EXCLUDE = [
+  'kids', 'children', 'child', 'toddler', 'pet', 'dog', 'cat',
+  'cream', 'soap', 'serum', 'skin care', 'skincare', 'topical',
+  'spice', 'seasoning', 'culinary', 'grocery',
+]
+
+const STACK_TERMS_BY_FAMILY = {
+  berberine: ['cinnamon', 'chromium', 'bitter melon', 'milk thistle', 'citrus bergamot', 'banaba', 'apple cider'],
+  quercetin: ['bromelain', 'vitamin c', 'zinc', 'nettle', 'resveratrol'],
+  curcumin: ['turmeric', 'ginger', 'boswellia', 'black pepper', 'bioperine'],
+  magnesium: ['glycinate', 'citrate', 'malate', 'taurate', 'threonate'],
+  iron: ['vitamin c', 'b12', 'folate'],
+  coq10: ['ubiquinol', 'pqq', 'resveratrol'],
+  saffron: ['ashwagandha', 'rhodiola', 'magnesium', 'theanine', 'gaba'],
+  glutathione: ['nac', 'milk thistle', 'vitamin c', 'alpha lipoic', 'selenium'],
+}
+
+function cleanFamily(value) {
+  return String(value || '')
+    .replace(/\s*\([^)]*\)\s*/g, ' ')
+    .replace(/\s+\/\s+/g, ' / ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function primaryFamilyToken(value) {
+  const text = normalizeName(value)
+  if (text.includes('berberine')) return 'berberine'
+  if (text.includes('quercetin')) return 'quercetin'
+  if (text.includes('curcumin') || text.includes('turmeric')) return 'curcumin'
+  if (text.includes('magnesium')) return 'magnesium'
+  if (text.includes('iron')) return 'iron'
+  if (text.includes('coq10') || text.includes('ubiquinol')) return 'coq10'
+  if (text.includes('saffron')) return 'saffron'
+  if (text.includes('glutathione')) return 'glutathione'
+  return text.split(' ')[0] || 'ingredient'
+}
+
+function displayBaseName(value) {
+  const family = cleanFamily(value)
+  if (/berberine/i.test(family)) return 'Berberine'
+  if (/quercetin/i.test(family)) return 'Quercetin'
+  if (/curcumin|turmeric/i.test(family)) return 'Curcumin'
+  if (/milk thistle|silymarin|silibin/i.test(family)) return 'Milk Thistle'
+  if (/green tea|egcg/i.test(family)) return 'Green Tea'
+  if (/coq10|ubiquinol/i.test(family)) return 'CoQ10 / Ubiquinol'
+  if (/fisetin/i.test(family)) return 'Fisetin'
+  if (/apigenin/i.test(family)) return 'Apigenin'
+  if (/\bnmn\b/i.test(family)) return 'NMN'
+  if (/urolithin/i.test(family)) return 'Urolithin A'
+  if (/alpha lipoic/i.test(family)) return 'Alpha Lipoic Acid'
+  if (/\bnad\+?\b/i.test(family)) return 'NAD'
+  return family.split(' / ')[0]
+}
+
+function keywordGroup(keyword, familyName = '') {
+  const key = normalizeName(keyword)
+  const family = primaryFamilyToken(`${familyName} ${keyword}`)
+  if (/\b(dihydroberberine|dihydro berberine|glucovantage)\b/.test(key)) {
+    return {
+      key: 'dihydroberberine-glucovantage',
+      name: 'Dihydroberberine / GlucoVantage',
+      type: 'ingredient_form',
+      requireAny: ['dihydroberberine', 'dihydro berberine', 'glucovantage'],
+      include: ['berberine', 'dihydroberberine', 'dihydro berberine', 'glucovantage'],
+    }
+  }
+  if (/\b(berbevis|phytosome|phospholipid)\b/.test(key)) {
+    const base = displayBaseName(familyName || keyword)
+    const special = family === 'berberine' ? 'Berberine Phytosome / Berbevis'
+      : family === 'quercetin' ? 'Quercetin Phytosome / Quercefit'
+        : family === 'curcumin' ? 'Curcumin Phytosome / Meriva'
+          : /milk thistle|silybin|silymarin|siliphos/i.test(`${familyName} ${keyword}`) ? 'Milk Thistle Phytosome / Siliphos'
+            : `${base} Phytosome`
+    return {
+      key: `${slugify(base)}-phytosome`,
+      name: special,
+      type: 'delivery_technology',
+      requireAny: ['phytosome', 'phospholipid', 'berbevis', 'quercefit', 'meriva', 'siliphos', 'greenselect'],
+      include: [family, base.toLowerCase()],
+    }
+  }
+  if (/\b(sucrosomial|sideral)\b/.test(key)) {
+    const base = displayBaseName(familyName || keyword)
+    return {
+      key: `${slugify(base)}-sucrosomial`,
+      name: `Sucrosomial ${base}`,
+      type: 'delivery_technology',
+      requireAny: ['sucrosomial', 'sideral'],
+      include: [family, base.toLowerCase()],
+    }
+  }
+  if (/\b(liposomal|liposome|lipoavail)\b/.test(key)) {
+    const base = displayBaseName(familyName || keyword)
+    return {
+      key: `liposomal-${slugify(base)}`,
+      name: `Liposomal ${base}`,
+      type: 'delivery_technology',
+      requireAny: ['liposomal', 'liposome', 'lipoavail'],
+      include: [family, base.toLowerCase()],
+    }
+  }
+  if (/\b(micellar)\b/.test(key)) {
+    const base = displayBaseName(familyName || keyword)
+    return {
+      key: `micellar-${slugify(base)}`,
+      name: `Micellar ${base}`,
+      type: 'delivery_technology',
+      requireAny: ['micellar'],
+      include: [family, base.toLowerCase()],
+    }
+  }
+  if (/\b(nacet|nac ethyl ester)\b/.test(key)) {
+    return {
+      key: 'nac-ethyl-ester',
+      name: 'NACET / NAC Ethyl Ester',
+      type: 'ingredient_form',
+      requireAny: ['nacet', 'nac ethyl ester'],
+      include: ['nac', 'nacet', 'cysteine'],
+    }
+  }
+  return null
+}
+
+function weightedConversion(rows) {
+  const clicks = rows.reduce((sum, row) => sum + (num(row.clicks ?? row.latest_clicks) || 0), 0)
+  const sales = rows.reduce((sum, row) => sum + (num(row.sales ?? row.latest_sales) || 0), 0)
+  return clicks > 0 ? Number(((sales / clicks) * 100).toFixed(1)) : null
+}
+
+function scoredStatusForRole(role) {
+  return role === 'scored_niche' ? 'pending_hybrid' : 'not_scored'
+}
+
+function competitiveFrameFor(entry, group) {
+  const family = primaryFamilyToken(entry.parent_family || entry.name)
+  const include = [...new Set([...(group.include || []), family].filter(Boolean))]
+  return {
+    include,
+    require_any: group.requireAny || [],
+    exclude: COMMON_COMPETITIVE_EXCLUDE,
+    stack_terms: STACK_TERMS_BY_FAMILY[family] || [],
+    hero_rule: 'include hero-ingredient complexes; keep broad condition stacks adjacent',
+    sibling_markets: siblingMarketsFor(group.key),
+  }
+}
+
+function defaultCompetitiveFrameFor(entry, primaryKeyword) {
+  const family = primaryFamilyToken(`${entry.parent_family || ''} ${entry.name} ${primaryKeyword}`)
+  const keywordTokens = normalizeName(primaryKeyword)
+    .split(/\s+/)
+    .filter(token => token.length >= 4 && !['extract', 'supplement', 'capsule', 'capsules', 'powder'].includes(token))
+  return {
+    include: [...new Set([family, ...keywordTokens].filter(Boolean))],
+    require_any: [],
+    exclude: COMMON_COMPETITIVE_EXCLUDE,
+    stack_terms: STACK_TERMS_BY_FAMILY[family] || [],
+    hero_rule: 'include hero-ingredient complexes; keep broad condition stacks adjacent',
+    sibling_markets: [],
+  }
+}
+
+function siblingMarketsFor(groupKey) {
+  if (/berberine/.test(groupKey)) return ['liposomal berberine', 'dihydroberberine', 'berberine phytosome', 'regular berberine']
+  if (/quercetin/.test(groupKey)) return ['liposomal quercetin', 'quercetin phytosome', 'regular quercetin']
+  if (/curcumin/.test(groupKey)) return ['liposomal curcumin', 'curcumin phytosome', 'regular turmeric/curcumin']
+  return []
+}
+
+function queryPacketFor(primaryKeyword, rows = []) {
+  const extras = rows
+    .map(row => String(row.keyword || '').trim())
+    .filter(Boolean)
+  const packet = [
+    primaryKeyword,
+    `${primaryKeyword} supplement`,
+    ...extras,
+  ]
+  return [...new Set(packet.filter(Boolean))].slice(0, 5)
+}
+
+function markPending(entry) {
+  const primaryKeyword = primaryKeywordFor(entry)
+  const role = entry.atlas_role || 'scored_niche'
+  const scoreStatus = scoredStatusForRole(role)
+  const isScoredNiche = role === 'scored_niche'
+  return {
+    ...entry,
+    parent_family: entry.parent_family || entry.name,
+    atlas_role: role,
+    niche_type: entry.niche_type || (isScoredNiche ? 'market_niche' : 'family_context'),
+    source_entry_key: entry.source_entry_key || entry.entry_key,
+    source_categories: entry.source_categories || [entry.category_id],
+    query_packet: entry.query_packet || queryPacketFor(primaryKeyword),
+    competitive_frame: entry.competitive_frame || defaultCompetitiveFrameFor(entry, primaryKeyword),
+    scoring_method: isScoredNiche ? SCORING_VERSION : 'not_scored_parent_family',
+    primary_keyword: primaryKeyword,
+    score_status: scoreStatus,
+    strategic_score: null,
+    recommendation_label: null,
+    score_confidence: null,
+    pillar_scores: {},
+    computed_signals: {
+      scoring_version: SCORING_VERSION,
+      score_status: scoreStatus,
+      atlas_role: role,
+      primary_keyword: primaryKeyword,
+      source_category_score: entry.source_payload?.strategic_score ?? null,
+      source_tier: entry.tier || null,
+    },
+    scoring_notes: isScoredNiche
+      ? `Pending ${SCORING_VERSION}. This row is not scored until hybrid Apify discovery + Keepa ASIN enrichment runs on the exact niche: ${primaryKeyword}.`
+      : 'Parent-family context row only. This row is not scored or promoted; score the child launch/search niches instead.',
+  }
 }
 
 function normalizeLiposomal(data) {
@@ -345,6 +546,175 @@ function supplierRead(row) {
   return count ? `${count} supplier matches; ${price}` : 'No supplier match in source atlas'
 }
 
+function evidenceNumber(row, field) {
+  if (field === 'clicks') return num(row.clicks ?? row.latest_clicks) || 0
+  if (field === 'sales') return num(row.sales ?? row.latest_sales) || 0
+  if (field === 'cvr') return num(row.conversion_rate_pct ?? row.conversion_rate) || null
+  if (field === 'growth') return num(row.growth_pct ?? row.growth_since_2025_10_pct) || null
+  return null
+}
+
+function evidenceHasSignal(row) {
+  return Boolean(row.has_data) && (evidenceNumber(row, 'clicks') > 0 || evidenceNumber(row, 'sales') > 0)
+}
+
+function buildNicheGroups(entry, rows) {
+  const groups = new Map()
+  for (const row of rows) {
+    if (!evidenceHasSignal(row)) continue
+    const group = keywordGroup(row.keyword, entry.name)
+    if (!group) continue
+    const current = groups.get(group.key) || { ...group, rows: [] }
+    current.rows.push(row)
+    groups.set(group.key, current)
+  }
+  return [...groups.values()].map(group => {
+    const sorted = [...group.rows].sort((a, b) => evidenceNumber(b, 'clicks') - evidenceNumber(a, 'clicks'))
+    const clicks = group.rows.reduce((sum, row) => sum + evidenceNumber(row, 'clicks'), 0)
+    const sales = group.rows.reduce((sum, row) => sum + evidenceNumber(row, 'sales'), 0)
+    return {
+      ...group,
+      rows: sorted,
+      bestRow: sorted[0],
+      clicks,
+      sales,
+      cvr: weightedConversion(group.rows),
+      growth: evidenceNumber(sorted[0], 'growth'),
+    }
+  }).filter(group => group.clicks >= 25 || group.sales >= 5)
+}
+
+function withEvidenceEntryKey(row, entryKey, extraPayload = {}) {
+  return {
+    ...row,
+    entry_key: entryKey,
+    source_payload: {
+      ...(row.source_payload || {}),
+      ...extraPayload,
+      original_entry_key: row.entry_key,
+    },
+  }
+}
+
+function parentFamilyEntry(entry, groups) {
+  const base = displayBaseName(entry.name)
+  return markPending({
+    ...entry,
+    entry_key: `${entry.entry_key}-family`,
+    name: `${base} family`,
+    normalized_name: normalizeName(`${base} family`),
+    atlas_role: 'parent_family',
+    niche_type: 'family_context',
+    parent_family: `${base} family`,
+    primary_keyword: entry.best_keyword || base,
+    query_packet: [],
+    competitive_frame: { child_niches: groups.map(group => group.name) },
+    scoring_method: 'not_scored_parent_family',
+    next_action: 'Use the child niche rows for scoring and promotion.',
+    specificity_notes: `Split into ${groups.map(group => group.name).join(', ')} so each launch/search lane can be scored separately.`,
+  })
+}
+
+function childEntryFromGroup(entry, group) {
+  const primaryKeyword = group.bestRow.keyword
+  const base = displayBaseName(entry.name)
+  return markPending({
+    ...entry,
+    entry_key: group.key,
+    name: group.name,
+    normalized_name: normalizeName(group.name),
+    atlas_role: 'scored_niche',
+    niche_type: group.type,
+    parent_family: `${base} family`,
+    source_entry_key: entry.source_entry_key || entry.entry_key,
+    latest_clicks: group.clicks,
+    latest_sales: group.sales,
+    weighted_conversion_pct: group.cvr,
+    best_keyword: primaryKeyword,
+    best_keyword_clicks: evidenceNumber(group.bestRow, 'clicks'),
+    best_keyword_sales: evidenceNumber(group.bestRow, 'sales'),
+    best_keyword_cvr: evidenceNumber(group.bestRow, 'cvr'),
+    best_keyword_growth: group.growth,
+    primary_keyword: primaryKeyword,
+    query_packet: queryPacketFor(primaryKeyword, group.rows),
+    competitive_frame: competitiveFrameFor(entry, group),
+    specificity_notes: `Niche-specific child row split from ${entry.name}; sibling technologies stay adjacent, not exact competitors.`,
+    source_payload: {
+      ...(entry.source_payload || {}),
+      niche_specificity: {
+        source_entry_key: entry.entry_key,
+        parent_family: `${base} family`,
+        group_key: group.key,
+        group_name: group.name,
+        evidence_keywords: group.rows.map(row => row.keyword),
+      },
+    },
+  })
+}
+
+function defaultSpecificEntry(entry) {
+  if (entry.category_id !== 'liposomal') return markPending(entry)
+  const base = displayBaseName(entry.name)
+  const primaryKeyword = entry.best_keyword || `liposomal ${base}`
+  return markPending({
+    ...entry,
+    entry_key: `liposomal-${slugify(base)}`,
+    name: `Liposomal ${base}`,
+    normalized_name: normalizeName(`Liposomal ${base}`),
+    atlas_role: 'scored_niche',
+    niche_type: 'delivery_technology',
+    parent_family: `${base} family`,
+    primary_keyword: primaryKeyword,
+    query_packet: queryPacketFor(primaryKeyword),
+    competitive_frame: competitiveFrameFor(entry, {
+      key: `liposomal-${slugify(base)}`,
+      include: [primaryFamilyToken(base), base.toLowerCase()],
+      requireAny: ['liposomal', 'liposome'],
+    }),
+    specificity_notes: 'Default liposomal child row generated from the liposomal category atlas.',
+  })
+}
+
+function shouldSplitEntry(entry, groups) {
+  if (!groups.length) return false
+  if (entry.category_id === 'liposomal') return groups.length > 1
+  return /berberine|quercetin|curcumin|turmeric|nmn|glutathione|spermidine|urolithin|fisetin|apigenin|coq10|alpha lipoic|milk thistle/i.test(entry.name)
+}
+
+function expandNicheSpecificity(entries, evidence) {
+  const evidenceByEntry = new Map()
+  for (const row of evidence) {
+    const key = `${row.category_id}:${row.entry_key}`
+    if (!evidenceByEntry.has(key)) evidenceByEntry.set(key, [])
+    evidenceByEntry.get(key).push(row)
+  }
+
+  const expandedEntries = []
+  const expandedEvidence = []
+
+  for (const entry of entries) {
+    const rows = evidenceByEntry.get(`${entry.category_id}:${entry.entry_key}`) || []
+    const groups = buildNicheGroups(entry, rows)
+
+    if (shouldSplitEntry(entry, groups)) {
+      const parent = parentFamilyEntry(entry, groups)
+      expandedEntries.push(parent)
+      expandedEvidence.push(...rows.map(row => withEvidenceEntryKey(row, parent.entry_key, { atlas_role: 'parent_family' })))
+      for (const group of groups) {
+        const child = childEntryFromGroup(entry, group)
+        expandedEntries.push(child)
+        expandedEvidence.push(...group.rows.map(row => withEvidenceEntryKey(row, child.entry_key, { atlas_role: 'scored_niche', group_key: group.key })))
+      }
+    } else {
+      const specific = defaultSpecificEntry(entry)
+      expandedEntries.push(specific)
+      expandedEvidence.push(...rows.map(row => withEvidenceEntryKey(row, specific.entry_key, { atlas_role: specific.atlas_role || 'scored_niche' })))
+    }
+  }
+
+  return { entries: expandedEntries, evidence: expandedEvidence }
+}
+
 function sqlString(value) {
   if (value === null || value === undefined) return 'null'
   return `'${String(value).replace(/'/g, "''")}'`
@@ -361,6 +731,169 @@ function sqlJson(value) {
 
 function sqlBool(value) {
   return value ? 'true' : 'false'
+}
+
+function sqlTextArray(values) {
+  const list = Array.isArray(values) ? values : []
+  if (!list.length) return "'{}'::text[]"
+  return `array[${list.map(value => sqlString(value)).join(', ')}]::text[]`
+}
+
+function arrayUnion(...lists) {
+  const out = []
+  for (const list of lists) {
+    for (const value of Array.isArray(list) ? list : []) {
+      if (value && !out.includes(value)) out.push(value)
+    }
+  }
+  return out
+}
+
+function mergeFrame(...frames) {
+  const merged = {}
+  for (const frame of frames) {
+    if (!frame || typeof frame !== 'object') continue
+    for (const [key, value] of Object.entries(frame)) {
+      if (Array.isArray(value)) {
+        merged[key] = arrayUnion(merged[key], value)
+      } else if (value !== null && value !== undefined && merged[key] === undefined) {
+        merged[key] = value
+      }
+    }
+  }
+  return merged
+}
+
+function primaryCategoryFor(entries) {
+  const categories = arrayUnion(...entries.map(entry => [entry.category_id, ...(entry.source_categories || [])]))
+  const name = normalizeName(entries[0]?.name)
+  if (name.includes('liposomal') && categories.includes('liposomal')) return 'liposomal'
+  if ((name.includes('phytosome') || name.includes('sucrosomial') || name.includes('micellar')) && categories.includes('liposomal')) return 'liposomal'
+  if ((name.includes('probiotic') || name.includes('strain')) && categories.includes('probiotics')) return 'probiotics'
+  return [...entries].sort((a, b) => (b.latest_clicks || 0) - (a.latest_clicks || 0))[0]?.category_id || categories[0] || 'liposomal'
+}
+
+function dedupeKeyForEntry(entry) {
+  const role = entry.atlas_role || 'scored_niche'
+  if (role !== 'scored_niche') return `${role}:${normalizeName(entry.name)}`
+  return `${role}:${normalizeName(entry.name)}:${normalizeName(entry.primary_keyword)}`
+}
+
+function canonicalEntryKey(entry) {
+  if ((entry.atlas_role || 'scored_niche') !== 'scored_niche') return slugify(entry.name)
+  return entry.entry_key
+}
+
+function mergeEntryGroup(group) {
+  const primaryCategory = primaryCategoryFor(group)
+  const demandLeader = [...group].sort((a, b) => (b.latest_clicks || 0) - (a.latest_clicks || 0))[0]
+  const base = group.find(entry => entry.category_id === primaryCategory) || demandLeader || group[0]
+  const sourceCategories = arrayUnion(...group.map(entry => [entry.category_id, ...(entry.source_categories || [])]))
+  const queryPacket = arrayUnion(...group.map(entry => entry.query_packet || []))
+  const sourceRows = group.map(entry => ({
+    category_id: entry.category_id,
+    source_categories: entry.source_categories || [entry.category_id],
+    source_entry_key: entry.source_entry_key || entry.entry_key,
+    name: entry.name,
+    primary_keyword: entry.primary_keyword,
+    latest_clicks: entry.latest_clicks,
+    latest_sales: entry.latest_sales,
+    best_keyword_growth: entry.best_keyword_growth,
+  }))
+  const scoringStatus = scoredStatusForRole(base.atlas_role || 'scored_niche')
+  const merged = {
+    ...base,
+    category_id: primaryCategory,
+    entry_key: canonicalEntryKey(base),
+    source_categories: sourceCategories,
+    latest_clicks: Math.max(...group.map(entry => num(entry.latest_clicks) || 0)),
+    latest_sales: Math.max(...group.map(entry => num(entry.latest_sales) || 0)),
+    best_keyword: demandLeader.best_keyword,
+    best_keyword_clicks: demandLeader.best_keyword_clicks,
+    best_keyword_sales: demandLeader.best_keyword_sales,
+    best_keyword_cvr: demandLeader.best_keyword_cvr,
+    best_keyword_growth: demandLeader.best_keyword_growth,
+    weighted_conversion_pct: demandLeader.weighted_conversion_pct,
+    query_packet: queryPacket.length ? queryPacket.slice(0, 8) : base.query_packet,
+    competitive_frame: mergeFrame(...group.map(entry => entry.competitive_frame)),
+    score_status: scoringStatus,
+    computed_signals: {
+      ...(base.computed_signals || {}),
+      scoring_version: SCORING_VERSION,
+      score_status: scoringStatus,
+      source_categories: sourceCategories,
+      merged_source_count: group.length,
+    },
+    source_payload: {
+      ...(base.source_payload || {}),
+      merged_sources: sourceRows,
+    },
+  }
+
+  if (group.length > 1) {
+    merged.specificity_notes = [
+      base.specificity_notes,
+      `Merged from ${sourceCategories.join(', ')} source atlases to keep this as one launchable/searchable niche.`,
+    ].filter(Boolean).join(' ')
+  }
+
+  if ((merged.atlas_role || 'scored_niche') === 'scored_niche') {
+    merged.scoring_notes = `Pending ${SCORING_VERSION}. This row is not scored until hybrid Apify discovery + Keepa ASIN enrichment runs on the exact niche: ${merged.primary_keyword}.`
+  }
+
+  return merged
+}
+
+function dedupeExpanded(entries, evidence) {
+  const groups = new Map()
+  for (const entry of entries) {
+    const key = dedupeKeyForEntry(entry)
+    if (!groups.has(key)) groups.set(key, [])
+    groups.get(key).push(entry)
+  }
+
+  const mergedEntries = []
+  const oldToNew = new Map()
+  for (const group of groups.values()) {
+    const merged = mergeEntryGroup(group)
+    mergedEntries.push(merged)
+    for (const entry of group) {
+      oldToNew.set(`${entry.category_id}:${entry.entry_key}`, {
+        category_id: merged.category_id,
+        entry_key: merged.entry_key,
+      })
+    }
+  }
+
+  const evidenceSeen = new Set()
+  const mergedEvidence = []
+  for (const row of evidence) {
+    const target = oldToNew.get(`${row.category_id}:${row.entry_key}`)
+    if (!target) continue
+    const dedupeKey = [
+      target.category_id,
+      target.entry_key,
+      normalizeName(row.keyword),
+      row.term_type || '',
+      row.clicks ?? '',
+      row.sales ?? '',
+      row.growth_pct ?? '',
+    ].join('|')
+    if (evidenceSeen.has(dedupeKey)) continue
+    evidenceSeen.add(dedupeKey)
+    mergedEvidence.push({
+      ...row,
+      category_id: target.category_id,
+      entry_key: target.entry_key,
+      source_payload: {
+        ...(row.source_payload || {}),
+        original_category_id: row.source_payload?.original_category_id || row.category_id,
+        original_entry_key: row.source_payload?.original_entry_key || row.entry_key,
+      },
+    })
+  }
+
+  return { entries: mergedEntries, evidence: mergedEvidence }
 }
 
 function buildSql(categories, entries, evidence) {
@@ -386,11 +919,11 @@ function buildSql(categories, entries, evidence) {
   out.push('delete from category_atlas_keyword_evidence where import_id = ' + sqlString(IMPORT_ID) + '::uuid;')
   out.push('')
 
-  out.push('insert into category_atlas_entries (id, import_id, category_id, entry_key, name, normalized_name, tier, mechanism_lane, route_or_format, latest_clicks, latest_sales, weighted_conversion_pct, best_keyword, best_keyword_clicks, best_keyword_sales, best_keyword_cvr, best_keyword_growth, primary_keyword, score_status, strategic_score, recommendation_label, score_confidence, pillar_scores, computed_signals, scoring_notes, toniiq_status, supplier_status, risk_level, risk_notes, strategic_read, next_action, source_payload) values')
+  out.push('insert into category_atlas_entries (id, import_id, category_id, entry_key, name, normalized_name, tier, mechanism_lane, route_or_format, latest_clicks, latest_sales, weighted_conversion_pct, best_keyword, best_keyword_clicks, best_keyword_sales, best_keyword_cvr, best_keyword_growth, primary_keyword, parent_family, atlas_role, niche_type, query_packet, competitive_frame, scoring_method, specificity_notes, source_entry_key, source_categories, score_status, strategic_score, recommendation_label, score_confidence, pillar_scores, computed_signals, scoring_notes, toniiq_status, supplier_status, risk_level, risk_notes, strategic_read, next_action, source_payload) values')
   out.push(entries.map(entry => {
     const id = entry.id
-    return `  (${sqlString(id)}::uuid, ${sqlString(IMPORT_ID)}::uuid, ${sqlString(entry.category_id)}, ${sqlString(entry.entry_key)}, ${sqlString(entry.name)}, ${sqlString(entry.normalized_name)}, ${sqlString(entry.tier)}, ${sqlString(entry.mechanism_lane)}, ${sqlString(entry.route_or_format)}, ${sqlNumber(entry.latest_clicks)}, ${sqlNumber(entry.latest_sales)}, ${sqlNumber(entry.weighted_conversion_pct)}, ${sqlString(entry.best_keyword)}, ${sqlNumber(entry.best_keyword_clicks)}, ${sqlNumber(entry.best_keyword_sales)}, ${sqlNumber(entry.best_keyword_cvr)}, ${sqlNumber(entry.best_keyword_growth)}, ${sqlString(entry.primary_keyword)}, ${sqlString(entry.score_status)}, ${sqlNumber(entry.strategic_score)}, ${sqlString(entry.recommendation_label)}, ${sqlString(entry.score_confidence)}, ${sqlJson(entry.pillar_scores)}, ${sqlJson(entry.computed_signals)}, ${sqlString(entry.scoring_notes)}, ${sqlString(entry.toniiq_status)}, ${sqlString(entry.supplier_status)}, ${sqlString(entry.risk_level)}, ${sqlString(entry.risk_notes)}, ${sqlString(entry.strategic_read)}, ${sqlString(entry.next_action)}, ${sqlJson(entry.source_payload)})`
-  }).join(',\n') + `\non conflict (import_id, category_id, entry_key) do update set name = excluded.name, normalized_name = excluded.normalized_name, tier = excluded.tier, mechanism_lane = excluded.mechanism_lane, route_or_format = excluded.route_or_format, latest_clicks = excluded.latest_clicks, latest_sales = excluded.latest_sales, weighted_conversion_pct = excluded.weighted_conversion_pct, best_keyword = excluded.best_keyword, best_keyword_clicks = excluded.best_keyword_clicks, best_keyword_sales = excluded.best_keyword_sales, best_keyword_cvr = excluded.best_keyword_cvr, best_keyword_growth = excluded.best_keyword_growth, primary_keyword = excluded.primary_keyword, score_status = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.score_status else excluded.score_status end, strategic_score = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.strategic_score else excluded.strategic_score end, recommendation_label = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.recommendation_label else excluded.recommendation_label end, score_confidence = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.score_confidence else excluded.score_confidence end, pillar_scores = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.pillar_scores else excluded.pillar_scores end, computed_signals = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.computed_signals else excluded.computed_signals end, scoring_notes = case when category_atlas_entries.score_status = 'scored' then category_atlas_entries.scoring_notes else excluded.scoring_notes end, toniiq_status = excluded.toniiq_status, supplier_status = excluded.supplier_status, risk_level = excluded.risk_level, risk_notes = excluded.risk_notes, strategic_read = excluded.strategic_read, next_action = excluded.next_action, source_payload = excluded.source_payload, updated_at = now();`)
+    return `  (${sqlString(id)}::uuid, ${sqlString(IMPORT_ID)}::uuid, ${sqlString(entry.category_id)}, ${sqlString(entry.entry_key)}, ${sqlString(entry.name)}, ${sqlString(entry.normalized_name)}, ${sqlString(entry.tier)}, ${sqlString(entry.mechanism_lane)}, ${sqlString(entry.route_or_format)}, ${sqlNumber(entry.latest_clicks)}, ${sqlNumber(entry.latest_sales)}, ${sqlNumber(entry.weighted_conversion_pct)}, ${sqlString(entry.best_keyword)}, ${sqlNumber(entry.best_keyword_clicks)}, ${sqlNumber(entry.best_keyword_sales)}, ${sqlNumber(entry.best_keyword_cvr)}, ${sqlNumber(entry.best_keyword_growth)}, ${sqlString(entry.primary_keyword)}, ${sqlString(entry.parent_family)}, ${sqlString(entry.atlas_role)}, ${sqlString(entry.niche_type)}, ${sqlJson(entry.query_packet || [])}, ${sqlJson(entry.competitive_frame || {})}, ${sqlString(entry.scoring_method)}, ${sqlString(entry.specificity_notes)}, ${sqlString(entry.source_entry_key)}, ${sqlTextArray(entry.source_categories)}, ${sqlString(entry.score_status)}, ${sqlNumber(entry.strategic_score)}, ${sqlString(entry.recommendation_label)}, ${sqlString(entry.score_confidence)}, ${sqlJson(entry.pillar_scores)}, ${sqlJson(entry.computed_signals)}, ${sqlString(entry.scoring_notes)}, ${sqlString(entry.toniiq_status)}, ${sqlString(entry.supplier_status)}, ${sqlString(entry.risk_level)}, ${sqlString(entry.risk_notes)}, ${sqlString(entry.strategic_read)}, ${sqlString(entry.next_action)}, ${sqlJson(entry.source_payload)})`
+  }).join(',\n') + `\non conflict (import_id, category_id, entry_key) do update set name = excluded.name, normalized_name = excluded.normalized_name, tier = excluded.tier, mechanism_lane = excluded.mechanism_lane, route_or_format = excluded.route_or_format, latest_clicks = excluded.latest_clicks, latest_sales = excluded.latest_sales, weighted_conversion_pct = excluded.weighted_conversion_pct, best_keyword = excluded.best_keyword, best_keyword_clicks = excluded.best_keyword_clicks, best_keyword_sales = excluded.best_keyword_sales, best_keyword_cvr = excluded.best_keyword_cvr, best_keyword_growth = excluded.best_keyword_growth, primary_keyword = excluded.primary_keyword, parent_family = excluded.parent_family, atlas_role = excluded.atlas_role, niche_type = excluded.niche_type, query_packet = excluded.query_packet, competitive_frame = excluded.competitive_frame, scoring_method = excluded.scoring_method, specificity_notes = excluded.specificity_notes, source_entry_key = excluded.source_entry_key, source_categories = excluded.source_categories, score_status = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.score_status else excluded.score_status end, strategic_score = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.strategic_score else excluded.strategic_score end, recommendation_label = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.recommendation_label else excluded.recommendation_label end, score_confidence = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.score_confidence else excluded.score_confidence end, pillar_scores = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.pillar_scores else excluded.pillar_scores end, computed_signals = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.computed_signals else excluded.computed_signals end, scoring_notes = case when category_atlas_entries.score_status in ('scored', 'hybrid_scored') then category_atlas_entries.scoring_notes else excluded.scoring_notes end, toniiq_status = excluded.toniiq_status, supplier_status = excluded.supplier_status, risk_level = excluded.risk_level, risk_notes = excluded.risk_notes, strategic_read = excluded.strategic_read, next_action = excluded.next_action, source_payload = excluded.source_payload, updated_at = now();`)
   out.push('')
 
   if (evidence.length) {
@@ -420,11 +953,19 @@ function main() {
         : category.id === 'longevity' ? normalizeLongevity(data)
           : normalizeBotanical(data)
 
-    for (const entry of normalized.entries) {
-      entry.id = uuidFromString(`${IMPORT_KEY}:${entry.category_id}:${entry.entry_key}`)
-      allEntries.push(entry)
-    }
+    allEntries.push(...normalized.entries)
     allEvidence.push(...normalized.evidence.filter(row => row.keyword && row.entry_key))
+  }
+
+  const split = expandNicheSpecificity(allEntries, allEvidence)
+  const expanded = dedupeExpanded(split.entries, split.evidence)
+  allEntries.length = 0
+  allEvidence.length = 0
+  allEntries.push(...expanded.entries)
+  allEvidence.push(...expanded.evidence.filter(row => row.keyword && row.entry_key))
+
+  for (const entry of allEntries) {
+    entry.id = uuidFromString(`${IMPORT_KEY}:${entry.category_id}:${entry.entry_key}`)
   }
 
   allEntries.sort((a, b) => {

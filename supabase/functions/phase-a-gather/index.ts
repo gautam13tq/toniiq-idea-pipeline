@@ -4,18 +4,27 @@
  * Trigger: POST with { pending_action_id } OR { candidate_id }. Called from
  * pg_cron dispatcher (`phase-a-dispatcher`) or directly from UI/SQL.
  *
- * Flow (v3 — 2026-05-13):
- *   1. Load candidate + pending action
+ * Flow (v4 — 2026-05-19) — added buyer-keyword inference layer:
+ *   0. **NEW: Buyer-keyword inference (Sonnet)**. Reads candidate.ingredient_name,
+ *      candidate.notes, and the linked opportunity_review (rationale / source_context
+ *      / signal_tags). Returns a canonical primary_keyword + related buyer queries.
+ *      Category-Atlas-style technical names like "Butyrate / tributyrin postbiotic-
+ *      metabolite lane" get translated into real buyer queries ("butyrate supplement",
+ *      "tributyrin", etc.) before any data gathering. A short-circuit heuristic skips
+ *      the Sonnet call when ingredient_name is already a clean buyer term and notes
+ *      are empty — so "pycnogenol", "nac", "rhodiola" are not slowed down.
+ *   1. Load candidate + pending action + opportunity_review (for inference context)
  *   2. **PARALLEL** via Promise.allSettled:
- *      - Datarova branch: keyword harvest (autocomplete + bulk) → batch query
- *        + growth time series → write datarova_enrichments
- *      - Reddit branch: Apify scrape (90s cap, 30 items) → Sonnet analyze →
- *        write reddit_concept_research
- *   3. Update action context with per-branch status
+ *      - Datarova branch: keyword harvest (autocomplete + bulk + inferred-related)
+ *        → batch query + growth time series → write datarova_enrichments
+ *      - Reddit branch: Apify scrape (90s cap, 30 items) using inferred primary
+ *        keyword as query stems → Sonnet analyze → write reddit_concept_research
+ *   3. Update action context with per-branch status + inferred_keywords (for audit)
  *   4. **Self-chain to phase-a-think via pg_net** — fire-and-forget through
  *      Postgres background workers, decoupled from this function's lifecycle
  *      (so the 150s wall clock can't abort the dispatch). Only chains if at
- *      least one branch succeeded.
+ *      least one branch succeeded. phase-a-think (v4+) reads inferred_keywords
+ *      from the pending_action context to inform synthesis.
  *
  * Why parallel (was sequential and timing out):
  *   - The 2 branches have no data dependency. Running sequentially was
@@ -74,18 +83,53 @@ Deno.serve(async (req) => {
     }
     actionIdForErrorHandler = actionId
 
-    // Fetch action + candidate
+    // Fetch action + candidate + linked opportunity_review (for keyword inference context)
     const { data: action, error: aErr } = await sb.from('pending_actions').select('*').eq('id', actionId).single()
     if (aErr || !action) throw new Error(`Action not found: ${aErr?.message}`)
     candidateId = action.entity_id
     const { data: candidate, error: cErr } = await sb.from('idea_candidates').select('*').eq('id', candidateId).single()
     if (cErr || !candidate) throw new Error(`Candidate not found: ${cErr?.message}`)
+    const { data: opportunityReview } = await sb
+      .from('opportunity_reviews')
+      .select('source, source_context, signal_tags, rationale')
+      .eq('candidate_id', candidateId)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
 
-    log(`setup done, candidate="${candidate.ingredient_name}"`)
+    log(`setup done, candidate="${candidate.ingredient_name}" review=${!!opportunityReview}`)
 
     await setActionStatus(sb, actionId, 'in_progress', {
       notes: `Gathering research for "${candidate.ingredient_name}"`,
-      context_merge: { gather_started: new Date().toISOString(), gather_version: 'v3_parallel_pg_net' },
+      context_merge: { gather_started: new Date().toISOString(), gather_version: 'v4_keyword_inference' },
+    })
+
+    // ── STEP 0: BUYER-KEYWORD INFERENCE ──────────────────────────────────
+    // Translate technical/category-style ingredient_name into canonical buyer
+    // search queries that Datarova/Reddit can actually find data for. The
+    // skip-heuristic avoids the LLM call when ingredient_name is already a clean
+    // buyer term and notes/rationale are empty.
+    const tInfer = Date.now()
+    const inferred = await inferBuyerKeywords(secrets.anthropic_api_key, {
+      ingredient_name: candidate.ingredient_name,
+      notes: candidate.notes,
+      source: opportunityReview?.source,
+      source_context: opportunityReview?.source_context,
+      signal_tags: opportunityReview?.signal_tags,
+      rationale: opportunityReview?.rationale,
+    })
+    log(`keyword inference done in ${Date.now() - tInfer}ms · primary="${inferred.primary_keyword}" related=${inferred.related_keywords.length} skipped=${inferred.skipped}`)
+
+    await setActionStatus(sb, actionId, 'in_progress', {
+      context_merge: {
+        inferred_keywords: {
+          primary_keyword: inferred.primary_keyword,
+          related_keywords: inferred.related_keywords,
+          reasoning: inferred.reasoning,
+          skipped: inferred.skipped,
+          inference_elapsed_ms: Date.now() - tInfer,
+        },
+      },
     })
 
     // Watchdog: fail any other in_progress run_phase_a actions for THIS candidate
@@ -107,8 +151,8 @@ Deno.serve(async (req) => {
     log('starting parallel Datarova + Reddit branches')
 
     const [datarovaOutcome, redditOutcome] = await Promise.allSettled([
-      runDatarovaBranch(sb, secrets, candidate, actionId, candidateId, tStart),
-      runRedditBranch(sb, secrets, candidate, actionId, candidateId, tStart),
+      runDatarovaBranch(sb, secrets, candidate, inferred, actionId, candidateId, tStart),
+      runRedditBranch(sb, secrets, candidate, inferred, actionId, candidateId, tStart),
     ])
 
     const datarovaOk = datarovaOutcome.status === 'fulfilled'
@@ -194,7 +238,7 @@ Deno.serve(async (req) => {
 // ──────────────────────────────────────────────────────────────────────────
 
 async function runDatarovaBranch(
-  sb: any, secrets: any, candidate: any, actionId: string, candidateId: string, tStart: number,
+  sb: any, secrets: any, candidate: any, inferred: KeywordInference, actionId: string, candidateId: string, tStart: number,
 ): Promise<void> {
   const log = (msg: string) => console.log(`[phase-a-gather:datarova] ${Date.now() - tStart}ms · ${msg}`)
   await setActionStatus(sb, actionId, 'in_progress', { context_merge: { datarova: 'running' } })
@@ -205,19 +249,26 @@ async function runDatarovaBranch(
     .order('search_volume', { ascending: false, nullsFirst: false })
     .limit(20)
   const bulkKnown = (bulkRows || []).map((r: any) => r.keyword).filter(Boolean)
-  const parentTerm = candidate.ingredient_name.toLowerCase().trim()
-  log(`bulk keywords loaded: ${bulkKnown.length}`)
+
+  // v4: Use inferred primary_keyword as the parent search term (was ingredient_name).
+  // This is the fix for Category-Atlas-style technical names that don't match buyer queries.
+  const parentTerm = inferred.primary_keyword.toLowerCase().trim()
+  const inferredRelated = inferred.related_keywords.map(k => k.toLowerCase().trim()).filter(Boolean)
+  log(`parent_term="${parentTerm}" · inferred_related=${inferredRelated.length} · bulk=${bulkKnown.length}`)
 
   const autocompleteSuggestions = await harvestAutocomplete(secrets.apify_api_token, parentTerm)
   log(`autocomplete done: ${autocompleteSuggestions.length} suggestions`)
 
   await setActionStatus(sb, actionId, 'in_progress', {
-    context_merge: { keyword_harvest: { autocomplete: autocompleteSuggestions.length, bulk: bulkKnown.length } },
+    context_merge: { keyword_harvest: { autocomplete: autocompleteSuggestions.length, bulk: bulkKnown.length, inferred_related: inferredRelated.length } },
   })
 
+  // v4: seed list now includes inferred related keywords. Order matters because
+  // we cap at 100 — inferred related are buyer-curated and should rank above
+  // raw autocomplete in case the parent term has many noisy autocompletes.
   const dedup = new Set<string>()
   const allKeywords: string[] = []
-  for (const k of [parentTerm, `${parentTerm} supplement`, ...bulkKnown, ...autocompleteSuggestions]) {
+  for (const k of [parentTerm, `${parentTerm} supplement`, ...inferredRelated, ...bulkKnown, ...autocompleteSuggestions]) {
     const norm = String(k).toLowerCase().trim()
     if (!norm || norm.length < 3 || norm.length > 100 || dedup.has(norm)) continue
     dedup.add(norm)
@@ -331,15 +382,21 @@ async function runDatarovaBranch(
 // ──────────────────────────────────────────────────────────────────────────
 
 async function runRedditBranch(
-  sb: any, secrets: any, candidate: any, actionId: string, candidateId: string, tStart: number,
+  sb: any, secrets: any, candidate: any, inferred: KeywordInference, actionId: string, candidateId: string, tStart: number,
 ): Promise<void> {
   const log = (msg: string) => console.log(`[phase-a-gather:reddit] ${Date.now() - tStart}ms · ${msg}`)
   await setActionStatus(sb, actionId, 'in_progress', { context_merge: { reddit: 'running' } })
 
+  // v4: Use inferred primary keyword as the Reddit search root (was ingredient_name).
+  // Add 1-2 inferred related keywords for query diversity. Cap at 3 queries — Reddit
+  // Apify pricing scales by query count. Examples:
+  //   "Butyrate / tributyrin postbiotic-metabolite lane" → "butyrate supplement", "butyrate", "tributyrin"
+  const redditRoot = inferred.primary_keyword.trim()
+  const redditRelated = inferred.related_keywords.slice(0, 1).map(k => k.trim()).filter(Boolean)
   const redditQueries = [
-    `${candidate.ingredient_name} supplement`,
-    `${candidate.ingredient_name}`,
-    `${candidate.ingredient_name} benefits`,
+    `${redditRoot} supplement`,
+    redditRoot,
+    redditRelated[0] || `${redditRoot} benefits`,
   ]
 
   // v2: cap Apify timeout at 90s (was 180s) and maxItems at 30 (was 50).
@@ -385,6 +442,128 @@ async function runRedditBranch(
   await setActionStatus(sb, actionId, 'in_progress', {
     context_merge: { reddit: 'done', reddit_stats: { posts: redditRaw.length, score: redditAnalysis.reddit_score } },
   })
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// BUYER-KEYWORD INFERENCE (v4)
+// ──────────────────────────────────────────────────────────────────────────
+
+interface KeywordInference {
+  primary_keyword: string
+  related_keywords: string[]
+  reasoning: string
+  skipped: boolean
+}
+
+/**
+ * Translate a candidate's ingredient_name + notes + opportunity_review context
+ * into canonical buyer-friendly search queries.
+ *
+ * The skip heuristic short-circuits when ingredient_name is already a clean
+ * buyer term (single/double word, no slashes, no "system"/"lane"/"complex" words)
+ * AND notes/rationale are empty. Examples that skip:
+ *   - "pycnogenol", "nac", "rhodiola", "saccharomyces boulardii"
+ * Examples that DON'T skip:
+ *   - "Butyrate / tributyrin postbiotic-metabolite lane" (slash + technical phrasing)
+ *   - "Reishi Mushroom Extract" with Taiyi spec notes (notes non-empty)
+ *   - "Citrus hesperidin / bioflavonoid system" (slash + system suffix)
+ */
+async function inferBuyerKeywords(
+  apiKey: string,
+  ctx: {
+    ingredient_name: string
+    notes?: string | null
+    source?: string | null
+    source_context?: string | null
+    signal_tags?: string[] | null
+    rationale?: string | null
+  },
+): Promise<KeywordInference> {
+  const name = (ctx.ingredient_name || '').trim()
+  const notes = (ctx.notes || '').trim()
+  const rationale = (ctx.rationale || '').trim()
+  const tagsList = Array.isArray(ctx.signal_tags) ? ctx.signal_tags.filter(Boolean) : []
+
+  // Skip heuristic: clean buyer term, no extra context.
+  const hasTechnicalMarker = /[\/|]|\b(system|lane|complex|axis|pathway|family|class)\b/i.test(name)
+  const tooLong = name.length > 40
+  const hasContext = notes.length > 0 || rationale.length > 0
+  if (!hasTechnicalMarker && !tooLong && !hasContext) {
+    return {
+      primary_keyword: name.toLowerCase(),
+      related_keywords: [],
+      reasoning: 'Skip heuristic: ingredient_name is already a clean buyer term and no manual context to expand.',
+      skipped: true,
+    }
+  }
+
+  const contextBlock = [
+    `Ingredient/candidate name: "${name}"`,
+    notes ? `Notes (often spec/positioning captured by Toniiq team): ${notes}` : null,
+    rationale && rationale !== notes ? `Opportunity rationale: ${rationale}` : null,
+    ctx.source ? `Source: ${ctx.source}${ctx.source_context ? ` (${ctx.source_context})` : ''}` : null,
+    tagsList.length ? `Signal tags: ${tagsList.join(', ')}` : null,
+  ].filter(Boolean).join('\n')
+
+  const r = await anthropicCall(apiKey, {
+    model: SONNET,
+    max_tokens: 600,
+    system: `You are the Buyer-Keyword Inference agent for Toniiq's supplement NPD pipeline. You translate technical / category-level ingredient names from upstream tools (Category Atlas, manual ideas, supplier conversations) into the canonical buyer-friendly Amazon search queries that real customers actually type.
+
+CORE GOAL: produce search queries that Datarova (Amazon keyword corpus) and Reddit (community discussion) will return meaningful data for. Technical/scientific phrasings (e.g. "Butyrate / tributyrin postbiotic-metabolite lane") return 0 hits and must be decomposed.
+
+RULES:
+1. primary_keyword: the SINGLE best buyer query — the term shoppers most likely type into Amazon for this candidate. Should be a real ingredient or product noun. Lowercase. 1-4 words.
+2. related_keywords: 4-8 additional buyer queries that cover adjacent terminology, synonyms, branded forms, dosage/spec variants, and condition-led searches. Each one must be a plausible Amazon search. Lowercase. 1-5 words each.
+3. If the input name is a multi-ingredient/category lane (e.g. "X / Y / Z lane"), the related_keywords MUST cover each major component separately (X, Y, Z as their own buyer terms).
+4. If notes/rationale specify a particular spec (e.g. "Taiyi: 10% triterpenes + 30% polysaccharides", "Indena Quercefit phytosome"), include 1-2 related_keywords that reflect that spec lane (e.g. "reishi extract organic", "quercetin phytosome").
+5. Avoid trademark-only terms unless the candidate is explicitly that brand. Prefer the generic ingredient noun.
+6. reasoning: 1-2 sentences explaining the keyword decomposition.
+
+EXAMPLES:
+Input: "Butyrate / tributyrin postbiotic-metabolite lane"
+Output: { primary_keyword: "butyrate supplement", related_keywords: ["butyrate", "sodium butyrate", "tributyrin", "calcium magnesium butyrate", "postbiotic supplement"], reasoning: "Atlas lane spans the butyrate + tributyrin + postbiotic landscape. Butyrate is the dominant search root; tributyrin and postbiotic are related lanes worth pulling." }
+
+Input: "Bifidobacterium longum / psychobiotic lane"
+Output: { primary_keyword: "bifidobacterium longum", related_keywords: ["b longum", "psychobiotic", "probiotic for anxiety", "probiotic for mood", "b longum 1714"], reasoning: "B. longum is the strain itself; psychobiotic is the marketing lane. Mood/anxiety condition keywords capture the buyer intent." }
+
+Input: "Reishi Mushroom Extract" with notes "Triterpenes 10% + Polysaccharides 30% Organic version also available CIF Los Angeles: USD 195/kg"
+Output: { primary_keyword: "reishi mushroom extract", related_keywords: ["reishi", "ganoderma lucidum", "organic reishi", "reishi capsule", "reishi triterpenes", "reishi 30% polysaccharides"], reasoning: "Reishi is the buyer-canonical noun. Notes specify a dual-spec supplier offering, so spec-led variants (triterpenes, 30% polysaccharides, organic) are worth pulling." }
+
+Return STRICT JSON. No markdown, no commentary.`,
+    messages: [{
+      role: 'user',
+      content: `${contextBlock}\n\nInfer the buyer-keyword decomposition. Return JSON.`,
+    }],
+  })
+
+  const text = extractText(r)
+  try {
+    const parsed = extractJson<any>(text)
+    const primary = String(parsed.primary_keyword || '').trim().toLowerCase()
+    if (!primary) throw new Error('empty primary_keyword from inference')
+    const related = Array.isArray(parsed.related_keywords)
+      ? parsed.related_keywords.map((k: any) => String(k || '').trim().toLowerCase()).filter((k: string) => k.length >= 2 && k.length <= 60 && k !== primary).slice(0, 10)
+      : []
+    return {
+      primary_keyword: primary,
+      related_keywords: related,
+      reasoning: String(parsed.reasoning || '').trim() || 'No reasoning returned.',
+      skipped: false,
+    }
+  } catch (e) {
+    // Fallback: use a sanitized version of ingredient_name. Better to proceed
+    // with partial data than to fail the whole Phase A run on a parse error.
+    const fallback = name.toLowerCase().split(/[\/|]/).map(s => s.trim()).filter(Boolean)[0]
+      ?.replace(/\b(system|lane|complex|axis|pathway|family|class)\b/gi, '')
+      .trim() || name.toLowerCase()
+    return {
+      primary_keyword: fallback,
+      related_keywords: [],
+      reasoning: `Inference parse error (${(e as Error).message}); used sanitized fallback of ingredient_name.`,
+      skipped: false,
+    }
+  }
 }
 
 // ──────────────────────────────────────────────────────────────────────────
