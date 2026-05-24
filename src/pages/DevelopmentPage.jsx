@@ -111,6 +111,8 @@ function buildHandoffPrompt(product) {
     `LV band: ${product.lv_band || 'n/a'}`,
     `Confidence: ${product.confidence || 'n/a'}`,
     `Local folder: ${product.local_folder_path || '[none linked yet]'}`,
+    `Notion card: ${product.notion_url || '[none linked yet]'}`,
+    `GDrive folder: ${product.gdrive_folder_url || '[none linked yet]'}`,
     product.concept_id ? `Concept dashboard: https://toniiq-idea-pipeline.vercel.app/concepts/${product.concept_id}` : 'Concept dashboard: [none linked]',
     '',
     `Current action: ${product.today_action || '[none]'}`,
@@ -128,6 +130,10 @@ function buildHandoffPrompt(product) {
 
 function badgeStyle(map, key, fallback = { bg: 'var(--bg-active)', color: 'var(--text-muted)' }) {
   return map[key] || fallback
+}
+
+function isUrl(value) {
+  return typeof value === 'string' && /^https?:\/\//.test(value)
 }
 
 export default function DevelopmentPage() {
@@ -593,6 +599,8 @@ function ProductRow({
             </button>
           </div>
           <button onClick={onOpen} className="t-btn-ghost px-2.5 py-1 text-[11px]">Open</button>
+          <ExternalRowLink href={product.notion_url} label="Notion" />
+          <ExternalRowLink href={product.gdrive_folder_url} label="Drive" />
           <QueueMoveButton currentQueue={product.queue} onMove={onMove} />
           <button onClick={onCopy} className="t-btn-ghost px-2.5 py-1 text-[11px]">{copied ? 'Copied' : 'Work on this'}</button>
         </div>
@@ -604,6 +612,15 @@ function ProductRow({
         <FieldPreview label="Blocker" value={product.blocker_risk} />
       </div>
     </div>
+  )
+}
+
+function ExternalRowLink({ href, label }) {
+  if (!isUrl(href)) return null
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="t-btn-ghost px-2.5 py-1 text-[11px]">
+      {label}
+    </a>
   )
 }
 
@@ -675,6 +692,8 @@ function ProductDrawer({ product, draft, setDraft, formError, saving, onSave, on
       <DrawerSection title="Overview">
         <div className="grid gap-3 sm:grid-cols-2">
           <ReadOnlyItem label="Folder" value={product.local_folder_path || 'None linked'} />
+          <ReadOnlyItem label="Notion card" value={product.notion_url ? 'Open Notion card' : 'None linked'} link={product.notion_url} external />
+          <ReadOnlyItem label="GDrive folder" value={product.gdrive_folder_url ? 'Open Drive folder' : 'None linked'} link={product.gdrive_folder_url} external />
           <ReadOnlyItem label="Concept" value={product.concept_id || 'None linked'} link={product.concept_id ? `/concepts/${product.concept_id}` : null} />
           <ReadOnlyItem label="Registry anchor" value={product.registry_anchor || 'None'} />
           <ReadOnlyItem label="Updated" value={formatDate(product.last_updated)} />
@@ -723,6 +742,8 @@ function ProductDrawer({ product, draft, setDraft, formError, saving, onSave, on
 
       <DrawerSection title="Evidence & Links">
         <div className="flex flex-wrap gap-2">
+          {isUrl(product.notion_url) && <LinkButton to={product.notion_url} label="Notion card" external />}
+          {isUrl(product.gdrive_folder_url) && <LinkButton to={product.gdrive_folder_url} label="GDrive folder" external />}
           {product.concept_id && <LinkButton to={`/concepts/${product.concept_id}`} label="Concept page" />}
           {product.registry_anchor && <LinkButton to={`https://toniiq-idea-pipeline.vercel.app/development`} label={product.registry_anchor} external />}
           <span className="rounded border px-2.5 py-1 text-xs" style={{ borderColor: 'var(--border-default)', color: 'var(--text-faint)' }}>
@@ -805,11 +826,13 @@ function InlineWarning({ children, tone = 'amber' }) {
   )
 }
 
-function ReadOnlyItem({ label, value, link }) {
+function ReadOnlyItem({ label, value, link, external = false }) {
   return (
     <div className="min-w-0">
       <div className="mb-1 text-[10px] font-semibold uppercase" style={{ color: 'var(--text-faint)' }}>{label}</div>
-      {link ? (
+      {link && external ? (
+        <a href={link} target="_blank" rel="noreferrer" className="break-all text-xs hover:underline" style={{ color: 'var(--blue-text)' }}>{value}</a>
+      ) : link ? (
         <Link to={link} className="break-all text-xs hover:underline" style={{ color: 'var(--blue-text)' }}>{value}</Link>
       ) : (
         <div className="break-words text-xs" style={{ color: 'var(--text-muted)' }}>{value}</div>
