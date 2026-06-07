@@ -447,10 +447,11 @@ export default function DevelopmentPage() {
               </div>
             ) : (
               <div className="divide-y" style={{ borderColor: 'var(--border-subtle)' }}>
-                {queueProducts.map(product => (
+                {queueProducts.map((product, index) => (
                   <ProductRow
                     key={product.id}
                     product={product}
+                    position={index + 1}
                     selected={product.id === selectedId}
                     dragging={draggingId === product.id}
                     copied={copiedId === product.id}
@@ -525,6 +526,7 @@ function QueueSummary({ queue, count, search }) {
 
 function ProductRow({
   product,
+  position,
   selected,
   dragging,
   copied,
@@ -564,7 +566,7 @@ function ProductRow({
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <button onClick={onOpen} className="min-w-0 flex-1 text-left">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{product.sort_order}. {product.product}</span>
+            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{position}. {product.product}</span>
             <span className="rounded border px-1.5 py-0.5 text-[10px] font-medium" style={{ background: queueStyle.bg, color: queueStyle.color, borderColor: queueStyle.border }}>{product.queue}</span>
             <span className="rounded px-1.5 py-0.5 text-[10px] font-medium" style={{ background: priorityStyle.bg, color: priorityStyle.color }}>{PRIORITY_LABELS[product.priority] || product.priority}</span>
             <span className="rounded px-1.5 py-0.5 text-[10px] font-medium" style={{ background: lvStyle.bg, color: lvStyle.color }}>
