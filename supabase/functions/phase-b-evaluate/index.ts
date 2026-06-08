@@ -163,6 +163,26 @@ Deno.serve(async (req) => {
       },
     })
 
+    // ── STEP 2b: INFRA PREFLIGHT — dead/invalid Datarova key ─────────────
+    // A Datarova auth failure (401/403/invalid_api_key) means the KEY is broken
+    // (infrastructure), NOT that this concept lacks demand. Without this guard the
+    // run continues, burns a full Apify+Keepa discovery, then the quality gate
+    // mislabels it `failed_demand` and writes a misleading null-score row — so one
+    // dead key looks like N independent demand rejections (incident 2026-06-08).
+    // Abort BEFORE discovery, write NO score row, surface a distinct infra_error.
+    if (demandPacket.source !== 'datarova' && /\b401\b|\b403\b|invalid[_ ]api[_ ]key|access denied|unauthor/i.test(demandPacket.error || '')) {
+      const infraMsg = `Datarova auth failure (infrastructure, not a demand rejection): ${demandPacket.error || 'unknown'}. The Datarova API key is invalid/revoked — rotate system_config.datarova_api_key. No competitive run or score written.`
+      console.error('[phase-b-evaluate] INFRA ABORT (datarova_auth):', infraMsg)
+      await setActionStatus(sb, resolvedActionId, 'failed', {
+        notes: `Infra error (datarova_auth): ${infraMsg}`,
+        context_merge: { infra_error: 'datarova_auth', datarova_error: (demandPacket.error || '').slice(0, 300), completed_at: new Date().toISOString() },
+      })
+      return new Response(JSON.stringify({ ok: false, infra_error: 'datarova_auth', reason: infraMsg }), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+        status: 200,
+      })
+    }
+
     // ── STEP 3: HYBRID DISCOVERY + KEEPA ENRICHMENT ──────────────────────
     await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'hybrid_discovery' } })
     const enrichment = await runHybridQuery(frame, secrets.apify_api_token, keepaKey, DEFAULT_KEEP_ASINS, KEEPA_TOKEN_WAIT_MS)
