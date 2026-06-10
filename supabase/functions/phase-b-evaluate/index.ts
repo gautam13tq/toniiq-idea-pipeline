@@ -369,13 +369,18 @@ THE TWO FRAMES:
 - broad_hero — the hero ingredient defines the competitive lane. Includes single-ingredient products of the hero AND multi-active complexes where the hero is the undisputed lead (named prominently in title, dosed as primary).
 - strict_modifier — delivery technology IS the differentiation. Liposomal / phytosome / micellar / enhanced-absorption qualifier on a hero ingredient. Must have BOTH hero + delivery modifier in the title.
 
+COMBINATION LANE (combo_terms) — applies ON TOP of the frame above:
+When the concept is a multi-active COMBINATION whose buyer value IS the combination (the co-actives are a real reason someone buys it, not trace cofactors), the competitive lane is the COMBO — not the single-ingredient parent aisle. In that case set "combo_terms" to the co-active signal tokens a genuine combo competitor's title would carry. This restricts the SCORED competitive set to combo products; bare single-ingredient hero products become parent-market context (adjacent), not direct competitors. Also bias the query_packet toward the combo — at least half the queries should target it (e.g. "creatine electrolytes", "creatine hydration powder"). If the co-actives are merely trace/supporting cofactors and buyers are really shopping the single-ingredient lane, leave combo_terms empty ([]).
+
 Examples:
 - "Liposomal Astaxanthin" → strict_modifier, hero=astaxanthin, modifier=liposomal
 - "Quercefit 5-in-1" → strict_modifier, hero=quercetin, modifier=phytosome (Quercefit IS the phytosome form of quercetin)
-- "Cayenne + MCT Thermogenic Softgels" → broad_hero, hero=cayenne (MCT is positioning within the lane, not a delivery modifier)
-- "Nattokinase 5-in-1" → broad_hero, hero=nattokinase
-- "Dandelion Root Extract 10:1" → broad_hero, hero=dandelion root
-- "S. boulardii 30B" → broad_hero, hero=saccharomyces boulardii
+- "Creatine + Electrolytes Hydration Powder" → broad_hero, hero=creatine, combo_terms=["electrolyte","hydration","sodium","potassium"] (buyer wants a hydration-creatine; a plain single-ingredient creatine tub is the parent market, NOT a direct competitor)
+- "Nattokinase + Serrapeptase Enzyme Complex" → broad_hero, hero=nattokinase, combo_terms=["serrapeptase"] (the enzyme pairing is the lane)
+- "Cayenne + MCT Thermogenic Softgels" → broad_hero, hero=cayenne, combo_terms=[] (MCT is positioning within the cayenne lane, not a lane-defining co-star)
+- "Nattokinase 5-in-1" → broad_hero, hero=nattokinase, combo_terms=[] (the 4 others are supporting cofactors; lane is nattokinase)
+- "Dandelion Root Extract 10:1" → broad_hero, hero=dandelion root, combo_terms=[]
+- "S. boulardii 30B" → broad_hero, hero=saccharomyces boulardii, combo_terms=[]
 
 QUERY PACKET (4-8 buyer-style search queries):
 - Include the bare hero ingredient, "hero supplement", and meaningful variants buyers actually search.
@@ -392,6 +397,7 @@ Return STRICT JSON (no markdown, no commentary):
   "frame": "broad_hero" | "strict_modifier",
   "hero_ingredient": "...",
   "delivery_modifier": "..." or null,
+  "combo_terms": ["..."] or [],
   "primary_lane_query": "...",
   "query_packet": ["...", "...", ...],
   "inclusion_rules": ["..."],
@@ -422,7 +428,9 @@ Key ingredients: ${JSON.stringify(concept.key_ingredients || [])}`,
     include_terms: Array.isArray(parsed.inclusion_rules) && parsed.inclusion_rules.length > 0
       ? parsed.inclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean)
       : [heroIngredient],
-    require_any: modifier ? [modifier] : [],
+    require_any: modifier
+      ? [modifier]
+      : (Array.isArray(parsed.combo_terms) ? parsed.combo_terms.map((t: any) => String(t || '').trim()).filter(Boolean) : []),
     exclude_terms: Array.isArray(parsed.exclusion_rules)
       ? parsed.exclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean)
       : [],

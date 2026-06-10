@@ -527,8 +527,10 @@ function phraseStart(text: string, term: string) {
  * Rules:
  *  - broad_hero:
  *      - excluded: noise terms (pets/topical) or hero ingredient absent.
- *      - adjacent: hero present but buried (other ingredient leads, or 2+ stack markers).
- *      - included: hero leads or is the only meaningful ingredient.
+ *      - adjacent: hero present but buried (other ingredient leads, or 2+ stack markers),
+ *                  OR (combo frames with require_any set) hero present but missing every combo co-active.
+ *      - included: hero leads or is the only meaningful ingredient (and, for combo frames,
+ *                  carries at least one required combo co-active).
  *  - strict_modifier:
  *      - included only if BOTH hero AND modifier appear in title AND
  *        modifier is close to hero (within 90 chars).
@@ -598,6 +600,16 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
   // Big stack with hero buried — adjacent
   if ((stackHits.length >= 2 || (hasStackMarker && stackHits.length >= 1)) && !heroInLead) {
     return { bucket: 'adjacent' as const, classification: 'adjacent' as const, lane_fit: 'condition_stack', reason: `Hero appears inside broader stack: ${stackHits.slice(0, 4).join(', ')}` }
+  }
+
+  // Combo lane gate: when the frame requires combo co-actives (require_any set on a
+  // combination concept), a product must carry at least one of them to be 'included'.
+  // A bare single-ingredient hero product is the parent market, not a combo competitor → adjacent.
+  if (requireTerms.length > 0) {
+    const comboHits = requireTerms.filter(term => phraseHit(text, term))
+    if (!comboHits.length) {
+      return { bucket: 'adjacent' as const, classification: 'adjacent' as const, lane_fit: 'sibling_or_parent_market', reason: `Single-ingredient ${frame.hero_ingredient}; missing combo signal (${requireTerms.slice(0, 4).join(', ')}) — parent market, not the combo lane.` }
+    }
   }
 
   const laneFit = hasStackMarker || stackHits.length ? 'hero_complex' : 'hero_single'
