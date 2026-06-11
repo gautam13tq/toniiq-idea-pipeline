@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase'
 const QUEUES = [
   { key: 'Active Development', label: 'Active', fullLabel: 'Active Development', target: '8-10', cap: 13 },
   { key: 'Greenlight Bench', label: 'Bench', fullLabel: 'Greenlight Bench', target: '<=3', cap: 3 },
+  { key: 'Greenlit', label: 'Greenlit', fullLabel: 'Greenlit — Launch Approved' },
   { key: 'Selective Hold', label: 'Hold', fullLabel: 'Selective Hold' },
   { key: 'Shelved / Parked', label: 'Shelved', fullLabel: 'Shelved / Parked' },
   { key: 'Idea Backlog', label: 'Ideas', fullLabel: 'Idea Backlog' },
@@ -13,6 +14,7 @@ const QUEUES = [
 const QUEUE_STYLES = {
   'Active Development': { bg: 'var(--blue-muted)', color: 'var(--blue-text)', border: 'rgba(96,165,250,0.3)' },
   'Greenlight Bench': { bg: 'var(--green-muted)', color: 'var(--green-text)', border: 'rgba(74,222,128,0.3)' },
+  'Greenlit': { bg: 'rgba(45,212,191,0.13)', color: '#2dd4bf', border: 'rgba(45,212,191,0.35)' },
   'Selective Hold': { bg: 'var(--amber-muted)', color: 'var(--amber-text)', border: 'rgba(251,191,36,0.3)' },
   'Shelved / Parked': { bg: 'var(--bg-active)', color: 'var(--text-muted)', border: 'var(--border-default)' },
   'Idea Backlog': { bg: 'var(--bg-active)', color: 'var(--text-faint)', border: 'var(--border-default)' },
