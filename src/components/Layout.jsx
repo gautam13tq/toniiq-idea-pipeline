@@ -18,7 +18,7 @@ const NAV_SECTIONS = [
     items: [
       { path: '/research', label: 'Research', icon: '◎', countStage: 'research' },
       { path: '/evaluation', label: 'Evaluation', icon: '◉', countStage: 'evaluation' },
-      { path: '/development', label: 'Development', icon: '▣', countStage: 'development' },
+      { path: '/development', label: 'Development', icon: '▣', countType: 'activeDev' },
       { path: '/archive', label: 'Archive', icon: '◇', countStage: 'archive' },
     ]
   },
@@ -33,6 +33,7 @@ export default function Layout({ children }) {
   const [opportunityCount, setOpportunityCount] = useState(0)
   const [inboxUniverseCount, setInboxUniverseCount] = useState(0)
   const [categoryAtlasCount, setCategoryAtlasCount] = useState(0)
+  const [activeDevCount, setActiveDevCount] = useState(0)
 
   useEffect(() => {
     let ignore = false
@@ -76,12 +77,18 @@ export default function Layout({ children }) {
         latestCategoryCount = countCategoryEntries || 0
       }
 
+      const { count: activeDev } = await supabase
+        .from('npd_registry_products')
+        .select('*', { count: 'exact', head: true })
+        .eq('queue', 'Active Development')
+
       if (ignore) return
       setStageCounts(counts)
       setPendingCount(count || 0)
       setOpportunityCount(openOpportunities || 0)
       setInboxUniverseCount(latestCount)
       setCategoryAtlasCount(latestCategoryCount)
+      setActiveDevCount(activeDev || 0)
     }
 
     fetchCounts()
@@ -154,6 +161,8 @@ export default function Layout({ children }) {
                         ? inboxUniverseCount
                         : item.countType === 'categoryAtlas'
                           ? categoryAtlasCount
+                        : item.countType === 'activeDev'
+                          ? activeDevCount
                         : stageCounts[item.countStage]
                   return (
                     <li key={item.path}>
