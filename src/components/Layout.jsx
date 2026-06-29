@@ -42,11 +42,19 @@ export default function Layout({ children }) {
       const { data } = await supabase.from('idea_candidates').select('stage')
       const counts = {}
       for (const row of (data || [])) counts[row.stage] = (counts[row.stage] || 0) + 1
-      const { count } = await supabase.from('pending_actions').select('*', { count: 'exact', head: true }).in('status', ['pending', 'in_progress'])
-      const { count: openOpportunities } = await supabase
+      // Count client-side from plain GET reads. Exact-count / HEAD requests
+      // intermittently 503 at the edge on the shared warehouse project, which
+      // was blanking these sidebar badges; plain GETs are reliable here.
+      const { data: pendingRows } = await supabase
+        .from('pending_actions')
+        .select('status')
+        .in('status', ['pending', 'in_progress'])
+
+      const { data: openOppRows } = await supabase
         .from('opportunity_reviews')
-        .select('*', { count: 'exact', head: true })
+        .select('status')
         .in('status', ['new', 'reviewing', 'queued_research', 'researching', 'watching'])
+
       const { data: latestSnapshot } = await supabase
         .from('poe_snapshots')
         .select('import_date')
@@ -55,11 +63,11 @@ export default function Layout({ children }) {
         .single()
       let latestCount = 0
       if (latestSnapshot?.import_date) {
-        const { count: countLatest } = await supabase
+        const { data: latestRows } = await supabase
           .from('poe_snapshots')
-          .select('*', { count: 'exact', head: true })
+          .select('import_date')
           .eq('import_date', latestSnapshot.import_date)
-        latestCount = countLatest || 0
+        latestCount = latestRows?.length || 0
       }
       const { data: latestCategoryImport } = await supabase
         .from('category_atlas_imports')
@@ -70,25 +78,25 @@ export default function Layout({ children }) {
         .maybeSingle()
       let latestCategoryCount = 0
       if (latestCategoryImport?.id) {
-        const { count: countCategoryEntries } = await supabase
+        const { data: categoryRows } = await supabase
           .from('category_atlas_entries')
-          .select('*', { count: 'exact', head: true })
+          .select('import_id')
           .eq('import_id', latestCategoryImport.id)
-        latestCategoryCount = countCategoryEntries || 0
+        latestCategoryCount = categoryRows?.length || 0
       }
 
-      const { count: activeDev } = await supabase
+      const { data: activeDevRows } = await supabase
         .from('npd_registry_products')
-        .select('*', { count: 'exact', head: true })
+        .select('id')
         .eq('queue', 'Active Development')
 
       if (ignore) return
       setStageCounts(counts)
-      setPendingCount(count || 0)
-      setOpportunityCount(openOpportunities || 0)
+      setPendingCount(pendingRows?.length || 0)
+      setOpportunityCount(openOppRows?.length || 0)
       setInboxUniverseCount(latestCount)
       setCategoryAtlasCount(latestCategoryCount)
-      setActiveDevCount(activeDev || 0)
+      setActiveDevCount(activeDevRows?.length || 0)
     }
 
     fetchCounts()

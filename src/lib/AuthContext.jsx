@@ -12,6 +12,11 @@ export function AuthProvider({ children }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
+    }).catch(() => {
+      // Never hard-hang the auth gate on a transient session/network error —
+      // fall through to the login screen instead of an infinite "Loading...".
+      setUser(null)
+      setLoading(false)
     })
 
     // Listen for auth state changes
