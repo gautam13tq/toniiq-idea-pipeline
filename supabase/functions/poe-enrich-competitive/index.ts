@@ -163,6 +163,21 @@ function isBrandLedQuery(query: string): boolean {
   return nonBrandTokens.length <= 2
 }
 
+const FOREIGN_MARKERS = [
+  'enzimas', 'digestivas', 'digestiva', 'salud', 'biliares', 'adelgazar', 'pastillas',
+  'cabello', 'suplemento', 'suplementos', 'aceite', 'hierro', 'mujeres', 'hombres',
+  'emagrecer', 'colageno', 'articulaciones', 'crecimiento', 'para el', 'para la', 'para mujer',
+]
+
+// Foreign-language POE search terms (e.g. Spanish "enzimas digestivas") return thin/irrelevant
+// Keepa matches that previously backfilled a bogus low review-moat — making saturated markets
+// read as "wide open". Skip them so the competitive signal comes only from English queries.
+function isNonEnglishQuery(query: string): boolean {
+  if (/[áéíóúñ¿¡ãõç]/i.test(query)) return true
+  const t = ` ${normalize(query)} `
+  return FOREIGN_MARKERS.some(w => t.includes(` ${w} `))
+}
+
 function buildQueryJobs(row: PoeRow): QueryJob[] {
   const jobs: QueryJob[] = []
 
@@ -175,6 +190,10 @@ function buildQueryJobs(row: PoeRow): QueryJob[] {
     }
     if (isBrandLedQuery(cleaned)) {
       jobs.push({ query: cleaned, query_type, skip_reason: 'skipped_brand_led_query' })
+      return
+    }
+    if (isNonEnglishQuery(cleaned)) {
+      jobs.push({ query: cleaned, query_type, skip_reason: 'skipped_non_english_query' })
       return
     }
     jobs.push({ query: cleaned, query_type })
@@ -195,7 +214,11 @@ function keepaSearchTitle(query: string) {
   if (text.startsWith('vitamin ')) return `${query} supplement`
   if (text === 'oregano oil') return 'oregano oil capsules'
   if (text === 'mushroom coffee') return 'mushroom coffee supplement'
-  return query
+  // Default: append "supplement" to bare ingredient/condition queries so generic terms
+  // (e.g. "digestive enzymes") resolve to the human-supplement market instead of the
+  // dominant pet / incontinence / greens products that otherwise top Keepa's sales-sorted
+  // match and get noise-wiped to zero (then backfilled with junk → false "wide open").
+  return `${query} supplement`
 }
 
 function percentile(values: number[], p: number): number | null {
