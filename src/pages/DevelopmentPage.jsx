@@ -353,6 +353,20 @@ export default function DevelopmentPage() {
     if (saveError) {
       setFormError(saveError.message)
     } else {
+      // Keep the idea lifecycle in sync with the registry: moving a product into a
+      // development queue greenlights its linked concept, which advances
+      // idea_candidates.stage to 'development' via the rollup trigger. Without this,
+      // a manually-moved product stays at stage='evaluation' and keeps showing on the
+      // Evaluation page. Idempotent — only accepted/evaluated concepts are touched,
+      // and the sync trigger's existence guard prevents duplicate registry rows.
+      const DEV_QUEUES = ['Active Development', 'Greenlight Bench', 'Greenlit']
+      if (DEV_QUEUES.includes(data.queue) && data.concept_id) {
+        await supabase
+          .from('product_concepts')
+          .update({ status: 'greenlit', decided_at: new Date().toISOString() })
+          .eq('id', data.concept_id)
+          .in('status', ['accepted', 'evaluated'])
+      }
       setProducts(prev => prev.map(product => product.id === selected.id ? data : product))
       setActiveQueue(data.queue)
       setDraftPatch({})

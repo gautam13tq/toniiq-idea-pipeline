@@ -39,34 +39,28 @@ export default function EvaluationPage() {
 
   async function loadData() {
     setLoading(true)
+    // One stage per idea: Evaluation shows idea_candidates at stage='evaluation'
+    // (the rollup trigger derives stage from concept status). This page used to
+    // select ideas by concept status and ignore stage, which double-listed
+    // research-stage ideas that still had an accepted+scored concept.
+    const { data: ideasData } = await supabase
+      .from('idea_candidates')
+      .select('*')
+      .eq('stage', 'evaluation')
+      .order('last_updated_at', { ascending: false })
+    const ideaList = ideasData || []
+    const ideaIds = ideaList.map(i => i.id)
     const [scoresRes, conceptsRes] = await Promise.all([
       supabase.from('concept_scores').select('concept_id,composite_score,recommendation_tier'),
-      supabase.from('product_concepts').select('*').order('rank_within_ingredient'),
+      ideaIds.length
+        ? supabase.from('product_concepts').select('*').in('candidate_id', ideaIds).order('rank_within_ingredient')
+        : Promise.resolve({ data: [] }),
     ])
     const scoreMap = {}
     for (const s of (scoresRes.data || [])) scoreMap[s.concept_id] = s
     setScores(scoreMap)
-    const allConcepts = conceptsRes.data || []
-    setConcepts(allConcepts)
-
-    // Ideas with at least one ACTIONABLE concept (scored + still in accepted/evaluated)
-    const candidatesWithActionable = new Set(
-      allConcepts
-        .filter(c => scoreMap[c.id] && (c.status === 'accepted' || c.status === 'evaluated'))
-        .map(c => c.candidate_id)
-    )
-    // Ideas that are scored but no longer have actionable concepts (all moved or rejected) — for "Shelved" too if shelved_at
-    const candidatesWithAnyScore = new Set(
-      allConcepts.filter(c => scoreMap[c.id]).map(c => c.candidate_id)
-    )
-    // Combined set we need to fetch from DB
-    const fetchSet = new Set([...candidatesWithActionable, ...candidatesWithAnyScore])
-    if (fetchSet.size === 0) { setIdeas([]); setLoading(false); return }
-
-    const { data: ideasData } = await supabase.from('idea_candidates').select('*')
-      .in('id', Array.from(fetchSet))
-      .order('last_updated_at', { ascending: false })
-    setIdeas(ideasData || [])
+    setConcepts(conceptsRes.data || [])
+    setIdeas(ideaList)
     setLoading(false)
   }
 
@@ -97,13 +91,8 @@ export default function EvaluationPage() {
     return <div className="flex items-center justify-center min-h-[60vh]"><div className="text-sm" style={{ color: 'var(--text-faint)' }}>Loading...</div></div>
   }
 
-  // Filter ideas by tab
-  const candidatesWithActionable = new Set(
-    concepts
-      .filter(c => scores[c.id] && (c.status === 'accepted' || c.status === 'evaluated'))
-      .map(c => c.candidate_id)
-  )
-  const activeIdeas = ideas.filter(i => !i.shelved_at && candidatesWithActionable.has(i.id))
+  // Filter ideas by tab — every idea here is already stage='evaluation'.
+  const activeIdeas = ideas.filter(i => !i.shelved_at)
   const shelvedIdeas = ideas.filter(i => i.shelved_at)
   const visibleIdeas = tab === 'shelved' ? shelvedIdeas : activeIdeas
 
