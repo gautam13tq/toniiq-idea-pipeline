@@ -120,6 +120,8 @@ function IngredientsTable({ ingredients }) {
 }
 
 function ArtifactsList({ artifacts }) {
+  const [downloadError, setDownloadError] = useState(null)
+
   if (!artifacts || !artifacts.length) {
     return (
       <p className="text-xs py-4 text-center" style={{ color: 'var(--text-faint)' }}>
@@ -127,8 +129,6 @@ function ArtifactsList({ artifacts }) {
       </p>
     )
   }
-
-  const [downloadError, setDownloadError] = useState(null)
 
   const handleDownload = async (artifact) => {
     setDownloadError(null)

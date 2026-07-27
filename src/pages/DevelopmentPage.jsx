@@ -146,6 +146,7 @@ export default function DevelopmentPage() {
   const [search, setSearch] = useState('')
   const [selectedId, setSelectedId] = useState(null)
   const [draftPatch, setDraftPatch] = useState({})
+  const [draftProductId, setDraftProductId] = useState(null)
   const [formError, setFormError] = useState('')
   const [saving, setSaving] = useState(false)
   const [reordering, setReordering] = useState(false)
@@ -186,15 +187,19 @@ export default function DevelopmentPage() {
     [products, selectedId]
   )
 
+  // Only apply the draft patch to the product it was edited on. If that product
+  // stops resolving and `selected` falls back to a different product, the stale
+  // patch is ignored instead of silently merging into the wrong product.
   const draft = useMemo(
-    () => ({ ...draftFromProduct(selected), ...draftPatch }),
-    [selected, draftPatch]
+    () => ({ ...draftFromProduct(selected), ...(draftProductId === selected?.id ? draftPatch : {}) }),
+    [selected, draftPatch, draftProductId]
   )
 
   const setDraft = useCallback((update) => {
+    const productId = selected?.id ?? null
     setDraftPatch(prev => {
       const base = draftFromProduct(selected)
-      const current = { ...base, ...prev }
+      const current = { ...base, ...(draftProductId === productId ? prev : {}) }
       const next = typeof update === 'function' ? update(current) : update
       const patch = {}
       for (const key of Object.keys(base)) {
@@ -202,7 +207,8 @@ export default function DevelopmentPage() {
       }
       return patch
     })
-  }, [selected])
+    setDraftProductId(productId)
+  }, [selected, draftProductId])
 
   const counts = useMemo(() => {
     const next = Object.fromEntries(QUEUES.map(queue => [queue.key, 0]))
@@ -238,12 +244,14 @@ export default function DevelopmentPage() {
   function openProduct(productId) {
     setSelectedId(productId)
     setDraftPatch({})
+    setDraftProductId(productId)
     setFormError('')
   }
 
   function requestMove(product, queue) {
     setSelectedId(product.id)
     setDraftPatch({ queue })
+    setDraftProductId(product.id)
     setFormError('')
   }
 

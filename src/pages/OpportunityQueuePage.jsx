@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { supabase, fetchAllRows } from '../lib/supabase'
 import {
   buildOpportunityPrompt,
   formatGrowth,
@@ -88,6 +88,7 @@ export default function OpportunityQueuePage() {
   const [search, setSearch] = useState('')
   const [selectedId, setSelectedId] = useState(null)
   const [draftPatch, setDraftPatch] = useState({})
+  const [draftRowId, setDraftRowId] = useState(null)
   const [saving, setSaving] = useState(false)
   const [copiedId, setCopiedId] = useState(null)
   const [manualOpen, setManualOpen] = useState(false)
@@ -104,9 +105,9 @@ export default function OpportunityQueuePage() {
 
     async function fetchData() {
       const [snapshotsRes, candidatesRes, reviewsRes] = await Promise.all([
-        supabase.from('poe_snapshots').select('*').order('import_date', { ascending: false }),
-        supabase.from('idea_candidates').select('id, ingredient_name, ingredient_name_normalized, category, stage, first_surfaced_at, surfaced_week, notes'),
-        supabase.from('opportunity_reviews').select('*').order('created_at', { ascending: false }),
+        fetchAllRows(() => supabase.from('poe_snapshots').select('*').order('import_date', { ascending: false }).order('id')),
+        fetchAllRows(() => supabase.from('idea_candidates').select('id, ingredient_name, ingredient_name_normalized, category, stage, first_surfaced_at, surfaced_week, notes').order('id')),
+        fetchAllRows(() => supabase.from('opportunity_reviews').select('*').order('created_at', { ascending: false }).order('id')),
       ])
       if (ignore) return
       if (snapshotsRes.error || candidatesRes.error || reviewsRes.error) {
@@ -159,24 +160,32 @@ export default function OpportunityQueuePage() {
     [selectedId, visibleRows]
   )
 
+  // Only apply the draft patch to the row it was edited on. If that row
+  // refilters out and `selected` falls back to a different row, the stale
+  // patch is ignored instead of silently merging into the wrong row.
   const draft = useMemo(() => {
     if (!selected) return null
-    return { ...selected.review, ...draftPatch }
-  }, [selected, draftPatch])
+    const patch = draftRowId === selected.id ? draftPatch : {}
+    return { ...selected.review, ...patch }
+  }, [selected, draftPatch, draftRowId])
 
   function switchTab(nextTab) {
     setTab(nextTab)
     setSelectedId(null)
     setDraftPatch({})
+    setDraftRowId(null)
   }
 
   function openRow(row) {
     setSelectedId(row.id)
     setDraftPatch({})
+    setDraftRowId(row.id)
   }
 
   function patchDraft(key, value) {
-    setDraftPatch(prev => ({ ...prev, [key]: value }))
+    const rowId = selected?.id ?? null
+    setDraftPatch(prev => (draftRowId === rowId ? { ...prev, [key]: value } : { [key]: value }))
+    setDraftRowId(rowId)
   }
 
   async function upsertReviewForRow(row, overrides = {}) {
@@ -184,21 +193,28 @@ export default function OpportunityQueuePage() {
     setSaving(true)
     const base = row.review || {}
     const score = nullableScore(overrides.toniiq_fit_score ?? base.toniiq_fit_score)
+    // Overrides win whenever the key is present — including '' (a cleared field).
+    // Only a missing key falls back to the stored value; '' saves as the default
+    // (or null for free-text fields) instead of resurrecting the old value.
+    const resolve = (key, fallback = null) => {
+      const value = overrides[key] !== undefined ? overrides[key] : base[key]
+      return value === undefined || value === '' ? fallback : value
+    }
     const payload = {
       candidate_id: row.candidate.id,
-      source: overrides.source || base.source || 'manual',
-      status: overrides.status || base.status || 'new',
-      priority: overrides.priority || base.priority || 'medium',
-      signal_type: overrides.signal_type || base.signal_type || 'unclassified',
-      signal_tags: overrides.signal_tags || base.signal_tags || [],
+      source: resolve('source', 'manual'),
+      status: resolve('status', 'new'),
+      priority: resolve('priority', 'medium'),
+      signal_type: resolve('signal_type', 'unclassified'),
+      signal_tags: resolve('signal_tags', []),
       toniiq_fit_score: score,
-      confidence: score === null ? null : (overrides.confidence || base.confidence || 'medium'),
-      rationale: overrides.rationale || base.rationale || null,
-      next_action: overrides.next_action || base.next_action || null,
-      decision_notes: overrides.decision_notes || base.decision_notes || null,
-      source_context: overrides.source_context || base.source_context || null,
-      initial_hypothesis: overrides.initial_hypothesis || base.initial_hypothesis || null,
-      urgency: overrides.urgency || base.urgency || null,
+      confidence: score === null ? null : resolve('confidence', 'medium'),
+      rationale: resolve('rationale'),
+      next_action: resolve('next_action'),
+      decision_notes: resolve('decision_notes'),
+      source_context: resolve('source_context'),
+      initial_hypothesis: resolve('initial_hypothesis'),
+      urgency: resolve('urgency'),
       reviewed_at: new Date().toISOString(),
     }
 

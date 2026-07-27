@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, fetchAllRows } from '../lib/supabase'
 import PipelineTable from '../components/PipelineTable'
 import CandidateDetail from '../components/CandidateDetail'
 import FilterBar from '../components/FilterBar'
@@ -40,9 +40,9 @@ export default function InboxPage() {
   async function loadData() {
     setLoading(true)
     const [candidatesRes, poeRes, datarovaRes, picksRes] = await Promise.all([
-      supabase.from('idea_candidates').select('*'),
-      supabase.from('poe_snapshots').select('*'),
-      supabase.from('datarova_snapshots').select('*'),
+      fetchAllRows(() => supabase.from('idea_candidates').select('*').order('id')),
+      fetchAllRows(() => supabase.from('poe_snapshots').select('*').order('id')),
+      fetchAllRows(() => supabase.from('datarova_snapshots').select('*').order('id')),
       supabase.from('claude_weekly_picks').select('*, idea_candidates(ingredient_name, category, stage)').order('week_date', { ascending: false }).order('rank'),
     ])
 

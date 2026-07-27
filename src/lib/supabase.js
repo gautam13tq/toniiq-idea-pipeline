@@ -27,3 +27,19 @@ async function fetchWithRetry(input, init, attempt = 0) {
 export const supabase = createClient(supabaseUrl, supabaseKey, {
   global: { fetch: fetchWithRetry },
 })
+
+// PostgREST caps unranged selects at 1000 rows, which silently truncates
+// universe tables (poe_snapshots is already past the cap). Page through with
+// .range() until a short page signals the end. buildQuery must return a fresh
+// query each call, with a deterministic order so pages don't overlap.
+const PAGE_SIZE = 1000
+
+export async function fetchAllRows(buildQuery) {
+  const rows = []
+  for (let offset = 0; ; offset += PAGE_SIZE) {
+    const { data, error } = await buildQuery().range(offset, offset + PAGE_SIZE - 1)
+    if (error) return { data: null, error }
+    rows.push(...(data || []))
+    if (!data || data.length < PAGE_SIZE) return { data: rows, error: null }
+  }
+}
