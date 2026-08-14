@@ -379,7 +379,7 @@ export default function OpportunityQueuePage() {
   if (error) return <div className="p-6 text-sm" style={{ color: 'var(--red-text)' }}>{error}</div>
 
   const openCount = persistedRows.filter(row => ['new', 'reviewing', 'queued_research', 'researching'].includes(row.review.status)).length
-  const highCount = persistedRows.filter(row => ['urgent', 'high'].includes(row.review.priority) && !['dismissed', 'parked'].includes(row.review.status)).length
+  const highCount = persistedRows.filter(row => ['urgent', 'high'].includes(row.review.priority) && !['dismissed', 'parked', 'promoted'].includes(row.review.status)).length
   const manualCount = persistedRows.filter(row => row.review.source === 'manual').length
 
   return (
