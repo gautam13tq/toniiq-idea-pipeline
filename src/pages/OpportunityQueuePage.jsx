@@ -258,11 +258,15 @@ export default function OpportunityQueuePage() {
       alert(actionError.message)
       return
     }
+    // Sending an opportunity to research takes it OUT of the queue — it now lives in
+    // the research pipeline (Research → Evaluation → Development). Marking it
+    // 'queued_research' left it in the Review Queue tab indefinitely, which is how the
+    // queue silted up with items whose research had already completed months earlier.
     const reviewedAt = new Date().toISOString()
-    await supabase.from('opportunity_reviews').update({ status: 'queued_research', reviewed_at: reviewedAt }).eq('candidate_id', row.candidate.id)
-    setReviews(prev => prev.map(item => item.candidate_id === row.candidate.id ? { ...item, status: 'queued_research', reviewed_at: reviewedAt } : item))
+    await supabase.from('opportunity_reviews').update({ status: 'promoted', reviewed_at: reviewedAt }).eq('candidate_id', row.candidate.id)
+    setReviews(prev => prev.map(item => item.candidate_id === row.candidate.id ? { ...item, status: 'promoted', reviewed_at: reviewedAt } : item))
     supabase.functions.invoke('phase-a-gather', { body: { pending_action_id: action.id } }).catch(error => console.error(error))
-    alert(`Research queued for ${row.candidate.ingredient_name}.`)
+    alert(`Research started for ${row.candidate.ingredient_name}. Moved out of the Opportunity Queue — track it on the Research page.`)
   }
 
   async function shelveOpportunity(row = selected) {
