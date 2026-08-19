@@ -716,8 +716,18 @@ function qualityGate(frame: HybridFrame, demand: DemandPacket, enrichment: Hybri
   if (included.length < minIncluded) {
     return { status: 'failed_competitive', reason: `Competitive data insufficient: ${included.length}/${minIncluded} included competitors after classification (frame=${frame.frame})`, summary: summaryWithDemand }
   }
-  if (keepaCoveragePct < 0.8) {
-    return { status: 'failed_competitive', reason: `Competitive data insufficient: only ${keepaCoveredIncluded.length}/${included.length} (${(keepaCoveragePct * 100).toFixed(0)}%) included competitors have Keepa BSR/reviews/price data (need ≥80%)`, summary: summaryWithDemand }
+  // Coverage gate, post-full-universe classification (2026-08-19): with the
+  // classifier fixed, big categories legitimately include 100-165 competitors
+  // while Keepa enrichment is capped at KEEPA_ENRICH_CAP (80) per run — a pure
+  // percentage over ALL included is then arithmetically unreachable and would
+  // re-fail exactly the categories the classifier fix repaired. The gate's
+  // intent is "enough real competitor data to aggregate honestly", so accept
+  // EITHER >=80% coverage OR an absolute floor of fully-enriched included
+  // competitors (KEEPA_MIN_COVERED_INCLUDED_ABS = 40 — aggregates over 40+
+  // Keepa-complete products are robust; thin categories still fail).
+  const KEEPA_MIN_COVERED_INCLUDED_ABS = 40
+  if (keepaCoveragePct < 0.8 && keepaCoveredIncluded.length < KEEPA_MIN_COVERED_INCLUDED_ABS) {
+    return { status: 'failed_competitive', reason: `Competitive data insufficient: only ${keepaCoveredIncluded.length}/${included.length} (${(keepaCoveragePct * 100).toFixed(0)}%) included competitors have Keepa BSR/reviews/price data (need ≥80% or ≥${KEEPA_MIN_COVERED_INCLUDED_ABS} covered)`, summary: summaryWithDemand }
   }
 
   return { status: 'passed', reason: 'all gates passed', summary: summaryWithDemand }
