@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import VocPanel from '../components/VocPanel'
 import PipelineBreadcrumb from '../components/PipelineBreadcrumb'
 
 function formatNumber(n) {
@@ -242,6 +243,7 @@ export default function DiscoveryPage() {
   const [activeTab, setActiveTab] = useState('keyword')
   const [enrichmentJob, setEnrichmentJob] = useState(null)
   const [refreshing, setRefreshing] = useState(false)
+  const [vocInsight, setVocInsight] = useState(null)
 
   async function refreshResearch() {
     if (!candidate) return
@@ -297,7 +299,7 @@ export default function DiscoveryPage() {
       setCandidate(candidateData)
 
       // Load all data sources in parallel
-      const [datarovaRes, redditRes, scienceRes, linksRes] = await Promise.all([
+      const [datarovaRes, redditRes, scienceRes, linksRes, vocRes] = await Promise.all([
         // Multiple Phase A runs accumulate one row each — use the most recent.
         // .maybeSingle() returns null when >1 row exists, which silently hides good data.
         supabase.from('datarova_enrichments').select('*').eq('candidate_id', candidateId).order('enriched_at', { ascending: false }).limit(1),
@@ -305,12 +307,14 @@ export default function DiscoveryPage() {
         supabase.from('science_concept_research').select('*').eq('candidate_id', candidateId).order('researched_at', { ascending: false }).limit(1),
         // Use junction table to find ALL concepts linked to this ingredient (primary + secondary)
         supabase.from('concept_ingredient_links').select('concept_id').eq('candidate_id', candidateId),
+        supabase.from('voc_insights').select('*').eq('candidate_id', candidateId).order('created_at', { ascending: false }).limit(1),
       ])
 
       // .limit(1) returns an array — unwrap to a single row
       if (datarovaRes.data?.[0]) setDatarova(datarovaRes.data[0])
       if (redditRes.data?.[0]) setRedditResearch(redditRes.data[0])
       if (scienceRes.data?.[0]) setScienceResearch(scienceRes.data[0])
+      if (vocRes.data?.[0]) setVocInsight(vocRes.data[0])
 
       // Load the actual concept details for linked concepts
       const conceptIds = (linksRes.data || []).map(l => l.concept_id)
@@ -387,6 +391,7 @@ export default function DiscoveryPage() {
     { id: 'reddit', label: 'Reddit Research', icon: '💬', hasData: !!redditResearch },
     { id: 'science', label: 'Science Research', icon: '🧪', hasData: !!scienceResearch },
     { id: 'concepts', label: 'Product Concepts', icon: '💡', hasData: concepts.length > 0, count: concepts.length },
+    { id: 'voc', label: 'Voice of Customer', icon: '🗣️', hasData: !!vocInsight },
   ]
 
   return (
@@ -663,6 +668,12 @@ export default function DiscoveryPage() {
             )}
 
             {/* ── CONCEPTS TAB ── */}
+            {activeTab === 'voc' && (
+              <div className="border rounded-xl overflow-hidden" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
+                <VocPanel idea={candidate} insight={vocInsight} defaultExpanded />
+              </div>
+            )}
+
             {activeTab === 'concepts' && (
               concepts.length > 0 ? (
                 <div className="space-y-3">

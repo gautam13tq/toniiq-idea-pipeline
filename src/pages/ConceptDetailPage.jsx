@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import VocPanel from '../components/VocPanel'
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts'
 import PipelineBreadcrumb from '../components/PipelineBreadcrumb'
 import V5ScoringPanel from '../components/V5ScoringPanel'
@@ -234,7 +235,7 @@ function CompositeScoreHero({ scores }) {
         <div className="flex items-center gap-4">
           <TierBadge tier={scores.recommendation_tier} />
           <div className="text-right">
-            <p className="text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>{parseFloat(scores.composite_score).toFixed(0)}</p>
+            <p className="text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>{scores.composite_score == null ? '—' : parseFloat(scores.composite_score).toFixed(0)}</p>
             <p className="text-sm" style={{ color: 'var(--text-muted)' }}>/ 100</p>
           </div>
         </div>
@@ -380,7 +381,7 @@ function CompetitiveResearchPanel({ data }) {
       <SectionHeader
         icon="🏪"
         title="Amazon Competitive Landscape"
-        badge={{ text: `${data.opportunity_score}/10 opportunity`, class: data.opportunity_score >= 7 ? 'border' : 'border', style: data.opportunity_score >= 7 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } }}
+        badge={data.opportunity_score == null ? null : { text: `${data.opportunity_score}/10 opportunity`, class: data.opportunity_score >= 7 ? 'border' : 'border', style: data.opportunity_score >= 7 ? { background: 'var(--green-muted)', color: 'var(--green-text)', borderColor: 'var(--green)' } : { background: 'var(--amber-muted)', color: 'var(--amber-text)', borderColor: 'var(--amber)' } }}
       />
 
       {/* Revenue & Rev/Review Hero Metrics */}
@@ -918,6 +919,7 @@ export default function ConceptDetailPage() {
   const [scienceResearchData, setScienceResearchData] = useState(null)
   // Development project link
   const [devProject, setDevProject] = useState(null)
+  const [vocInsight, setVocInsight] = useState(null)
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState(false)
   const [message, setMessage] = useState('')
@@ -1047,6 +1049,15 @@ export default function ConceptDetailPage() {
           .limit(1)
           .maybeSingle()
         setScienceResearchData(scienceData)
+
+        const { data: vocData } = await supabase
+          .from('voc_insights')
+          .select('*')
+          .eq('candidate_id', conceptData.candidate_id)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+        setVocInsight(vocData)
       }
 
       // ── Load development project link ──
@@ -1176,10 +1187,10 @@ export default function ConceptDetailPage() {
               Evaluation
               {conceptScores && (
                 <span className="text-xs px-2 py-0.5 rounded-full" style={{
-                  background: parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-muted)' : 'var(--amber-muted)',
-                  color: parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-text)' : 'var(--amber-text)',
+                  background: conceptScores.composite_score == null ? 'var(--red-muted)' : parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-muted)' : 'var(--amber-muted)',
+                  color: conceptScores.composite_score == null ? 'var(--red-text)' : parseFloat(conceptScores.composite_score) >= 70 ? 'var(--green-text)' : 'var(--amber-text)',
                 }}>
-                  {parseFloat(conceptScores.composite_score).toFixed(0)}
+                  {conceptScores.composite_score == null ? 'gate failed' : parseFloat(conceptScores.composite_score).toFixed(0)}
                 </span>
               )}
             </button>
@@ -1443,6 +1454,11 @@ export default function ConceptDetailPage() {
                 Renders only if competitive_frame is populated (v5 row). Legacy
                 CompositeScoreHero renders for older pre-v5 evaluations. */}
             <V5ScoringPanel scores={conceptScores} />
+
+            {/* Voice of Customer — verified review-mining evidence for this category */}
+            <div className="border rounded-xl overflow-hidden" style={{ background: 'var(--bg-card)', borderColor: 'var(--border-default)' }}>
+              <VocPanel idea={{ id: candidate?.id, ingredient_name: candidate?.ingredient_name }} insight={vocInsight} defaultExpanded />
+            </div>
 
             {/* Legacy composite hero — kept for pre-v5 concepts.
                 v5 rows show V5ScoringPanel above instead. */}

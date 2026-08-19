@@ -38,8 +38,8 @@ function ThemeChips({ themes, kind, limit }) {
   )
 }
 
-export default function VocPanel({ idea, insight }) {
-  const [expanded, setExpanded] = useState(false)
+export default function VocPanel({ idea, insight, defaultExpanded = false }) {
+  const [expanded, setExpanded] = useState(defaultExpanded)
   const [showReport, setShowReport] = useState(false)
   const [queued, setQueued] = useState(false)
 
