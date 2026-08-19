@@ -3,25 +3,10 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { supabase } from '../lib/supabase'
 
-const NAV_SECTIONS = [
-  {
-    label: 'Source Selection',
-    items: [
-      { path: '/inbox', label: 'Inbox', icon: '□', countType: 'inboxUniverse' },
-      { path: '/market', label: 'Market Atlas', icon: '△' },
-      { path: '/category-atlas', label: 'Category Atlas', icon: '◈', countType: 'categoryAtlas' },
-      { path: '/opportunities', label: 'Opportunities', icon: '◇', countType: 'opportunities' },
-    ]
-  },
-  {
-    label: 'Lifecycle',
-    items: [
-      { path: '/research', label: 'Research', icon: '◎', countStage: 'research' },
-      { path: '/evaluation', label: 'Evaluation', icon: '◉', countStage: 'evaluation' },
-      { path: '/development', label: 'Development', icon: '▣', countType: 'activeDev' },
-      { path: '/archive', label: 'Archive', icon: '◇', countStage: 'archive' },
-    ]
-  },
+const NAV_ITEMS = [
+  { path: '/discover', label: 'Discover', icon: '◇', countType: 'opportunities' },
+  { path: '/pipeline', label: 'Pipeline', icon: '◎', countType: 'pipeline' },
+  { path: '/development', label: 'Development', icon: '▣', countType: 'activeDev' },
 ]
 
 export default function Layout({ children }) {
@@ -29,10 +14,8 @@ export default function Layout({ children }) {
   const { user, signOut } = useAuth()
   const [expanded, setExpanded] = useState(false)
   const [stageCounts, setStageCounts] = useState({})
-  const [pendingCount, setPendingCount] = useState(0)
+  const [greenlightCount, setGreenlightCount] = useState(0)
   const [opportunityCount, setOpportunityCount] = useState(0)
-  const [inboxUniverseCount, setInboxUniverseCount] = useState(0)
-  const [categoryAtlasCount, setCategoryAtlasCount] = useState(0)
   const [activeDevCount, setActiveDevCount] = useState(0)
 
   useEffect(() => {
@@ -48,42 +31,13 @@ export default function Layout({ children }) {
       const { data: pendingRows } = await supabase
         .from('pending_actions')
         .select('status')
-        .in('status', ['pending', 'in_progress'])
+        .eq('action', 'decide_greenlight')
+        .eq('status', 'pending')
 
       const { data: openOppRows } = await supabase
         .from('opportunity_reviews')
         .select('status')
         .in('status', ['new', 'reviewing', 'queued_research', 'researching', 'watching'])
-
-      const { data: latestSnapshot } = await supabase
-        .from('poe_snapshots')
-        .select('import_date')
-        .order('import_date', { ascending: false })
-        .limit(1)
-        .single()
-      let latestCount = 0
-      if (latestSnapshot?.import_date) {
-        const { data: latestRows } = await supabase
-          .from('poe_snapshots')
-          .select('import_date')
-          .eq('import_date', latestSnapshot.import_date)
-        latestCount = latestRows?.length || 0
-      }
-      const { data: latestCategoryImport } = await supabase
-        .from('category_atlas_imports')
-        .select('id')
-        .eq('status', 'completed')
-        .order('generated_at', { ascending: false })
-        .limit(1)
-        .maybeSingle()
-      let latestCategoryCount = 0
-      if (latestCategoryImport?.id) {
-        const { data: categoryRows } = await supabase
-          .from('category_atlas_entries')
-          .select('import_id')
-          .eq('import_id', latestCategoryImport.id)
-        latestCategoryCount = categoryRows?.length || 0
-      }
 
       const { data: activeDevRows } = await supabase
         .from('npd_registry_products')
@@ -92,16 +46,23 @@ export default function Layout({ children }) {
 
       if (ignore) return
       setStageCounts(counts)
-      setPendingCount(pendingRows?.length || 0)
+      setGreenlightCount(pendingRows?.length || 0)
       setOpportunityCount(openOppRows?.length || 0)
-      setInboxUniverseCount(latestCount)
-      setCategoryAtlasCount(latestCategoryCount)
       setActiveDevCount(activeDevRows?.length || 0)
     }
 
     fetchCounts()
     return () => { ignore = true }
   }, [location.pathname])
+
+  function getCount(item) {
+    if (item.countType === 'opportunities') return opportunityCount
+    if (item.countType === 'activeDev') return activeDevCount
+    if (item.countType === 'pipeline') {
+      return (stageCounts.research || 0) + (stageCounts.evaluation || 0)
+    }
+    return null
+  }
 
   return (
     <div className="flex min-h-screen" style={{ background: 'var(--bg-base)' }}>
@@ -128,7 +89,7 @@ export default function Layout({ children }) {
             transition: 'padding 0.2s',
           }}
         >
-          <NavLink to="/opportunities" className="block" style={{ whiteSpace: 'nowrap' }}>
+          <NavLink to="/pipeline" className="block" style={{ whiteSpace: 'nowrap' }}>
             {expanded ? (
               <h1 className="text-sm font-bold tracking-widest uppercase" style={{ color: 'var(--text-primary)', letterSpacing: '0.15em' }}>
                 TONIIQ
@@ -139,82 +100,66 @@ export default function Layout({ children }) {
           </NavLink>
         </div>
 
-        {pendingCount > 0 && !expanded && (
+        {greenlightCount > 0 && !expanded && (
           <div className="flex justify-center pt-2">
             <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold"
               style={{ background: 'var(--amber-muted)', color: 'var(--amber-text)' }}
-              title={`${pendingCount} pending actions`}>
-              {pendingCount}
+              title={`${greenlightCount} greenlight decision${greenlightCount !== 1 ? 's' : ''}`}>
+              {greenlightCount}
             </div>
           </div>
         )}
 
         <nav className="flex-1 py-3" style={{ paddingLeft: expanded ? 8 : 6, paddingRight: expanded ? 8 : 6 }}>
-          {NAV_SECTIONS.map(section => (
-            <div key={section.label} className="mb-4">
-              {expanded && (
-                <p className="text-[10px] font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: 'var(--text-faint)', letterSpacing: '0.08em', paddingLeft: 8 }}>
-                  {section.label}
-                </p>
-              )}
-              <ul className="space-y-0.5">
-                {section.items.map(item => {
-                  const isActive = location.pathname.startsWith(item.path)
-                  const count = item.countType === 'pending'
-                    ? pendingCount
-                    : item.countType === 'opportunities'
-                      ? opportunityCount
-                      : item.countType === 'inboxUniverse'
-                        ? inboxUniverseCount
-                        : item.countType === 'categoryAtlas'
-                          ? categoryAtlasCount
-                        : item.countType === 'activeDev'
-                          ? activeDevCount
-                        : stageCounts[item.countStage]
-                  return (
-                    <li key={item.path}>
-                      <NavLink
-                        to={item.path}
-                        className="flex items-center rounded text-sm transition-colors"
-                        style={{
-                          background: isActive ? 'var(--bg-active)' : 'transparent',
-                          color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
-                          fontWeight: isActive ? 600 : 400,
-                          height: 36,
-                          paddingLeft: expanded ? 10 : 0,
-                          paddingRight: expanded ? 10 : 0,
-                          justifyContent: expanded ? 'flex-start' : 'center',
-                          gap: expanded ? 10 : 0,
-                        }}
-                        title={!expanded ? `${item.label} (${count || 0})` : undefined}
-                      >
-                        <span className="text-sm flex-shrink-0" style={{ width: 20, textAlign: 'center' }}>{item.icon}</span>
-                        {expanded && (
-                          <>
-                            <span style={{ whiteSpace: 'nowrap' }}>{item.label}</span>
-                            {count != null && count > 0 && (
-                              <span className="ml-auto text-[10px] tabular-nums" style={{ color: 'var(--text-faint)' }}>{count}</span>
-                            )}
-                          </>
+          <ul className="space-y-0.5">
+            {NAV_ITEMS.map(item => {
+              const isActive = location.pathname.startsWith(item.path)
+              const count = getCount(item)
+              return (
+                <li key={item.path}>
+                  <NavLink
+                    to={item.path}
+                    className="flex items-center rounded text-sm transition-colors"
+                    style={{
+                      background: isActive ? 'var(--bg-active)' : 'transparent',
+                      color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
+                      fontWeight: isActive ? 600 : 400,
+                      height: 36,
+                      paddingLeft: expanded ? 10 : 0,
+                      paddingRight: expanded ? 10 : 0,
+                      justifyContent: expanded ? 'flex-start' : 'center',
+                      gap: expanded ? 10 : 0,
+                    }}
+                    title={!expanded ? `${item.label} (${count || 0})` : undefined}
+                  >
+                    <span className="text-sm flex-shrink-0" style={{ width: 20, textAlign: 'center' }}>{item.icon}</span>
+                    {expanded && (
+                      <>
+                        <span style={{ whiteSpace: 'nowrap' }}>{item.label}</span>
+                        {count != null && count > 0 && (
+                          <span className="ml-auto text-[10px] tabular-nums" style={{ color: 'var(--text-faint)' }}>{count}</span>
                         )}
-                      </NavLink>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          ))}
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+              )
+            })}
+          </ul>
 
-          {expanded && pendingCount > 0 && (
-            <div className="mb-4">
+          {expanded && greenlightCount > 0 && (
+            <div className="mb-4 mt-4">
               <p className="text-[10px] font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-faint)', letterSpacing: '0.08em', paddingLeft: 8 }}>
                 Queue
               </p>
-              <div className="px-2.5 py-2 rounded text-xs" style={{ background: 'var(--amber-muted)', color: 'var(--amber-text)' }}>
-                {pendingCount} action{pendingCount !== 1 ? 's' : ''} pending
+              <NavLink
+                to="/pipeline/decide"
+                className="block px-2.5 py-2 rounded text-xs"
+                style={{ background: 'var(--amber-muted)', color: 'var(--amber-text)' }}
+              >
+                {greenlightCount} greenlight decision{greenlightCount !== 1 ? 's' : ''}
                 <div className="text-[10px] mt-0.5 opacity-80">Claude picks up next session</div>
-              </div>
+              </NavLink>
             </div>
           )}
         </nav>
