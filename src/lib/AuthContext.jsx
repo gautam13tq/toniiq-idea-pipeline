@@ -9,12 +9,15 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     // Check active session on mount
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Race the session check against a timeout: the shared Supabase project's
+    // auth service occasionally hangs (never resolves), which left the app on
+    // an infinite "Loading..." screen. Degrade to the login screen instead —
+    // if a valid session exists, onAuthStateChange restores it moments later.
+    const timeout = new Promise(resolve => setTimeout(() => resolve({ data: { session: null }, timedOut: true }), 10000))
+    Promise.race([supabase.auth.getSession(), timeout]).then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
     }).catch(() => {
-      // Never hard-hang the auth gate on a transient session/network error —
-      // fall through to the login screen instead of an infinite "Loading...".
       setUser(null)
       setLoading(false)
     })
