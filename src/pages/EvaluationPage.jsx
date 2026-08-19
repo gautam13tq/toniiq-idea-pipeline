@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import PendingActionsBanner from '../components/PendingActionsBanner'
+import VocPanel from '../components/VocPanel'
 
 /**
  * Evaluation Page — ideas with scored concepts awaiting a decision.
@@ -32,6 +33,7 @@ export default function EvaluationPage() {
   const [ideas, setIdeas] = useState([])
   const [concepts, setConcepts] = useState([])
   const [scores, setScores] = useState({})
+  const [vocInsights, setVocInsights] = useState({})
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState('active') // 'active' | 'shelved'
 
@@ -50,15 +52,21 @@ export default function EvaluationPage() {
       .order('last_updated_at', { ascending: false })
     const ideaList = ideasData || []
     const ideaIds = ideaList.map(i => i.id)
-    const [scoresRes, conceptsRes] = await Promise.all([
+    const [scoresRes, conceptsRes, vocRes] = await Promise.all([
       supabase.from('concept_scores').select('concept_id,composite_score,recommendation_tier'),
       ideaIds.length
         ? supabase.from('product_concepts').select('*').in('candidate_id', ideaIds).order('rank_within_ingredient')
+        : Promise.resolve({ data: [] }),
+      ideaIds.length
+        ? supabase.from('voc_insights').select('*').in('candidate_id', ideaIds).order('created_at', { ascending: false })
         : Promise.resolve({ data: [] }),
     ])
     const scoreMap = {}
     for (const s of (scoresRes.data || [])) scoreMap[s.concept_id] = s
     setScores(scoreMap)
+    const vocMap = {}
+    for (const v of (vocRes.data || [])) if (!vocMap[v.candidate_id]) vocMap[v.candidate_id] = v
+    setVocInsights(vocMap)
     setConcepts(conceptsRes.data || [])
     setIdeas(ideaList)
     setLoading(false)
@@ -180,6 +188,7 @@ export default function EvaluationPage() {
                   )}
                 </div>
               </div>
+              <VocPanel idea={idea} insight={vocInsights[idea.id]} />
               <div className="divide-y" style={{ borderColor: 'var(--border-default)' }}>
                 {ideaConcepts.map(concept => {
                   const score = scores[concept.id]
