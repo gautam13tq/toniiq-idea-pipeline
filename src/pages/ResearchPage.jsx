@@ -34,15 +34,23 @@ export default function ResearchPage() {
   const [concepts, setConcepts] = useState([])
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState('active') // 'active' | 'shelved'
+  const [loadError, setLoadError] = useState(null)
 
   useEffect(() => { loadData() }, [])
 
   async function loadData() {
     setLoading(true)
+    setLoadError(null)
     const [ideasRes, conceptsRes] = await Promise.all([
       supabase.from('idea_candidates').select('*').eq('stage', 'research').order('last_updated_at', { ascending: false }),
       supabase.from('product_concepts').select('*').order('rank_within_ingredient'),
     ])
+    if (ideasRes.error) {
+      // Never render a failed query as an empty queue.
+      setLoadError(ideasRes.error.message || 'Failed to load')
+      setIdeas([]); setConcepts([]); setLoading(false)
+      return
+    }
     setIdeas(ideasRes.data || [])
     setConcepts(conceptsRes.data || [])
     setLoading(false)
@@ -128,6 +136,13 @@ export default function ResearchPage() {
             : `Research complete. ${activeIdeas.length} idea${activeIdeas.length !== 1 ? 's' : ''} with concepts awaiting your decision. Accept a concept to queue its evaluation.`}
         </p>
       </div>
+      {loadError && (
+        <div className="mb-5 px-4 py-3 rounded-md border flex items-center justify-between gap-4" style={{ borderColor: 'var(--red)', background: 'var(--red-muted)', color: 'var(--red-text)' }}>
+          <span className="text-sm">Couldn't load the research queue ({loadError}). Your data is intact — usually an expired session or a brief backend blip.</span>
+          <button onClick={loadData} className="text-xs px-3 py-1.5 rounded flex-shrink-0" style={{ background: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-default)' }}>Retry</button>
+        </div>
+      )}
+
 
       {/* Tabs */}
       <div className="flex gap-1 mb-5 border-b" style={{ borderColor: 'var(--border-default)' }}>

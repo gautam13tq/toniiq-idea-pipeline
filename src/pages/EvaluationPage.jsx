@@ -36,20 +36,29 @@ export default function EvaluationPage() {
   const [vocInsights, setVocInsights] = useState({})
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState('active') // 'active' | 'shelved'
+  const [loadError, setLoadError] = useState(null)
 
   useEffect(() => { loadData() }, [])
 
   async function loadData() {
     setLoading(true)
+    setLoadError(null)
     // One stage per idea: Evaluation shows idea_candidates at stage='evaluation'
     // (the rollup trigger derives stage from concept status). This page used to
     // select ideas by concept status and ignore stage, which double-listed
     // research-stage ideas that still had an accepted+scored concept.
-    const { data: ideasData } = await supabase
+    const { data: ideasData, error: ideasError } = await supabase
       .from('idea_candidates')
       .select('*')
       .eq('stage', 'evaluation')
       .order('last_updated_at', { ascending: false })
+    if (ideasError) {
+      // NEVER render a failed query as an empty queue — that reads as "no work"
+      // when the truth is "couldn't load" (expired session, auth blip, 5xx).
+      setLoadError(ideasError.message || 'Failed to load')
+      setIdeas([]); setConcepts([]); setLoading(false)
+      return
+    }
     const ideaList = ideasData || []
     const ideaIds = ideaList.map(i => i.id)
     const [scoresRes, conceptsRes, vocRes] = await Promise.all([
@@ -136,6 +145,13 @@ export default function EvaluationPage() {
       </div>
 
       <PendingActionsBanner scope="global" />
+
+      {loadError && (
+        <div className="mb-5 px-4 py-3 rounded-md border flex items-center justify-between gap-4" style={{ borderColor: 'var(--red)', background: 'var(--red-muted)', color: 'var(--red-text)' }}>
+          <span className="text-sm">Couldn't load the evaluation queue ({loadError}). Your data is intact — this is usually an expired session or a brief backend blip.</span>
+          <button onClick={loadData} className="text-xs px-3 py-1.5 rounded flex-shrink-0" style={{ background: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-default)' }}>Retry</button>
+        </div>
+      )}
 
       {visibleIdeas.length === 0 && (
         <div className="text-center py-20 rounded-md border border-dashed" style={{ borderColor: 'var(--border-default)', color: 'var(--text-muted)' }}>
