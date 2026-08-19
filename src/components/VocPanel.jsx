@@ -42,6 +42,20 @@ export default function VocPanel({ idea, insight, defaultExpanded = false }) {
   const [expanded, setExpanded] = useState(defaultExpanded)
   const [showReport, setShowReport] = useState(false)
   const [queued, setQueued] = useState(false)
+  // List views fetch insights WITHOUT synthesis_md (40KB/row); pull it on demand.
+  const [reportMd, setReportMd] = useState(insight?.synthesis_md || null)
+  const [reportLoading, setReportLoading] = useState(false)
+
+  async function toggleReport() {
+    if (showReport) { setShowReport(false); return }
+    if (!reportMd && insight?.id) {
+      setReportLoading(true)
+      const { data } = await supabase.from('voc_insights').select('synthesis_md').eq('id', insight.id).single()
+      setReportMd(data?.synthesis_md || '(report unavailable)')
+      setReportLoading(false)
+    }
+    setShowReport(true)
+  }
 
   async function queueVocMining() {
     const { error } = await supabase.from('pending_actions').insert({
@@ -99,9 +113,9 @@ export default function VocPanel({ idea, insight, defaultExpanded = false }) {
           ))}
 
           <div className="flex items-center gap-3 pt-1">
-            <button onClick={() => setShowReport(!showReport)} className="text-[11px] px-2.5 py-1 rounded"
+            <button onClick={toggleReport} className="text-[11px] px-2.5 py-1 rounded"
               style={{ background: 'var(--bg-active)', color: 'var(--text-muted)', border: '1px solid var(--border-default)' }}>
-              {showReport ? 'Hide full report' : 'Read full report'}
+              {reportLoading ? 'Loading…' : showReport ? 'Hide full report' : 'Read full report'}
             </button>
             <span className="text-[10px]" style={{ color: 'var(--text-faint)' }}>
               {acceptance.corpus_source || ''} · quotes {acceptance.quote_spot_check || 'verified'} · {new Date(insight.created_at).toLocaleDateString()}
@@ -111,7 +125,7 @@ export default function VocPanel({ idea, insight, defaultExpanded = false }) {
           {showReport && (
             <div className="rounded-md border overflow-y-auto p-4 text-xs leading-relaxed"
               style={{ borderColor: 'var(--border-default)', background: 'var(--bg-card)', color: 'var(--text-muted)', maxHeight: 480, whiteSpace: 'pre-wrap', fontFamily: 'inherit' }}>
-              {insight.synthesis_md}
+              {reportMd}
             </div>
           )}
         </div>

@@ -41,10 +41,13 @@ export default function ResearchPage() {
   async function loadData() {
     setLoading(true)
     setLoadError(null)
-    const [ideasRes, conceptsRes] = await Promise.all([
-      supabase.from('idea_candidates').select('*').eq('stage', 'research').order('last_updated_at', { ascending: false }),
-      supabase.from('product_concepts').select('*').order('rank_within_ingredient'),
-    ])
+    const { data: ideasData, error: ideasError0 } = await supabase
+      .from('idea_candidates').select('*').eq('stage', 'research').order('last_updated_at', { ascending: false })
+    const researchIds = (ideasData || []).map(i => i.id)
+    const conceptsRes = researchIds.length
+      ? await supabase.from('product_concepts').select('*').in('candidate_id', researchIds).order('rank_within_ingredient')
+      : { data: [] }
+    const ideasRes = { data: ideasData, error: ideasError0 }
     if (ideasRes.error) {
       // Never render a failed query as an empty queue.
       setLoadError(ideasRes.error.message || 'Failed to load')

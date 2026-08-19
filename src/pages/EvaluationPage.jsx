@@ -67,7 +67,7 @@ export default function EvaluationPage() {
         ? supabase.from('product_concepts').select('*').in('candidate_id', ideaIds).order('rank_within_ingredient')
         : Promise.resolve({ data: [] }),
       ideaIds.length
-        ? supabase.from('voc_insights').select('*').in('candidate_id', ideaIds).order('created_at', { ascending: false })
+        ? supabase.from('voc_insights').select('id,candidate_id,category_slug,corpus_size,asin_coverage,synthesis,acceptance,created_at').in('candidate_id', ideaIds).order('created_at', { ascending: false })
         : Promise.resolve({ data: [] }),
     ])
     const scoreMap = {}
