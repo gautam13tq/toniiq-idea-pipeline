@@ -1,12 +1,15 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = 'https://hamreqogmporpgdjglyn.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhhbXJlcW9nbXBvcnBnZGpnbHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NDk5MTIsImV4cCI6MjA4ODAyNTkxMn0.5dziRHehoUfycKYUq52JOc8zYGdoF0g7wxT3Zux6dXk'
+// Dedicated NPD project (toniiq-npd, ref gmfndxaoeztxohbbkudu). Migrated off the
+// shared warehouse project (hamreqogmporpgdjglyn) on 2026-08-19 to isolate the app
+// from warehouse ETL churn and schema-cache pressure.
+const supabaseUrl = 'https://gmfndxaoeztxohbbkudu.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtZm5keGFvZXp0eG9oYmJrdWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxNDU3ODMsImV4cCI6MjEwMjcyMTc4M30.U_t8nwIrEfROL7a4aBBC08jFj6gJuZ2B1fV_2kUumeU'
 
-// The shared warehouse project intermittently returns edge 5xx (502/503/504)
-// under heavy ETL load. Retry transient gateway errors (and network blips) with
-// short backoff so they surface as a brief delay rather than a stuck/empty
-// screen. Real responses (including 4xx and Postgres 5xx) are returned unretried.
+// Retry transient edge 5xx (502/503/504) and network blips with short backoff so
+// they surface as a brief delay rather than a stuck/empty screen. Real responses
+// (including 4xx and Postgres 5xx) are returned unretried. Kept as defensive
+// hardening even on the dedicated project.
 async function fetchWithRetry(input, init, attempt = 0) {
   try {
     const res = await fetch(input, init)
