@@ -348,9 +348,9 @@ export function dedupeProductFamilies(products: HybridProduct[]) {
     else families.set(product.product_key, { ...product, duplicate_asins: [...product.duplicate_asins] })
   }
   return [...families.values()].sort((a, b) => {
-    const aRank = a.bsr_current || a.bsr_avg30 || 999_999_999
-    const bRank = b.bsr_current || b.bsr_avg30 || 999_999_999
-    return aRank - bRank || (b.monthly_sold - a.monthly_sold) || (b.reviews - a.reviews)
+    const aRank = a.bsr_current || a.bsr_avg30 || a.discovery_rank || 999_999_999
+    const bRank = b.bsr_current || b.bsr_avg30 || b.discovery_rank || 999_999_999
+    return aRank - bRank || (b.monthly_sold - a.monthly_sold) || (b.reviews - a.reviews) || a.asin.localeCompare(b.asin)
   })
 }
 
@@ -436,7 +436,7 @@ export async function runApifyDiscovery(apifyToken: string, queries: string[], t
     seen.add(product.asin)
     products.push(product)
   }
-  return products
+  return products.sort((a, b) => (a.discovery_rank || 0) - (b.discovery_rank || 0) || a.asin.localeCompare(b.asin))
 }
 
 export async function enrichApifyProductsWithKeepa(
@@ -445,7 +445,8 @@ export async function enrichApifyProductsWithKeepa(
   keepAsins: number,
   tokenWaitMs: number,
 ) {
-  const asins = discovered.map(product => product.asin).filter(Boolean).slice(0, keepAsins)
+  const targets = discovered.slice(0, keepAsins)
+  const asins = targets.map(product => product.asin).filter(Boolean)
   if (!asins.length) return { products: discovered, tokens_consumed: 0, refill_rate: null as number | null }
   await waitForKeepaTokens(apiKey, tokenWaitMs, Math.min(keepAsins, asins.length) + 5)
 
@@ -469,11 +470,15 @@ export async function enrichApifyProductsWithKeepa(
   }
 
   const keepaByAsin = new Map(enrichedProducts.map(product => [product.asin, product]))
-  const merged = discovered.slice(0, keepAsins).map(product => {
+  const merged = targets.map(product => {
     const keepa = keepaByAsin.get(product.asin)
     if (!keepa) return product
     return {
       ...keepa,
+      bucket: product.bucket,
+      classification: product.classification,
+      lane_fit: product.lane_fit,
+      reason: product.reason,
       discovery_query: product.discovery_query,
       discovery_rank: product.discovery_rank,
       amazon_url: product.amazon_url || `https://www.amazon.com/dp/${product.asin}`,
@@ -490,6 +495,31 @@ export async function enrichApifyProductsWithKeepa(
   return { products: merged, tokens_consumed: tokensConsumed, refill_rate: refillRate }
 }
 
+export function mergeKeepaIntoClassifiedProducts(
+  classified: HybridProduct[],
+  enriched: HybridProduct[],
+): HybridProduct[] {
+  const keepaByAsin = new Map(enriched.map(product => [product.asin, product]))
+  return classified.map(product => {
+    const keepa = keepaByAsin.get(product.asin)
+    if (!keepa) return product
+    return {
+      ...product,
+      parent_asin: keepa.parent_asin,
+      product_key: keepa.product_key || product.product_key,
+      price: keepa.price || product.price,
+      rating: keepa.rating || product.rating,
+      reviews: keepa.reviews || product.reviews,
+      monthly_sold: keepa.monthly_sold || product.monthly_sold,
+      bsr_current: keepa.bsr_current,
+      bsr_avg30: keepa.bsr_avg30,
+      bsr_avg90: keepa.bsr_avg90,
+      title: keepa.title || product.title,
+      brand: keepa.brand || product.brand,
+    }
+  })
+}
+
 // ── Frame-based classification ───────────────────────────────────────────
 
 function meaningfulTerms(terms: unknown[]) {
@@ -498,18 +528,46 @@ function meaningfulTerms(terms: unknown[]) {
     .filter(term => term && term.length >= 2)
 }
 
-function firstIngredientStart(text: string, heroTerms: string[]) {
-  const ignored = new Set(heroTerms.flatMap(term => term.split(/\s+/)).filter(Boolean))
-  const starts = [...INGREDIENT_WORDS]
-    .filter(term => !ignored.has(term))
-    .map(term => {
-      if (term.includes(' ')) return text.indexOf(term)
-      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      const match = text.match(new RegExp(`(^|\\s)${escaped}(\\s|$)`))
-      return match ? (match.index || 0) + (match[1] ? match[1].length : 0) : -1
-    })
+/** Title-only normalized text — classification position checks ignore brand prefix noise. */
+export function titleTextForClassification(product: HybridProduct) {
+  return normalize(product.title || '')
+}
+
+/** How far a competing co-active term leads the title (combo lanes only). */
+function competingCoactiveLeadStart(titleText: string, coactiveTerms: string[]) {
+  const starts = coactiveTerms
+    .map(term => phraseStart(titleText, term))
     .filter(index => index >= 0)
   return starts.length ? Math.min(...starts) : -1
+}
+
+/** Stable tie-break sort for products (bucket → rank → reviews → asin). */
+export function compareHybridProducts(a: HybridProduct, b: HybridProduct) {
+  const bucketOrder = { included: 0, adjacent: 1, excluded: 2 }
+  const aBucket = bucketOrder[a.bucket || 'excluded']
+  const bBucket = bucketOrder[b.bucket || 'excluded']
+  const aRank = a.discovery_rank || a.bsr_current || a.bsr_avg30 || 999_999_999
+  const bRank = b.discovery_rank || b.bsr_current || b.bsr_avg30 || 999_999_999
+  return aBucket - bBucket || aRank - bRank || (b.reviews - a.reviews) || a.asin.localeCompare(b.asin)
+}
+
+/** Hard cap on Keepa /product enrichment per run (token budget guard). */
+export const KEEPA_ENRICH_CAP = 80
+
+/** Minimum share of included competitors we try to enrich (supports 80% gate). */
+export const KEEPA_INCLUDED_COVERAGE_TARGET = 0.85
+
+/** Pick Keepa enrichment targets: all included first, then adjacent, deterministic order. */
+export function selectKeepaEnrichmentTargets(products: HybridProduct[], keepAsins: number): HybridProduct[] {
+  const byAsin = new Map<string, HybridProduct>()
+  for (const product of products) {
+    if (!byAsin.has(product.asin)) byAsin.set(product.asin, product)
+  }
+  const unique = [...byAsin.values()]
+  const included = unique.filter(p => p.bucket === 'included').sort(compareHybridProducts)
+  const adjacent = unique.filter(p => p.bucket === 'adjacent').sort(compareHybridProducts)
+  const rest = unique.filter(p => p.bucket === 'excluded').sort(compareHybridProducts)
+  return [...included, ...adjacent, ...rest].slice(0, keepAsins)
 }
 
 function phraseStart(text: string, term: string) {
@@ -538,6 +596,7 @@ function phraseStart(text: string, term: string) {
  */
 export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct) {
   const text = ` ${normalize(`${product.brand || ''} ${product.title || ''}`)} `
+  const titleText = ` ${titleTextForClassification(product)} `
 
   const heroTerms = meaningfulTerms(
     frame.include_terms && frame.include_terms.length > 0
@@ -560,7 +619,7 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
     return { bucket: 'excluded' as const, classification: 'noise' as const, lane_fit: 'noise', reason: `Excluded term: ${excludedHits.slice(0, 3).join(', ')}` }
   }
 
-  // Hero missing — excluded
+  // Hero missing — excluded (match on full listing text so brand-qualified titles still count)
   const heroHits = heroTerms.map(term => phraseStart(text, term)).filter(index => index >= 0)
   if (!heroHits.length) {
     return { bucket: 'excluded' as const, classification: 'noise' as const, lane_fit: 'wrong_ingredient', reason: `Missing hero ingredient: ${heroTerms.slice(0, 3).join(', ')}` }
@@ -572,7 +631,6 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
     if (!reqHits.length) {
       return { bucket: 'adjacent' as const, classification: 'adjacent' as const, lane_fit: 'sibling_or_parent_market', reason: `Missing ${frame.delivery_modifier || requireTerms[0]} qualifier; appears to be the non-modified hero.` }
     }
-    // Qualifier must be within proximity of hero
     const firstHero = Math.min(...heroHits)
     const firstQualifier = Math.min(...reqHits)
     const qualifierIsClose = Math.abs(firstHero - firstQualifier) <= 90
@@ -582,29 +640,31 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
     return { bucket: 'included' as const, classification: 'exact' as const, lane_fit: 'exact_modified_niche', reason: 'Hero + delivery modifier both in title and lead the product positioning.' }
   }
 
-  // broad_hero: included only if hero leads OR no other ingredient outranks it
   const firstHero = Math.min(...heroHits)
-  const firstOtherIngredient = firstIngredientStart(text, heroTerms)
-  const earlierOtherIngredient = firstOtherIngredient >= 0 && firstOtherIngredient < firstHero
+  const titleHeroHits = heroTerms.map(term => phraseStart(titleText, term)).filter(index => index >= 0)
+  const firstTitleHero = titleHeroHits.length ? Math.min(...titleHeroHits) : firstHero
+  const heroLeadWindow = titleText.slice(0, 220)
+  const heroInLead = heroTerms.some(term => phraseHit(heroLeadWindow, term))
+
+  // Combo lane only: a co-active that leads the title demotes to adjacent when hero is not in the lead window.
+  // We intentionally do NOT scan the global INGREDIENT_WORDS list here — that produced false "hero buried"
+  // shunts for on-category singles (e.g. glucomannan, clear protein) when titles mentioned common cofactors.
+  if (requireTerms.length > 0) {
+    const coactiveLead = competingCoactiveLeadStart(titleText, requireTerms)
+    const coactiveLeadsHero = coactiveLead >= 0 && coactiveLead < firstTitleHero && !heroInLead
+    if (coactiveLeadsHero) {
+      return { bucket: 'adjacent' as const, classification: 'adjacent' as const, lane_fit: 'condition_stack', reason: 'Combo co-active leads title ahead of hero — hero is not the undisputed lead.' }
+    }
+  }
 
   const stackHits = stackTerms.filter(term => phraseHit(text, term))
   const hasStackMarker = STACK_MARKERS.some(marker => text.includes(marker))
-  const heroWindow = text.slice(0, 150)
-  const heroInLead = heroTerms.some(term => phraseHit(heroWindow, term))
 
-  // Hero buried under another ingredient — adjacent
-  if (earlierOtherIngredient && !heroInLead) {
-    return { bucket: 'adjacent' as const, classification: 'adjacent' as const, lane_fit: 'condition_stack', reason: 'Hero ingredient appears but is preceded by another named ingredient — hero is not the undisputed lead.' }
-  }
-
-  // Big stack with hero buried — adjacent
   if ((stackHits.length >= 2 || (hasStackMarker && stackHits.length >= 1)) && !heroInLead) {
     return { bucket: 'adjacent' as const, classification: 'adjacent' as const, lane_fit: 'condition_stack', reason: `Hero appears inside broader stack: ${stackHits.slice(0, 4).join(', ')}` }
   }
 
-  // Combo lane gate: when the frame requires combo co-actives (require_any set on a
-  // combination concept), a product must carry at least one of them to be 'included'.
-  // A bare single-ingredient hero product is the parent market, not a combo competitor → adjacent.
+  // Combo lane gate: when the frame requires combo co-actives, a product must carry at least one to be included.
   if (requireTerms.length > 0) {
     const comboHits = requireTerms.filter(term => phraseHit(text, term))
     if (!comboHits.length) {
@@ -629,14 +689,7 @@ export function applyHybridClassification(frame: HybridFrame, products: HybridPr
       lane_fit: classified.lane_fit,
       reason: classified.reason,
     }
-  }).sort((a, b) => {
-    const bucketOrder = { included: 0, adjacent: 1, excluded: 2 }
-    const aBucket = bucketOrder[a.bucket || 'excluded']
-    const bBucket = bucketOrder[b.bucket || 'excluded']
-    const aRank = a.bsr_current || a.bsr_avg30 || a.discovery_rank || 999_999_999
-    const bRank = b.bsr_current || b.bsr_avg30 || b.discovery_rank || 999_999_999
-    return aBucket - bBucket || aRank - bRank || (b.reviews - a.reviews)
-  })
+  }).sort(compareHybridProducts)
 }
 
 // ── Aggregates ───────────────────────────────────────────────────────────
@@ -712,6 +765,104 @@ export function computeAggregates(products: HybridProduct[]): Omit<HybridAggrega
   }
 }
 
+// ── Demand packet helpers (Phase B quality gate) ─────────────────────────
+
+export interface DemandRowLite {
+  keyword: string
+  latest_clicks: number
+  latest_sales?: number
+  monthly_records?: Array<{ month: string; clicks: number; sales: number }>
+}
+
+/** Minimum monthly clicks on the chosen primary keyword (unchanged gate floor). */
+export const DEMAND_MIN_PRIMARY_CLICKS = 100
+/** Default minimum distinct keyword rows with click data. */
+export const DEMAND_MIN_ROWS_WITH_DATA = 5
+/** Strong-primary niche exception: ≥1,000 clicks on primary allows ≥2 rows. */
+export const DEMAND_STRONG_PRIMARY_CLICKS = 1000
+export const DEMAND_STRONG_PRIMARY_MIN_ROWS = 2
+/** Combo/niche lane alternative: aggregate frame-relevant monthly clicks. */
+export const DEMAND_FRAME_CLICKS_ALT_THRESHOLD = 5000
+
+export function scoreKeywordFrameRelevance(keyword: string, frame: HybridFrame): number {
+  const kw = normalize(keyword)
+  if (!kw) return 0
+  let score = 0
+  const hero = normalize(frame.hero_ingredient)
+  if (hero && (kw.includes(hero) || hero.split(/\s+/).every(part => part.length >= 3 && kw.includes(part)))) score += 10
+  for (const term of frame.include_terms || []) {
+    const t = normalize(term)
+    if (t && kw.includes(t)) score += 4
+  }
+  for (const term of frame.require_any || []) {
+    const t = normalize(term)
+    if (t && kw.includes(t)) score += 3
+  }
+  for (const query of frame.query_packet || []) {
+    const q = normalize(query)
+    if (!q) continue
+    if (kw.includes(q) || q.includes(kw)) score += 2
+  }
+  return score
+}
+
+export function selectFrameRelevantDemandPrimary(rows: DemandRowLite[], frame: HybridFrame) {
+  const withData = rows.filter(r => r.latest_clicks > 0)
+  const ranked = withData
+    .map(row => ({ row, relevance: scoreKeywordFrameRelevance(row.keyword, frame) }))
+    .filter(entry => entry.relevance > 0)
+    .sort((a, b) =>
+      b.relevance - a.relevance ||
+      b.row.latest_clicks - a.row.latest_clicks ||
+      a.row.keyword.localeCompare(b.row.keyword),
+    )
+  const frameRelevantRows = ranked.map(entry => entry.row)
+  const frameRelevantClicks = frameRelevantRows.reduce((sum, row) => sum + row.latest_clicks, 0)
+  const primary = ranked[0]?.row || [...withData].sort((a, b) =>
+    b.latest_clicks - a.latest_clicks || a.keyword.localeCompare(b.keyword),
+  )[0] || null
+  return { primary, frameRelevantRows, frameRelevantClicks, frameRelevantRowCount: frameRelevantRows.length }
+}
+
+export function evaluateDemandQualityGate(input: {
+  source: string
+  error?: string
+  demandRowsWithData: number
+  primaryKeywordClicks: number
+  frameRelevantClicks: number
+  frameRelevantRowCount: number
+  primaryKeyword: string | null
+}): { passes: boolean; path: 'default' | 'strong_primary' | 'frame_clicks' | 'failed'; reason: string } {
+  if (input.source !== 'datarova') {
+    return {
+      passes: false,
+      path: 'failed',
+      reason: `Datarova demand packet unavailable (source=${input.source}, error=${input.error || 'unknown'})`,
+    }
+  }
+  if (input.primaryKeywordClicks < DEMAND_MIN_PRIMARY_CLICKS) {
+    return {
+      passes: false,
+      path: 'failed',
+      reason: `Demand data insufficient: primary keyword "${input.primaryKeyword}" only ${input.primaryKeywordClicks} monthly clicks (need ≥${DEMAND_MIN_PRIMARY_CLICKS})`,
+    }
+  }
+  if (input.demandRowsWithData >= DEMAND_MIN_ROWS_WITH_DATA) {
+    return { passes: true, path: 'default', reason: 'all gates passed' }
+  }
+  if (input.primaryKeywordClicks >= DEMAND_STRONG_PRIMARY_CLICKS && input.demandRowsWithData >= DEMAND_STRONG_PRIMARY_MIN_ROWS) {
+    return { passes: true, path: 'strong_primary', reason: 'all gates passed' }
+  }
+  if (input.frameRelevantClicks >= DEMAND_FRAME_CLICKS_ALT_THRESHOLD && input.frameRelevantRowCount >= DEMAND_STRONG_PRIMARY_MIN_ROWS) {
+    return { passes: true, path: 'frame_clicks', reason: 'all gates passed' }
+  }
+  return {
+    passes: false,
+    path: 'failed',
+    reason: `Demand data insufficient: ${input.demandRowsWithData} Datarova rows with click data, primary keyword ${input.primaryKeywordClicks} clicks, frame-relevant aggregate ${input.frameRelevantClicks} clicks (need ≥${DEMAND_MIN_ROWS_WITH_DATA} rows, OR ≥${DEMAND_STRONG_PRIMARY_MIN_ROWS} rows when primary ≥${DEMAND_STRONG_PRIMARY_CLICKS}, OR frame-relevant aggregate ≥${DEMAND_FRAME_CLICKS_ALT_THRESHOLD} with ≥${DEMAND_STRONG_PRIMARY_MIN_ROWS} frame-relevant rows)`,
+  }
+}
+
 // ── Main entry: runHybridQuery ───────────────────────────────────────────
 
 /**
@@ -737,8 +888,17 @@ export async function runHybridQuery(
     return emptyAggregate('no_apify_discovery_results', 0, null, queries)
   }
 
-  const enriched = await enrichApifyProductsWithKeepa(keepaKey, discovered, keepAsins, tokenWaitMs)
-  const classified = applyHybridClassification(frame, enriched.products)
+  // Classify the full discovery universe first — Keepa enrichment is capped but
+  // competitive gating must not silently ignore the other 250+ Apify hits.
+  const classifiedAll = applyHybridClassification(frame, discovered)
+  const preAuditIncluded = dedupeProductFamilies(classifiedAll).filter(product => product.bucket === 'included').length
+  const enrichCap = Math.min(
+    KEEPA_ENRICH_CAP,
+    Math.max(keepAsins, Math.ceil(preAuditIncluded * KEEPA_INCLUDED_COVERAGE_TARGET)),
+  )
+  const enrichTargets = selectKeepaEnrichmentTargets(classifiedAll, enrichCap)
+  const enriched = await enrichApifyProductsWithKeepa(keepaKey, enrichTargets, enrichTargets.length, tokenWaitMs)
+  const classified = mergeKeepaIntoClassifiedProducts(classifiedAll, enriched.products)
   const auditProducts = dedupeProductFamilies(classified)
   const aggregate = computeAggregates(classified)
   const included = auditProducts.filter(product => product.bucket === 'included')

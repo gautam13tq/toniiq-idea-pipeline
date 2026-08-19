@@ -71,6 +71,8 @@ import {
 import {
   runHybridQuery, HybridFrame, HybridAggregate, HybridProduct,
   clamp, n, normalize, percentile,
+  selectFrameRelevantDemandPrimary, evaluateDemandQualityGate,
+  type DemandRowLite,
 } from '../_shared/hybrid_scoring.ts'
 
 const SCORING_VERSION = 'phase-b-v5-hybrid-competitive'
@@ -120,6 +122,12 @@ Deno.serve(async (req) => {
     if (cErr || !concept) throw new Error(`Concept not found: ${cErr?.message}`)
     const { data: candidate } = await sb.from('idea_candidates').select('ingredient_name,category,subcategory').eq('id', concept.candidate_id).single()
     const ingredientName = candidate?.ingredient_name || concept.concept_name
+    const { data: phaseAEnrichment } = await sb.from('datarova_enrichments')
+      .select('related_keywords, primary_keyword, primary_keyword_clicks, primary_keyword_sales, avg_conversion_rate, growth_3m_clicks_pct, growth_6m_clicks_pct, growth_yoy_clicks_pct, monthly_trend')
+      .eq('candidate_id', concept.candidate_id)
+      .order('enriched_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
 
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
       notes: `Evaluating "${concept.concept_name}" (v5 hybrid)`,
@@ -151,7 +159,7 @@ Deno.serve(async (req) => {
 
     // ── STEP 2: DEMAND PACKET (Datarova) ──────────────────────────────────
     await setActionStatus(sb, resolvedActionId, 'in_progress', { context_merge: { step: 'datarova' } })
-    const demandPacket = await fetchDatarovaPacket(secrets.datarova_api_key, frame)
+    const demandPacket = await fetchDatarovaPacket(secrets.datarova_api_key, frame, phaseAEnrichment)
     await setActionStatus(sb, resolvedActionId, 'in_progress', {
       context_merge: {
         step: 'datarova_done',
@@ -363,6 +371,7 @@ async function inferCompetitiveFrame(apiKey: string, concept: any, ingredientNam
   const r = await anthropicCall(apiKey, {
     model: SONNET,
     max_tokens: 1500,
+    temperature: 0,
     system: `You are a competitive frame analyst for Toniiq supplement product development. Your job: given a product concept, determine the correct competitive frame and produce a query packet for Amazon competitor discovery.
 
 THE TWO FRAMES:
@@ -417,22 +426,27 @@ Key ingredients: ${JSON.stringify(concept.key_ingredients || [])}`,
   })
   const text = extractText(r)
   const parsed = extractJson<any>(text)
-  // Build HybridFrame
   const heroIngredient = String(parsed.hero_ingredient || ingredientName).trim()
   const modifier = parsed.delivery_modifier ? String(parsed.delivery_modifier).trim() : undefined
+  const queryPacket = Array.isArray(parsed.query_packet)
+    ? [...new Set(parsed.query_packet.map((q: any) => String(q || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b)).slice(0, 8)
+    : []
+  const comboTerms = Array.isArray(parsed.combo_terms)
+    ? [...new Set(parsed.combo_terms.map((t: any) => String(t || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b))
+    : []
   const frame: HybridFrame = {
     frame: parsed.frame === 'strict_modifier' ? 'strict_modifier' : 'broad_hero',
     hero_ingredient: heroIngredient,
     delivery_modifier: modifier,
-    query_packet: Array.isArray(parsed.query_packet) ? parsed.query_packet.map((q: any) => String(q || '').trim()).filter(Boolean).slice(0, 8) : [],
+    query_packet: queryPacket,
     include_terms: Array.isArray(parsed.inclusion_rules) && parsed.inclusion_rules.length > 0
-      ? parsed.inclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean)
+      ? [...new Set(parsed.inclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b))
       : [heroIngredient],
     require_any: modifier
       ? [modifier]
-      : (Array.isArray(parsed.combo_terms) ? parsed.combo_terms.map((t: any) => String(t || '').trim()).filter(Boolean) : []),
+      : comboTerms,
     exclude_terms: Array.isArray(parsed.exclusion_rules)
-      ? parsed.exclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean)
+      ? [...new Set(parsed.exclusion_rules.map((t: any) => String(t || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b))
       : [],
     stack_terms: [],
   }
@@ -455,10 +469,13 @@ interface DemandPacket {
     latest_clicks: number
     latest_sales: number
     weighted_conversion_pct: number | null
+    source?: 'datarova_live' | 'phase_a_snapshot'
   }>
   primary_keyword: string | null
   primary_keyword_clicks: number | null
   primary_keyword_sales: number | null
+  frame_relevant_clicks: number | null
+  frame_relevant_row_count: number
   total_clicks: number | null
   total_sales: number | null
   weighted_conversion_pct: number | null
@@ -468,6 +485,7 @@ interface DemandPacket {
   latest_month: string | null
   baseline_month: string | null
   total_monthly_data_points: number
+  demand_gate_path?: string
   error?: string
 }
 
@@ -484,12 +502,21 @@ function latestCompleteMonth() {
   return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1))
 }
 
-async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame): Promise<DemandPacket> {
-  const queries = [...new Set(frame.query_packet.map(q => normalize(q)).filter(Boolean))].slice(0, 12)
+async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame, phaseAEnrichment: any = null): Promise<DemandPacket> {
+  const phaseAKeywords = Array.isArray(phaseAEnrichment?.related_keywords)
+    ? phaseAEnrichment.related_keywords
+      .map((item: any) => normalize(String(item?.keyword || '')))
+      .filter(Boolean)
+    : []
+  const queries = [...new Set([
+    ...frame.query_packet.map(q => normalize(q)).filter(Boolean),
+    ...phaseAKeywords,
+  ])].sort((a, b) => a.localeCompare(b)).slice(0, 44)
   const empty = (error?: string): DemandPacket => ({
     source: 'fallback', queries,
     rows: [],
     primary_keyword: null, primary_keyword_clicks: null, primary_keyword_sales: null,
+    frame_relevant_clicks: null, frame_relevant_row_count: 0,
     total_clicks: null, total_sales: null, weighted_conversion_pct: null,
     growth_3m_pct: null, growth_6m_pct: null, growth_12m_pct: null,
     latest_month: null, baseline_month: null, total_monthly_data_points: 0,
@@ -507,8 +534,10 @@ async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame): Promise<
       marketplace: 'US',
     })
 
-    const rows = records.map((item: any) => {
+    const rowByKeyword = new Map<string, DemandPacket['rows'][number]>()
+    for (const item of records) {
       const keyword = String(item.keyword || '').trim()
+      if (!keyword) continue
       const sorted = [...(item.records || [])]
         .filter((r: any) => (r.start_date || r.date))
         .sort((a: any, b: any) => String(a.start_date || a.date).localeCompare(String(b.start_date || b.date)))
@@ -520,16 +549,39 @@ async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame): Promise<
       const latest = [...monthly_records].reverse().find(r => r.clicks > 0 || r.sales > 0) || monthly_records.at(-1)
       const totalClicks = monthly_records.reduce((s, r) => s + r.clicks, 0)
       const totalSales = monthly_records.reduce((s, r) => s + r.sales, 0)
-      return {
+      rowByKeyword.set(normalize(keyword), {
         keyword,
         monthly_records,
         latest_clicks: latest?.clicks || 0,
         latest_sales: latest?.sales || 0,
         weighted_conversion_pct: totalClicks > 0 ? Number(((totalSales / totalClicks) * 100).toFixed(1)) : null,
-      }
-    }).filter(r => r.keyword && (r.latest_clicks > 0 || r.latest_sales > 0))
+        source: 'datarova_live',
+      })
+    }
 
-    // Aggregate monthly totals across rows
+    // Backfill Phase A harvest keywords that the live packet missed (common on combo lanes).
+    for (const item of (phaseAEnrichment?.related_keywords || [])) {
+      const keyword = String(item?.keyword || '').trim()
+      const key = normalize(keyword)
+      if (!keyword || rowByKeyword.has(key)) continue
+      const clicks = n(item?.clicks)
+      const sales = n(item?.sales)
+      if (clicks <= 0 && sales <= 0) continue
+      const snapshotMonth = String(item?.snapshot_month || monthKey(latestCompleteMonth())).slice(0, 10)
+      rowByKeyword.set(key, {
+        keyword,
+        monthly_records: [{ month: snapshotMonth, clicks, sales }],
+        latest_clicks: clicks,
+        latest_sales: sales,
+        weighted_conversion_pct: clicks > 0 ? Number(((sales / clicks) * 100).toFixed(1)) : null,
+        source: 'phase_a_snapshot',
+      })
+    }
+
+    const rows = [...rowByKeyword.values()]
+      .filter(r => r.keyword && (r.latest_clicks > 0 || r.latest_sales > 0))
+      .sort((a, b) => b.latest_clicks - a.latest_clicks || a.keyword.localeCompare(b.keyword))
+
     const monthTotals = new Map<string, { clicks: number; sales: number }>()
     for (const row of rows) {
       for (const m of row.monthly_records) {
@@ -566,7 +618,14 @@ async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame): Promise<
 
     const baselineMonth = (latestMonth && latestIdx >= 12) ? months[latestIdx - 12] : (months[0] || null)
 
-    const primary = [...rows].sort((a, b) => b.latest_clicks - a.latest_clicks)[0] || null
+    const demandRows: DemandRowLite[] = rows.map(row => ({
+      keyword: row.keyword,
+      latest_clicks: row.latest_clicks,
+      latest_sales: row.latest_sales,
+      monthly_records: row.monthly_records,
+    }))
+    const selection = selectFrameRelevantDemandPrimary(demandRows, frame)
+    const primary = selection.primary
     const totalClicks = latestTotals?.clicks || 0
     const totalSales = latestTotals?.sales || 0
 
@@ -575,6 +634,8 @@ async function fetchDatarovaPacket(apiKey: string, frame: HybridFrame): Promise<
       primary_keyword: primary?.keyword || null,
       primary_keyword_clicks: primary?.latest_clicks ?? null,
       primary_keyword_sales: primary?.latest_sales ?? null,
+      frame_relevant_clicks: selection.frameRelevantClicks || null,
+      frame_relevant_row_count: selection.frameRelevantRowCount,
       total_clicks: totalClicks || null,
       total_sales: totalSales || null,
       weighted_conversion_pct: totalClicks > 0 ? Number(((totalSales / totalClicks) * 100).toFixed(1)) : null,
@@ -613,6 +674,8 @@ function qualityGate(frame: HybridFrame, demand: DemandPacket, enrichment: Hybri
 
   const demandRowsWithData = demand.rows.filter(r => r.latest_clicks > 0).length
   const primaryClicks = demand.primary_keyword_clicks || 0
+  const frameRelevantClicks = demand.frame_relevant_clicks || 0
+  const frameRelevantRowCount = demand.frame_relevant_row_count || 0
 
   const summary = {
     frame: frame.frame, hero: frame.hero_ingredient, modifier: frame.delivery_modifier || null,
@@ -627,43 +690,37 @@ function qualityGate(frame: HybridFrame, demand: DemandPacket, enrichment: Hybri
     demand_source: demand.source,
     demand_rows_with_data: demandRowsWithData,
     demand_primary_clicks: primaryClicks,
+    demand_primary_keyword: demand.primary_keyword,
+    demand_frame_relevant_clicks: frameRelevantClicks,
+    demand_frame_relevant_rows: frameRelevantRowCount,
     demand_total_monthly_data_points: demand.total_monthly_data_points,
     keepa_tokens_consumed: enrichment.tokens_consumed,
     min_included_required: minIncluded,
   }
 
-  // Demand gate
-  //
-  // Default: ≥5 keyword rows with click data AND primary keyword ≥100 clicks.
-  // Niche-strain exception: if the primary keyword is strong (≥1,000 clicks)
-  // we accept ≥2 rows with click data. This catches concepts like
-  // "S. boulardii 30B" where Datarova tracks the parent term densely but
-  // siblings sparsely — the primary signal is unambiguous so we don't punish
-  // the concept for the narrowness of the surrounding cluster.
-  if (demand.source !== 'datarova') {
-    return { status: 'failed_demand', reason: `Datarova demand packet unavailable (source=${demand.source}, error=${demand.error || 'unknown'})`, summary }
-  }
-  if (primaryClicks < 100) {
-    return { status: 'failed_demand', reason: `Demand data insufficient: primary keyword "${demand.primary_keyword}" only ${primaryClicks} monthly clicks (need ≥100)`, summary }
-  }
-  const strongPrimary = primaryClicks >= 1000
-  if (demandRowsWithData < 5 && !(strongPrimary && demandRowsWithData >= 2)) {
-    return {
-      status: 'failed_demand',
-      reason: `Demand data insufficient: ${demandRowsWithData} Datarova rows with click data, primary keyword ${primaryClicks} clicks (need ≥5 rows, OR ≥2 rows when primary keyword ≥1,000 clicks)`,
-      summary,
-    }
+  const demandGate = evaluateDemandQualityGate({
+    source: demand.source,
+    error: demand.error,
+    demandRowsWithData,
+    primaryKeywordClicks: primaryClicks,
+    frameRelevantClicks,
+    frameRelevantRowCount,
+    primaryKeyword: demand.primary_keyword,
+  })
+  const summaryWithDemand = { ...summary, demand_gate_path: demandGate.path }
+  if (!demandGate.passes) {
+    return { status: 'failed_demand', reason: demandGate.reason, summary: summaryWithDemand }
   }
 
   // Competitive gate
   if (included.length < minIncluded) {
-    return { status: 'failed_competitive', reason: `Competitive data insufficient: ${included.length}/${minIncluded} included competitors after classification (frame=${frame.frame})`, summary }
+    return { status: 'failed_competitive', reason: `Competitive data insufficient: ${included.length}/${minIncluded} included competitors after classification (frame=${frame.frame})`, summary: summaryWithDemand }
   }
   if (keepaCoveragePct < 0.8) {
-    return { status: 'failed_competitive', reason: `Competitive data insufficient: only ${keepaCoveredIncluded.length}/${included.length} (${(keepaCoveragePct * 100).toFixed(0)}%) included competitors have Keepa BSR/reviews/price data (need ≥80%)`, summary }
+    return { status: 'failed_competitive', reason: `Competitive data insufficient: only ${keepaCoveredIncluded.length}/${included.length} (${(keepaCoveragePct * 100).toFixed(0)}%) included competitors have Keepa BSR/reviews/price data (need ≥80%)`, summary: summaryWithDemand }
   }
 
-  return { status: 'passed', reason: 'all gates passed', summary }
+  return { status: 'passed', reason: 'all gates passed', summary: summaryWithDemand }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
