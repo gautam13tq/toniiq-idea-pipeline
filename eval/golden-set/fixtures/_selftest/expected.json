@@ -1,0 +1,147 @@
+{
+  "quality_gate_status": "passed",
+  "quality_gate_reason": "all gates passed",
+  "data_quality_summary": {
+    "frame": "broad_hero",
+    "hero": "cayenne",
+    "modifier": null,
+    "discovery_result_count": 40,
+    "included_count": 6,
+    "adjacent_count": 2,
+    "excluded_count": 10,
+    "keepa_coverage_count": 6,
+    "keepa_coverage_pct": 100,
+    "monthly_sold_badge_count": 6,
+    "monthly_sold_badge_pct": 100,
+    "demand_source": "datarova",
+    "demand_rows_with_data": 5,
+    "demand_primary_clicks": 5000,
+    "demand_primary_keyword": "cayenne supplement",
+    "demand_frame_relevant_clicks": 12700,
+    "demand_frame_relevant_rows": 5,
+    "demand_total_monthly_data_points": 13,
+    "keepa_tokens_consumed": 12,
+    "min_included_required": 5,
+    "demand_gate_path": "default"
+  },
+  "pillar_demand_score": 5,
+  "pillar_growth_score": 4.6,
+  "pillar_growth_details": {
+    "growth_3m_pct": 12.5,
+    "growth_6m_pct": 18,
+    "growth_12m_pct": 25,
+    "window_scores": {
+      "w3": 4,
+      "w6": 4,
+      "w12": 6
+    },
+    "window_weights": {
+      "w3": 0.4,
+      "w6": 0.3,
+      "w12": 0.3
+    },
+    "trajectory_shape": "growth with variance",
+    "latest_month": "2025-12-01",
+    "baseline_month": "2024-12-01"
+  },
+  "pillar_competitive_score": 5.8,
+  "pillar_competitive_subsignals": {
+    "review_moat": {
+      "score": 9.21,
+      "weight": 0.25,
+      "review_p50": 950,
+      "review_p90": 1050,
+      "review_max": 1100,
+      "reasoning": "p50=950, p90=1,050, max=1,100 reviews; low moat — attackable"
+    },
+    "rev_review_efficiency": {
+      "score": 3,
+      "weight": 0.2,
+      "ratio_p50": 5.57,
+      "rev_review_data_count": 6,
+      "reasoning": "6 competitors with revenue+reviews data; p50 ratio 5.6 (mature/saturated or sparse data)"
+    },
+    "bsr_concentration": {
+      "score": 8,
+      "weight": 0.15,
+      "best_bsr": 5100,
+      "top3_avg_bsr": 5200,
+      "reasoning": "Best BSR 5,100, top-3 avg 5,200; top is diffuse"
+    },
+    "brand_concentration": {
+      "score": 1,
+      "weight": 0.1,
+      "distinct_brands_top20": 1,
+      "top_brand_share": 1,
+      "reasoning": "1 distinct brands in top 20, top brand share 100.0%; consolidated"
+    },
+    "competitor_density": {
+      "score": 6,
+      "weight": 0.1,
+      "included_count": 6,
+      "reasoning": "niche/thin market"
+    },
+    "premium_tier_viability": {
+      "score": 4,
+      "weight": 0.1,
+      "premium_count_top20": 1,
+      "premium_share": 0.167,
+      "reasoning": "1/6 top products at ≥$25 AND ≥4.3★ AND ≥500 reviews; narrow premium space"
+    },
+    "spec_wedge": {
+      "score": 6,
+      "weight": 0.1,
+      "concept_dose": 500,
+      "top10_doses": [
+        500,
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "reasoning": "Concept dose 500, top-10 sample doses [500, 500, 500, 500, 500, 500]; parity with leaders"
+    }
+  },
+  "pillar_diff_score": 7.5,
+  "composite_score": 59.7,
+  "recommendation_tier": "watchlist",
+  "composite_weights": {
+    "demand": 0.2,
+    "growth": 0.15,
+    "competitive": 0.35,
+    "differentiation": 0.3
+  },
+  "competition_gate": {
+    "composite_cap": 100,
+    "tier_cap": "launch_priority",
+    "caps_applied": []
+  },
+  "diff_vectors_available": 4,
+  "diff_vector_details": {
+    "concentration_potency": {
+      "score": 7,
+      "reasoning": "Market doses vary."
+    },
+    "branded_patented_ingredient": {
+      "score": 6,
+      "reasoning": "Room for branded form."
+    },
+    "purity_standardization": {
+      "score": 8,
+      "reasoning": "Sparse COA claims."
+    },
+    "multi_pathway_stack": {
+      "score": 7,
+      "reasoning": "MCT pairing underused."
+    },
+    "cfu_strain_specificity": {
+      "score": 0,
+      "reasoning": "N/A"
+    },
+    "bioavailability_delivery": {
+      "score": 8,
+      "reasoning": "Softgel angle open."
+    }
+  }
+}
