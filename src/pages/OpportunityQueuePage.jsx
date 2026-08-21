@@ -20,6 +20,19 @@ const STATUSES = ['new', 'reviewing', 'watching', 'queued_research', 'researchin
 const PRIORITIES = ['urgent', 'high', 'medium', 'low']
 const PRIORITY_ORDER = { urgent: 0, high: 1, medium: 2, low: 3 }
 const SHELVED_TAG = 'shelved_from_opportunities'
+const SNAPSHOT_IN_BATCH = 150
+const SNAPSHOT_COLUMNS = [
+  'candidate_id',
+  'import_date',
+  'customer_need',
+  'top_search_term_1',
+  'top_search_term_2',
+  'top_search_term_3',
+  'search_volume_90d',
+  'search_volume_growth_90d',
+  'search_volume_growth_180d',
+  'avg_price_usd',
+].join(',')
 
 function mondayString(date = new Date()) {
   const d = new Date(date)
@@ -28,8 +41,38 @@ function mondayString(date = new Date()) {
   return d.toISOString().slice(0, 10)
 }
 
-function latestImportDate(snapshots) {
-  return snapshots.reduce((latest, row) => row.import_date > latest ? row.import_date : latest, '')
+function buildSnapshotQuery(candidateIds, importDate) {
+  let query = supabase
+    .from('poe_snapshots')
+    .select(SNAPSHOT_COLUMNS)
+    .in('candidate_id', candidateIds)
+  if (importDate) query = query.eq('import_date', importDate)
+  return query.order('import_date', { ascending: false }).order('id')
+}
+
+// Evidence only — never page the historical poe_snapshots universe. The queue
+// itself comes from opportunity_reviews + idea_candidates.
+async function fetchEvidenceSnapshots(candidateIds, latestImportDate) {
+  const ids = [...new Set(candidateIds.filter(Boolean))]
+  if (!ids.length) return { data: [], error: null }
+
+  const rows = []
+  for (let offset = 0; offset < ids.length; offset += SNAPSHOT_IN_BATCH) {
+    const batch = ids.slice(offset, offset + SNAPSHOT_IN_BATCH)
+    const result = await fetchAllRows(() => buildSnapshotQuery(batch, latestImportDate || null))
+    if (result.error) return result
+    rows.push(...(result.data || []))
+  }
+
+  if (!latestImportDate) return { data: rows, error: null }
+
+  const found = new Set(rows.map(row => row.candidate_id))
+  const missing = ids.filter(id => !found.has(id))
+  if (!missing.length) return { data: rows, error: null }
+
+  const older = await fetchEvidenceSnapshots(missing, '')
+  if (older.error) return { data: rows, error: null }
+  return { data: rows.concat(older.data || []), error: null }
 }
 
 function nullableScore(value) {
@@ -82,6 +125,7 @@ export default function OpportunityQueuePage() {
   const [snapshots, setSnapshots] = useState([])
   const [candidates, setCandidates] = useState([])
   const [reviews, setReviews] = useState([])
+  const [latestImport, setLatestImport] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [tab, setTab] = useState('queue')
@@ -104,27 +148,44 @@ export default function OpportunityQueuePage() {
     let ignore = false
 
     async function fetchData() {
-      const [snapshotsRes, candidatesRes, reviewsRes] = await Promise.all([
-        fetchAllRows(() => supabase.from('poe_snapshots').select('*').order('import_date', { ascending: false }).order('id')),
-        fetchAllRows(() => supabase.from('idea_candidates').select('id, ingredient_name, ingredient_name_normalized, category, stage, first_surfaced_at, surfaced_week, notes').order('id')),
-        fetchAllRows(() => supabase.from('opportunity_reviews').select('*').order('created_at', { ascending: false }).order('id')),
-      ])
-      if (ignore) return
-      if (snapshotsRes.error || candidatesRes.error || reviewsRes.error) {
-        setError(snapshotsRes.error?.message || candidatesRes.error?.message || reviewsRes.error?.message)
-      } else {
-        setSnapshots(snapshotsRes.data || [])
+      try {
+        const [candidatesRes, reviewsRes, latestImportRes] = await Promise.all([
+          fetchAllRows(() => supabase.from('idea_candidates').select('id, ingredient_name, ingredient_name_normalized, category, stage, first_surfaced_at, surfaced_week, notes').order('id')),
+          fetchAllRows(() => supabase.from('opportunity_reviews').select('*').order('created_at', { ascending: false }).order('id')),
+          supabase.from('poe_snapshots').select('import_date').order('import_date', { ascending: false }).limit(1).maybeSingle(),
+        ])
+        if (ignore) return
+        if (candidatesRes.error || reviewsRes.error) {
+          setError(candidatesRes.error?.message || reviewsRes.error?.message)
+          setLoading(false)
+          return
+        }
+
+        const nextReviews = reviewsRes.data || []
         setCandidates(candidatesRes.data || [])
-        setReviews(reviewsRes.data || [])
+        setReviews(nextReviews)
+        if (latestImportRes.data?.import_date) setLatestImport(latestImportRes.data.import_date)
+        setLoading(false)
+
+        try {
+          const candidateIds = nextReviews.map(review => review.candidate_id)
+          const snapshotsRes = await fetchEvidenceSnapshots(candidateIds, latestImportRes.data?.import_date || '')
+          if (ignore) return
+          if (!snapshotsRes.error) setSnapshots(snapshotsRes.data || [])
+        } catch (snapshotErr) {
+          console.error(snapshotErr)
+        }
+      } catch (err) {
+        if (ignore) return
+        setError(err.message || 'Failed to load opportunity queue')
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     fetchData()
     return () => { ignore = true }
   }, [])
 
-  const latestImport = useMemo(() => latestImportDate(snapshots), [snapshots])
   const persistedRows = useMemo(
     () => reviewRows(reviews, candidates, snapshots),
     [reviews, candidates, snapshots]
