@@ -406,7 +406,7 @@ QUERY PACKET (4-8 buyer-style search queries):
 - Keep queries short and natural (2-4 words).
 
 INCLUSION RULES: list the title tokens that classify a product as "in lane" (default: [hero]).
-EXCLUSION RULES: list tokens that exclude (pets, topical, food, wrong category).
+EXCLUSION RULES: list tokens that exclude (pets, topical, food, wrong category). Also exclude formats a buyer of this concept's format would not swap for it, in the words titles use (e.g. for a capsule concept: "cocoa powder", "drink mix"; for an instant coffee powder: "ground coffee", "k-cup", "pods", "whole bean"). Exclusions are matched on title words, singular or plural.
 REASONING: 1-2 sentences explaining your call.
 
 Return STRICT JSON (no markdown, no commentary):
