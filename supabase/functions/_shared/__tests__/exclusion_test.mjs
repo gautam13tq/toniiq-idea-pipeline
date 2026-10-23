@@ -52,3 +52,15 @@ test('noise patterns keep exact word order (no gap)', () => {
 test('two or more words in between do not match', () => {
   assert.equal(exclusionHit(' ground organic mushroom coffee ', 'ground coffee', true), false)
 })
+
+// From the 23 Oct 2026 Liposomal Iron run, where the model put the modifier in include_terms.
+const liposomalIron = {
+  frame: 'strict_modifier', hero_ingredient: 'iron', delivery_modifier: 'liposomal', query_packet: [],
+  include_terms: ['iron', 'liposomal'], exclude_terms: ['gummies'],
+}
+
+test('a strict modifier frame needs the hero, not just the modifier', () => {
+  assert.equal(bucket(liposomalIron, 'NutriFlair Liposomal Vitamin C 1700mg, 180 Capsules'), 'excluded')
+  assert.equal(bucket(liposomalIron, 'Ferosom Forte LCE Liposomal Gentle Iron Supplement 30 mg, 30 Capsules'), 'included')
+  assert.equal(bucket(liposomalIron, 'Gentle Iron Bisglycinate 25mg, 90 Capsules'), 'adjacent')
+})

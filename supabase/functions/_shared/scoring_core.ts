@@ -343,16 +343,15 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
   const text = ` ${normalize(`${product.brand || ''} ${product.title || ''}`)} `
   const titleText = ` ${titleTextForClassification(product)} `
 
-  const heroTerms = meaningfulTerms(
-    frame.include_terms && frame.include_terms.length > 0
-      ? frame.include_terms
-      : [frame.hero_ingredient],
-  )
   const requireTerms = frame.frame === 'strict_modifier'
     ? meaningfulTerms(frame.require_any && frame.require_any.length > 0
         ? frame.require_any
         : (frame.delivery_modifier ? [frame.delivery_modifier] : []))
     : meaningfulTerms(frame.require_any || [])
+  // The modifier never counts as the hero, or "Liposomal Vitamin C" passes as liposomal iron.
+  const includeTerms = meaningfulTerms(frame.include_terms || [])
+    .filter(term => frame.frame !== 'strict_modifier' || !requireTerms.includes(term))
+  const heroTerms = includeTerms.length > 0 ? includeTerms : meaningfulTerms([frame.hero_ingredient])
   // Frame exclusions add to the pet/topical noise patterns; they never replace them.
   const noiseTerms = meaningfulTerms(PRODUCT_NOISE_PATTERNS)
   const frameExcludeTerms = meaningfulTerms(frame.exclude_terms || [])
