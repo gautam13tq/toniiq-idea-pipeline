@@ -25,7 +25,8 @@
 #   ./scripts/refire_phase_a_serial.sh < candidates.txt
 #
 # Environment overrides:
-#   PROJECT_REF        Supabase project ref (default: hamreqogmporpgdjglyn)
+#   PROJECT_REF        Supabase project ref (default: gmfndxaoeztxohbbkudu, toniiq-npd)
+#   ANON_JWT           Required. The project's public anon key (same as src/lib/supabase.js).
 #   SLEEP_BETWEEN_S    Seconds to wait between firings (default: 360 = 6 min)
 #                      Phase A typically takes 3-5 min; 6 min gives buffer for
 #                      slow Reddit retries.
@@ -37,13 +38,14 @@
 
 set -euo pipefail
 
-PROJECT_REF="${PROJECT_REF:-hamreqogmporpgdjglyn}"
+PROJECT_REF="${PROJECT_REF:-gmfndxaoeztxohbbkudu}"
 SLEEP_BETWEEN_S="${SLEEP_BETWEEN_S:-360}"
 DRY_RUN="${DRY_RUN:-0}"
 LOG_FILE="${LOG_FILE:-}"
 
-# Public anon JWT — safe to inline. Service-role keys must never be in this script.
-ANON_JWT="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhhbXJlcW9nbXBvcnBnZGpnbHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NDk5MTIsImV4cCI6MjA4ODAyNTkxMn0.5dziRHehoUfycKYUq52JOc8zYGdoF0g7wxT3Zux6dXk"
+# Public anon JWT for the target project, passed in so the script never points at a
+# stale project. Service-role keys must never be used here.
+ANON_JWT="${ANON_JWT:?set ANON_JWT to the project anon key}"
 
 log() {
   local msg="$(date -u +%H:%M:%S) $*"
