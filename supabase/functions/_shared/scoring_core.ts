@@ -175,7 +175,9 @@ export const PRODUCT_NOISE_PATTERNS = [
 ]
 
 export const KEEPA_ENRICH_CAP = 80
-export const KEEPA_INCLUDED_COVERAGE_TARGET = 0.85
+// Enrich every in-lane listing (up to KEEPA_ENRICH_CAP). At 0.85 the gate's 80%
+// coverage rule failed whenever a few enriched ASINs came back without Keepa data.
+export const KEEPA_INCLUDED_COVERAGE_TARGET = 1
 
 export const DEMAND_MIN_PRIMARY_CLICKS = 100
 export const DEMAND_MIN_ROWS_WITH_DATA = 5
@@ -335,9 +337,8 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
         ? frame.require_any
         : (frame.delivery_modifier ? [frame.delivery_modifier] : []))
     : meaningfulTerms(frame.require_any || [])
-  const excludeTerms = meaningfulTerms(frame.exclude_terms && frame.exclude_terms.length > 0
-    ? frame.exclude_terms
-    : PRODUCT_NOISE_PATTERNS)
+  // Frame exclusions add to the pet/topical noise patterns; they never replace them.
+  const excludeTerms = meaningfulTerms([...PRODUCT_NOISE_PATTERNS, ...(frame.exclude_terms || [])])
   const stackTerms = meaningfulTerms(frame.stack_terms || [])
 
   const excludedHits = excludeTerms.filter(term => phraseHit(text, term))
