@@ -10,7 +10,8 @@
     "build:category-atlas": "node scripts/build-category-atlas-import.mjs",
     "eval:phase-b": "node --experimental-strip-types eval/golden-set/replay.mjs",
     "eval:ui-smoke": "playwright test --config eval/ui-smoke/playwright.config.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:scoring": "node --experimental-strip-types --test supabase/functions/_shared/__tests__/exclusion_test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.100.0",

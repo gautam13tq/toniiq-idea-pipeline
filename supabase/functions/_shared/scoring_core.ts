@@ -288,6 +288,22 @@ export function phraseHit(text: string, term: string) {
   return new RegExp(`(^|\\s)${escaped}(\\s|$)`).test(text)
 }
 
+// Exclusion matching is looser than hero matching: singular and plural both count
+// ("k-cup" hits "k-cups", "pods" hits "pod"), and a frame's multi-word exclusion may
+// have one word between its words ("ground coffee" hits "ground mushroom coffee").
+const PLURAL = '(?:s|es)?'
+
+export function exclusionHit(text: string, term: string, allowGap = false) {
+  const words = normalize(term).split(' ').filter(Boolean)
+  if (!words.length || words.join(' ').length < 2) return false
+  const escaped = words.map(word => {
+    const stem = word.length > 3 ? word.replace(/s$/, '') : word
+    return stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + PLURAL
+  })
+  const joiner = allowGap ? '\\s(?:\\S+\\s)?' : '\\s'
+  return new RegExp(`(^|\\s)${escaped.join(joiner)}(\\s|$)`).test(text)
+}
+
 function phraseStart(text: string, term: string) {
   const value = normalize(term)
   if (!value || value.length < 2) return -1
@@ -338,10 +354,14 @@ export function classifyHybridProduct(frame: HybridFrame, product: HybridProduct
         : (frame.delivery_modifier ? [frame.delivery_modifier] : []))
     : meaningfulTerms(frame.require_any || [])
   // Frame exclusions add to the pet/topical noise patterns; they never replace them.
-  const excludeTerms = meaningfulTerms([...PRODUCT_NOISE_PATTERNS, ...(frame.exclude_terms || [])])
+  const noiseTerms = meaningfulTerms(PRODUCT_NOISE_PATTERNS)
+  const frameExcludeTerms = meaningfulTerms(frame.exclude_terms || [])
   const stackTerms = meaningfulTerms(frame.stack_terms || [])
 
-  const excludedHits = excludeTerms.filter(term => phraseHit(text, term))
+  const excludedHits = [
+    ...noiseTerms.filter(term => exclusionHit(text, term)),
+    ...frameExcludeTerms.filter(term => exclusionHit(text, term, true)),
+  ]
   if (excludedHits.length) {
     return { bucket: 'excluded' as const, classification: 'noise' as const, lane_fit: 'noise', reason: `Excluded term: ${excludedHits.slice(0, 3).join(', ')}` }
   }
