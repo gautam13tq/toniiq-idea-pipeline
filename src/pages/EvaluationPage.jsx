@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import PendingActionsBanner from '../components/PendingActionsBanner'
 import VocPanel from '../components/VocPanel'
+import ShelfScoresPanel from '../components/ShelfScoresPanel'
 
 /**
  * Evaluation Page — ideas with scored concepts awaiting a decision.
@@ -125,6 +126,7 @@ export default function EvaluationPage() {
       </div>
 
       {/* Tabs */}
+      <ShelfScoresPanel />
       <div className="flex gap-1 mb-5 border-b" style={{ borderColor: 'var(--border-default)' }}>
         {[
           { key: 'active', label: 'Active', count: activeIdeas.length },
