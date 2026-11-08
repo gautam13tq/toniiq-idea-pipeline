@@ -6,3 +6,5 @@ dist/
 .DS_Store
 supabase/.temp/
 .vercel
+scorer/runs/
+__pycache__/
