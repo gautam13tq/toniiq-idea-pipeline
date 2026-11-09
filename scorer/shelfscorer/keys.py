@@ -31,3 +31,18 @@ def get(name):
         raise RuntimeError(f"{name} key not found (env {env} or system_config {cfg})")
     _cache[name] = v
     return v
+
+
+def has(name):
+    try:
+        get(name)
+        return True
+    except RuntimeError:
+        return False
+
+
+def supabase():
+    url, key = os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    if not url or not key:
+        raise RuntimeError("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are needed for the keepa-proxy route")
+    return url.rstrip("/"), key

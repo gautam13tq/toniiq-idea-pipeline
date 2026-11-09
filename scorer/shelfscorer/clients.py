@@ -41,10 +41,19 @@ def datarova_keywords(run, keywords, start, end, label, include_asins=False):
 # ---------------- Keepa ----------------
 def keepa(run, path, params, label):
     def fn():
+        direct = keys.has("keepa")
         for _ in range(10):
-            url = f"https://api.keepa.com/{path}?" + urllib.parse.urlencode({**params, "key": keys.get("keepa")})
             try:
-                return _http(url, timeout=180)
+                if direct:
+                    url = f"https://api.keepa.com/{path}?" + urllib.parse.urlencode({**params, "key": keys.get("keepa")})
+                    return _http(url, timeout=180)
+                # No key in env or system_config: go through the keepa-proxy edge function,
+                # which holds KEEPA_API_KEY as a Supabase secret.
+                url, sk = keys.supabase()
+                return _http(f"{url}/functions/v1/keepa-proxy",
+                             data=json.dumps({"path": path, "params": params}).encode(),
+                             headers={"Authorization": f"Bearer {sk}", "Content-Type": "application/json"},
+                             timeout=180)
             except urllib.error.HTTPError as e:
                 body = e.read()
                 if body[:2] == b"\x1f\x8b":
