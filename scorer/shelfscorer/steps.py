@@ -271,7 +271,9 @@ def _in_family(asin, dec, top_asins):
 FOP_PROMPT = ("Quote the exact words on the front of this pack, largest text first. Which single ingredient does the "
               "pack lead with (the biggest or first-named ingredient)? If the pack's headline is a health condition or "
               "benefit (for example 'Sciatic Nerve Support') rather than an ingredient, say so. "
-              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"headline_is_condition\": true|false}.")
+              "List every ingredient dose printed on the front (amount in mg; convert g to mg). "
+              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"headline_is_condition\": true|false, "
+              "\"front_doses\": [{\"ingredient\": \"...\", \"mg\": 0}]}.")
 # Blind on purpose (9 Nov 2026 dev round): when the prompt carried the hero pattern, the model named the hero as the
 # main ingredient even on melatonin or fisetin packs. hero_is_main is now decided in code from main_ingredient.
 
@@ -319,6 +321,14 @@ def step_rank_fop(run):
                 o = {"hero_is_main": None, "raw": text[:300]}
             mi0 = o.get("main_ingredient")
             o["hero_is_main"] = None if not mi0 else bool(re.search(s["hero_regex"], mi0, re.I))
+            # Dose rule (9 Nov 2026): if the front prints a bigger dose for another ingredient than for the hero,
+            # the hero does not lead (e.g. "L-THEANINE 1000MG GABA 2000MG").
+            doses = [x for x in (o.get("front_doses") or []) if isinstance(x, dict) and isinstance(x.get("mg"), (int, float))]
+            hero_mg = max([x["mg"] for x in doses if re.search(s["hero_regex"], str(x.get("ingredient")), re.I)], default=None)
+            other_mg = max([x["mg"] for x in doses if not re.search(s["hero_regex"], str(x.get("ingredient")), re.I)], default=None)
+            if o["hero_is_main"] and hero_mg is not None and other_mg is not None and other_mg > hero_mg:
+                o["hero_is_main"] = False
+                o["dose_rule"] = f"another ingredient printed at {other_mg} mg vs hero {hero_mg} mg"
             run.save(f"fop/{a}.json", {**o, "prompt_sha": ps, "image": f["image"]})
             was_in = a in g["kept"]
             # A gate OUT is only overturned when the pack names the hero, its headline is not a condition,
