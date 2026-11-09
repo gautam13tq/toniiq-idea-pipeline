@@ -1,0 +1,24 @@
+{
+ "shelf_keyword": "kids magnesium",
+ "hero_name": "magnesium",
+ "hero_regex": "magnes\\w*",
+ "required_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b",
+ "qualifier_regex": "\\bkids?\\b|\\bchild",
+ "cluster_keywords": [
+  "kids magnesium",
+  "magnesium for kids",
+  "kids magnesium powder",
+  "childrens magnesium",
+  "kids magnesium gummies"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "kids magnesium",
+  "magnesium for kids"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-09T20:34:46+00:00",
+ "spec_round": "dev-2026-11-09b (blind-3 kids shelf on the Atlas best keyword 'kids magnesium', 6,386 clicks; no format co-term)"
+}

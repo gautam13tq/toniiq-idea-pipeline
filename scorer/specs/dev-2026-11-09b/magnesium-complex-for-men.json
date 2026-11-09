@@ -1,0 +1,24 @@
+{
+ "shelf_keyword": "magnesium complex for men",
+ "hero_name": "magnesium",
+ "hero_regex": "magnes\\w*",
+ "required_regex": "^(?!.*\\bmen\\s*(?:&|and|/|\\+|,)?\\s*wom[ae]n\\b)(?!.*\\bwom[ae]n'?s?\\s*(?:&|and|/|\\+|,)?\\s*men\\b)(?=.*(?:\\bmen\\b|\\bmen'?s\\b|\\bmale\\b|\\bhim\\b))(?=.*(?:complex|\\b\\d ?forms?\\b|triple|multi[- ]?magnesium|full spectrum|\\b\\d ?in ?1\\b)).*",
+ "qualifier_regex": "\\bmen\\b|\\bmen'?s\\b",
+ "cluster_keywords": [
+  "magnesium complex for men",
+  "magnesium for men",
+  "mens magnesium",
+  "magnesium supplement for men",
+  "magnesium complex men"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium complex for men",
+  "magnesium for men"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-09T20:34:46+00:00",
+ "spec_round": "dev-2026-11-09b (v2 of blind-3 spec: also rejects 'women men' / 'men women' with no connector)"
+}
