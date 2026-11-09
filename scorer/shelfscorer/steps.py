@@ -197,22 +197,6 @@ def step_gate(run):
                 d.update({"include": False, "code": "EX_SPEC_EXCLUDE", "spec_exclude": xr})
                 excluded.append(r["asin"])
         res["kept"] = [a for a in res["kept"] if a not in excluded]
-    # Shared-review merge (9 Nov 2026): Amazon shows one review pool per product family, so two kept listings from
-    # the same brand with the same review count (>= 20) are sizes of one product (NOW Magtein 90/180 ct, Jarrow
-    # S. boulardii). The one with the bigger badge stays; the other is folded in as a variant.
-    byk = {}
-    pf = {a: GA.product_fields(p) for a, p in prods.items()}
-    for a in sorted(res["kept"], key=lambda x: -(pf.get(x, {}).get("monthly_sold") or 0)):
-        f = pf.get(a)
-        if not f or (f["reviews"] or 0) < 20 or not f["brand"]:
-            continue
-        k = (f["brand"].strip().lower(), f["reviews"])
-        if k in byk:
-            dec.setdefault(a, {}).update({"include": False, "code": "EX_VARIANT_DUP", "dup_of": byk[k],
-                                          "merge_source": "shared_reviews"})
-        else:
-            byk[k] = a
-    res["kept"] = [a for a in res["kept"] if not (dec.get(a, {}).get("merge_source") == "shared_reviews")]
     unsure = sum(1 for d in dec.values() if d.get("verdict3") == "UNSURE")
     fallback = sum(1 for d in dec.values() if d.get("judge_fallback"))
     run.save("gate/decisions.json", {"gate_version": GA.GATE_VERSION, "decisions": dec, "kept": res["kept"],
@@ -260,8 +244,31 @@ def build_families(run):
                      "reviews": max(f["reviews"] or 0 for f in F), "price": prim["price"], "rating": prim["rating"],
                      "bsr": prim["bsr"], "image": prim["image"], "last_update": max((f["last_update"] or 0) for f in F),
                      "decision_source": manual.get(k, {}).get("source") or g["decisions"].get(k, {}).get("code")})
+    fams = merge_shared_reviews(fams)
     fams.sort(key=lambda f: (-(f["monthly_sold"] or 0), f["best_rank90"] or 9e9))
     return fams
+
+
+def merge_shared_reviews(fams):
+    """Amazon shows one review pool per product, so two families from the same brand with the same review count
+    (>= 20) are sizes of one product (NOW Magtein 90/180 ct, Kappa, Jarrow S. boulardii). Fold the smaller-badge one
+    into the bigger. Runs on the final families, so front-of-pack rescues and pass-2 review counts are covered
+    (9 Nov 2026)."""
+    out, byk = [], {}
+    for f in sorted(fams, key=lambda f: (-(f["monthly_sold"] or 0), f["best_rank90"] or 9e9)):
+        k = ((f["brand"] or "").strip().lower(), f["reviews"] or 0)
+        if k[0] and k[1] >= 20 and k in byk:
+            t = byk[k]
+            t["asins"] = sorted(set(t["asins"]) | set(f["asins"]))
+            t["monthly_sold"] = (t["monthly_sold"] or 0) + (f["monthly_sold"] or 0)
+            r = [x for x in (t["best_rank90"], f["best_rank90"]) if x]
+            t["best_rank90"] = min(r) if r else None
+            t.setdefault("merged_families", []).append(f["family_id"])
+            continue
+        if k[0] and k[1] >= 20:
+            byk[k] = f
+        out.append(f)
+    return out
 
 
 def step_collapse(run):
