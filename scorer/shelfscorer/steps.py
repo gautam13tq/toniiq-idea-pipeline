@@ -197,7 +197,23 @@ def step_gate(run):
                 d.update({"include": False, "code": "EX_SPEC_EXCLUDE", "spec_exclude": xr})
                 excluded.append(r["asin"])
         res["kept"] = [a for a in res["kept"] if a not in excluded]
-    unsure = sum(1 for d in dec.values() if d["verdict3"] == "UNSURE")
+    # Shared-review merge (9 Nov 2026): Amazon shows one review pool per product family, so two kept listings from
+    # the same brand with the same review count (>= 20) are sizes of one product (NOW Magtein 90/180 ct, Jarrow
+    # S. boulardii). The one with the bigger badge stays; the other is folded in as a variant.
+    byk = {}
+    pf = {a: GA.product_fields(p) for a, p in prods.items()}
+    for a in sorted(res["kept"], key=lambda x: -(pf.get(x, {}).get("monthly_sold") or 0)):
+        f = pf.get(a)
+        if not f or (f["reviews"] or 0) < 20 or not f["brand"]:
+            continue
+        k = (f["brand"].strip().lower(), f["reviews"])
+        if k in byk:
+            dec.setdefault(a, {}).update({"include": False, "code": "EX_VARIANT_DUP", "dup_of": byk[k],
+                                          "merge_source": "shared_reviews"})
+        else:
+            byk[k] = a
+    res["kept"] = [a for a in res["kept"] if not (dec.get(a, {}).get("merge_source") == "shared_reviews")]
+    unsure = sum(1 for d in dec.values() if d.get("verdict3") == "UNSURE")
     fallback = sum(1 for d in dec.values() if d.get("judge_fallback"))
     run.save("gate/decisions.json", {"gate_version": GA.GATE_VERSION, "decisions": dec, "kept": res["kept"],
                                      "merges": res["merges"], "judge_calls": n["judge"], "merge_calls": n["merge"],
