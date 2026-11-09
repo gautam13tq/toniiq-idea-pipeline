@@ -8,3 +8,6 @@ supabase/.temp/
 .vercel
 scorer/runs/
 __pycache__/
+scorer/runs2/
+scorer/runs3/
+scorer/runs_blind/
