@@ -389,8 +389,25 @@ def step_keepa2(run):
     run.save("ranking.json", {"families": fams})
     cutoff = (dt.datetime.now(dt.timezone.utc) - dt.datetime(2011, 1, 1, tzinfo=dt.timezone.utc)).total_seconds() / 60 \
         - K.MAX_DATA_AGE_DAYS * 24 * 60
-    stale = [f["family_id"] for f in fams[:K.SHELF_SIZE] if (f["last_update"] or 0) < cutoff]
-    run.step_done("keepa_pass2", "I10", not stale, f"stale: {stale}")
+    stale = [f for f in fams[:K.SHELF_SIZE] if (f["last_update"] or 0) < cutoff]
+    note = ""
+    if stale:
+        # Force Keepa to refresh the stale listings once (update=0; costs extra tokens). A listing Keepa still cannot
+        # refresh is treated as dead: it leaves the shelf with a logged decision (9 Nov 2026, tart cherry).
+        keepa_products(run, sorted({a for f in stale for a in f["asins"]}), "product_pass2_refresh", {"rating": 1, "buybox": 1, "update": 0})
+        fams = build_families(run)
+        still = [f["family_id"] for f in fams[:K.SHELF_SIZE] if (f["last_update"] or 0) < cutoff]
+        if still:
+            manual = run.read("manual_decisions.json") if run.exists("manual_decisions.json") else {"decisions": {}}
+            for a in still:
+                manual["decisions"][a] = {"decision": "OUT", "source": "stale_keepa", "date": now(),
+                                          "wording": f"Keepa data older than {K.MAX_DATA_AGE_DAYS} days after a forced refresh"}
+            run.save("manual_decisions.json", manual)
+            fams = build_families(run)
+        run.save("ranking.json", {"families": fams})
+        note = f"refreshed {[f['family_id'] for f in stale]}; dropped as dead {still}"
+    stale_now = [f["family_id"] for f in fams[:K.SHELF_SIZE] if (f["last_update"] or 0) < cutoff]
+    run.step_done("keepa_pass2", "I10", not stale_now, f"stale: {stale_now}; {note}")
 
 
 # ---------------- step 10: competition ----------------
