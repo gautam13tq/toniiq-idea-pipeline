@@ -1,0 +1,23 @@
+{
+ "shelf_keyword": "saccharomyces boulardii",
+ "hero_name": "Saccharomyces boulardii",
+ "hero_regex": "boulardii|saccharomyces",
+ "class_regex": "probiotics?\\b|prebiotics?\\b",
+ "cluster_keywords": [
+  "saccharomyces boulardii",
+  "s boulardii",
+  "s boulardii probiotic",
+  "saccharomyces boulardii probiotic",
+  "boulardii probiotic"
+ ],
+ "parent_keyword": null,
+ "microbial": true,
+ "finder_terms": [
+  "saccharomyces boulardii",
+  "s boulardii"
+ ],
+ "candidate_subniches": [
+  "s boulardii 50 billion"
+ ],
+ "seed_asins": []
+}

@@ -1,0 +1,23 @@
+{
+ "shelf_keyword": "astaxanthin 12mg",
+ "hero_name": "astaxanthin",
+ "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin|astareal|zanthin",
+ "cluster_keywords": [
+  "astaxanthin 12mg",
+  "astaxanthin 12 mg",
+  "astaxanthin 12mg softgels",
+  "astaxanthin supplement 12mg"
+ ],
+ "parent_keyword": "astaxanthin",
+ "microbial": false,
+ "finder_terms": [
+  "astaxanthin 12mg",
+  "astaxanthin"
+ ],
+ "candidate_subniches": [
+  "astaxanthin 4mg",
+  "liposomal astaxanthin"
+ ],
+ "seed_asins": [],
+ "notes": "Dose lane: spec 3.0 dose_lane is not implemented in v1 code, so the gate admits any astaxanthin dose; the 12 mg lane is carried by the keyword only."
+}

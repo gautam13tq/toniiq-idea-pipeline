@@ -1,0 +1,24 @@
+{
+ "shelf_keyword": "l theanine liquid",
+ "hero_name": "L-theanine",
+ "hero_regex": "theanine|suntheanine",
+ "gate_format": "liquid",
+ "qualifier_regex": "liquid|drops|tincture",
+ "cluster_keywords": [
+  "l theanine liquid",
+  "l theanine liquid drops",
+  "l-theanine drops",
+  "liquid l theanine",
+  "l theanine tincture"
+ ],
+ "parent_keyword": "l theanine",
+ "microbial": false,
+ "finder_terms": [
+  "l theanine liquid",
+  "l-theanine drops"
+ ],
+ "candidate_subniches": [
+  "l theanine drops for kids"
+ ],
+ "seed_asins": []
+}

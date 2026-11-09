@@ -1,0 +1,22 @@
+{
+ "shelf_keyword": "black garlic",
+ "hero_name": "black garlic",
+ "hero_regex": "black garlic",
+ "cluster_keywords": [
+  "black garlic",
+  "black garlic supplement",
+  "black garlic extract",
+  "black garlic capsules",
+  "aged black garlic"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "black garlic supplement",
+  "black garlic extract"
+ ],
+ "candidate_subniches": [
+  "aged black garlic extract"
+ ],
+ "seed_asins": []
+}

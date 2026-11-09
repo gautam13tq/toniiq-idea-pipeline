@@ -1,0 +1,22 @@
+{
+ "shelf_keyword": "nad+ booster",
+ "hero_name": "NAD+",
+ "hero_regex": "\\bnad\\b|nicotinamide adenine dinucleotide",
+ "cluster_keywords": [
+  "nad+ booster",
+  "nad booster",
+  "nad+ booster powder",
+  "nad+ powder",
+  "nad supplement powder"
+ ],
+ "parent_keyword": "nad supplement",
+ "microbial": false,
+ "finder_terms": [
+  "nad+ booster",
+  "nad booster powder"
+ ],
+ "candidate_subniches": [
+  "nad+ booster powder"
+ ],
+ "seed_asins": []
+}

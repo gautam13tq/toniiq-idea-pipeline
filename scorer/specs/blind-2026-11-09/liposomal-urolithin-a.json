@@ -1,0 +1,20 @@
+{
+ "shelf_keyword": "liposomal urolithin a",
+ "hero_name": "urolithin A",
+ "hero_regex": "urolithin|mitopure",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "cluster_keywords": [
+  "liposomal urolithin a",
+  "urolithin a liposomal",
+  "liposomal urolithin"
+ ],
+ "parent_keyword": "urolithin a",
+ "microbial": false,
+ "finder_terms": [
+  "liposomal urolithin a",
+  "urolithin a"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": []
+}
