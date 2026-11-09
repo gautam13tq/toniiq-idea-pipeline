@@ -1,0 +1,26 @@
+{
+ "shelf_keyword": "magnesium glycinate gummies",
+ "hero_name": "magnesium glycinate",
+ "hero_regex": "magnes\\w*",
+ "form": "glycinate",
+ "other_forms": "citrate|oxide|malate|threonate|taurate|taurinate|chloride|sulfate|orotate|lactate|aspartate|carbonate|hydroxide|gluconate|picolinate|triple|\\btri-|\\b\\d ?(in ?1|x)\\b|multi[- ]?magnesium|\\b\\d forms?\\b|full spectrum",
+ "gate_format": "gummy",
+ "qualifier_regex": "glycinate",
+ "cluster_keywords": [
+  "magnesium glycinate gummies",
+  "magnesium glycinate gummy",
+  "magnesium glycinate gummies for adults",
+  "magnesium gummies glycinate"
+ ],
+ "parent_keyword": "magnesium glycinate",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium glycinate gummies"
+ ],
+ "candidate_subniches": [
+  "magnesium glycinate gummies sugar free"
+ ],
+ "seed_asins": [],
+ "written_at": "2026-11-09T12:27:37+00:00",
+ "spec_round": "dev-2026-11-09 (v2, rules from 2f1a9b8)"
+}

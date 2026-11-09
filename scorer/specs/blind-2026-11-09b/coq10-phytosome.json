@@ -1,0 +1,20 @@
+{
+ "shelf_keyword": "coq10 phytosome",
+ "hero_name": "CoQ10",
+ "hero_regex": "co-?q-?10|coenzyme q-?10|ubiquinol|ubiquinone",
+ "required_regex": "phytosom",
+ "qualifier_regex": "phytosom",
+ "cluster_keywords": [
+  "coq10 phytosome",
+  "ubiquinol phytosome",
+  "coq10 phytosome supplement"
+ ],
+ "parent_keyword": "coq10",
+ "microbial": false,
+ "finder_terms": [
+  "coq10 phytosome",
+  "ubiquinol phytosome"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": []
+}

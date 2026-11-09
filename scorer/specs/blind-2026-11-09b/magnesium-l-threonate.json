@@ -1,0 +1,23 @@
+{
+ "shelf_keyword": "magnesium l threonate",
+ "hero_name": "magnesium L-threonate",
+ "hero_regex": "magnes\\w*|magtein",
+ "form": "threonate",
+ "other_forms": "citrate|oxide|malate|glycinate|bisglycinate|taurate|taurinate|chloride|sulfate|orotate|lactate|aspartate|carbonate|hydroxide|gluconate|picolinate|triple|\\btri-|\\b\\d ?(in ?1|x)\\b|multi[- ]?magnesium|\\b\\d forms?\\b|full spectrum",
+ "qualifier_regex": "threonate|magtein",
+ "cluster_keywords": [
+  "magnesium l threonate",
+  "magnesium l-threonate",
+  "magnesium threonate",
+  "magtein magnesium l threonate",
+  "magnesium l threonate capsules"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium l threonate",
+  "magtein"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": []
+}

@@ -1,0 +1,21 @@
+{
+ "shelf_keyword": "maca powder",
+ "hero_name": "maca",
+ "hero_regex": "\\bmaca\\b|lepidium meyenii",
+ "gate_format": "powder",
+ "cluster_keywords": [
+  "maca powder",
+  "organic maca powder",
+  "maca root powder",
+  "gelatinized maca powder",
+  "raw maca powder"
+ ],
+ "parent_keyword": "maca",
+ "microbial": false,
+ "finder_terms": [
+  "maca powder",
+  "maca root powder"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": []
+}

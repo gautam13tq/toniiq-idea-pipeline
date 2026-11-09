@@ -1,0 +1,26 @@
+{
+ "shelf_keyword": "inulin powder",
+ "hero_name": "inulin",
+ "hero_regex": "inulin|chicory (?:root )?fib(?:er|re)|fructo-?oligosacchar",
+ "gate_format": "powder",
+ "class_regex": "prebiotics?\\b|\\bfib(?:er|re)\\b",
+ "cluster_keywords": [
+  "inulin powder",
+  "inulin prebiotic fiber",
+  "inulin fiber powder",
+  "organic inulin powder",
+  "chicory root inulin"
+ ],
+ "parent_keyword": "inulin",
+ "microbial": false,
+ "finder_terms": [
+  "inulin powder",
+  "inulin prebiotic fiber"
+ ],
+ "candidate_subniches": [
+  "agave inulin powder"
+ ],
+ "seed_asins": [],
+ "written_at": "2026-11-09T12:27:37+00:00",
+ "spec_round": "dev-2026-11-09 (v2, rules from 2f1a9b8)"
+}

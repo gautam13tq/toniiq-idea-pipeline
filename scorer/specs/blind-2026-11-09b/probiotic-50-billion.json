@@ -1,0 +1,22 @@
+{
+ "shelf_keyword": "50 billion probiotic",
+ "hero_name": "probiotic (multi-strain)",
+ "hero_regex": "probiotics?\\b",
+ "required_regex": "\\b50\\s?billion\\b",
+ "qualifier_regex": "\\b50\\s?billion\\b",
+ "class_regex": "probiotics?\\b|prebiotics?\\b",
+ "cluster_keywords": [
+  "50 billion probiotic",
+  "probiotic 50 billion",
+  "probiotic 50 billion cfu",
+  "50 billion cfu probiotic"
+ ],
+ "parent_keyword": "probiotic",
+ "microbial": true,
+ "finder_terms": [
+  "50 billion probiotic",
+  "probiotic 50 billion cfu"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": []
+}

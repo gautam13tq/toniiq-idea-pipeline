@@ -1,0 +1,19 @@
+{
+ "shelf_keyword": "liposomal boswellia",
+ "hero_name": "boswellia",
+ "hero_regex": "boswellia|frankincense|akba|aflapin|5-loxin",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "cluster_keywords": [
+  "liposomal boswellia",
+  "boswellia liposomal"
+ ],
+ "parent_keyword": "boswellia",
+ "microbial": false,
+ "finder_terms": [
+  "liposomal boswellia",
+  "boswellia"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": []
+}

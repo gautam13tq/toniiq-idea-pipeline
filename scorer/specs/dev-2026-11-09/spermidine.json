@@ -1,0 +1,24 @@
+{
+ "shelf_keyword": "spermidine",
+ "hero_name": "spermidine",
+ "hero_regex": "spermidine|primeadine",
+ "cluster_keywords": [
+  "spermidine",
+  "spermidine supplement",
+  "spermidine capsules",
+  "wheat germ spermidine",
+  "rice germ spermidine"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "spermidine",
+  "spermidine supplement"
+ ],
+ "candidate_subniches": [
+  "rice germ spermidine"
+ ],
+ "seed_asins": [],
+ "written_at": "2026-11-09T12:27:37+00:00",
+ "spec_round": "dev-2026-11-09 (v2, rules from 2f1a9b8)"
+}
