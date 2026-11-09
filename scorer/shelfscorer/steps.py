@@ -268,13 +268,12 @@ def _in_family(asin, dec, top_asins):
 
 
 # ---------------- step 8: rank + front of pack ----------------
-FOP_PROMPT = ("Quote the exact words on the front of this pack. Which single ingredient is the main featured ingredient? "
-              "hero_is_main is false when the pack's headline is a health condition or benefit (for example 'Sciatic Nerve "
-              "Support') rather than the ingredient, and false when the hero word is used with a different meaning (for "
-              "example 'pea' meaning pea protein or pea fiber). "
-              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"headline_is_condition\": "
-              "true|false, \"hero_is_main\": true|false}. "
-              "The hero ingredient for this shelf matches this pattern: ")
+FOP_PROMPT = ("Quote the exact words on the front of this pack, largest text first. Which single ingredient does the "
+              "pack lead with (the biggest or first-named ingredient)? If the pack's headline is a health condition or "
+              "benefit (for example 'Sciatic Nerve Support') rather than an ingredient, say so. "
+              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"headline_is_condition\": true|false}.")
+# Blind on purpose (9 Nov 2026 dev round): when the prompt carried the hero pattern, the model named the hero as the
+# main ingredient even on melatonin or fisetin packs. hero_is_main is now decided in code from main_ingredient.
 
 
 def needs_fop(f, dec, hero):
@@ -313,11 +312,13 @@ def step_rank_fop(run):
                 continue
             text, ps = clients.anthropic(run, f"fop_{a}", max_tokens=400, messages=[{"role": "user", "content": [
                 {"type": "image", "source": {"type": "url", "url": f["image"]}},
-                {"type": "text", "text": FOP_PROMPT + s["hero_regex"]}]}])
+                {"type": "text", "text": FOP_PROMPT}]}])
             try:
                 o = clients.extract_json(text)
             except Exception:
                 o = {"hero_is_main": None, "raw": text[:300]}
+            mi0 = o.get("main_ingredient")
+            o["hero_is_main"] = None if not mi0 else bool(re.search(s["hero_regex"], mi0, re.I))
             run.save(f"fop/{a}.json", {**o, "prompt_sha": ps, "image": f["image"]})
             was_in = a in g["kept"]
             # A gate OUT is only overturned when the pack names the hero, its headline is not a condition,
