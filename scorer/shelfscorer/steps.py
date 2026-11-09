@@ -323,7 +323,9 @@ def step_rank_fop(run):
             # A gate OUT is only overturned when the pack names the hero, its headline is not a condition,
             # and the spec exclusion does not apply (9 Nov 2026 fix: Vital Fiber and a sciatic-nerve formula got in).
             ft = o.get("front_text") or ""
-            rescue_ok = (re.search(s["hero_regex"], ft, re.I) and o.get("headline_is_condition") is False
+            mi = o.get("main_ingredient") or ""
+            rescue_ok = (re.search(s["hero_regex"], ft, re.I) and re.search(s["hero_regex"], mi, re.I)
+                         and o.get("headline_is_condition") is False
                          and dec.get(a, {}).get("code") != "EX_SPEC_EXCLUDE"
                          and not (s.get("hero_exclude_regex") and re.search(s["hero_exclude_regex"], ft, re.I)))
             if o.get("hero_is_main") is True and not was_in and rescue_ok:

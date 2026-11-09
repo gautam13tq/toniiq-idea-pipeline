@@ -123,8 +123,21 @@ def anthropic(run, label, *, system=None, messages, max_tokens=1500, temperature
 
 
 def extract_json(text):
-    s = text.strip()
-    if s.startswith("```"):
-        s = s.split("\n", 1)[1].rsplit("```", 1)[0]
-    i, j = s.find("{"), s.rfind("}")
-    return json.loads(s[i:j + 1])
+    """Return the LAST complete JSON object in the reply. The judge sometimes writes a JSON answer, then
+    'let me reconsider', then a second JSON; the last one is its final answer (9 Nov 2026 blind test)."""
+    dec = json.JSONDecoder()
+    found, k = [], 0
+    while True:
+        i = text.find("{", k)
+        if i < 0:
+            break
+        try:
+            o, end = dec.raw_decode(text, i)
+            if isinstance(o, dict):
+                found.append(o)
+            k = end
+        except ValueError:
+            k = i + 1
+    if not found:
+        raise ValueError("no JSON object in reply")
+    return found[-1]

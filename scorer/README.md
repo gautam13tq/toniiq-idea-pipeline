@@ -35,3 +35,11 @@ finder_terms, seed_asins, candidate_subniches, hero_name). `new` refuses a spec 
 `python3 -m unittest discover tests` runs the maths checks (including Grok's R-ALA worked example) and offline
 end-to-end runs with fake APIs, including planted failures (a deleted Datarova call, a hand-edited number, a missing
 Differentiation call, skipping a step). Replay of Grok's 69 rows and the golden sets need Grok's raw data export.
+
+## Writing a shelf spec (rule added 9 Nov 2026 after the first blind round)
+A spec is written from the keyword only, before any run, and committed with its SHA.
+- Every word in the keyword beyond the hero narrows the shelf and must become a gate co-term:
+  gender or audience ("for women") -> `required_regex` (e.g. `women|woman|female|\bher\b`); dose ("12 mg") -> `required_regex` on the dose;
+  format ("gummies", "liquid", "powder") -> `gate_format` / `form`; delivery ("liposomal") -> `required_regex`.
+- Use plain words in the keyword (no "+"); the keyword must be the one shoppers type.
+- If the hero word has another meaning (pea, black garlic food), add `hero_exclude_regex` and `hero_strong_regex`.
