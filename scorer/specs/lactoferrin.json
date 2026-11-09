@@ -1,0 +1,11 @@
+{
+ "shelf_keyword": "lactoferrin",
+ "hero_name": "lactoferrin",
+ "hero_regex": "la[ck]toferrin",
+ "cluster_keywords": ["lactoferrin", "lactoferrin supplement", "lactoferrin capsules", "lactoferrin powder", "bovine lactoferrin", "apolactoferrin"],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": ["lactoferrin", "lactoferrin supplement"],
+ "candidate_subniches": ["lactoferrin powder", "apolactoferrin"],
+ "seed_asins": []
+}
