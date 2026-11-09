@@ -7,3 +7,6 @@ Fixes for two blind-3 shelves. These are dev shelves, not blind.
 
 - ea0db62b433cee364d08f7427ba79e4b50e67f0d52fcb03f1a7eff7e6c2f0593  kids-magnesium.json
 - 24dd7281a5f4283652c9c03b38074d9861e9f55514ab65bbfd2d7494df3852f9  magnesium-complex-for-men.json
+
+v3 (after the ecce617 run, not yet run): the men's spec used `\b` before "women"/"men", and Python treats CJK characters as word characters, so a title ending "Function丨Women Men." slipped through (Vita PLynxera, #2 on the ecce617 shelf). The boundary is now `(?<![a-z])`.
+- 1bf7c5769170c014f22047cfd6f57e2a23e4909708b8e96c700d2c51b385fa5b  magnesium-complex-for-men.json (v3)
