@@ -2,10 +2,35 @@
  "shelf_keyword": "palmitoylethanolamide",
  "hero_name": "palmitoylethanolamide (PEA)",
  "hero_regex": "palmitoylethanolamide|palmitoyl ethanolamide|\\bpea\\b(?! protein)|levagen|optipea|micropea|pea-?um",
- "cluster_keywords": ["palmitoylethanolamide", "pea supplement", "palmitoylethanolamide supplement", "pea palmitoylethanolamide", "levagen pea", "micronized pea"],
+ "cluster_keywords": [
+  "palmitoylethanolamide",
+  "pea supplement",
+  "palmitoylethanolamide supplement",
+  "pea palmitoylethanolamide",
+  "levagen pea",
+  "micronized pea"
+ ],
  "parent_keyword": null,
  "microbial": false,
- "finder_terms": ["palmitoylethanolamide", "PEA supplement"],
- "candidate_subniches": ["micronized palmitoylethanolamide", "levagen plus"],
- "seed_asins": []
+ "finder_terms": [
+  "palmitoylethanolamide",
+  "PEA supplement"
+ ],
+ "candidate_subniches": [
+  "micronized palmitoylethanolamide",
+  "levagen plus"
+ ],
+ "seed_asins": [],
+ "hero_exclude_regex": "\\bprotein\\b|\\bfib(?:er|re)\\b|pea starch",
+ "hero_strong_regex": "palmitoyl|levagen|optipea|micropea",
+ "must_out": [
+  "B00NBIUGA2",
+  "B087WB98QB",
+  "B0GS944RN5"
+ ],
+ "must_out_notes": {
+  "B00NBIUGA2": "NAKED Pea protein powder, not PEA (9 Nov 2026 cloud run)",
+  "B087WB98QB": "Vital Planet flax+pea+hemp fiber",
+  "B0GS944RN5": "Hovika Sciatic Nerve Support, condition-led (Gautam 29 Oct)"
+ }
 }

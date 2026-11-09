@@ -74,6 +74,9 @@ def validate(run):
         man = run.read("manual_decisions.json")["decisions"] if run.exists("manual_decisions.json") else {}
         open_checks = [f["family_id"] for f in top if man.get(f["family_id"], {}).get("decision") == "NEEDS_CHECK"]
         chk("V-FOP", not open_checks, f"[NEEDS CHECK] in top 12: {open_checks}")
+        must_out = set(run.read("spec.json").get("must_out") or [])
+        bad = [a for f in top for a in f.get("asins", [f["family_id"]]) if a in must_out]
+        chk("V-GOLDEN-OUT", not bad, f"listings the golden set says must be OUT are on the shelf: {bad}")
         c = run.read("competition.json")
         c2 = P.competition(fams, fams[:K.SHELF_SIZE])
         chk("V-COMP", abs(c2["C"] - c["C"]) < 0.001 and abs(c2["moat"] - c["moat"]) < 0.001, f"stored C {c['C']} recomputed {c2['C']}")

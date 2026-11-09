@@ -183,12 +183,27 @@ def step_gate(run):
     judge, merge, n = GA.make_judges(run)
     res = GA.GATE.run_shelf(s["shelf_keyword"], recs, k=K.SHELF_SIZE, judge_fn=judge, merge_fn=merge)
     dec = res["dec"]
+    # Spec exclusion (added 9 Nov 2026 after the PEA cloud run): a listing whose title matches the spec's
+    # hero_exclude_regex (e.g. pea protein / fiber on the PEA shelf) is OUT unless it also names the hero
+    # unambiguously (hero_strong_regex). Recorded on the decision so the evidence shows why.
+    excluded = []
+    xr = s.get("hero_exclude_regex")
+    if xr:
+        strong = s.get("hero_strong_regex")
+        for r in recs:
+            t = r["title"]
+            if re.search(xr, t, re.I) and not (strong and re.search(strong, t, re.I)):
+                d = dec.setdefault(r["asin"], {})
+                d.update({"include": False, "code": "EX_SPEC_EXCLUDE", "spec_exclude": xr})
+                excluded.append(r["asin"])
+        res["kept"] = [a for a in res["kept"] if a not in excluded]
     unsure = sum(1 for d in dec.values() if d["verdict3"] == "UNSURE")
     fallback = sum(1 for d in dec.values() if d.get("judge_fallback"))
     run.save("gate/decisions.json", {"gate_version": GA.GATE_VERSION, "decisions": dec, "kept": res["kept"],
-                                     "merges": res["merges"], "judge_calls": n["judge"], "merge_calls": n["merge"]})
+                                     "merges": res["merges"], "judge_calls": n["judge"], "merge_calls": n["merge"],
+                                     "spec_excluded": excluded})
     ok = fallback == 0 and unsure == n["judge"]
-    run.step_done("gate", "V-GATE", ok, f"{len(res['kept'])} kept; unsure {unsure}; judge calls {n['judge']}; fallback {fallback}")
+    run.step_done("gate", "V-GATE", ok, f"{len(res['kept'])} kept; unsure {unsure}; judge calls {n['judge']}; fallback {fallback}; spec-excluded {len(excluded)}")
 
 
 def build_families(run):
@@ -243,7 +258,11 @@ def step_collapse(run):
 
 # ---------------- step 8: rank + front of pack ----------------
 FOP_PROMPT = ("Quote the exact words on the front of this pack. Which single ingredient is the main featured ingredient? "
-              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"hero_is_main\": true|false}. "
+              "hero_is_main is false when the pack's headline is a health condition or benefit (for example 'Sciatic Nerve "
+              "Support') rather than the ingredient, and false when the hero word is used with a different meaning (for "
+              "example 'pea' meaning pea protein or pea fiber). "
+              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"headline_is_condition\": "
+              "true|false, \"hero_is_main\": true|false}. "
               "The hero ingredient for this shelf matches this pattern: ")
 
 
@@ -268,7 +287,8 @@ def step_rank_fop(run):
         prods = load_products(run, "product_pass1")
         near = []
         for a, d in dec.items():
-            if not d["include"] and d.get("code") in ("HERO_SECONDARY", "JUDGE_OUT") and a in prods and a not in checked:
+            if not d["include"] and d.get("code") in ("HERO_SECONDARY", "JUDGE_OUT") and a in prods and a not in checked \
+                    and a not in set(s.get("must_out") or []):
                 f = GA.product_fields(prods[a])
                 if cut and (f["monthly_sold"] or 0) >= cut:
                     near.append({"family_id": a, "image": f["image"], "title": f["title"]})
@@ -289,7 +309,13 @@ def step_rank_fop(run):
                 o = {"hero_is_main": None, "raw": text[:300]}
             run.save(f"fop/{a}.json", {**o, "prompt_sha": ps, "image": f["image"]})
             was_in = a in g["kept"]
-            if o.get("hero_is_main") is True and not was_in:
+            # A gate OUT is only overturned when the pack names the hero, its headline is not a condition,
+            # and the spec exclusion does not apply (9 Nov 2026 fix: Vital Fiber and a sciatic-nerve formula got in).
+            ft = o.get("front_text") or ""
+            rescue_ok = (re.search(s["hero_regex"], ft, re.I) and o.get("headline_is_condition") is False
+                         and dec.get(a, {}).get("code") != "EX_SPEC_EXCLUDE"
+                         and not (s.get("hero_exclude_regex") and re.search(s["hero_exclude_regex"], ft, re.I)))
+            if o.get("hero_is_main") is True and not was_in and rescue_ok:
                 manual["decisions"][a] = {"decision": "IN", "source": "front_of_pack", "wording": o.get("front_text"), "date": now()}
             elif o.get("hero_is_main") is False and was_in:
                 manual["decisions"][a] = {"decision": "OUT", "source": "front_of_pack", "wording": o.get("front_text"), "date": now()}
