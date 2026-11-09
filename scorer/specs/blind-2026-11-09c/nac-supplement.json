@@ -1,7 +1,7 @@
 {
  "shelf_keyword": "nac supplement",
  "hero_name": "NAC (N-acetyl cysteine)",
- "hero_regex": "\\bnac\\b|n-?acetyl[- ]?(?:l-?)?cysteine",
+ "hero_regex": "\\bnac\\b|n[- ]?acetyl[- ]?(?:l[- ]?)?cysteine",
  "cluster_keywords": [
   "nac supplement",
   "nac",
@@ -17,6 +17,6 @@
  ],
  "candidate_subniches": [],
  "seed_asins": [],
- "written_at": "2026-11-09T18:34:24+00:00",
- "spec_round": "blind-2026-11-09c (round 3, seed 20261112, rules from 2f1a9b8, code 7ac7119)"
+ "written_at": "2026-11-09T19:43:22+00:00",
+ "spec_round": "blind-2026-11-09c (round 3, seed 20261112, rules from 2f1a9b8, code 7ac7119); hero_regex fixed after V-SPEC stop, before any data call"
 }

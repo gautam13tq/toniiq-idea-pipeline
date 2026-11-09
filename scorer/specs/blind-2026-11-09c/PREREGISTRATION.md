@@ -38,3 +38,8 @@ I wrote this before any run, Datarova pull or listing view for these shelves. Th
 - 71ff61d2d1e211da91f11e00349a8a170cb89d3aa9e299062382cfbc6b1fe4f7  magnesium-complex-for-men.json
 - 76dfd4185da450ce319de2f9338a44ea1dffcac0d99476e493c00db8c62549cc  nac-supplement.json
 - 0eee12b4b1f3e35e9850ebf155e0503ede6b598f1a5a4f0789fb39498333e7f9  tart-cherry.json
+
+## Amendment, 9 Nov 2026 (before any data call for NAC)
+- **nac-supplement.json stopped at V-SPEC** before it made any data call. Its hero_regex did not match the cluster keyword "n acetyl cysteine", because the regex expected "n-acetyl" or "nacetyl" and the keyword has a space.
+- **Fix:** hero_regex is now `\bnac\b|n[- ]?acetyl[- ]?(?:l[- ]?)?cysteine`. No other field changed.
+- **New SHA:** 137d6852a55a48e2b8e2aba0cf68a60c44063ad3190c02d0ad7a64a76d6c9712  nac-supplement.json
