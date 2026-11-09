@@ -256,6 +256,17 @@ def step_collapse(run):
     run.step_done("collapse", "V-FAM", len(all_asins) == len(set(all_asins)), f"{len(fams)} families")
 
 
+def _in_family(asin, dec, top_asins):
+    """True when the ASIN, or any listing it was folded into (gate dup_of chain), is on the shelf."""
+    b, seen = asin, set()
+    while b and b not in seen:
+        if b in top_asins:
+            return True
+        seen.add(b)
+        b = (dec.get(b) or {}).get("dup_of")
+    return any((dec.get(t) or {}).get("dup_of") == asin for t in top_asins)
+
+
 # ---------------- step 8: rank + front of pack ----------------
 FOP_PROMPT = ("Quote the exact words on the front of this pack. Which single ingredient is the main featured ingredient? "
               "hero_is_main is false when the pack's headline is a health condition or benefit (for example 'Sciatic Nerve "
@@ -428,7 +439,7 @@ def step_crosscheck(run):
                     if a and a.get("asin"):
                         wr.append({"asin": a["asin"], "clicks": a.get("clicks"),
                                    "share": round((a.get("clicks") or 0) / r["clicks"], 3) if r.get("clicks") else None,
-                                   "in_top12": a["asin"] in top_asins,
+                                   "in_top12": _in_family(a["asin"], g, top_asins),
                                    "gate": {k2: g.get(a["asin"], {}).get(k2) for k2 in ("include", "code", "detail")}})
     pp = run.read("candidates.json")["page_pos"]
     presence = sum(1 for f in top if any(a in pp for a in f["asins"]))
