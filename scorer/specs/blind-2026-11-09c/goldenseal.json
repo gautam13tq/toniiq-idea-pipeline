@@ -1,0 +1,22 @@
+{
+ "shelf_keyword": "goldenseal",
+ "hero_name": "goldenseal",
+ "hero_regex": "golden ?seal|hydrastis",
+ "cluster_keywords": [
+  "goldenseal",
+  "goldenseal root",
+  "goldenseal supplement",
+  "goldenseal capsules",
+  "goldenseal root powder"
+ ],
+ "parent_keyword": "goldenseal",
+ "microbial": false,
+ "finder_terms": [
+  "goldenseal",
+  "goldenseal root"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-09T18:34:24+00:00",
+ "spec_round": "blind-2026-11-09c (round 3, seed 20261112, rules from 2f1a9b8, code 7ac7119)"
+}

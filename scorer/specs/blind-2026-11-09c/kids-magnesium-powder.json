@@ -1,0 +1,25 @@
+{
+ "shelf_keyword": "kids magnesium powder",
+ "hero_name": "magnesium",
+ "hero_regex": "magnes\\w*",
+ "required_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b",
+ "qualifier_regex": "\\bkids?\\b|\\bchild",
+ "gate_format": "powder",
+ "cluster_keywords": [
+  "kids magnesium powder",
+  "kids magnesium",
+  "magnesium powder for kids",
+  "childrens magnesium powder",
+  "kids calm magnesium"
+ ],
+ "parent_keyword": "kids magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "kids magnesium powder",
+  "magnesium for kids"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-09T18:34:24+00:00",
+ "spec_round": "blind-2026-11-09c (round 3, seed 20261112, rules from 2f1a9b8, code 7ac7119)"
+}

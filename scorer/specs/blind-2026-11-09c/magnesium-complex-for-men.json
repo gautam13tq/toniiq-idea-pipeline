@@ -1,0 +1,24 @@
+{
+ "shelf_keyword": "magnesium complex for men",
+ "hero_name": "magnesium",
+ "hero_regex": "magnes\\w*",
+ "required_regex": "^(?!.*\\bmen\\s*(?:&|and|/|\\+)\\s*wom[ae]n\\b)(?!.*\\bwom[ae]n\\s*(?:&|and|/|\\+)\\s*men\\b)(?=.*(?:\\bmen\\b|\\bmen'?s\\b|\\bmale\\b|\\bhim\\b))(?=.*(?:complex|\\b\\d ?forms?\\b|triple|multi[- ]?magnesium|full spectrum|\\b\\d ?in ?1\\b)).*",
+ "qualifier_regex": "\\bmen\\b|\\bmen'?s\\b",
+ "cluster_keywords": [
+  "magnesium complex for men",
+  "magnesium for men",
+  "mens magnesium",
+  "magnesium supplement for men",
+  "magnesium complex men"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium complex for men",
+  "magnesium for men"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-09T18:34:24+00:00",
+ "spec_round": "blind-2026-11-09c (round 3, seed 20261112, rules from 2f1a9b8, code 7ac7119)"
+}
