@@ -22,6 +22,9 @@ CONDITION_HINT = re.compile(r"\b(support|relief|flush|health|formula|defen[cs]e|
                             r"calm\w*|relax\w*|cortisol|stress|memory|focus|immune|joint|uric|gout|mood|energy)\b", re.I)
 
 
+TOTAL_DOSE = re.compile(r"\btotal\b|per serving|serving size|proprietary|\bblend\b", re.I)
+
+
 def _pos(rx, text):
     m = re.search(rx, text or "", re.I)
     return m.start() if m else None
@@ -69,7 +72,10 @@ def hero_leads(fop, hero_regex):
         lead, note = True, "R3 hero shares the front equally"
     doses = [x for x in (fop.get("front_doses") or []) if isinstance(x, dict) and isinstance(x.get("mg"), (int, float))]
     hero_mg = max([x["mg"] for x in doses if re.search(hero_regex, str(x.get("ingredient")), re.I)], default=None)
-    other_mg = max([x["mg"] for x in doses if not re.search(hero_regex, str(x.get("ingredient")), re.I)], default=None)
+    # A printed total or blend weight is not another ingredient (10 Nov 2026: "Total per serving 11700 mg" knocked
+    # out a creatine + collagen 5 g / 5 g pack).
+    other_mg = max([x["mg"] for x in doses if not re.search(hero_regex, str(x.get("ingredient")), re.I)
+                    and not TOTAL_DOSE.search(str(x.get("ingredient")))], default=None)
     if lead and hero_mg is not None and other_mg is not None and other_mg > hero_mg:
         return False, f"another ingredient printed at {other_mg} mg vs hero {hero_mg} mg"
     return lead, note

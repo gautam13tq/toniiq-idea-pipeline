@@ -81,6 +81,12 @@ class R3EqualCoLead(unittest.TestCase):
                 doses=[{"ingredient": "GABA", "mg": 2000}, {"ingredient": "L-Theanine", "mg": 1000}])
         self.assertEqual(FR.decide(o, LT, self.TITLE, was_in=True)[0], "OUT")
 
+    def test_printed_total_is_not_another_ingredient(self):
+        o = fop("CREATINE 5G + COLLAGEN 5G", "Creatine",
+                doses=[{"ingredient": "Creatine", "mg": 5000}, {"ingredient": "Collagen", "mg": 5000},
+                       {"ingredient": "Total per serving", "mg": 11700}])
+        self.assertEqual(FR.hero_leads(o, CW["hero_regex"]), (True, None))
+
     def test_not_a_co_lead_is_not_rescued(self):
         o = fop("MELATONIN L-THEANINE VALERIAN", "Melatonin")
         self.assertIsNone(FR.decide(o, LT, "Melatonin drops", was_in=False, gate_code="HERO_SECONDARY")[0])
