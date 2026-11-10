@@ -1,0 +1,22 @@
+{
+ "shelf_keyword": "tart cherry",
+ "hero_name": "tart cherry",
+ "hero_regex": "tart cherr\\w*|montmorency|prunus cerasus",
+ "cluster_keywords": [
+  "tart cherry",
+  "tart cherry extract",
+  "tart cherry capsules",
+  "montmorency tart cherry",
+  "tart cherry supplement"
+ ],
+ "parent_keyword": "tart cherry",
+ "microbial": false,
+ "finder_terms": [
+  "tart cherry",
+  "montmorency tart cherry"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-09T18:34:24+00:00",
+ "spec_round": "dev-2026-11-10 (copy of specs/blind-2026-11-09c/tart-cherry.json for the R1-R4 rerun; unchanged)"
+}

@@ -1,0 +1,28 @@
+{
+ "shelf_keyword": "magnesium glycinate powder",
+ "hero_name": "magnesium glycinate",
+ "hero_regex": "magnes\\w*",
+ "form": "glycinate",
+ "other_forms": "citrate|oxide|malate|threonate|taurate|taurinate|chloride|sulfate|orotate|lactate|aspartate|carbonate|hydroxide|gluconate|picolinate|triple|\\btri-|\\b\\d ?(in ?1|x)\\b|multi[- ]?magnesium|\\b\\d forms?\\b|full spectrum",
+ "gate_format": "powder",
+ "qualifier_regex": "glycinate",
+ "cluster_keywords": [
+  "magnesium glycinate powder",
+  "magnesium bisglycinate powder",
+  "powdered magnesium glycinate",
+  "magnesium glycinate powder unflavored",
+  "magnesium glycinate drink powder"
+ ],
+ "parent_keyword": "magnesium glycinate",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium glycinate powder",
+  "magnesium bisglycinate powder"
+ ],
+ "candidate_subniches": [
+  "magnesium glycinate powder unflavored"
+ ],
+ "seed_asins": [],
+ "written_at": "2026-11-10T09:16:19+00:00",
+ "spec_round": "blind-2026-11-10 (Gautam's new idea; written from the keyword per the README rules: format co-term powder, form glycinate)"
+}

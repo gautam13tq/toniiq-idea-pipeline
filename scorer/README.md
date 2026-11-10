@@ -43,3 +43,15 @@ A spec is written from the keyword only, before any run, and committed with its 
   format ("gummies", "liquid", "powder") -> `gate_format` / `form`; delivery ("liposomal") -> `required_regex`.
 - Use plain words in the keyword (no "+"); the keyword must be the one shoppers type.
 - If the hero word has another meaning (pea, black garlic food), add `hero_exclude_regex` and `hero_strong_regex`.
+- Audience shelves ("for women", "for men", "kids ...") also set `"audience": "women" | "men" | "kids"` so rules R1 and R4 below apply.
+
+## Gautam's shelf rules (10 Nov 2026, after his first label round)
+Code: `shelfscorer/fop_rules.py`, wired into the gate step (R4 on titles) and the front-of-pack step (all four).
+Tests: `tests/test_fop_rules.py`. The front-of-pack reader quotes the front largest text first, so "first" means "first or bigger".
+- **R1 Adults & Kids on a kids shelf:** IN only if kids is first or bigger on the front, else OUT. Any top-15 title naming
+  kids and adults on a kids shelf gets a front-of-pack check.
+- **R2 Condition-led formula containing the hero:** IN only if the hero is the biggest word on the front (`largest_text`),
+  else OUT. Any top-15 title with condition wording (support, relief, flush, health, uric, sleep, ...) gets a check.
+- **R3 Hero sharing the front equally with another ingredient:** IN (`co_leads`). The bigger-printed-dose rule still applies.
+- **R4 Unisex ("men & women") product on a "for women" / "for men" shelf:** OUT, code EX_UNISEX at the gate, and a
+  unisex front blocks a rescue.

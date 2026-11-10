@@ -6,6 +6,7 @@ import re
 
 from . import clients, config as K, pillars as P
 from . import gate_adapter as GA
+from . import fop_rules as FR
 from .runlog import StepFailed, now
 
 REQUIRED_SPEC = ["shelf_keyword", "hero_regex", "cluster_keywords", "microbial", "written_at"]
@@ -197,6 +198,13 @@ def step_gate(run):
                 d.update({"include": False, "code": "EX_SPEC_EXCLUDE", "spec_exclude": xr})
                 excluded.append(r["asin"])
         res["kept"] = [a for a in res["kept"] if a not in excluded]
+    # R4 (Gautam, 10 Nov 2026): a unisex title on a "for women" / "for men" shelf is OUT.
+    if s.get("audience") in ("women", "men"):
+        for r in recs:
+            if FR.r4_unisex_out(r["title"], s["audience"]) and dec.get(r["asin"], {}).get("include"):
+                dec[r["asin"]].update({"include": False, "code": "EX_UNISEX", "detail": "R4 unisex title on a single-gender shelf"})
+                excluded.append(r["asin"])
+        res["kept"] = [a for a in res["kept"] if a not in excluded]
     unsure = sum(1 for d in dec.values() if d.get("verdict3") == "UNSURE")
     fallback = sum(1 for d in dec.values() if d.get("judge_fallback"))
     run.save("gate/decisions.json", {"gate_version": GA.GATE_VERSION, "decisions": dec, "kept": res["kept"],
@@ -292,19 +300,27 @@ def _in_family(asin, dec, top_asins):
 
 # ---------------- step 8: rank + front of pack ----------------
 FOP_PROMPT = ("Quote the exact words on the front of this pack, largest text first. Which single ingredient does the "
-              "pack lead with (the biggest or first-named ingredient)? If the pack's headline is a health condition or "
+              "pack lead with (the biggest or first-named ingredient)? If two or more ingredients share the lead equally "
+              "(same size, side by side), list them all as co_leads. Give the single biggest word or phrase on the front, "
+              "ignoring the brand name, as largest_text. If the pack's headline is a health condition or "
               "benefit (for example 'Sciatic Nerve Support') rather than an ingredient, say so. "
               "List every ingredient dose printed on the front (amount in mg; convert g to mg). "
-              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"headline_is_condition\": true|false, "
+              "Answer JSON only: {\"front_text\": \"...\", \"main_ingredient\": \"...\", \"co_leads\": [\"...\"], "
+              "\"largest_text\": \"...\", \"headline_is_condition\": true|false, "
               "\"front_doses\": [{\"ingredient\": \"...\", \"mg\": 0}]}.")
 # Blind on purpose (9 Nov 2026 dev round): when the prompt carried the hero pattern, the model named the hero as the
 # main ingredient even on melatonin or fisetin packs. hero_is_main is now decided in code from main_ingredient.
 
 
-def needs_fop(f, dec, hero):
+def needs_fop(f, dec, hero, spec=None):
     d = dec.get(f["family_id"], {})
     pos = GA.hero_pos(f["title"], hero)
-    return bool(d.get("judge")) or pos is None or pos > 60
+    if bool(d.get("judge")) or pos is None or pos > 60:
+        return True
+    # 10 Nov 2026 rules: a mixed-audience title on a kids shelf (R1) and a title with condition wording (R2)
+    # are decided from the front of the pack.
+    aud = (spec or {}).get("audience")
+    return (aud == "kids" and FR.audience_mixed(f["title"], "kids")) or bool(FR.CONDITION_HINT.search(f["title"] or ""))
 
 
 def step_rank_fop(run):
@@ -318,7 +334,7 @@ def step_rank_fop(run):
         fams = build_families(run)
         top15 = fams[:15]
         cut = fams[K.SHELF_SIZE - 1]["monthly_sold"] if len(fams) >= K.SHELF_SIZE else 0
-        todo = [f for f in top15 if needs_fop(f, dec, s["hero_regex"]) and f["family_id"] not in checked]
+        todo = [f for f in top15 if needs_fop(f, dec, s["hero_regex"], s) and f["family_id"] not in checked]
         prods = load_products(run, "product_pass1")
         near = []
         for a, d in dec.items():
@@ -342,32 +358,19 @@ def step_rank_fop(run):
                 o = clients.extract_json(text)
             except Exception:
                 o = {"hero_is_main": None, "raw": text[:300]}
-            mi0 = o.get("main_ingredient")
-            o["hero_is_main"] = None if not mi0 else bool(re.search(s["hero_regex"], mi0, re.I))
-            # Dose rule (9 Nov 2026): if the front prints a bigger dose for another ingredient than for the hero,
-            # the hero does not lead (e.g. "L-THEANINE 1000MG GABA 2000MG").
-            doses = [x for x in (o.get("front_doses") or []) if isinstance(x, dict) and isinstance(x.get("mg"), (int, float))]
-            hero_mg = max([x["mg"] for x in doses if re.search(s["hero_regex"], str(x.get("ingredient")), re.I)], default=None)
-            other_mg = max([x["mg"] for x in doses if not re.search(s["hero_regex"], str(x.get("ingredient")), re.I)], default=None)
-            if o["hero_is_main"] and hero_mg is not None and other_mg is not None and other_mg > hero_mg:
-                o["hero_is_main"] = False
-                o["dose_rule"] = f"another ingredient printed at {other_mg} mg vs hero {hero_mg} mg"
+            lead, note = FR.hero_leads(o, s["hero_regex"])
+            o["hero_is_main"] = lead
+            if note and note.startswith("another ingredient printed"):
+                o["dose_rule"] = note
             run.save(f"fop/{a}.json", {**o, "prompt_sha": ps, "image": f["image"]})
             was_in = a in g["kept"]
-            # A gate OUT is only overturned when the pack names the hero, its headline is not a condition,
-            # and the spec exclusion does not apply (9 Nov 2026 fix: Vital Fiber and a sciatic-nerve formula got in).
-            ft = o.get("front_text") or ""
-            mi = o.get("main_ingredient") or ""
-            rescue_ok = (re.search(s["hero_regex"], ft, re.I) and re.search(s["hero_regex"], mi, re.I)
-                         and o.get("headline_is_condition") is False
-                         and dec.get(a, {}).get("code") != "EX_SPEC_EXCLUDE"
-                         and not (s.get("hero_exclude_regex") and re.search(s["hero_exclude_regex"], ft, re.I)))
-            if o.get("hero_is_main") is True and not was_in and rescue_ok:
-                manual["decisions"][a] = {"decision": "IN", "source": "front_of_pack", "wording": o.get("front_text"), "date": now()}
-            elif o.get("hero_is_main") is False and was_in:
-                manual["decisions"][a] = {"decision": "OUT", "source": "front_of_pack", "wording": o.get("front_text"), "date": now()}
-            elif o.get("hero_is_main") is None:
-                manual["decisions"][a] = {"decision": "NEEDS_CHECK", "source": "fop_unreadable", "date": now()}
+            title = f.get("title") or ""
+            # Decision rules live in fop_rules.py: blind hero match, dose rule, spec exclusion, and Gautam's
+            # 10 Nov 2026 rules R1-R4 (kids front, condition-led needs the hero biggest, equal co-lead IN, unisex OUT).
+            d_, why = FR.decide(o, s, title, was_in, dec.get(a, {}).get("code"))
+            if d_:
+                manual["decisions"][a] = {"decision": d_, "source": "front_of_pack" if d_ != "NEEDS_CHECK" else "fop_unreadable",
+                                          "rule": why, "wording": o.get("front_text"), "date": now()}
         manual["checked"] = sorted(checked)
         run.save("manual_decisions.json", manual)
     fams = build_families(run)
