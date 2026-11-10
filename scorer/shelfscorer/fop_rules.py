@@ -15,11 +15,11 @@ AUDIENCE = {
     "women": (_B + r"(?:wom[ae]n'?s?|female|ladies|her)" + _E, _B + r"(?:men'?s?|male|him|unisex)" + _E),
     "men": (_B + r"(?:men'?s?|male|him)" + _E, _B + r"(?:wom[ae]n'?s?|female|ladies|her|unisex)" + _E),
     "kids": (_B + r"(?:kids?'?s?|child(?:ren)?'?s?|toddlers?|little ones)" + _E,
-             _B + r"(?:adults?|grown[- ]?ups?|whole family|family)" + _E),
+             _B + r"(?:adults?|grown[- ]?ups?|whole family|family|wom[ae]n'?s?|men'?s?)" + _E),
 }
 # Title words that may mark a condition-led formula; the front-of-pack reader then says whether the headline is one.
 CONDITION_HINT = re.compile(r"\b(support|relief|flush|health|formula|defen[cs]e|care|cleanse|detox|recovery|sleep|"
-                            r"calm|stress|memory|focus|immune|joint|uric|gout|mood)\b", re.I)
+                            r"calm\w*|relax\w*|cortisol|stress|memory|focus|immune|joint|uric|gout|mood|energy)\b", re.I)
 
 
 def _pos(rx, text):

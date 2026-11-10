@@ -33,6 +33,11 @@ class R1KidsFront(unittest.TestCase):
         o = fop("KIDS MAGNESIUM GUMMIES", "Magnesium")
         self.assertIsNone(FR.decide(o, MG, "Center-Filled Kids Magnesium Gummies for Kids & Teens", was_in=True)[0])
 
+    def test_women_men_kids_counts_as_mixed(self):
+        o = fop("MAGNESIUM GLYCINATE GUMMIES for Women Men Kids", "Magnesium Glycinate")
+        self.assertTrue(FR.audience_mixed("Magnesium Glycinate Gummies with Zinc for Women Men Kids", "kids"))
+        self.assertEqual(FR.decide(o, MG, "Magnesium Glycinate Gummies for Women Men Kids", was_in=True)[0], "OUT")
+
     def test_rule_only_on_kids_shelves(self):
         o = fop("MAGNESIUM GLYCINATE For Adults & Kids", "Magnesium Glycinate")
         self.assertIsNone(FR.decide(o, {"hero_regex": r"magnes\w*"}, self.TITLE, was_in=True)[0])
@@ -56,6 +61,12 @@ class R2ConditionLed(unittest.TestCase):
     def test_condition_led_rescue_refused_when_hero_small(self):
         o = fop("SCIATIC NERVE SUPPORT with PEA", "PEA", largest="SCIATIC NERVE SUPPORT", cond=True)
         self.assertIsNone(FR.decide(o, {"hero_regex": r"\bpea\b"}, "Sciatic Nerve Support", was_in=False)[0])
+
+
+class ConditionHint(unittest.TestCase):
+    def test_calming_and_cortisol_titles_get_a_check(self):
+        self.assertTrue(FR.CONDITION_HINT.search("UltraCalm Cortisol Calming Drink, Magnesium Glycinate Powder"))
+        self.assertFalse(FR.CONDITION_HINT.search("Nutricost Magnesium Glycinate Powder (250 Grams) Unflavored"))
 
 
 class R3EqualCoLead(unittest.TestCase):
