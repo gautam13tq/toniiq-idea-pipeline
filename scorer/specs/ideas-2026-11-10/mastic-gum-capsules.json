@@ -1,0 +1,20 @@
+{
+ "shelf_keyword": "mastic gum capsules",
+ "hero_name": "mastic gum",
+ "hero_regex": "mastic",
+ "cluster_keywords": [
+  "mastic gum capsules",
+  "mastic gum supplement"
+ ],
+ "parent_keyword": "mastic gum",
+ "microbial": false,
+ "finder_terms": [
+  "mastic gum capsules",
+  "mastic gum"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-10T09:36:53+00:00",
+ "spec_round": "ideas-2026-11-10 (pre-registered; Gautam's audit batch of 10; keyword from the Datarova check in keyword_check_datarova.json)",
+ "gate_format": "pill"
+}

@@ -1,0 +1,21 @@
+{
+ "shelf_keyword": "dao enzyme",
+ "hero_name": "DAO (diamine oxidase)",
+ "hero_regex": "\\bdao\\b|diamine oxidase|daosin",
+ "cluster_keywords": [
+  "dao enzyme",
+  "dao supplement",
+  "diamine oxidase",
+  "dao enzyme supplement"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "dao enzyme",
+  "diamine oxidase"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-10T09:36:53+00:00",
+ "spec_round": "ideas-2026-11-10 (pre-registered; Gautam's audit batch of 10; keyword from the Datarova check in keyword_check_datarova.json)"
+}

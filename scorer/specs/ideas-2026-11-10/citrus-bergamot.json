@@ -1,0 +1,21 @@
+{
+ "shelf_keyword": "citrus bergamot",
+ "hero_name": "citrus bergamot",
+ "hero_regex": "bergamot|bergavit|bergamonte",
+ "cluster_keywords": [
+  "citrus bergamot",
+  "bergamot supplement",
+  "citrus bergamot supplement"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "citrus bergamot",
+  "bergamot supplement"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-10T09:36:53+00:00",
+ "spec_round": "ideas-2026-11-10 (pre-registered; Gautam's audit batch of 10; keyword from the Datarova check in keyword_check_datarova.json)",
+ "hero_exclude_regex": "essential oil|aromatherapy|diffuser|earl grey|perfume|fragrance|cologne|soap|shampoo|candle"
+}
