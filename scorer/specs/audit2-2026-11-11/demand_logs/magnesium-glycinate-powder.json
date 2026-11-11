@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "magnesium glycinate": 486651,
+  "magnesium bisglycinate": 87550
+ },
+ "demand_keyword": "magnesium glycinate",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (486,651)",
+ "lane_keyword": "magnesium glycinate powder",
+ "lane_clicks": 13259,
+ "demand_cluster": {
+  "magnesium glycinate": 486651,
+  "magnesium bisglycinate": 87550,
+  "magnesium glycinate 500mg": 79645,
+  "magnesium glycinate gummies": 68803,
+  "magnesium bisglycinate gummies": 39793,
+  "magnesium glycinate for kids": 5120,
+  "magnesium bisglycinate supplements": 4302,
+  "magnesium glycinate capsules": 3326,
+  "magnesium glycinate liquid": 2997,
+  "magnesium glycinate supplements": 1691,
+  "magnesium glycinate drops": 1666,
+  "magnesium glycinate 1000mg": 1357,
+  "magnesium glycinate complex": 1285,
+  "magnesium glycinate for women": 1242,
+  "magnesium glycinate tablets": 1115,
+  "magnesium bisglycinate 500mg": 941,
+  "magnesium glycinate chewable": 919,
+  "magnesium glycinate organic": 766,
+  "magnesium glycinate softgels": 651,
+  "magnesium bisglycinate capsules": 593,
+  "magnesium glycinate for men": 461,
+  "magnesium glycinate supplement": 418,
+  "magnesium glycinate pills": 397,
+  "magnesium bisglycinate pills": 97,
+  "magnesium bisglycinate supplement": 96,
+  "magnesium bisglycinate liquid": 90,
+  "magnesium bisglycinate drops": 53,
+  "magnesium bisglycinate for men": 43,
+  "magnesium bisglycinate tablets": 31,
+  "magnesium glycinate tea": 25
+ },
+ "cluster_clicks": 807504,
+ "no_data": [
+  "magnesium glycinate extract",
+  "magnesium bisglycinate extract",
+  "magnesium bisglycinate softgels",
+  "magnesium bisglycinate for women",
+  "magnesium bisglycinate for kids",
+  "magnesium bisglycinate organic",
+  "magnesium bisglycinate 1000mg",
+  "magnesium bisglycinate chewable",
+  "magnesium bisglycinate tea",
+  "magnesium bisglycinate complex"
+ ]
+}

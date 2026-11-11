@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "mastic gum": 17359,
+  "mastic": 714
+ },
+ "demand_keyword": "mastic gum",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (17,359)",
+ "lane_keyword": "mastic gum capsules",
+ "lane_clicks": 788,
+ "demand_cluster": {
+  "mastic gum": 17359,
+  "mastic": 714,
+  "mastic gum organic": 459,
+  "mastic gum powder": 99,
+  "mastic tea": 52,
+  "mastic powder": 31,
+  "mastic gum chewable": 26,
+  "mastic gum extract": 25
+ },
+ "cluster_clicks": 19845,
+ "no_data": [
+  "mastic gum supplements",
+  "mastic gum pills",
+  "mastic gum tablets",
+  "mastic gum gummies",
+  "mastic gum liquid",
+  "mastic gum drops",
+  "mastic gum softgels",
+  "mastic gum for women",
+  "mastic gum for men",
+  "mastic gum for kids",
+  "mastic gum 500mg",
+  "mastic gum 1000mg",
+  "mastic gum tea",
+  "mastic gum complex",
+  "mastic supplement",
+  "mastic supplements",
+  "mastic capsules",
+  "mastic pills",
+  "mastic tablets",
+  "mastic gummies",
+  "mastic liquid",
+  "mastic drops",
+  "mastic extract",
+  "mastic softgels",
+  "mastic for women",
+  "mastic for men",
+  "mastic for kids",
+  "mastic organic",
+  "mastic 500mg",
+  "mastic 1000mg",
+  "mastic chewable",
+  "mastic complex"
+ ]
+}

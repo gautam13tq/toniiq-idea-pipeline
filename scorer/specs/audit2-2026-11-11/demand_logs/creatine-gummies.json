@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "creatine": 405621,
+  "creatine monohydrate": 275283
+ },
+ "demand_keyword": "creatine",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (405,621)",
+ "lane_keyword": "creatine gummies",
+ "lane_clicks": 119635,
+ "demand_cluster": {
+  "creatine": 405621,
+  "creatine monohydrate": 275283,
+  "creatine for women": 76675,
+  "creatine powder": 32487,
+  "creatine monohydrate powder": 24961,
+  "creatine capsules": 22139,
+  "creatine pills": 21175,
+  "creatine monohydrate capsules": 9763,
+  "creatine monohydrate pills": 3847,
+  "creatine for men": 3125,
+  "creatine monohydrate for women": 2534,
+  "creatine supplement": 1893,
+  "creatine tablets": 1513,
+  "creatine supplements": 609,
+  "creatine liquid": 530,
+  "creatine organic": 438,
+  "creatine monohydrate tablets": 287,
+  "creatine for kids": 253,
+  "creatine monohydrate for men": 216,
+  "creatine drops": 186,
+  "creatine monohydrate organic": 89,
+  "creatine chewable": 29,
+  "creatine complex": 29,
+  "creatine monohydrate supplement": 25,
+  "creatine monohydrate liquid": 25
+ },
+ "cluster_clicks": 1019612,
+ "no_data": [
+  "creatine extract",
+  "creatine softgels",
+  "creatine 500mg",
+  "creatine 1000mg",
+  "creatine tea",
+  "creatine monohydrate supplements",
+  "creatine monohydrate drops",
+  "creatine monohydrate extract",
+  "creatine monohydrate softgels",
+  "creatine monohydrate for kids",
+  "creatine monohydrate 500mg",
+  "creatine monohydrate 1000mg",
+  "creatine monohydrate chewable",
+  "creatine monohydrate tea",
+  "creatine monohydrate complex"
+ ]
+}

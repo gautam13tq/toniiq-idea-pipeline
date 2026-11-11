@@ -1,0 +1,38 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "epicatechin": 1399
+ },
+ "demand_keyword": "epicatechin",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (1,399)",
+ "lane_keyword": "epicatechin",
+ "lane_clicks": 1399,
+ "demand_cluster": {
+  "epicatechin": 1399,
+  "epicatechin supplements": 372,
+  "epicatechin 1000mg": 33,
+  "epicatechin powder": 27
+ },
+ "cluster_clicks": 1882,
+ "no_data": [
+  "epicatechin capsules",
+  "epicatechin pills",
+  "epicatechin tablets",
+  "epicatechin gummies",
+  "epicatechin liquid",
+  "epicatechin drops",
+  "epicatechin extract",
+  "epicatechin softgels",
+  "epicatechin for women",
+  "epicatechin for men",
+  "epicatechin for kids",
+  "epicatechin organic",
+  "epicatechin 500mg",
+  "epicatechin chewable",
+  "epicatechin tea",
+  "epicatechin complex"
+ ]
+}

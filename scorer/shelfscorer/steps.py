@@ -9,7 +9,7 @@ from . import gate_adapter as GA
 from . import fop_rules as FR
 from .runlog import StepFailed, now
 
-REQUIRED_SPEC = ["shelf_keyword", "hero_regex", "cluster_keywords", "microbial", "written_at"]
+REQUIRED_SPEC = ["shelf_keyword", "hero_regex", "cluster_keywords", "microbial", "written_at", "demand_keyword"]
 
 
 # ---------------- step 1: spec ----------------
@@ -28,6 +28,11 @@ def step_spec(run, spec):
         bad += [k for k in spec["cluster_keywords"] if not re.search(q, k, re.I)]
     if not 1 <= len(spec["cluster_keywords"]) <= 12:
         bad.append("cluster_keywords must be 1 to 12")
+    # Demand rule (11 Nov 2026): the parent head term and every demand-cluster keyword must name the hero.
+    dk = spec.get("demand_keyword")
+    if dk is not None:
+        bad += [f"demand keyword '{k}' does not match hero_regex" for k in [dk] + list(spec.get("demand_cluster") or [])
+                if not H.search(k)]
     run.save("spec.json", spec)
     run.step_done("spec", "V-SPEC", not bad, "; ".join(bad))
 
@@ -43,8 +48,9 @@ def month_window(today=None):
 def step_datarova(run):
     run.require("spec")
     s = run.read("spec.json")
-    kws = list(dict.fromkeys(s["cluster_keywords"] + ([s["parent_keyword"]] if s.get("parent_keyword") else [])
-                             + list(s.get("candidate_subniches") or [])))
+    dprim, dcl = P.demand_terms(s)
+    kws = list(dict.fromkeys(dcl + s["cluster_keywords"] + ([s["parent_keyword"]] if s.get("parent_keyword") else [])
+                             + list(s.get("candidate_subniches") or [])))[:K.DEMAND_PULL_MAX]
     start, end = month_window()
     got = []
     try:
@@ -62,7 +68,7 @@ def step_datarova(run):
     seen = {k["keyword"].lower() for k in got}
     missing = [k for k in kws if k.lower() not in seen]
     run.save("datarova/merged_keywords.json", {"keywords": got, "missing": missing, "window": [start, end]})
-    has_shelf = s["shelf_keyword"].lower() in seen
+    has_shelf = dprim.lower() in seen
     run.step_done("datarova", "V-DR", has_shelf, f"no_data: {missing}" if missing else "")
 
 
@@ -71,13 +77,17 @@ def step_demand_growth(run):
     run.require("datarova")
     s = run.read("spec.json")
     kw = run.read("datarova/merged_keywords.json")["keywords"]
-    dg = P.demand_growth(kw, s["shelf_keyword"], s["cluster_keywords"])
+    dprim, dcl = P.demand_terms(s)
+    dg = P.demand_growth(kw, dprim, dcl)
+    dg["lane_kw"] = s["shelf_keyword"]
+    dg["lane_clicks"] = P.lane_clicks(kw, s["shelf_keyword"])
+    dg["demand_rule"] = "parent head term (11 Nov 2026)" if s.get("demand_keyword") else "shelf keyword (pre-11 Nov spec)"
     if s.get("parent_keyword"):
         par = next((k for k in kw if k["keyword"].lower() == s["parent_keyword"].lower()), None)
         dg["parent_clicks"] = (sorted(par["records"], key=P.rec_month)[-1].get("clicks") if par and par.get("records") else None)
     # V-KW: the spec's shelf keyword must also be the most relevant keyword with data (it must carry the cluster)
     top = dg["rows"][0]["keyword"] if dg["rows"] else None
-    dg["v_kw"] = {"shelf_keyword_has_data": dg["primary_clicks"] > 0, "largest_cluster_kw": top}
+    dg["v_kw"] = {"demand_keyword_has_data": dg["primary_clicks"] > 0, "largest_cluster_kw": top}
     run.save("demand_growth.json", dg)
     eligible = dg["demand_gate"]["pass"] and dg["D"] >= 3 and dg["G"] >= 1
     run.update(eligible_after_demand=eligible)
@@ -329,6 +339,12 @@ def step_rank_fop(run):
     g = run.read("gate/decisions.json")
     dec = g["decisions"]
     manual = {"decisions": {}} if not run.exists("manual_decisions.json") else run.read("manual_decisions.json")
+    # Hand decisions carried in the spec (e.g. the tracker's 10 Nov Epitech ruling) are applied first and logged as such.
+    for a, d in (s.get("manual_decisions") or {}).items():
+        manual["decisions"].setdefault(a, dict(d, carried_from_spec=True))
+        manual.setdefault("checked", [])
+        if a not in manual["checked"]:
+            manual["checked"].append(a)
     checked = set(manual.get("checked", []))
     for _ in range(4):
         fams = build_families(run)

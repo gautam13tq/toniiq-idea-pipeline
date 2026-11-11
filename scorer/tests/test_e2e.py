@@ -8,7 +8,8 @@ import run_shelf
 
 SPEC = {"shelf_keyword": "astaxanthin 12mg", "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin",
         "cluster_keywords": ["astaxanthin 12mg", "astaxanthin 12 mg", "astaxanthin 12mg softgels"],
-        "parent_keyword": "astaxanthin", "microbial": False, "hero_name": "astaxanthin"}
+        "parent_keyword": "astaxanthin", "microbial": False, "hero_name": "astaxanthin",
+        "demand_keyword": "astaxanthin 12mg"}
 
 
 class E2E(unittest.TestCase):

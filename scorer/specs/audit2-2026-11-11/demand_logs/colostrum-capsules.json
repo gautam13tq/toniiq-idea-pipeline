@@ -1,0 +1,58 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "colostrum": 15509,
+  "bovine colostrum": 1940
+ },
+ "demand_keyword": "colostrum",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (15,509)",
+ "lane_keyword": "colostrum capsules",
+ "lane_clicks": 845,
+ "demand_cluster": {
+  "colostrum": 15509,
+  "colostrum powder": 4378,
+  "colostrum supplement": 3188,
+  "bovine colostrum": 1940,
+  "colostrum gummies": 337,
+  "bovine colostrum powder": 198,
+  "colostrum for kids": 86,
+  "colostrum for women": 82,
+  "colostrum supplements": 30
+ },
+ "cluster_clicks": 26917,
+ "no_data": [
+  "colostrum tablets",
+  "colostrum liquid",
+  "colostrum drops",
+  "colostrum extract",
+  "colostrum softgels",
+  "colostrum for men",
+  "colostrum organic",
+  "colostrum 500mg",
+  "colostrum 1000mg",
+  "colostrum chewable",
+  "colostrum tea",
+  "colostrum complex",
+  "bovine colostrum supplement",
+  "bovine colostrum supplements",
+  "bovine colostrum pills",
+  "bovine colostrum tablets",
+  "bovine colostrum gummies",
+  "bovine colostrum liquid",
+  "bovine colostrum drops",
+  "bovine colostrum extract",
+  "bovine colostrum softgels",
+  "bovine colostrum for women",
+  "bovine colostrum for men",
+  "bovine colostrum for kids",
+  "bovine colostrum organic",
+  "bovine colostrum 500mg",
+  "bovine colostrum 1000mg",
+  "bovine colostrum chewable",
+  "bovine colostrum tea",
+  "bovine colostrum complex"
+ ]
+}

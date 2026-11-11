@@ -46,10 +46,11 @@ def validate(run):
     chk("I9-FRESH", not old, f"{len(old)} calls older than {K.MAX_DATA_AGE_DAYS} days")
     # D and G recompute (V-DG) and V-KW
     kw = run.read("datarova/merged_keywords.json")["keywords"]
-    dg2 = P.demand_growth(kw, s["shelf_keyword"], s["cluster_keywords"])
+    dprim, dcl = P.demand_terms(s)
+    dg2 = P.demand_growth(kw, dprim, dcl)
     dg = run.read("demand_growth.json")
     chk("V-DG", abs(dg2["D"] - dg["D"]) < 0.01 and abs(dg2["G"] - dg["G"]) < 0.01, f"stored D {dg['D']} G {dg['G']} recomputed D {dg2['D']} G {dg2['G']}")
-    chk("V-KW", dg["primary_kw"].lower() == s["shelf_keyword"].lower(), "demand primary must be the shelf keyword")
+    chk("V-KW", dg["primary_kw"].lower() == dprim.lower(), "demand primary must be the spec's demand keyword (parent head term)")
     sc = run.read("score.json")
     if not ineligible:
         cand = run.read("candidates.json")

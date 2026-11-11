@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "citrus bergamot": 16013,
+  "bergamot": 4613
+ },
+ "demand_keyword": "citrus bergamot",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (16,013)",
+ "lane_keyword": "citrus bergamot",
+ "lane_clicks": 16013,
+ "demand_cluster": {
+  "citrus bergamot": 16013,
+  "bergamot": 4613,
+  "bergamot tea": 613,
+  "citrus bergamot 1000mg": 559,
+  "bergamot extract": 268,
+  "citrus bergamot extract": 250,
+  "citrus bergamot 500mg": 192,
+  "citrus bergamot gummies": 171,
+  "citrus bergamot drops": 151,
+  "citrus bergamot supplements": 112,
+  "citrus bergamot liquid": 31,
+  "bergamot powder": 29,
+  "bergamot drops": 26,
+  "bergamot gummies": 25
+ },
+ "cluster_clicks": 24829,
+ "no_data": [
+  "citrus bergamot capsules",
+  "citrus bergamot pills",
+  "citrus bergamot tablets",
+  "citrus bergamot powder",
+  "citrus bergamot softgels",
+  "citrus bergamot for women",
+  "citrus bergamot for men",
+  "citrus bergamot for kids",
+  "citrus bergamot organic",
+  "citrus bergamot chewable",
+  "citrus bergamot tea",
+  "citrus bergamot complex",
+  "bergamot supplements",
+  "bergamot capsules",
+  "bergamot pills",
+  "bergamot tablets",
+  "bergamot liquid",
+  "bergamot softgels",
+  "bergamot for women",
+  "bergamot for men",
+  "bergamot for kids",
+  "bergamot organic",
+  "bergamot 500mg",
+  "bergamot 1000mg",
+  "bergamot chewable",
+  "bergamot complex"
+ ]
+}

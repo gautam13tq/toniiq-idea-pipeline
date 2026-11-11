@@ -36,14 +36,31 @@ finder_terms, seed_asins, candidate_subniches, hero_name). `new` refuses a spec 
 end-to-end runs with fake APIs, including planted failures (a deleted Datarova call, a hand-edited number, a missing
 Differentiation call, skipping a step). Replay of Grok's 69 rows and the golden sets need Grok's raw data export.
 
-## Writing a shelf spec (rule added 9 Nov 2026 after the first blind round)
+## Writing a shelf spec (rule added 9 Nov 2026; pre-registration rule replaced 11 Nov 2026)
 A spec is written from the keyword only, before any run, and committed with its SHA.
-- Every word in the keyword beyond the hero narrows the shelf and must become a gate co-term:
-  gender or audience ("for women") -> `required_regex` (e.g. `women|woman|female|\bher\b`); dose ("12 mg") -> `required_regex` on the dose;
+- **Shelf keyword = the lane the idea names** ("colostrum capsules", "creatine gummies", "magnesium glycinate powder"),
+  even when that phrase is small. It defines the competitor set (Competition and Differentiation).
+- Every word in the lane keyword beyond the hero narrows the shelf and must become a gate co-term:
+  gender or audience ("for women") -> `required_regex` plus `"audience"`; dose ("12 mg") -> `required_regex` on the dose;
   format ("gummies", "liquid", "powder") -> `gate_format` / `form`; delivery ("liposomal") -> `required_regex`.
-- Use plain words in the keyword (no "+"); the keyword must be the one shoppers type.
 - If the hero word has another meaning (pea, black garlic food), add `hero_exclude_regex` and `hero_strong_regex`.
-- Audience shelves ("for women", "for men", "kids ...") also set `"audience": "women" | "men" | "kids"` so rules R1 and R4 below apply.
+- Audience shelves ("for women", "for men", "kids ...") also set `"audience": "women" | "men" | "kids"` (rules R1, R4).
+
+## Demand rule (Gautam, 11 Nov 2026): a long-tail keyword never decides demand or growth
+The old pre-registration rule (use the idea's own phrase whenever it has 100+ clicks) is replaced. It judged colostrum
+capsules (845 clicks) and mastic gum capsules (788) on the lane phrase while "colostrum" has 15,509 and "mastic gum" 17,359.
+- `demand_keyword` (required): the parent head term for the hero, the highest-click Datarova keyword that is just the
+  ingredient (it must match `hero_regex`, and the spec's `form` if any). It is the primary for the demand gate and the D "a" band.
+- `demand_cluster`: the parent plus every hero variant with data (format, dose, form, audience variants that match
+  `hero_regex`). D's cluster band, CVR and growth use this cluster plus the lane cluster, up to 44 keywords.
+- Both come from `python3 tools/demand_terms.py <spec> <log> "<parent candidate>" ...`, which logs every candidate's
+  clicks and why the parent was chosen. Commit the log with the spec.
+- `demand_growth.json` reports `primary_kw` (parent) and its clicks, `lane_kw` and `lane_clicks`, `agg_clicks` and
+  `cluster_keywords_with_data`.
+- **Lane fallback:** if the lane's top 12 has too few genuine sellers (thin shelf, fewer than 3 competitors, or fewer
+  than 8 badged sellers), `python3 run_shelf.py fallback <lane run>` opens a run on the parent shelf (lane co-terms
+  removed) flagged `scored_on: parent`, with the lane run linked. Code: `shelfscorer/lanes.py`; tests: `tests/test_demand_rule.py`.
+- Hand decisions on a listing can be carried in the spec as `manual_decisions` (logged with who decided).
 
 ## Gautam's shelf rules (10 Nov 2026, after his first label round)
 Code: `shelfscorer/fop_rules.py`, wired into the gate step (R4 on titles) and the front-of-pack step (all four).

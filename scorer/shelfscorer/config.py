@@ -18,6 +18,8 @@ DIFF_UNSTABLE_DELTA = 1.0
 
 # Demand gate (scoring_core.ts L626-663)
 DEMAND_MIN_PRIMARY = 100
+DEMAND_PULL_MAX = 44     # Datarova keywords pulled for demand/growth (parent + hero variants + lane), 11 Nov 2026
+LANE_MIN_BADGED = MIN_BADGED   # lane top 12 with fewer badged sellers -> rescore on the parent shelf (scored_on=parent)
 
 # C_v8 anchors (c74.py ANCH)
 C8_ANCHORS = {"M1": (100, 4000), "M2": (550, 15000), "M3": (150, 6000)}

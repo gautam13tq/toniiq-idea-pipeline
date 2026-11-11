@@ -89,6 +89,16 @@ def growth_score(g3, g6, yoy):
     return round(0.4 * ws(g3) + 0.3 * ws(g6) + 0.3 * ws(yoy), 4)
 
 
+def demand_terms(spec):
+    """Demand rule (Gautam, 11 Nov 2026): demand and growth are judged on the hero's parent head term, never on a
+    long-tail lane phrase. Primary = spec demand_keyword (the highest-click Datarova keyword that is just the
+    ingredient). Cluster = the parent plus every hero variant with data (demand_cluster) plus the lane cluster,
+    capped at K.DEMAND_PULL_MAX keywords. Specs written before 11 Nov fall back to the shelf keyword."""
+    primary = spec.get("demand_keyword") or spec["shelf_keyword"]
+    cl = list(dict.fromkeys([primary] + list(spec.get("demand_cluster") or []) + list(spec["cluster_keywords"])))
+    return primary, cl[:K.DEMAND_PULL_MAX]
+
+
 def demand_growth(datarova_keywords, shelf_keyword, cluster_keywords):
     """Full 3.1 + 3.2 from raw Datarova keyword records. Primary is the spec's shelf_keyword (V-KW)."""
     rows, tot = keyword_rows(datarova_keywords, cluster_keywords)
@@ -118,7 +128,15 @@ def demand_growth(datarova_keywords, shelf_keyword, cluster_keywords):
     if all(v is not None and v < -10 for v in (g3, g6, y)):
         flags.append("declining_trend")
     out["flags"] = flags
+    out["cluster_keywords_with_data"] = [r["keyword"] for r in rows]
     return out
+
+
+def lane_clicks(datarova_keywords, keyword):
+    """Latest monthly clicks for one keyword (the lane), 0 when it has no data."""
+    k = next((x for x in datarova_keywords if x["keyword"].lower() == keyword.lower()), None)
+    rec = sorted((k or {}).get("records") or [], key=rec_month)
+    return (rec[-1].get("clicks") or 0) if rec else 0
 
 
 # ---------------- Competition (3.5) ----------------

@@ -1,0 +1,50 @@
+{
+ "shelf_keyword": "creatine gummies",
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "cluster_keywords": [
+  "creatine gummies",
+  "creatine monohydrate gummies",
+  "creatine gummy"
+ ],
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "finder_terms": [
+  "creatine gummies",
+  "creatine monohydrate gummies"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-11T04:39:22+00:00",
+ "spec_round": "audit2-2026-11-11 (copy of specs/ideas-2026-11-10/creatine-gummies.json; demand rule of 11 Nov: demand_keyword + demand_cluster from tools/demand_terms.py)",
+ "gate_format": "gummy",
+ "qualifier_regex": "gumm",
+ "demand_keyword": "creatine",
+ "demand_cluster": [
+  "creatine",
+  "creatine monohydrate",
+  "creatine for women",
+  "creatine powder",
+  "creatine monohydrate powder",
+  "creatine capsules",
+  "creatine pills",
+  "creatine monohydrate capsules",
+  "creatine monohydrate pills",
+  "creatine for men",
+  "creatine monohydrate for women",
+  "creatine supplement",
+  "creatine tablets",
+  "creatine supplements",
+  "creatine liquid",
+  "creatine organic",
+  "creatine monohydrate tablets",
+  "creatine for kids",
+  "creatine monohydrate for men",
+  "creatine drops",
+  "creatine monohydrate organic",
+  "creatine chewable",
+  "creatine complex",
+  "creatine monohydrate supplement",
+  "creatine monohydrate liquid"
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "shelf_keyword": "dao enzyme",
+ "hero_name": "DAO (diamine oxidase)",
+ "hero_regex": "\\bdao\\b|diamine oxidase|daosin",
+ "cluster_keywords": [
+  "dao enzyme",
+  "dao supplement",
+  "diamine oxidase",
+  "dao enzyme supplement"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "dao enzyme",
+  "diamine oxidase"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-11T04:39:22+00:00",
+ "spec_round": "audit2-2026-11-11 (copy of specs/ideas-2026-11-10/dao-enzyme.json; demand rule of 11 Nov: demand_keyword + demand_cluster from tools/demand_terms.py)",
+ "demand_keyword": "dao enzyme",
+ "demand_cluster": [
+  "dao enzyme",
+  "dao",
+  "dao enzyme supplements",
+  "dao supplements",
+  "diamine oxidase supplement"
+ ]
+}

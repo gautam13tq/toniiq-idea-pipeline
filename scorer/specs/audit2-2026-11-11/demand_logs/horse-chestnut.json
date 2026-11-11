@@ -1,0 +1,57 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "horse chestnut": 2185,
+  "horse chestnut extract": 1892
+ },
+ "demand_keyword": "horse chestnut",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (2,185)",
+ "lane_keyword": "horse chestnut",
+ "lane_clicks": 2185,
+ "demand_cluster": {
+  "horse chestnut": 2185,
+  "horse chestnut extract liquid": 101,
+  "horse chestnut extract organic": 39
+ },
+ "cluster_clicks": 4985,
+ "no_data": [
+  "horse chestnut supplements",
+  "horse chestnut pills",
+  "horse chestnut tablets",
+  "horse chestnut powder",
+  "horse chestnut gummies",
+  "horse chestnut liquid",
+  "horse chestnut drops",
+  "horse chestnut softgels",
+  "horse chestnut for women",
+  "horse chestnut for men",
+  "horse chestnut for kids",
+  "horse chestnut organic",
+  "horse chestnut 500mg",
+  "horse chestnut 1000mg",
+  "horse chestnut chewable",
+  "horse chestnut tea",
+  "horse chestnut complex",
+  "horse chestnut extract supplement",
+  "horse chestnut extract supplements",
+  "horse chestnut extract capsules",
+  "horse chestnut extract pills",
+  "horse chestnut extract tablets",
+  "horse chestnut extract powder",
+  "horse chestnut extract gummies",
+  "horse chestnut extract drops",
+  "horse chestnut extract extract",
+  "horse chestnut extract softgels",
+  "horse chestnut extract for women",
+  "horse chestnut extract for men",
+  "horse chestnut extract for kids",
+  "horse chestnut extract 500mg",
+  "horse chestnut extract 1000mg",
+  "horse chestnut extract chewable",
+  "horse chestnut extract tea",
+  "horse chestnut extract complex"
+ ]
+}
