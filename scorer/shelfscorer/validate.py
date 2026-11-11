@@ -3,7 +3,7 @@ Any BLOCKER failure means no score is written (write_score refuses)."""
 import datetime as dt
 import json
 
-from . import config as K, pillars as P
+from . import config as K, pillars as P, sleeves as SL
 from .runlog import sha
 
 REQ_ARTIFACTS = ["spec.json", "datarova/merged_keywords.json", "demand_growth.json", "candidates.json",
@@ -47,10 +47,10 @@ def validate(run):
     # D and G recompute (V-DG) and V-KW
     kw = run.read("datarova/merged_keywords.json")["keywords"]
     dprim, dcl = P.demand_terms(s)
-    dg2 = P.demand_growth(kw, dprim, dcl)
+    dg2 = P.demand_growth(kw, dprim, dcl, SL.mode(s))
     dg = run.read("demand_growth.json")
     chk("V-DG", abs(dg2["D"] - dg["D"]) < 0.01 and abs(dg2["G"] - dg["G"]) < 0.01, f"stored D {dg['D']} G {dg['G']} recomputed D {dg2['D']} G {dg2['G']}")
-    chk("V-KW", dg["primary_kw"].lower() == dprim.lower(), "demand primary must be the spec's demand keyword (parent head term)")
+    chk("V-KW", dg["primary_kw"].lower() == dprim.lower(), "demand primary must be the spec's shelf keyword (sleeve) or demand keyword (parent)")
     sc = run.read("score.json")
     if not ineligible:
         cand = run.read("candidates.json")
@@ -87,8 +87,9 @@ def validate(run):
         sc2 = sorted(x["score"] for x in dcalls)
         exp = sc2[1] if len(dcalls) == 3 else sum(sc2) / 2
         chk("V-DIFF-AGG", abs(exp - d["score"]) < 1e-6, f"diff {d['score']} expected {exp}")
+        sales_ok, _ = SL.sleeve_sales_gate(s, top)
         r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
-                        n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"])
+                        n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], sales_ok=sales_ok)
         chk("V-SCORE", abs(r["raw"] - sc["raw"]) < 0.01 and r["score"] == sc["score"] and set(r["soft"]) <= set(sc["soft"]),
             f"stored {sc['score']} recomputed {r['score']}")
         x = run.read("crosschecks.json")

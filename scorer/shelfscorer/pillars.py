@@ -90,19 +90,29 @@ def growth_score(g3, g6, yoy):
 
 
 def demand_terms(spec):
-    """Demand rule (Gautam, 11 Nov 2026): demand and growth are judged on the hero's parent head term, never on a
-    long-tail lane phrase. Primary = spec demand_keyword (the highest-click Datarova keyword that is just the
-    ingredient). Cluster = the parent plus every hero variant with data (demand_cluster) plus the lane cluster,
-    capped at K.DEMAND_PULL_MAX keywords. Specs written before 11 Nov fall back to the shelf keyword."""
-    primary = spec.get("demand_keyword") or spec["shelf_keyword"]
-    cl = list(dict.fromkeys([primary] + list(spec.get("demand_cluster") or []) + list(spec["cluster_keywords"])))
+    """Sleeve rule (Gautam, 11 Nov 2026), see sleeves.py.
+    Sleeve (scored_on = sleeve): primary = the shelf keyword, cluster = every Datarova phrasing of the same sleeve
+    (spec sleeve_cluster, pre-registered by tools/sleeve_terms.py) plus the spec's own cluster.
+    Parent (a plain-ingredient shelf, or a sleeve whose format is the parent's default): primary = demand_keyword
+    (the parent head term), cluster = demand_cluster plus the spec's cluster. Older specs fall back to the shelf keyword.
+    Capped at K.DEMAND_PULL_MAX keywords."""
+    if spec.get("scored_on") == "sleeve":
+        primary = spec["shelf_keyword"]
+        cl = [primary] + list(spec.get("sleeve_cluster") or []) + list(spec["cluster_keywords"])
+    else:
+        primary = spec.get("demand_keyword") or spec["shelf_keyword"]
+        cl = [primary] + list(spec.get("demand_cluster") or []) + list(spec["cluster_keywords"])
+    cl = list(dict.fromkeys(k.lower() for k in cl))
     return primary, cl[:K.DEMAND_PULL_MAX]
 
 
-def demand_growth(datarova_keywords, shelf_keyword, cluster_keywords):
-    """Full 3.1 + 3.2 from raw Datarova keyword records. Primary is the spec's shelf_keyword (V-KW)."""
+def demand_growth(datarova_keywords, shelf_keyword, cluster_keywords, mode="parent"):
+    """Full 3.1 + 3.2 from raw Datarova keyword records.
+    mode "parent": a band and the old gate on the primary keyword's clicks.
+    mode "sleeve": a band on the whole sleeve cluster (every phrasing of the sleeve) and the sleeve gate
+    (>= 1,000 cluster clicks over 2+ rows; the 2,000-badge half is checked after ranking)."""
     rows, tot = keyword_rows(datarova_keywords, cluster_keywords)
-    out = {"rows": rows, "monthly": {m: tot[m] for m in sorted(tot)}}
+    out = {"rows": rows, "monthly": {m: tot[m] for m in sorted(tot)}, "mode": mode}
     prim = next((r for r in rows if r["keyword"].lower() == shelf_keyword.lower()), None)
     out["primary_kw"] = shelf_keyword
     out["primary_clicks"] = prim["clicks"] if prim else 0
@@ -113,14 +123,21 @@ def demand_growth(datarova_keywords, shelf_keyword, cluster_keywords):
         out["cvr"] = round(tot[lm][1] / tot[lm][0] * 100, 2) if tot[lm][0] else 0.0
     else:
         out["latest_month"], out["cvr"] = None, 0.0
-    ok, why = demand_gate(out["primary_clicks"], len(rows), out["agg_clicks"])
-    out["demand_gate"] = {"pass": ok, "why": why}
-    a, b, c, D = demand_score(out["primary_clicks"], out["agg_clicks"], out["cvr"])
+    if mode == "sleeve":
+        from . import sleeves as SL
+        ok, why = SL.sleeve_gate(out["agg_clicks"], len(rows))
+        a_in = out["agg_clicks"]
+    else:
+        ok, why = demand_gate(out["primary_clicks"], len(rows), out["agg_clicks"])
+        a_in = out["primary_clicks"]
+    out["demand_gate"] = {"pass": ok, "why": why, "path": mode}
+    out["a_band_clicks"] = a_in
+    a, b, c, D = demand_score(a_in, out["agg_clicks"], out["cvr"])
     out.update(a=a, b=b, c=c, D=D)
     g3, g6, y = growth_windows(tot) if tot else (None, None, None)
     out.update(g3=g3, g6=g6, yoy=y, ws3=ws(g3), ws6=ws(g6), wsy=ws(y), G=growth_score(g3, g6, y))
     flags = []
-    if out["primary_clicks"] < 1000 and ((g3 or 0) > 100 or (g6 or 0) > 100):
+    if a_in < 1000 and ((g3 or 0) > 100 or (g6 or 0) > 100):
         flags.append("small_base")
     vals = [v[0] for v in tot.values() if v[0] > 0]
     if y is not None and vals and max(vals) >= 2.0 * min(vals):
@@ -247,12 +264,14 @@ def diff_from_vectors(vectors, microbial):
 
 
 # ---------------- Composite (3.7) ----------------
-def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=()):
+def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_ok=True):
     w = K.WEIGHTS
     raw = 10 * (w["D"] * D + w["G"] * G + w["C"] * C + w["Diff"] * Diff)
     hard, soft = [], []
     if not demand_ok:
         hard.append("demand gate failed")
+    if not sales_ok:
+        hard.append(f"sleeve top 12 sells < {K.SLEEVE_MIN_BADGES:,}/month")
     if D < 3:
         hard.append("D < 3")
     if G < 1:

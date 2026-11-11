@@ -10,7 +10,7 @@ import getpass
 import json
 import sys
 
-from shelfscorer import lanes as L, steps as S, validate as V, write_score as W
+from shelfscorer import steps as S, validate as V, write_score as W
 from shelfscorer.runlog import Run, StepFailed, now
 
 ORDER = [("datarova", S.step_datarova), ("demand_growth", S.step_demand_growth), ("discover", S.step_discover),
@@ -35,7 +35,7 @@ def go(run):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["new", "go", "validate", "publish", "fallback"])
+    ap.add_argument("cmd", choices=["new", "go", "validate", "publish"])
     ap.add_argument("path")
     ap.add_argument("--idea")
     ap.add_argument("--runs", default="runs")
@@ -55,20 +55,6 @@ def main():
                 go(r)
                 rep = V.validate(r)
                 print(json.dumps({"score": r.read("score.json"), "blockers_failed": rep["blockers_failed"]}, indent=1))
-            elif a.cmd == "fallback":
-                # Lane too thin -> open a parent-shelf run (scored_on=parent). Prints the new run dir, or "none".
-                spec, m = r.read("spec.json"), r.manifest()
-                sc = r.read("score.json") if r.exists("score.json") else {}
-                sc = sc.get("score", sc) if isinstance(sc.get("score"), dict) else sc
-                if not L.needs_parent_fallback(spec, sc, m.get("n_sig")):
-                    print("none")
-                    return
-                ps = L.parent_spec(spec, m["run_id"], now())
-                r2 = Run.open(str(r.dir.parent), m.get("idea_id"), ps["shelf_keyword"], getpass.getuser(),
-                              {"shelf_cap_usd": m.get("shelf_cap_usd", a.cap), "scored_on": "parent", "lane_run": m["run_id"]})
-                r2.step_done("open", "V-OPEN", True)
-                S.step_spec(r2, ps)
-                print(r2.dir)
             elif a.cmd == "validate":
                 rep = V.validate(r)
                 print(f"blockers failed: {rep['blockers_failed']}")

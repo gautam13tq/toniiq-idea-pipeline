@@ -7,9 +7,11 @@ import re
 from . import clients, config as K, pillars as P
 from . import gate_adapter as GA
 from . import fop_rules as FR
+from . import sleeves as SL
 from .runlog import StepFailed, now
 
-REQUIRED_SPEC = ["shelf_keyword", "hero_regex", "cluster_keywords", "microbial", "written_at", "demand_keyword"]
+REQUIRED_SPEC = ["shelf_keyword", "hero_regex", "cluster_keywords", "microbial", "written_at", "scored_on"]
+SCORED_ON = ("sleeve", "parent", "parent_default_format")
 
 
 # ---------------- step 1: spec ----------------
@@ -28,9 +30,18 @@ def step_spec(run, spec):
         bad += [k for k in spec["cluster_keywords"] if not re.search(q, k, re.I)]
     if not 1 <= len(spec["cluster_keywords"]) <= 12:
         bad.append("cluster_keywords must be 1 to 12")
-    # Demand rule (11 Nov 2026): the parent head term and every demand-cluster keyword must name the hero.
-    dk = spec.get("demand_keyword")
-    if dk is not None:
+    # Sleeve rule (11 Nov 2026): a sleeve names its qualifier and every sleeve-cluster phrasing must belong to it;
+    # a parent shelf names its head term.
+    so = spec.get("scored_on")
+    if so not in SCORED_ON:
+        bad.append(f"scored_on must be one of {SCORED_ON}")
+    elif so == "sleeve":
+        if not spec.get("sleeve_kind") or not (spec.get("sleeve_regex") or spec.get("sleeve_kind") == "format"):
+            bad.append("a sleeve needs sleeve_kind and sleeve_regex")
+        bad += [f"sleeve phrasing '{k}' is not the same sleeve" for k in spec.get("sleeve_cluster") or []
+                if not SL.phrasing_ok(k, spec)]
+    else:
+        dk = spec.get("demand_keyword") or spec["shelf_keyword"]
         bad += [f"demand keyword '{k}' does not match hero_regex" for k in [dk] + list(spec.get("demand_cluster") or [])
                 if not H.search(k)]
     run.save("spec.json", spec)
@@ -68,8 +79,8 @@ def step_datarova(run):
     seen = {k["keyword"].lower() for k in got}
     missing = [k for k in kws if k.lower() not in seen]
     run.save("datarova/merged_keywords.json", {"keywords": got, "missing": missing, "window": [start, end]})
-    has_shelf = dprim.lower() in seen
-    run.step_done("datarova", "V-DR", has_shelf, f"no_data: {missing}" if missing else "")
+    has_data = (dprim.lower() in seen) if SL.mode(s) == "parent" else any(k.lower() in seen for k in dcl)
+    run.step_done("datarova", "V-DR", has_data, f"no_data: {missing}" if missing else "")
 
 
 # ---------------- step 3: demand and growth ----------------
@@ -78,20 +89,23 @@ def step_demand_growth(run):
     s = run.read("spec.json")
     kw = run.read("datarova/merged_keywords.json")["keywords"]
     dprim, dcl = P.demand_terms(s)
-    dg = P.demand_growth(kw, dprim, dcl)
-    dg["lane_kw"] = s["shelf_keyword"]
-    dg["lane_clicks"] = P.lane_clicks(kw, s["shelf_keyword"])
-    dg["demand_rule"] = "parent head term (11 Nov 2026)" if s.get("demand_keyword") else "shelf keyword (pre-11 Nov spec)"
-    if s.get("parent_keyword"):
-        par = next((k for k in kw if k["keyword"].lower() == s["parent_keyword"].lower()), None)
-        dg["parent_clicks"] = (sorted(par["records"], key=P.rec_month)[-1].get("clicks") if par and par.get("records") else None)
+    dg = P.demand_growth(kw, dprim, dcl, SL.mode(s))
+    dg["scored_on"] = s["scored_on"]
+    dg["shelf_kw"] = s["shelf_keyword"]
+    dg["shelf_kw_clicks"] = P.lane_clicks(kw, s["shelf_keyword"])
+    dg["demand_rule"] = "sleeve rule (11 Nov 2026)"
+    if s.get("parent_keyword"):   # context only (rule 2)
+        dg["parent_kw"] = s["parent_keyword"]
+        dg["parent_clicks"] = P.lane_clicks(kw, s["parent_keyword"])
+    if s.get("default_format_share") is not None:
+        dg["default_format_share"] = s["default_format_share"]
     # V-KW: the spec's shelf keyword must also be the most relevant keyword with data (it must carry the cluster)
     top = dg["rows"][0]["keyword"] if dg["rows"] else None
     dg["v_kw"] = {"demand_keyword_has_data": dg["primary_clicks"] > 0, "largest_cluster_kw": top}
     run.save("demand_growth.json", dg)
     eligible = dg["demand_gate"]["pass"] and dg["D"] >= 3 and dg["G"] >= 1
     run.update(eligible_after_demand=eligible)
-    run.step_done("demand_growth", "V-DG", dg["primary_clicks"] > 0 or not dg["demand_gate"]["pass"],
+    run.step_done("demand_growth", "V-DG", dg["agg_clicks"] > 0 or not dg["demand_gate"]["pass"],
                   f"D={dg['D']} G={dg['G']} gate={dg['demand_gate']}")
     return eligible
 
@@ -541,10 +555,11 @@ def step_score(run):
     m = run.manifest()
     info = list(dg["flags"]) + list(x["flags"]) + (["diff_unstable"] if d["unstable"] else [])
     s = run.read("spec.json")
-    if s.get("scored_on") == "parent":
-        info.append("scored_on = parent")
+    info.append(f"scored_on = {s['scored_on']}")
+    sales_ok, sales_why = SL.sleeve_sales_gate(s, run.read("top12.json"))
     r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
-                    n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], info=info)
+                    n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], info=info, sales_ok=sales_ok)
+    r["sleeve_sales_gate"] = {"pass": sales_ok, "why": sales_why}
     r.update(D=dg["D"], G=dg["G"], C=round(c["C"], 4), Diff=round(d["score"], 4), version=m["scorer_version"])
     run.save("score.json", r)
     run.step_done("score", "V-SCORE", True, f"{r['score']} {r['tier']}")

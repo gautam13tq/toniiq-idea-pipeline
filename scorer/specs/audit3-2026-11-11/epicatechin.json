@@ -1,0 +1,35 @@
+{
+ "shelf_keyword": "epicatechin",
+ "hero_name": "epicatechin",
+ "hero_regex": "epicatechin",
+ "cluster_keywords": [
+  "epicatechin",
+  "epicatechin supplement"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "epicatechin"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-11T04:39:22+00:00",
+ "spec_round": "audit3-2026-11-11 (copy of specs/audit2-2026-11-11/epicatechin.json; sleeve rule of 11 Nov: tools/sleeve_terms.py)",
+ "manual_decisions": {
+  "B0FHH6HM1N": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "tracker, 10 Nov",
+   "date": "2026-11-10T16:35:00+00:00",
+   "wording": "Title says 'Epicatechin Supplement'; Epitech is Huge Supplements' epicatechin brand name."
+  }
+ },
+ "demand_keyword": "epicatechin",
+ "demand_cluster": [
+  "epicatechin",
+  "epicatechin supplements",
+  "epicatechin 1000mg",
+  "epicatechin powder"
+ ],
+ "scored_on": "parent"
+}

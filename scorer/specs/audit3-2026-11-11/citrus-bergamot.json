@@ -1,0 +1,39 @@
+{
+ "shelf_keyword": "citrus bergamot",
+ "hero_name": "citrus bergamot",
+ "hero_regex": "bergamot|bergavit|bergamonte",
+ "cluster_keywords": [
+  "citrus bergamot",
+  "bergamot supplement",
+  "citrus bergamot supplement"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "citrus bergamot",
+  "bergamot supplement"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-11T04:39:22+00:00",
+ "spec_round": "audit3-2026-11-11 (copy of specs/audit2-2026-11-11/citrus-bergamot.json; sleeve rule of 11 Nov: tools/sleeve_terms.py)",
+ "hero_exclude_regex": "essential oil|aromatherapy|diffuser|earl grey|perfume|fragrance|cologne|soap|shampoo|candle",
+ "demand_keyword": "citrus bergamot",
+ "demand_cluster": [
+  "citrus bergamot",
+  "bergamot",
+  "bergamot tea",
+  "citrus bergamot 1000mg",
+  "bergamot extract",
+  "citrus bergamot extract",
+  "citrus bergamot 500mg",
+  "citrus bergamot gummies",
+  "citrus bergamot drops",
+  "citrus bergamot supplements",
+  "citrus bergamot liquid",
+  "bergamot powder",
+  "bergamot drops",
+  "bergamot gummies"
+ ],
+ "scored_on": "parent"
+}

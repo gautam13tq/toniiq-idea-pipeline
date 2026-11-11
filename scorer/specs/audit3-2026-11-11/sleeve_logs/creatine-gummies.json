@@ -1,0 +1,480 @@
+{
+ "written_at": "2026-11-11T05:32:30+00:00",
+ "prereg_run": "runs_prereg/creatine-gummies-prereg__2026-11-11__08a3b1b7",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "creatine gummies",
+ "sleeve_kind": "format",
+ "sleeve_regex": "gumm(?:y|ies)",
+ "autocomplete_suggestions": [
+  "arae creatine gummy",
+  "create creatine gummies",
+  "create creatine gummies for women",
+  "create creatine monohydrate gummies",
+  "creatine gummies",
+  "creatine gummies 5g",
+  "creatine gummies bears",
+  "creatine gummies for men",
+  "creatine gummies for women",
+  "creatine gummies nsf certified",
+  "creatine gummies sugar free",
+  "creatine gummy",
+  "creatine gummy 5g",
+  "creatine gummy bears",
+  "creatine gummy bears 5g",
+  "creatine gummy bears women",
+  "creatine gummy for men",
+  "creatine gummy for women",
+  "creatine gummy s",
+  "creatine gummy s for men",
+  "creatine monohydrate gummies",
+  "creatine monohydrate gummies 10g",
+  "creatine monohydrate gummies 5000mg",
+  "creatine monohydrate gummies 5g",
+  "creatine monohydrate gummies for men",
+  "creatine monohydrate gummies for women",
+  "creatine monohydrate gummy",
+  "creatine monohydrate gummy 5g",
+  "creatine monohydrate gummy 5mg",
+  "creatine monohydrate gummy bears",
+  "creatine monohydrate gummy for men",
+  "creatine monohydrate gummy for women",
+  "creatine monohydrate gummy no sugar",
+  "creatine monohydrate gummy omni",
+  "creatine monohydrate gummy s",
+  "creatine monohydrate gummy sugar free",
+  "force factor creatine monohydrate gummies",
+  "legion creatine monohydrate gummies",
+  "omni creatine gummies",
+  "omni creatine gummies for women",
+  "omni creatine gummy",
+  "omni creatine gummy for women",
+  "omni creatine monohydrate gummies"
+ ],
+ "candidates_checked": 173,
+ "sleeve_cluster": {
+  "creatine gummies": {
+   "clicks": 119635,
+   "clicks_12m_ago": 129163,
+   "trend_12m_pct": -7.4
+  },
+  "creatine gummies for women": {
+   "clicks": 37321,
+   "clicks_12m_ago": 20140,
+   "trend_12m_pct": 85.3
+  },
+  "create creatine gummies": {
+   "clicks": 29825,
+   "clicks_12m_ago": 44508,
+   "trend_12m_pct": -33.0
+  },
+  "omni creatine gummies": {
+   "clicks": 24714,
+   "clicks_12m_ago": 6495,
+   "trend_12m_pct": 280.5
+  },
+  "creatine gummies for men": {
+   "clicks": 11211,
+   "clicks_12m_ago": 11101,
+   "trend_12m_pct": 1.0
+  },
+  "create creatine gummies for women": {
+   "clicks": 10108,
+   "clicks_12m_ago": 124,
+   "trend_12m_pct": 8051.6
+  },
+  "omni creatine gummies for women": {
+   "clicks": 9372,
+   "clicks_12m_ago": 255,
+   "trend_12m_pct": 3575.3
+  },
+  "creatine for women gummies": {
+   "clicks": 1667,
+   "clicks_12m_ago": 1227,
+   "trend_12m_pct": 35.9
+  },
+  "creatine gummies 5g": {
+   "clicks": 1164,
+   "clicks_12m_ago": 946,
+   "trend_12m_pct": 23.0
+  },
+  "creatine monohydrate gummies for men": {
+   "clicks": 967,
+   "clicks_12m_ago": 801,
+   "trend_12m_pct": 20.7
+  },
+  "creatine gummies sugar free": {
+   "clicks": 814,
+   "clicks_12m_ago": 1032,
+   "trend_12m_pct": -21.1
+  },
+  "force factor creatine monohydrate gummies": {
+   "clicks": 672,
+   "clicks_12m_ago": 67,
+   "trend_12m_pct": 903.0
+  },
+  "legion creatine monohydrate gummies": {
+   "clicks": 603,
+   "clicks_12m_ago": 163,
+   "trend_12m_pct": 269.9
+  },
+  "creatine monohydrate gummies for women": {
+   "clicks": 553,
+   "clicks_12m_ago": 461,
+   "trend_12m_pct": 20.0
+  },
+  "creatine gummies for kids": {
+   "clicks": 393,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "best creatine gummies": {
+   "clicks": 387,
+   "clicks_12m_ago": 159,
+   "trend_12m_pct": 143.4
+  },
+  "omni creatine monohydrate gummies": {
+   "clicks": 364,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vegan creatine gummies": {
+   "clicks": 355,
+   "clicks_12m_ago": 483,
+   "trend_12m_pct": -26.5
+  },
+  "creatine gummies nsf certified": {
+   "clicks": 309,
+   "clicks_12m_ago": 25,
+   "trend_12m_pct": 1136.0
+  },
+  "omni creatine gummy": {
+   "clicks": 309,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine monohydrate gummy": {
+   "clicks": 297,
+   "clicks_12m_ago": 151,
+   "trend_12m_pct": 96.7
+  },
+  "create creatine monohydrate gummies": {
+   "clicks": 259,
+   "clicks_12m_ago": 138,
+   "trend_12m_pct": 87.7
+  },
+  "creatine monohydrate gummies 5g": {
+   "clicks": 198,
+   "clicks_12m_ago": 160,
+   "trend_12m_pct": 23.8
+  },
+  "creatine gummy s for men": {
+   "clicks": 158,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine gummy for women": {
+   "clicks": 155,
+   "clicks_12m_ago": 119,
+   "trend_12m_pct": 30.3
+  },
+  "creatine gummy for men": {
+   "clicks": 125,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine monohydrate gummies 10g": {
+   "clicks": 108,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "organic creatine gummies": {
+   "clicks": 103,
+   "clicks_12m_ago": 143,
+   "trend_12m_pct": -28.0
+  },
+  "creatine supplement gummies": {
+   "clicks": 75,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine monohydrate gummies 5000mg": {
+   "clicks": 71,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "arae creatine gummy": {
+   "clicks": 57,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine gummy bears": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine for men gummies": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "pure creatine gummies": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "omni creatine gummy for women": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "creatine monohydrate gummies": {
+   "clicks": 13376,
+   "clicks_12m_ago": 12470,
+   "trend_12m_pct": 7.3
+  },
+  "creatine gummy": {
+   "clicks": 2869,
+   "clicks_12m_ago": 2535,
+   "trend_12m_pct": 13.2
+  }
+ },
+ "cluster_clicks": 268697,
+ "cluster_rows": 37,
+ "cluster_clicks_12m_ago": 232866,
+ "cluster_trend_12m_pct": 14.6,
+ "cluster_trend_basis": "24 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "creatine",
+  "clicks": 405621,
+  "trend_12m_pct": 21.0
+ },
+ "no_data": [
+  "creatine gummies supplement",
+  "creatine supplements gummies",
+  "creatine gummies supplements",
+  "creatine extract gummies",
+  "creatine gummies extract",
+  "creatine for kids gummies",
+  "creatine 500mg gummies",
+  "creatine gummies 500mg",
+  "creatine 1000mg gummies",
+  "creatine gummies 1000mg",
+  "creatine unflavored gummies",
+  "creatine gummies unflavored",
+  "high potency creatine gummies",
+  "creatine supplement gummy",
+  "creatine gummy supplement",
+  "creatine supplements gummy",
+  "creatine gummy supplements",
+  "organic creatine gummy",
+  "pure creatine gummy",
+  "creatine extract gummy",
+  "creatine gummy extract",
+  "creatine for women gummy",
+  "creatine for men gummy",
+  "creatine for kids gummy",
+  "creatine gummy for kids",
+  "creatine 500mg gummy",
+  "creatine gummy 500mg",
+  "creatine 1000mg gummy",
+  "creatine gummy 1000mg",
+  "creatine unflavored gummy",
+  "creatine gummy unflavored",
+  "vegan creatine gummy",
+  "high potency creatine gummy",
+  "best creatine gummy",
+  "creatine supplement gummy bears",
+  "creatine gummy bears supplement",
+  "creatine supplements gummy bears",
+  "creatine gummy bears supplements",
+  "organic creatine gummy bears",
+  "pure creatine gummy bears",
+  "creatine extract gummy bears",
+  "creatine gummy bears extract",
+  "creatine for women gummy bears",
+  "creatine gummy bears for women",
+  "creatine for men gummy bears",
+  "creatine gummy bears for men",
+  "creatine for kids gummy bears",
+  "creatine gummy bears for kids",
+  "creatine 500mg gummy bears",
+  "creatine gummy bears 500mg",
+  "creatine 1000mg gummy bears",
+  "creatine gummy bears 1000mg",
+  "creatine unflavored gummy bears",
+  "creatine gummy bears unflavored",
+  "vegan creatine gummy bears",
+  "high potency creatine gummy bears",
+  "best creatine gummy bears",
+  "creatine monohydrate supplement gummies",
+  "creatine monohydrate gummies supplement",
+  "creatine monohydrate supplements gummies",
+  "creatine monohydrate gummies supplements",
+  "organic creatine monohydrate gummies",
+  "pure creatine monohydrate gummies",
+  "creatine monohydrate extract gummies",
+  "creatine monohydrate gummies extract",
+  "creatine monohydrate for women gummies",
+  "creatine monohydrate for men gummies",
+  "creatine monohydrate for kids gummies",
+  "creatine monohydrate gummies for kids",
+  "creatine monohydrate 500mg gummies",
+  "creatine monohydrate gummies 500mg",
+  "creatine monohydrate 1000mg gummies",
+  "creatine monohydrate gummies 1000mg",
+  "creatine monohydrate unflavored gummies",
+  "creatine monohydrate gummies unflavored",
+  "vegan creatine monohydrate gummies",
+  "high potency creatine monohydrate gummies",
+  "best creatine monohydrate gummies",
+  "creatine monohydrate supplement gummy",
+  "creatine monohydrate gummy supplement",
+  "creatine monohydrate supplements gummy",
+  "creatine monohydrate gummy supplements",
+  "organic creatine monohydrate gummy",
+  "pure creatine monohydrate gummy",
+  "creatine monohydrate extract gummy",
+  "creatine monohydrate gummy extract",
+  "creatine monohydrate for women gummy",
+  "creatine monohydrate gummy for women",
+  "creatine monohydrate for men gummy",
+  "creatine monohydrate gummy for men",
+  "creatine monohydrate for kids gummy",
+  "creatine monohydrate gummy for kids",
+  "creatine monohydrate 500mg gummy",
+  "creatine monohydrate gummy 500mg",
+  "creatine monohydrate 1000mg gummy",
+  "creatine monohydrate gummy 1000mg",
+  "creatine monohydrate unflavored gummy",
+  "creatine monohydrate gummy unflavored",
+  "vegan creatine monohydrate gummy",
+  "high potency creatine monohydrate gummy",
+  "best creatine monohydrate gummy",
+  "creatine monohydrate gummy bears",
+  "creatine monohydrate supplement gummy bears",
+  "creatine monohydrate gummy bears supplement",
+  "creatine monohydrate supplements gummy bears",
+  "creatine monohydrate gummy bears supplements",
+  "organic creatine monohydrate gummy bears",
+  "pure creatine monohydrate gummy bears",
+  "creatine monohydrate extract gummy bears",
+  "creatine monohydrate gummy bears extract",
+  "creatine monohydrate for women gummy bears",
+  "creatine monohydrate gummy bears for women",
+  "creatine monohydrate for men gummy bears",
+  "creatine monohydrate gummy bears for men",
+  "creatine monohydrate for kids gummy bears",
+  "creatine monohydrate gummy bears for kids",
+  "creatine monohydrate 500mg gummy bears",
+  "creatine monohydrate gummy bears 500mg",
+  "creatine monohydrate 1000mg gummy bears",
+  "creatine monohydrate gummy bears 1000mg",
+  "creatine monohydrate unflavored gummy bears",
+  "creatine monohydrate gummy bears unflavored",
+  "vegan creatine monohydrate gummy bears",
+  "high potency creatine monohydrate gummy bears",
+  "best creatine monohydrate gummy bears",
+  "creatine gummy s",
+  "creatine gummy 5g",
+  "creatine gummies bears",
+  "creatine gummy bears 5g",
+  "creatine gummy bears women",
+  "creatine monohydrate gummy 5g",
+  "creatine monohydrate gummy s",
+  "creatine monohydrate gummy omni",
+  "creatine monohydrate gummy no sugar",
+  "creatine monohydrate gummy sugar free",
+  "creatine monohydrate gummy 5mg"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 268,697 clicks over 37 rows"
+ },
+ "default_format": {
+  "parent": "creatine",
+  "share": 0.111,
+  "threshold": 0.75,
+  "is_default": false,
+  "parent_top12": [
+   {
+    "asin": "B00GL2HMES",
+    "title": "Nutricost Micronized Creatine Monohydrate Powder - 500g (100 Servings) - Pure Unflavored - 5g Per Serving - Non-GMO, Gluten Free",
+    "brand": "Nutricost",
+    "monthly_sold": 100000,
+    "format": "powder",
+    "in_format": false
+   },
+   {
+    "asin": "B07978VPPH",
+    "title": "THORNE Creatine, Micronized Creatine Monohydrate Powder, 90 Servings",
+    "brand": "THORNE",
+    "monthly_sold": 100000,
+    "format": "powder",
+    "in_format": false
+   },
+   {
+    "asin": "B002DYIZEO",
+    "title": "Optimum Nutrition Creatine Monohydrate Powder, Unflavored, 120 Servings",
+    "brand": "Optimum Nutrition",
+    "monthly_sold": 60000,
+    "format": "powder",
+    "in_format": false
+   },
+   {
+    "asin": "B00DLWONF2",
+    "title": "Optimum Nutrition Micronized Creatine Monohydrate Capsules, 100 Ct",
+    "brand": "Optimum Nutrition",
+    "monthly_sold": 30000,
+    "format": "pill",
+    "in_format": false
+   },
+   {
+    "asin": "B00E9M4XEE",
+    "title": "BulkSupplements.com Creatine Monohydrate Powder - 1KG (Pack of 1)",
+    "brand": "BulkSupplements",
+    "monthly_sold": 30000,
+    "format": "powder",
+    "in_format": false
+   },
+   {
+    "asin": "B0B9YMNYWK",
+    "title": "NAKED Pure Micronized Creatine Monohydrate Powder - NSF Certified, Unflavored, 500g, 1.1lb Bulk - Vegan, Non-GMO, Gluten-Free, Soy-Free, No Fillers, Supports Muscle Growth & Strength - 100 Servings",
+    "brand": "NAKED",
+    "monthly_sold": 20000,
+    "format": "powder",
+    "in_format": false
+   },
+   {
+    "asin": "B0F55PDR4C",
+    "title": "Create Creatine Monohydrate Gummies for Women and Men, Sour Cherry, 90ct",
+    "brand": "Create",
+    "monthly_sold": 10000,
+    "format": "gummy",
+    "in_format": true
+   },
+   {
+    "asin": "B0FNFCK1J9",
+    "title": "Momentous Creatine Monohydrate Powder, 5g per Serving, Unflavored",
+    "brand": "Momentous",
+    "monthly_sold": 50,
+    "format": "powder",
+    "in_format": false
+   },
+   {
+    "asin": "B0DJDR2881",
+    "title": "Creatine for Women, Creatine Monohydrate Powder, Collagen, Biotin, 5 Pack",
+    "brand": "Clean Nutraceuticals",
+    "monthly_sold": 0,
+    "format": "powder",
+    "in_format": false
+   }
+  ],
+  "parent_top12_badges": 350050
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 71
+}

@@ -1,4 +1,4 @@
-"""Pick a spec's demand keyword and demand cluster from Datarova (demand rule, Gautam 11 Nov 2026).
+"""Parent shelves only (sleeves use tools/sleeve_terms.py): pick the demand keyword and demand cluster from Datarova.
 
 Usage: python3 tools/demand_terms.py <spec.json> <log.json> "parent candidate 1" "parent candidate 2" ...
 

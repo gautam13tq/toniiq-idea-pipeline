@@ -9,7 +9,7 @@ import run_shelf
 SPEC = {"shelf_keyword": "astaxanthin 12mg", "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin",
         "cluster_keywords": ["astaxanthin 12mg", "astaxanthin 12 mg", "astaxanthin 12mg softgels"],
         "parent_keyword": "astaxanthin", "microbial": False, "hero_name": "astaxanthin",
-        "demand_keyword": "astaxanthin 12mg"}
+        "demand_keyword": "astaxanthin 12mg", "scored_on": "parent"}
 
 
 class E2E(unittest.TestCase):
@@ -67,6 +67,20 @@ class E2E(unittest.TestCase):
         (r.dir / "diff" / "call_2.json").unlink()
         rep = V.validate(r)
         self.assertTrue(any(c["check"] == "V-DIFF" and not c["pass"] for c in rep["checks"]))
+
+    def test_sleeve_run_validates_with_the_sales_gate(self):
+        sleeve = dict(SPEC, scored_on="sleeve", sleeve_kind="dose", sleeve_regex="12 ?mg",
+                      sleeve_cluster=["astaxanthin 12mg", "astaxanthin 12 mg"])
+        r = Run.open(self.tmp, "idea-s", sleeve["shelf_keyword"], "test", {"shelf_cap_usd": 5})
+        r.step_done("open", "V-OPEN", True)
+        S.step_spec(r, dict(sleeve, written_at=now()))
+        run_shelf.go(r)
+        rep = V.validate(r)
+        failed = [c for c in rep["checks"] if not c["pass"] and c["severity"] == "BLOCKER"]
+        self.assertEqual(failed, [], json.dumps(failed, indent=1))
+        sc = r.read("score.json")
+        self.assertIn("sleeve_sales_gate", sc)
+        self.assertEqual(r.read("demand_growth.json")["demand_gate"]["path"], "sleeve")
 
     def test_cannot_skip_a_step(self):
         r = self.new_run()

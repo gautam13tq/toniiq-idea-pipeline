@@ -36,7 +36,7 @@ finder_terms, seed_asins, candidate_subniches, hero_name). `new` refuses a spec 
 end-to-end runs with fake APIs, including planted failures (a deleted Datarova call, a hand-edited number, a missing
 Differentiation call, skipping a step). Replay of Grok's 69 rows and the golden sets need Grok's raw data export.
 
-## Writing a shelf spec (rule added 9 Nov 2026; pre-registration rule replaced 11 Nov 2026)
+## Writing a shelf spec (rule added 9 Nov 2026; pre-registration rule replaced by the sleeve rule 11 Nov 2026)
 A spec is written from the keyword only, before any run, and committed with its SHA.
 - **Shelf keyword = the lane the idea names** ("colostrum capsules", "creatine gummies", "magnesium glycinate powder"),
   even when that phrase is small. It defines the competitor set (Competition and Differentiation).
@@ -46,20 +46,33 @@ A spec is written from the keyword only, before any run, and committed with its 
 - If the hero word has another meaning (pea, black garlic food), add `hero_exclude_regex` and `hero_strong_regex`.
 - Audience shelves ("for women", "for men", "kids ...") also set `"audience": "women" | "men" | "kids"` (rules R1, R4).
 
-## Demand rule (Gautam, 11 Nov 2026): a long-tail keyword never decides demand or growth
-The old pre-registration rule (use the idea's own phrase whenever it has 100+ clicks) is replaced. It judged colostrum
-capsules (845 clicks) and mastic gum capsules (788) on the lane phrase while "colostrum" has 15,509 and "mastic gum" 17,359.
-- `demand_keyword` (required): the parent head term for the hero, the highest-click Datarova keyword that is just the
-  ingredient (it must match `hero_regex`, and the spec's `form` if any). It is the primary for the demand gate and the D "a" band.
-- `demand_cluster`: the parent plus every hero variant with data (format, dose, form, audience variants that match
-  `hero_regex`). D's cluster band, CVR and growth use this cluster plus the lane cluster, up to 44 keywords.
-- Both come from `python3 tools/demand_terms.py <spec> <log> "<parent candidate>" ...`, which logs every candidate's
-  clicks and why the parent was chosen. Commit the log with the spec.
-- `demand_growth.json` reports `primary_kw` (parent) and its clicks, `lane_kw` and `lane_clicks`, `agg_clicks` and
-  `cluster_keywords_with_data`.
-- **Lane fallback:** if the lane's top 12 has too few genuine sellers (thin shelf, fewer than 3 competitors, or fewer
-  than 8 badged sellers), `python3 run_shelf.py fallback <lane run>` opens a run on the parent shelf (lane co-terms
-  removed) flagged `scored_on: parent`, with the lane run linked. Code: `shelfscorer/lanes.py`; tests: `tests/test_demand_rule.py`.
+## Sleeve rule (Gautam, 11 Nov 2026): judge a sleeve on every phrasing of it
+Toniiq's system looks for sleeves: a format, dose, audience, variety or pairing inside a parent ("colostrum capsules",
+"astaxanthin 24mg") with its own demand and weaker leaders. Parents are usually too competitive. This replaces both
+the old pre-registration rule (take the idea's own phrase whenever it has 100+ clicks) and the same-morning
+parent-keyword rule (score demand on the parent). The failure was reading a sleeve's demand off one exact phrase.
+Code: `shelfscorer/sleeves.py`; tests: `tests/test_sleeve_rule.py`.
+1. **Sleeve cluster.** Demand and growth come from every Datarova phrasing of the same sleeve: format synonyms
+   (capsules, caps, pills, tablets, softgels), modifiers (bovine, organic, supplement, for women) and word order.
+   Each phrasing must match `hero_regex`, the sleeve qualifier `sleeve_regex` and the spec's `form`, and must not name
+   another format. Datarova has no related-keywords endpoint, so new phrasings come from Amazon autocomplete plus
+   generated synonyms and word orders. The D "a" band and the D cluster band both read the sleeve cluster's clicks.
+2. **The parent is context only.** Its clicks and trend are logged; Competition and Diff come from the sleeve's own top 12.
+3. **Default format.** For a format sleeve, if 75%+ of the parent's top 12 by monthly-sold badge are already in the
+   sleeve's format, the sleeve is the parent: the spec becomes the parent keyword and cluster with
+   `scored_on: parent_default_format`. Doses, audiences, varieties and pairings are always sleeves.
+4. **Sleeve gate.** A sleeve passes with >= 1,000 latest-month cluster clicks over 2+ keyword rows (checked before any
+   Keepa spend) AND >= 2,000 summed monthly-sold badges in its top 12 (checked after ranking; a hard stop in the
+   composite). Parent shelves keep the old gate on the parent keyword. `demand_growth.json` logs `demand_gate.path`;
+   `score.json` logs `sleeve_sales_gate`.
+5. **Spec fields.** `scored_on` (required: `sleeve`, `parent` or `parent_default_format`). A sleeve also sets
+   `sleeve_kind`, `sleeve_regex`, `hero_names`, `parent_keyword` and `sleeve_cluster`. A parent sets `demand_keyword`
+   (the head term) and `demand_cluster` (its phrasings), both from `tools/demand_terms.py`.
+6. **Pre-registration.** `python3 tools/sleeve_terms.py <spec> <log>` pulls autocomplete and Datarova, writes
+   `sleeve_cluster`, runs the default-format check on Keepa, and logs every phrasing with its latest clicks and
+   12-month trend, the parent's clicks, the parent's top 12 with formats, and the share. Every call goes into a
+   pre-registration run folder. Commit the log with the spec.
+7. **Reporting.** Each shelf reports cluster clicks and keywords, parent clicks, the default-format share and the gate path.
 - Hand decisions on a listing can be carried in the spec as `manual_decisions` (logged with who decided).
 
 ## Gautam's shelf rules (10 Nov 2026, after his first label round)
