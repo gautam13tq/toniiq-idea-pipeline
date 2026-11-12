@@ -3,6 +3,9 @@
 R14-1 condition-led formulas OUT (29 Oct ruling): handled by the judge through the decisions file; a hero-first title
        under a condition headline is sent to the judge (UNSURE) rather than passed.
 R14-2 whole food by weight with no supplement form word and no serving dose -> OUT EX_NOT_SUPPLEMENT.
+R14-3 raw resin or tears sold by weight (Chios mastic tears) -> OUT EX_NOT_SUPPLEMENT, even when the copy mentions
+       "food supplement" (Gautam, 12 Nov 2026: "raw resin isn't a supplement"). A capsule, tablet, softgel, powder,
+       extract or oil in the title keeps the listing in play.
 """
 import os, re
 import gate_v112 as G2
@@ -18,6 +21,9 @@ WEIGHT = re.compile(r"\b\d+(?:\.\d+)?\s*(?:oz|ounces?|lbs?|pounds?|g|grams?|kg|k
 FORMW = re.compile(r"\b(capsules?|caps|vcaps|softgels?|tablets?|tabs|gumm(?:y|ies)|chewables?|drops|tincture|liquid|"
                    r"extract|supplement|powder|oil|elixir|syrup|tea|serum|spray|lozenges?)\b", I)
 SERVE = re.compile(r"\bserving|\bper\s+day|\bscoop|\bteaspoon|\btsp\b|\btablespoon|\bdaily\s+dose|\btake\s+\d", I)
+RESIN = re.compile(r"\btears?\b|\bresins?\b|\braw\s+mastic", I)
+PILLFORM = re.compile(r"\b(capsules?|caps|vcaps|softgels?|tablets?|tabs|pills?|caplets?|powder|extracts?|oil|liquid|"
+                      r"drops|tinctures?)\b", I)
 CONDITION = re.compile(r"^\s*(?:[\w'’&-]+\s+){0,3}(joint|sciatic|sciatica|nerve|bone|prostate|liver|kidney|heart|blood\s+sugar|"
                        r"sleep|stress|immune|gut|digestive|eye|vision|memory|brain|menopause|thyroid|hair)\s+"
                        r"(relief|support|formula|health|complex|care|defense)\b", I)
@@ -35,6 +41,8 @@ _V112_CLASSIFY3 = G2.classify3
 def classify3(shelf, x):
     v, code, det, f, u = _V112_CLASSIFY3(shelf, x)
     t = x.get("title") or ""
+    if v != "OUT" and RESIN.search(t) and WEIGHT.search(t) and not PILLFORM.search(t):
+        return "OUT", "EX_NOT_SUPPLEMENT", "R14-3 raw resin or tears sold by weight, not a supplement", f, None
     if v != "OUT" and WEIGHT.search(t) and not FORMW.search(t + " " + str(x.get("item_form") or "")) \
             and not SERVE.search(_copy(x)):
         return "OUT", "EX_NOT_SUPPLEMENT", "R14-2 whole food sold by weight, no supplement form or serving dose", f, None

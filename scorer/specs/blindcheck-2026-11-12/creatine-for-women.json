@@ -1,0 +1,113 @@
+{
+ "shelf_keyword": "creatine for women",
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "required_regex": "^(?!.*\\bmen\\s*(?:&|and|/|\\+)\\s*wom[ae]n\\b)(?!.*\\bwom[ae]n\\s*(?:&|and|/|\\+)\\s*men\\b).*(?:\\bwom[ae]n\\b|\\bwomen'?s\\b|\\bfemale\\b|\\bher\\b)",
+ "qualifier_regex": "wom[ae]n",
+ "gate_format": "powder",
+ "cluster_keywords": [
+  "creatine for women",
+  "creatine for women powder",
+  "womens creatine",
+  "creatine monohydrate for women",
+  "creatine powder for women"
+ ],
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "finder_terms": [
+  "creatine for women"
+ ],
+ "candidate_subniches": [
+  "creatine gummies for women"
+ ],
+ "seed_asins": [],
+ "spec_round": "blindcheck-2026-11-12",
+ "audience": "women",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "wom[ae]n|female",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "sleeve_words": [
+  "for women",
+  "women",
+  "womens"
+ ],
+ "scored_on": "sleeve",
+ "scored_on_why": "audience sleeve: women inside creatine",
+ "demand_keyword": "creatine",
+ "demand_cluster": [
+  "creatine",
+  "creatine gummies",
+  "creatine powder",
+  "creatine capsules",
+  "creatine pills",
+  "creatine for men",
+  "creatine supplement",
+  "creatine tablets",
+  "creatine supplements",
+  "creatine liquid",
+  "creatine organic",
+  "creatine for kids",
+  "creatine drops",
+  "creatine chewable",
+  "creatine complex"
+ ],
+ "sleeve_cluster": [
+  "creatine for women",
+  "yesnap creatine for women",
+  "creatine women",
+  "creatine for women gummies",
+  "women creatine",
+  "clean creatine for women",
+  "collagen and creatine for women",
+  "creatine for women over 50",
+  "best creatine for women",
+  "womens creatine supplements",
+  "creatine for women pills",
+  "creatine monohydrate women",
+  "creatine for women capsules",
+  "creatine for women unflavored",
+  "creatine women's best",
+  "creatine women powder",
+  "creatine for women organic",
+  "creatine womens",
+  "creatine for women powder",
+  "womens creatine",
+  "creatine monohydrate for women",
+  "creatine powder for women"
+ ],
+ "written_at": "2026-11-12T07:15:41+00:00",
+ "manual_decisions": {
+  "B0D6HKTGSH": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Peach Perfect flavour variant: merge into the B0BQ5S3P3P family."
+  },
+  "B0F22R1PBG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Peach Perfect flavour variant: merge into the B0BQ5S3P3P family."
+  },
+  "B0CWVY3N64": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Wellah: plainly a powder (servings / stick packs); EX_FORMAT_UNSTATED too literal."
+  },
+  "B0GPY3CNYD": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Wellah: plainly a powder (servings / stick packs); EX_FORMAT_UNSTATED too literal."
+  }
+ },
+ "spec_note": "From pre-sleeve-2026-11-12/creatine-for-women.json plus blind-check and Gautam decisions (12 Nov 2026)."
+}

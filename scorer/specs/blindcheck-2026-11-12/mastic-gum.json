@@ -1,0 +1,86 @@
+{
+ "shelf_keyword": "mastic gum",
+ "hero_name": "mastic gum",
+ "hero_regex": "mastic",
+ "cluster_keywords": [
+  "mastic gum",
+  "mastic",
+  "mastic gum organic",
+  "mastic gum powder",
+  "mastic tea",
+  "mastic powder",
+  "mastic gum chewable",
+  "mastic gum extract"
+ ],
+ "parent_keyword": "mastic gum",
+ "microbial": false,
+ "finder_terms": [
+  "mastic gum"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "blindcheck-2026-11-12",
+ "demand_keyword": "mastic gum",
+ "demand_cluster": [
+  "mastic gum",
+  "mastic",
+  "mastic gum organic",
+  "mastic gum powder",
+  "mastic tea",
+  "mastic powder",
+  "mastic gum chewable",
+  "mastic gum extract"
+ ],
+ "hero_names": [
+  "mastic gum",
+  "mastic"
+ ],
+ "scored_on": "parent_default_format",
+ "sleeve_shelf_keyword": "mastic gum capsules",
+ "default_format_share": 1.0,
+ "manual_decisions": {
+  "B0GQB9CLRD": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "tracker, 11 Nov",
+   "date": "2026-11-11T20:00:00+00:00",
+   "wording": "LMADFLY remineralizing chewing gum: hero is hydroxyapatite; 'mastic mint' is a flavour."
+  },
+  "B0DXVG5PHJ": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "tracker, 11 Nov",
+   "date": "2026-11-11T20:00:00+00:00",
+   "wording": "Art of Nature MASTIHA capsules: Mastiha is the Greek name for mastic gum; hero regex missed the spelling."
+  },
+  "B07MM9XM17": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "NOW Gastro Comfort: mastic is an add-in to a condition-led formula (R2)."
+  },
+  "B0FVGBXPNF": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Intact Digest liquid: coined formula, mastic not the hero."
+  },
+  "B07KXSBG42": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam, 12 Nov (\"agreed on both\")",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Chios mastic tears 50 g: raw resin sold by weight is not a supplement (R14-3)."
+  },
+  "B008RT2UVI": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam, 12 Nov (\"agreed on both\")",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Chios mastic tears 100 g: raw resin sold by weight is not a supplement (R14-3)."
+  }
+ },
+ "spec_note": "From rerun-2026-11-12/mastic-gum-capsules.json plus blind-check and Gautam decisions (12 Nov 2026)."
+}

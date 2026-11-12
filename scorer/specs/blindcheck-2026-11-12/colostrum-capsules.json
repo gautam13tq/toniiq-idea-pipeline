@@ -1,0 +1,57 @@
+{
+ "shelf_keyword": "colostrum capsules",
+ "hero_name": "colostrum",
+ "hero_regex": "colostrum",
+ "cluster_keywords": [
+  "colostrum capsules",
+  "colostrum pills",
+  "bovine colostrum capsules"
+ ],
+ "parent_keyword": "colostrum",
+ "microbial": false,
+ "finder_terms": [
+  "colostrum capsules",
+  "colostrum pills"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "blindcheck-2026-11-12",
+ "gate_format": "pill",
+ "qualifier_regex": "capsule|pill",
+ "demand_keyword": "colostrum",
+ "demand_cluster": [
+  "colostrum",
+  "colostrum powder",
+  "colostrum supplement",
+  "bovine colostrum",
+  "colostrum gummies",
+  "bovine colostrum powder",
+  "colostrum for kids",
+  "colostrum for women",
+  "colostrum supplements"
+ ],
+ "sleeve_kind": "format",
+ "hero_names": [
+  "colostrum",
+  "bovine colostrum"
+ ],
+ "scored_on": "sleeve",
+ "sleeve_regex": "capsules?|\\bcaps\\b|vcaps?|veg[- ]?caps|tablets?|softgels?|soft gels|caplets?|\\bpills?\\b|lozenges?",
+ "sleeve_cluster": [
+  "colostrum capsules",
+  "colostrum pills for breastfeeding",
+  "colostrum capsule",
+  "colostrum pills",
+  "bovine colostrum capsules"
+ ],
+ "manual_decisions": {
+  "B0D379XS3Z": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "WONDERCOW HSN: colostrum is an add-in to a hair/skin/nails formula."
+  }
+ },
+ "spec_note": "From rerun-2026-11-12/colostrum-capsules.json plus blind-check and Gautam decisions (12 Nov 2026)."
+}

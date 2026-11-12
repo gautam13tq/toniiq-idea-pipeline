@@ -1,0 +1,44 @@
+{
+ "shelf_keyword": "horse chestnut",
+ "hero_name": "horse chestnut",
+ "hero_regex": "horse ?chestnut|aesculus|\\ba?escin\\b",
+ "cluster_keywords": [
+  "horse chestnut",
+  "horse chestnut extract",
+  "horse chestnut supplement",
+  "horse chestnut capsules"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "horse chestnut",
+  "horse chestnut extract"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "blindcheck-2026-11-12",
+ "demand_keyword": "horse chestnut",
+ "demand_cluster": [
+  "horse chestnut",
+  "horse chestnut extract liquid",
+  "horse chestnut extract organic"
+ ],
+ "scored_on": "parent",
+ "manual_decisions": {
+  "B0BWYD45GL": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Basigano: red vine leaf leads the front."
+  },
+  "B0G4NS48B4": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T10:14:00+00:00",
+   "wording": "Vessol hemorrhoid formula: condition-led, hero not the biggest word (R2)."
+  }
+ },
+ "spec_note": "From rerun-2026-11-12/horse-chestnut.json plus blind-check and Gautam decisions (12 Nov 2026)."
+}
