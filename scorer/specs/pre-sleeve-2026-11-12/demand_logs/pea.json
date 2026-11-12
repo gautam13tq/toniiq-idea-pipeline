@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "palmitoylethanolamide": 1667,
+  "pea supplement": 2798
+ },
+ "demand_keyword": "pea supplement",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (2,798)",
+ "lane_keyword": "palmitoylethanolamide",
+ "lane_clicks": 1667,
+ "demand_cluster": {
+  "pea supplement": 2798
+ },
+ "cluster_clicks": 5148,
+ "no_data": [
+  "palmitoylethanolamide supplements",
+  "palmitoylethanolamide capsules",
+  "palmitoylethanolamide pills",
+  "palmitoylethanolamide tablets",
+  "palmitoylethanolamide powder",
+  "palmitoylethanolamide gummies",
+  "palmitoylethanolamide liquid",
+  "palmitoylethanolamide drops",
+  "palmitoylethanolamide extract",
+  "palmitoylethanolamide softgels",
+  "palmitoylethanolamide for women",
+  "palmitoylethanolamide for men",
+  "palmitoylethanolamide for kids",
+  "palmitoylethanolamide organic",
+  "palmitoylethanolamide 500mg",
+  "palmitoylethanolamide 1000mg",
+  "palmitoylethanolamide chewable",
+  "palmitoylethanolamide tea",
+  "palmitoylethanolamide complex",
+  "pea supplement supplement",
+  "pea supplement supplements",
+  "pea supplement capsules",
+  "pea supplement pills",
+  "pea supplement tablets",
+  "pea supplement powder",
+  "pea supplement gummies",
+  "pea supplement liquid",
+  "pea supplement drops",
+  "pea supplement extract",
+  "pea supplement softgels",
+  "pea supplement for women",
+  "pea supplement for men",
+  "pea supplement for kids",
+  "pea supplement organic",
+  "pea supplement 500mg",
+  "pea supplement 1000mg",
+  "pea supplement chewable",
+  "pea supplement tea",
+  "pea supplement complex"
+ ]
+}

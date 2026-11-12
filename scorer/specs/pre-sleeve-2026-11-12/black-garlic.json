@@ -1,0 +1,32 @@
+{
+ "shelf_keyword": "black garlic",
+ "hero_name": "black garlic",
+ "hero_regex": "black garlic",
+ "cluster_keywords": [
+  "black garlic",
+  "black garlic supplement",
+  "black garlic extract",
+  "black garlic capsules",
+  "aged black garlic"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "black garlic supplement",
+  "black garlic extract"
+ ],
+ "candidate_subniches": [
+  "aged black garlic extract"
+ ],
+ "seed_asins": [],
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/black-garlic__2026-11-09__097b376a/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "scored_on": "parent",
+ "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+ "demand_keyword": "black garlic",
+ "demand_cluster": [
+  "black garlic",
+  "black garlic organic",
+  "black garlic powder",
+  "black garlic pills"
+ ]
+}

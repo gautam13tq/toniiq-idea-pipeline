@@ -1,0 +1,36 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "black garlic": 17606
+ },
+ "demand_keyword": "black garlic",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (17,606)",
+ "lane_keyword": "black garlic",
+ "lane_clicks": 17606,
+ "demand_cluster": {
+  "black garlic": 17606,
+  "black garlic organic": 3041,
+  "black garlic powder": 752,
+  "black garlic pills": 137
+ },
+ "cluster_clicks": 28235,
+ "no_data": [
+  "black garlic supplements",
+  "black garlic tablets",
+  "black garlic gummies",
+  "black garlic liquid",
+  "black garlic drops",
+  "black garlic softgels",
+  "black garlic for women",
+  "black garlic for men",
+  "black garlic for kids",
+  "black garlic 500mg",
+  "black garlic 1000mg",
+  "black garlic chewable",
+  "black garlic tea",
+  "black garlic complex"
+ ]
+}

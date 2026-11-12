@@ -1,0 +1,37 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "magnesium": 225881
+ },
+ "demand_keyword": "magnesium",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (225,881)",
+ "lane_keyword": "magnesium complex for men",
+ "lane_clicks": 10150,
+ "demand_cluster": {
+  "magnesium": 225881,
+  "magnesium complex": 69658,
+  "magnesium gummies": 24134,
+  "magnesium for kids": 11020,
+  "magnesium powder": 7275,
+  "magnesium supplement": 5608,
+  "magnesium for women": 3005,
+  "magnesium drops": 2688,
+  "magnesium supplements": 1812,
+  "magnesium pills": 1593,
+  "magnesium 500mg": 1589,
+  "magnesium liquid": 1580,
+  "magnesium tablets": 1042,
+  "magnesium capsules": 926,
+  "magnesium softgels": 379,
+  "magnesium tea": 350,
+  "magnesium 1000mg": 324,
+  "magnesium organic": 220,
+  "magnesium chewable": 198,
+  "magnesium extract": 56
+ },
+ "cluster_clicks": 372325,
+ "no_data": []
+}

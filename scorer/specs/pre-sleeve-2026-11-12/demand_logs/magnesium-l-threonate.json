@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "magnesium l threonate": 5625,
+  "magnesium threonate": 22533
+ },
+ "demand_keyword": "magnesium threonate",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (22,533)",
+ "lane_keyword": "magnesium l threonate",
+ "lane_clicks": 5625,
+ "demand_cluster": {
+  "magnesium threonate": 22533,
+  "magnesium threonate supplement": 3766,
+  "magnesium threonate gummies": 1213,
+  "magnesium l threonate supplement": 789,
+  "magnesium threonate powder": 419,
+  "magnesium l threonate gummies": 381,
+  "magnesium threonate 500mg": 264,
+  "magnesium threonate liquid": 213,
+  "magnesium threonate supplements": 209,
+  "magnesium threonate capsules": 201,
+  "magnesium l threonate powder": 171,
+  "magnesium l threonate for kids": 108,
+  "magnesium threonate for kids": 28,
+  "magnesium threonate complex": 28,
+  "magnesium threonate drops": 26,
+  "magnesium l threonate liquid": 25,
+  "magnesium threonate organic": 25
+ },
+ "cluster_clicks": 97792,
+ "no_data": [
+  "magnesium l threonate supplements",
+  "magnesium l threonate pills",
+  "magnesium l threonate tablets",
+  "magnesium l threonate drops",
+  "magnesium l threonate extract",
+  "magnesium l threonate softgels",
+  "magnesium l threonate for women",
+  "magnesium l threonate for men",
+  "magnesium l threonate organic",
+  "magnesium l threonate 500mg",
+  "magnesium l threonate 1000mg",
+  "magnesium l threonate chewable",
+  "magnesium l threonate tea",
+  "magnesium l threonate complex",
+  "magnesium threonate pills",
+  "magnesium threonate tablets",
+  "magnesium threonate extract",
+  "magnesium threonate softgels",
+  "magnesium threonate for women",
+  "magnesium threonate for men",
+  "magnesium threonate 1000mg",
+  "magnesium threonate chewable",
+  "magnesium threonate tea"
+ ]
+}

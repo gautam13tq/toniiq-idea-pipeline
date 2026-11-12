@@ -1,0 +1,77 @@
+{
+ "shelf_keyword": "magnesium complex for men",
+ "hero_name": "magnesium",
+ "hero_regex": "magnes\\w*",
+ "required_regex": "^(?!.*(?<![a-z])men\\s*(?:&|and|/|\\+|,)?\\s*wom[ae]n\\b)(?!.*(?<![a-z])wom[ae]n'?s?\\s*(?:&|and|/|\\+|,)?\\s*men\\b)(?=.*(?:\\bmen\\b|\\bmen'?s\\b|\\bmale\\b|\\bhim\\b))(?=.*(?:complex|\\b\\d ?forms?\\b|triple|multi[- ]?magnesium|full spectrum|\\b\\d ?in ?1\\b)).*",
+ "qualifier_regex": "\\bmen\\b|\\bmen'?s\\b",
+ "cluster_keywords": [
+  "magnesium complex for men",
+  "magnesium for men",
+  "mens magnesium",
+  "magnesium supplement for men",
+  "magnesium complex men"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium complex for men",
+  "magnesium for men"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/magnesium-complex-for-men__2026-11-10__b9f9e0f4/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "\\bmen\\b|\\bmen'?s\\b|\\bmale\\b",
+ "hero_names": [
+  "magnesium",
+  "magnesium complex"
+ ],
+ "sleeve_words": [
+  "for men",
+  "mens"
+ ],
+ "scored_on": "sleeve",
+ "scored_on_why": "audience sleeve: men inside magnesium",
+ "demand_keyword": "magnesium",
+ "demand_cluster": [
+  "magnesium",
+  "magnesium complex",
+  "magnesium gummies",
+  "magnesium for kids",
+  "magnesium powder",
+  "magnesium supplement",
+  "magnesium for women",
+  "magnesium drops",
+  "magnesium supplements",
+  "magnesium pills",
+  "magnesium 500mg",
+  "magnesium liquid",
+  "magnesium tablets",
+  "magnesium capsules",
+  "magnesium softgels",
+  "magnesium tea",
+  "magnesium 1000mg",
+  "magnesium organic",
+  "magnesium chewable",
+  "magnesium extract"
+ ],
+ "sleeve_cluster": [
+  "magnesium complex for men",
+  "12 in 1 magnesium complex for men",
+  "magnesium for men 50 and over",
+  "glamara 12 in 1 magnesium complex for men",
+  "mens magnesium supplements",
+  "magnesium complex for men over 50",
+  "12-1 magnesium complex for men",
+  "magnesium for men over 40",
+  "magnesium for men over 60",
+  "magnesium complex for men over 60",
+  "magnesium complex for men 1000mg",
+  "magnesium mens supplement",
+  "magnesium for men",
+  "mens magnesium",
+  "magnesium supplement for men",
+  "magnesium complex men"
+ ],
+ "written_at": "2026-11-12T07:25:58+00:00"
+}

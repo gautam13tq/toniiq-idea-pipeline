@@ -1,0 +1,40 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "spermidine": 2461
+ },
+ "demand_keyword": "spermidine",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (2,461)",
+ "lane_keyword": "spermidine",
+ "lane_clicks": 2461,
+ "demand_cluster": {
+  "spermidine": 2461,
+  "spermidine supplements": 3781,
+  "spermidine powder": 26,
+  "spermidine organic": 25
+ },
+ "cluster_clicks": 6351,
+ "no_data": [
+  "spermidine capsules",
+  "spermidine pills",
+  "spermidine tablets",
+  "spermidine gummies",
+  "spermidine liquid",
+  "spermidine drops",
+  "spermidine extract",
+  "spermidine softgels",
+  "spermidine for women",
+  "spermidine for men",
+  "spermidine for kids",
+  "spermidine 500mg",
+  "spermidine 1000mg",
+  "spermidine chewable",
+  "spermidine tea",
+  "spermidine complex",
+  "wheat germ spermidine",
+  "rice germ spermidine"
+ ]
+}

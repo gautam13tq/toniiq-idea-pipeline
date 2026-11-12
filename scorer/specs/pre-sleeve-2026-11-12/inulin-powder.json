@@ -1,0 +1,57 @@
+{
+ "shelf_keyword": "inulin powder",
+ "hero_name": "inulin",
+ "hero_regex": "inulin|chicory (?:root )?fib(?:er|re)|fructo-?oligosacchar",
+ "gate_format": "powder",
+ "class_regex": "prebiotics?\\b|\\bfib(?:er|re)\\b",
+ "cluster_keywords": [
+  "inulin powder",
+  "inulin prebiotic fiber",
+  "inulin fiber powder",
+  "organic inulin powder",
+  "chicory root inulin"
+ ],
+ "parent_keyword": "inulin",
+ "microbial": false,
+ "finder_terms": [
+  "inulin powder",
+  "inulin prebiotic fiber"
+ ],
+ "candidate_subniches": [
+  "agave inulin powder"
+ ],
+ "seed_asins": [],
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/inulin-powder__2026-11-10__7ed9cf23/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "sleeve_kind": "format",
+ "hero_names": [
+  "inulin",
+  "chicory root inulin",
+  "inulin fiber"
+ ],
+ "scored_on": "sleeve",
+ "sleeve_regex": "powder\\w*|\\bground\\b|drink mix|stick packs?|\\bscoops?\\b",
+ "scored_on_why": "format sleeve: powder inside inulin; default-format test decides",
+ "demand_keyword": "inulin",
+ "demand_cluster": [
+  "inulin",
+  "inulin capsules",
+  "inulin supplement",
+  "inulin gummies",
+  "inulin organic",
+  "inulin for kids"
+ ],
+ "sleeve_cluster": [
+  "inulin powder",
+  "inulin powder organic",
+  "now inulin powder",
+  "organic inulin powder for yogurt",
+  "chicory root inulin powder",
+  "inulin powder supplement",
+  "agave inulin powder",
+  "inulin powder chicory root",
+  "organic chicory root inulin powder",
+  "inulin fiber powder",
+  "organic inulin powder"
+ ],
+ "written_at": "2026-11-12T07:19:47+00:00"
+}

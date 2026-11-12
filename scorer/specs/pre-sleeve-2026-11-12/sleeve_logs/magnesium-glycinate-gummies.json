@@ -1,0 +1,505 @@
+{
+ "written_at": "2026-11-12T07:27:30+00:00",
+ "prereg_run": "runs_prereg/magnesium-glycinate-gummies-prereg__2026-11-12__21340779",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "magnesium glycinate gummies",
+ "sleeve_kind": "format",
+ "sleeve_regex": "gumm(?:y|ies)",
+ "autocomplete_suggestions": [
+  "goli magnesium glycinate gummies",
+  "magnesium bisglycinate gummies",
+  "magnesium bisglycinate gummies 400mg",
+  "magnesium bisglycinate gummies for men",
+  "magnesium bisglycinate gummies for women",
+  "magnesium bisglycinate gummies made in usa",
+  "magnesium bisglycinate gummies raspberry",
+  "magnesium bisglycinate gummies sugar free",
+  "magnesium bisglycinate gummy",
+  "magnesium bisglycinate gummy bears",
+  "magnesium glycinate gummies",
+  "magnesium glycinate gummies 1000mg",
+  "magnesium glycinate gummies 200mg",
+  "magnesium glycinate gummies 600mg",
+  "magnesium glycinate gummies for kids",
+  "magnesium glycinate gummies for sleep",
+  "magnesium glycinate gummies sugar free",
+  "magnesium glycinate gummy",
+  "magnesium glycinate gummy 100mg",
+  "magnesium glycinate gummy 200mg",
+  "magnesium glycinate gummy 400mg",
+  "magnesium glycinate gummy 500mg",
+  "magnesium glycinate gummy 600mg",
+  "magnesium glycinate gummy bears",
+  "magnesium glycinate gummy kids",
+  "magnesium glycinate gummy s",
+  "magnesium glycinate gummy sugar free",
+  "neviss magnesium glycinate gummies",
+  "qunol magnesium glycinate gummies",
+  "sp magnesium bisglycinate gummies",
+  "sp nutrition magnesium bisglycinate gummies",
+  "spnutrition magnesium bisglycinate gummies",
+  "spnutrition magnesium bisglycinate gummies maximum absorption"
+ ],
+ "candidates_checked": 168,
+ "sleeve_cluster": {
+  "magnesium glycinate gummies": {
+   "clicks": 68803,
+   "clicks_12m_ago": 36869,
+   "trend_12m_pct": 86.6
+  },
+  "magnesium bisglycinate gummies": {
+   "clicks": 39793,
+   "clicks_12m_ago": 320,
+   "trend_12m_pct": 12335.3
+  },
+  "spnutrition magnesium bisglycinate gummies": {
+   "clicks": 24197,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "sp nutrition magnesium bisglycinate gummies": {
+   "clicks": 13516,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "neviss magnesium glycinate gummies": {
+   "clicks": 2004,
+   "clicks_12m_ago": 1074,
+   "trend_12m_pct": 86.6
+  },
+  "magnesium glycinate gummies 200mg": {
+   "clicks": 1902,
+   "clicks_12m_ago": 831,
+   "trend_12m_pct": 128.9
+  },
+  "magnesium bisglycinate gummies for women": {
+   "clicks": 1850,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "goli magnesium glycinate gummies": {
+   "clicks": 1449,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate 500mg gummies": {
+   "clicks": 1112,
+   "clicks_12m_ago": 151,
+   "trend_12m_pct": 636.4
+  },
+  "sp magnesium bisglycinate gummies": {
+   "clicks": 1063,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummies for kids": {
+   "clicks": 969,
+   "clicks_12m_ago": 849,
+   "trend_12m_pct": 14.1
+  },
+  "magnesium glycinate gummies 1000mg": {
+   "clicks": 858,
+   "clicks_12m_ago": 29,
+   "trend_12m_pct": 2858.6
+  },
+  "magnesium glycinate gummies 600mg": {
+   "clicks": 655,
+   "clicks_12m_ago": 169,
+   "trend_12m_pct": 287.6
+  },
+  "spnutrition magnesium bisglycinate gummies maximum absorption": {
+   "clicks": 594,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummies sugar free": {
+   "clicks": 526,
+   "clicks_12m_ago": 387,
+   "trend_12m_pct": 35.9
+  },
+  "qunol magnesium glycinate gummies": {
+   "clicks": 523,
+   "clicks_12m_ago": 437,
+   "trend_12m_pct": 19.7
+  },
+  "magnesium glycinate gummies for sleep": {
+   "clicks": 459,
+   "clicks_12m_ago": 420,
+   "trend_12m_pct": 9.3
+  },
+  "magnesium bisglycinate gummies for men": {
+   "clicks": 216,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium bisglycinate gummy": {
+   "clicks": 212,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "best magnesium glycinate gummies": {
+   "clicks": 195,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummies for women": {
+   "clicks": 180,
+   "clicks_12m_ago": 82,
+   "trend_12m_pct": 119.5
+  },
+  "magnesium bisglycinate gummies sugar free": {
+   "clicks": 157,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium bisglycinate gummies 400mg": {
+   "clicks": 156,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummies 500mg": {
+   "clicks": 115,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "pure magnesium bisglycinate gummies": {
+   "clicks": 103,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate 1000mg gummies": {
+   "clicks": 88,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vegan magnesium bisglycinate gummies": {
+   "clicks": 58,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "pure magnesium glycinate gummies": {
+   "clicks": 56,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "organic magnesium glycinate gummies": {
+   "clicks": 54,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummy 200mg": {
+   "clicks": 30,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vegan magnesium glycinate gummies": {
+   "clicks": 29,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummy sugar free": {
+   "clicks": 29,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium bisglycinate 500mg gummies": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummy 400mg": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate 500mg gummy": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium glycinate gummy": {
+   "clicks": 1596,
+   "clicks_12m_ago": 1600,
+   "trend_12m_pct": -0.2
+  },
+  "magnesium glycinate gummies for adults": {
+   "clicks": 99,
+   "clicks_12m_ago": 712,
+   "trend_12m_pct": -86.1
+  },
+  "magnesium gummies glycinate": {
+   "clicks": 434,
+   "clicks_12m_ago": 163,
+   "trend_12m_pct": 166.3
+  }
+ },
+ "cluster_clicks": 164160,
+ "cluster_rows": 38,
+ "cluster_clicks_12m_ago": 44093,
+ "cluster_trend_12m_pct": 172.0,
+ "cluster_trend_basis": "15 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "magnesium glycinate",
+  "clicks": 486651,
+  "trend_12m_pct": 21.3
+ },
+ "no_data": [
+  "magnesium glycinate supplement gummies",
+  "magnesium glycinate gummies supplement",
+  "magnesium glycinate supplements gummies",
+  "magnesium glycinate gummies supplements",
+  "magnesium glycinate extract gummies",
+  "magnesium glycinate gummies extract",
+  "magnesium glycinate for women gummies",
+  "magnesium glycinate for men gummies",
+  "magnesium glycinate gummies for men",
+  "magnesium glycinate for kids gummies",
+  "magnesium glycinate unflavored gummies",
+  "magnesium glycinate gummies unflavored",
+  "high potency magnesium glycinate gummies",
+  "magnesium glycinate supplement gummy",
+  "magnesium glycinate gummy supplement",
+  "magnesium glycinate supplements gummy",
+  "magnesium glycinate gummy supplements",
+  "organic magnesium glycinate gummy",
+  "pure magnesium glycinate gummy",
+  "magnesium glycinate extract gummy",
+  "magnesium glycinate gummy extract",
+  "magnesium glycinate for women gummy",
+  "magnesium glycinate gummy for women",
+  "magnesium glycinate for men gummy",
+  "magnesium glycinate gummy for men",
+  "magnesium glycinate for kids gummy",
+  "magnesium glycinate gummy for kids",
+  "magnesium glycinate gummy 500mg",
+  "magnesium glycinate 1000mg gummy",
+  "magnesium glycinate gummy 1000mg",
+  "magnesium glycinate unflavored gummy",
+  "magnesium glycinate gummy unflavored",
+  "vegan magnesium glycinate gummy",
+  "high potency magnesium glycinate gummy",
+  "best magnesium glycinate gummy",
+  "magnesium glycinate gummy bears",
+  "magnesium glycinate supplement gummy bears",
+  "magnesium glycinate gummy bears supplement",
+  "magnesium glycinate supplements gummy bears",
+  "magnesium glycinate gummy bears supplements",
+  "organic magnesium glycinate gummy bears",
+  "pure magnesium glycinate gummy bears",
+  "magnesium glycinate extract gummy bears",
+  "magnesium glycinate gummy bears extract",
+  "magnesium glycinate for women gummy bears",
+  "magnesium glycinate gummy bears for women",
+  "magnesium glycinate for men gummy bears",
+  "magnesium glycinate gummy bears for men",
+  "magnesium glycinate for kids gummy bears",
+  "magnesium glycinate gummy bears for kids",
+  "magnesium glycinate 500mg gummy bears",
+  "magnesium glycinate gummy bears 500mg",
+  "magnesium glycinate 1000mg gummy bears",
+  "magnesium glycinate gummy bears 1000mg",
+  "magnesium glycinate unflavored gummy bears",
+  "magnesium glycinate gummy bears unflavored",
+  "vegan magnesium glycinate gummy bears",
+  "high potency magnesium glycinate gummy bears",
+  "best magnesium glycinate gummy bears",
+  "magnesium bisglycinate supplement gummies",
+  "magnesium bisglycinate gummies supplement",
+  "magnesium bisglycinate supplements gummies",
+  "magnesium bisglycinate gummies supplements",
+  "organic magnesium bisglycinate gummies",
+  "magnesium bisglycinate extract gummies",
+  "magnesium bisglycinate gummies extract",
+  "magnesium bisglycinate for women gummies",
+  "magnesium bisglycinate for men gummies",
+  "magnesium bisglycinate for kids gummies",
+  "magnesium bisglycinate gummies for kids",
+  "magnesium bisglycinate gummies 500mg",
+  "magnesium bisglycinate 1000mg gummies",
+  "magnesium bisglycinate gummies 1000mg",
+  "magnesium bisglycinate unflavored gummies",
+  "magnesium bisglycinate gummies unflavored",
+  "high potency magnesium bisglycinate gummies",
+  "best magnesium bisglycinate gummies",
+  "magnesium bisglycinate supplement gummy",
+  "magnesium bisglycinate gummy supplement",
+  "magnesium bisglycinate supplements gummy",
+  "magnesium bisglycinate gummy supplements",
+  "organic magnesium bisglycinate gummy",
+  "pure magnesium bisglycinate gummy",
+  "magnesium bisglycinate extract gummy",
+  "magnesium bisglycinate gummy extract",
+  "magnesium bisglycinate for women gummy",
+  "magnesium bisglycinate gummy for women",
+  "magnesium bisglycinate for men gummy",
+  "magnesium bisglycinate gummy for men",
+  "magnesium bisglycinate for kids gummy",
+  "magnesium bisglycinate gummy for kids",
+  "magnesium bisglycinate 500mg gummy",
+  "magnesium bisglycinate gummy 500mg",
+  "magnesium bisglycinate 1000mg gummy",
+  "magnesium bisglycinate gummy 1000mg",
+  "magnesium bisglycinate unflavored gummy",
+  "magnesium bisglycinate gummy unflavored",
+  "vegan magnesium bisglycinate gummy",
+  "high potency magnesium bisglycinate gummy",
+  "best magnesium bisglycinate gummy",
+  "magnesium bisglycinate gummy bears",
+  "magnesium bisglycinate supplement gummy bears",
+  "magnesium bisglycinate gummy bears supplement",
+  "magnesium bisglycinate supplements gummy bears",
+  "magnesium bisglycinate gummy bears supplements",
+  "organic magnesium bisglycinate gummy bears",
+  "pure magnesium bisglycinate gummy bears",
+  "magnesium bisglycinate extract gummy bears",
+  "magnesium bisglycinate gummy bears extract",
+  "magnesium bisglycinate for women gummy bears",
+  "magnesium bisglycinate gummy bears for women",
+  "magnesium bisglycinate for men gummy bears",
+  "magnesium bisglycinate gummy bears for men",
+  "magnesium bisglycinate for kids gummy bears",
+  "magnesium bisglycinate gummy bears for kids",
+  "magnesium bisglycinate 500mg gummy bears",
+  "magnesium bisglycinate gummy bears 500mg",
+  "magnesium bisglycinate 1000mg gummy bears",
+  "magnesium bisglycinate gummy bears 1000mg",
+  "magnesium bisglycinate unflavored gummy bears",
+  "magnesium bisglycinate gummy bears unflavored",
+  "vegan magnesium bisglycinate gummy bears",
+  "high potency magnesium bisglycinate gummy bears",
+  "best magnesium bisglycinate gummy bears",
+  "magnesium glycinate gummy kids",
+  "magnesium glycinate gummy s",
+  "magnesium glycinate gummy 100mg",
+  "magnesium glycinate gummy 600mg",
+  "magnesium bisglycinate gummies made in usa",
+  "magnesium bisglycinate gummies raspberry"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 164,160 clicks over 38 rows"
+ },
+ "default_format": {
+  "parent": "magnesium glycinate",
+  "share": 0.083,
+  "threshold": 0.75,
+  "is_default": false,
+  "parent_top12": [
+   {
+    "asin": "B07P5K7DQP",
+    "title": "Pure Encapsulations Magnesium (Glycinate), 90 Capsules",
+    "brand": "Pure Encapsulations",
+    "monthly_sold": 100000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0F5XYHRPV",
+    "title": "THORNE Magnesium Glycinate, Chelated Magnesium Supplement, 90 Capsules",
+    "brand": "THORNE",
+    "monthly_sold": 70000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0DT1JKGPH",
+    "title": "Nature\u2019s Bounty High Absorption Magnesium Glycinate 240 mg capsules, 120 ct",
+    "brand": "Nature's Bounty",
+    "monthly_sold": 70000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B08XXHCGZT",
+    "title": "Nature Made Magnesium Glycinate 200 mg per Serving, 60 Capsules",
+    "brand": "Nature Made",
+    "monthly_sold": 60000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0B6CTYD6S",
+    "title": "Magnesium Glycinate 400mg, Chelated Magnesium Supplement, 180 Capsules",
+    "brand": "Double Wood Supplements",
+    "monthly_sold": 60000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B07TNJRN9N",
+    "title": "BioEmblem Magnesium Glycinate Complex, 300mg Per Serving, 90 Capsules",
+    "brand": "BioEmblem",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0C88BJYX2",
+    "title": "NatureBell Pure Magnesium Glycinate 500mg Per Serving, 240 Veggie Capsules",
+    "brand": "NatureBell",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B000BD0RT0",
+    "title": "Doctor's Best High Absorption Magnesium Glycinate 200mg, 240 Count",
+    "brand": "Doctor's BEST",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0CWM5K6W6",
+    "title": "Magnesium Glycinate 500mg, High Absorption, Sleep & Relaxation Support",
+    "brand": "Nobi Nutrition",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B00NJ1BQZA",
+    "title": "Relaxium Sleep Aid for Adults, 5mg Melatonin, Magnesium Glycinate, 30-Day",
+    "brand": "Relaxium",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0CRY2SVPV",
+    "title": "Toplux Magnesium Complex Supplement 8 Elemental - Magnesium Glycinate, Citrate, Malate, Taurate, Chelated for Easy Absorption for Bones, Muscle, Recovery, Energy, Vegan Non-GMO 90 Capsules",
+    "brand": "Toplux",
+    "monthly_sold": 30000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0CBVZ9B2G",
+    "title": "Nature Made High Absorption Magnesium Glycinate Gummies, 40 Count",
+    "brand": "Nature Made",
+    "monthly_sold": 30000,
+    "format": "gummy",
+    "in_format": true,
+    "counted": true
+   }
+  ],
+  "parent_top12_badges": 610000
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 71
+}

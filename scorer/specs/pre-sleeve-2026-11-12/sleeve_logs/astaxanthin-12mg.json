@@ -1,0 +1,209 @@
+{
+ "written_at": "2026-11-12T07:12:06+00:00",
+ "prereg_run": "runs_prereg/astaxanthin-12mg-prereg__2026-11-12__73934bf2",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "astaxanthin 12mg",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "\\b12\\s*mg\\b",
+ "autocomplete_suggestions": [
+  "astaxanthin 12 mg clarity md",
+  "astaxanthin 12 mg made in usa",
+  "astaxanthin 12 mg organic",
+  "astaxanthin 12 mg softgels",
+  "astaxanthin 12 mg vegan",
+  "astaxanthin 12 mg with mct oil",
+  "astaxanthin 12mg",
+  "astaxanthin 12mg lifeworth",
+  "astaxanthin 12mg now",
+  "astaxanthin 12mg rovina",
+  "astaxanthin 12mg softgels",
+  "astaxanthin 12mg with mct oil",
+  "bioastin hawaiian astaxanthin 12 mg",
+  "bioastin hawaiian astaxanthin 12 mg., 120 soft gels",
+  "clarity md astaxanthin 12mg",
+  "claritymd astaxanthin 12mg softgels",
+  "microingredients astaxanthin 12 mg",
+  "rovina astaxanthin 12mg softgels",
+  "sports research astaxanthin 12 mg",
+  "zions organics astaxanthin 12mg"
+ ],
+ "candidates_checked": 78,
+ "sleeve_cluster": {
+  "astaxanthin 12mg": {
+   "clicks": 31803,
+   "clicks_12m_ago": 3406,
+   "trend_12m_pct": 833.7
+  },
+  "clarity md astaxanthin 12mg": {
+   "clicks": 7522,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "rovina astaxanthin 12mg softgels": {
+   "clicks": 6716,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "claritymd astaxanthin 12mg softgels": {
+   "clicks": 5200,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "zions organics astaxanthin 12mg": {
+   "clicks": 1582,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "sports research astaxanthin 12 mg": {
+   "clicks": 581,
+   "clicks_12m_ago": 31,
+   "trend_12m_pct": 1774.2
+  },
+  "bioastin hawaiian astaxanthin 12 mg": {
+   "clicks": 565,
+   "clicks_12m_ago": 348,
+   "trend_12m_pct": 62.4
+  },
+  "microingredients astaxanthin 12 mg": {
+   "clicks": 226,
+   "clicks_12m_ago": 119,
+   "trend_12m_pct": 89.9
+  },
+  "astaxanthin 12mg with mct oil": {
+   "clicks": 190,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12mg supplements": {
+   "clicks": 182,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "12mg astaxanthin": {
+   "clicks": 62,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12 mg supplements": {
+   "clicks": 54,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12mg lifeworth": {
+   "clicks": 37,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12mg rovina": {
+   "clicks": 35,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12mg now": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "12 mg astaxanthin": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12 mg softgels": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 12 mg": {
+   "clicks": 537,
+   "clicks_12m_ago": 72,
+   "trend_12m_pct": 645.8
+  },
+  "astaxanthin 12mg softgels": {
+   "clicks": 6549,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 61918,
+ "cluster_rows": 19,
+ "cluster_clicks_12m_ago": 3976,
+ "cluster_trend_12m_pct": 747.9,
+ "cluster_trend_basis": "5 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "astaxanthin",
+  "clicks": 100342,
+  "trend_12m_pct": 173.7
+ },
+ "no_data": [
+  "12mg astaxanthin supplement",
+  "astaxanthin 12mg supplement",
+  "12mg astaxanthin supplements",
+  "organic 12mg astaxanthin",
+  "astaxanthin 12mg organic",
+  "pure 12mg astaxanthin",
+  "astaxanthin 12mg pure",
+  "12mg astaxanthin extract",
+  "astaxanthin 12mg extract",
+  "12mg astaxanthin for women",
+  "astaxanthin 12mg for women",
+  "12mg astaxanthin for men",
+  "astaxanthin 12mg for men",
+  "12mg astaxanthin for kids",
+  "astaxanthin 12mg for kids",
+  "12mg astaxanthin 500mg",
+  "astaxanthin 12mg 500mg",
+  "12mg astaxanthin 1000mg",
+  "astaxanthin 12mg 1000mg",
+  "12mg astaxanthin unflavored",
+  "astaxanthin 12mg unflavored",
+  "vegan 12mg astaxanthin",
+  "astaxanthin 12mg vegan",
+  "high potency 12mg astaxanthin",
+  "astaxanthin 12mg high potency",
+  "best 12mg astaxanthin",
+  "astaxanthin 12mg best",
+  "12 mg astaxanthin supplement",
+  "astaxanthin 12 mg supplement",
+  "12 mg astaxanthin supplements",
+  "organic 12 mg astaxanthin",
+  "astaxanthin 12 mg organic",
+  "pure 12 mg astaxanthin",
+  "astaxanthin 12 mg pure",
+  "12 mg astaxanthin extract",
+  "astaxanthin 12 mg extract",
+  "12 mg astaxanthin for women",
+  "astaxanthin 12 mg for women",
+  "12 mg astaxanthin for men",
+  "astaxanthin 12 mg for men",
+  "12 mg astaxanthin for kids",
+  "astaxanthin 12 mg for kids",
+  "12 mg astaxanthin 500mg",
+  "astaxanthin 12 mg 500mg",
+  "12 mg astaxanthin 1000mg",
+  "astaxanthin 12 mg 1000mg",
+  "12 mg astaxanthin unflavored",
+  "astaxanthin 12 mg unflavored",
+  "vegan 12 mg astaxanthin",
+  "astaxanthin 12 mg vegan",
+  "high potency 12 mg astaxanthin",
+  "astaxanthin 12 mg high potency",
+  "best 12 mg astaxanthin",
+  "astaxanthin 12 mg best",
+  "astaxanthin supplement 12mg",
+  "bioastin hawaiian astaxanthin 12 mg., 120 soft gels",
+  "astaxanthin 12 mg with mct oil",
+  "astaxanthin 12 mg clarity md",
+  "astaxanthin 12 mg made in usa"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 61,918 clicks over 19 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

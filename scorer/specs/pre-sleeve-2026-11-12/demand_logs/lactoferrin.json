@@ -1,0 +1,36 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "lactoferrin": 33691
+ },
+ "demand_keyword": "lactoferrin",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (33,691)",
+ "lane_keyword": "lactoferrin",
+ "lane_clicks": 33691,
+ "demand_cluster": {
+  "lactoferrin": 33691,
+  "lactoferrin supplements": 1989,
+  "lactoferrin gummies": 301,
+  "lactoferrin liquid": 93,
+  "lactoferrin for kids": 35,
+  "lactoferrin 500mg": 27,
+  "lactoferrin 1000mg": 25
+ },
+ "cluster_clicks": 37434,
+ "no_data": [
+  "lactoferrin pills",
+  "lactoferrin tablets",
+  "lactoferrin drops",
+  "lactoferrin extract",
+  "lactoferrin softgels",
+  "lactoferrin for women",
+  "lactoferrin for men",
+  "lactoferrin organic",
+  "lactoferrin chewable",
+  "lactoferrin tea",
+  "lactoferrin complex"
+ ]
+}

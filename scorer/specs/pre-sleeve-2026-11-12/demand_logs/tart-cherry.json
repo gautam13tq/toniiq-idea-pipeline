@@ -1,0 +1,36 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "tart cherry": 12450
+ },
+ "demand_keyword": "tart cherry",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (12,450)",
+ "lane_keyword": "tart cherry",
+ "lane_clicks": 12450,
+ "demand_cluster": {
+  "tart cherry": 12450,
+  "tart cherry gummies": 4218,
+  "tart cherry powder": 1740,
+  "tart cherry pills": 385,
+  "tart cherry supplements": 354,
+  "tart cherry tea": 68
+ },
+ "cluster_clicks": 57817,
+ "no_data": [
+  "tart cherry tablets",
+  "tart cherry liquid",
+  "tart cherry drops",
+  "tart cherry softgels",
+  "tart cherry for women",
+  "tart cherry for men",
+  "tart cherry for kids",
+  "tart cherry organic",
+  "tart cherry 500mg",
+  "tart cherry 1000mg",
+  "tart cherry chewable",
+  "tart cherry complex"
+ ]
+}

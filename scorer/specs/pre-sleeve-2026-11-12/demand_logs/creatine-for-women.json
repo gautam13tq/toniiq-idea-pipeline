@@ -1,0 +1,38 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "creatine": 405621
+ },
+ "demand_keyword": "creatine",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (405,621)",
+ "lane_keyword": "creatine for women",
+ "lane_clicks": 76675,
+ "demand_cluster": {
+  "creatine": 405621,
+  "creatine gummies": 119635,
+  "creatine powder": 32487,
+  "creatine capsules": 22139,
+  "creatine pills": 21175,
+  "creatine for men": 3125,
+  "creatine supplement": 1893,
+  "creatine tablets": 1513,
+  "creatine supplements": 609,
+  "creatine liquid": 530,
+  "creatine organic": 438,
+  "creatine for kids": 253,
+  "creatine drops": 186,
+  "creatine chewable": 29,
+  "creatine complex": 29
+ },
+ "cluster_clicks": 693381,
+ "no_data": [
+  "creatine extract",
+  "creatine softgels",
+  "creatine 500mg",
+  "creatine 1000mg",
+  "creatine tea"
+ ]
+}

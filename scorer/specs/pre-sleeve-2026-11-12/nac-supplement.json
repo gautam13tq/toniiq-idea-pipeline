@@ -1,0 +1,48 @@
+{
+ "shelf_keyword": "nac supplement",
+ "hero_name": "NAC (N-acetyl cysteine)",
+ "hero_regex": "\\bnac\\b|n[- ]?acetyl[- ]?(?:l[- ]?)?cysteine",
+ "cluster_keywords": [
+  "nac supplement",
+  "nac",
+  "n acetyl cysteine",
+  "nac 600mg",
+  "n-acetyl cysteine supplement"
+ ],
+ "parent_keyword": "nac",
+ "microbial": false,
+ "finder_terms": [
+  "nac supplement",
+  "n acetyl cysteine"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/nac-supplement__2026-11-10__eabc4575/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "scored_on": "parent",
+ "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+ "demand_keyword": "nac supplement",
+ "demand_cluster": [
+  "nac supplement",
+  "nac gummies",
+  "nac powder",
+  "nac 1000mg",
+  "nac supplement 1000mg",
+  "nac for kids",
+  "nac liquid",
+  "nac drops",
+  "nac capsules",
+  "n acetyl cysteine 1000mg",
+  "nac supplements",
+  "nac supplement gummies",
+  "n acetyl cysteine supplement",
+  "nac supplement powder",
+  "nac 500mg",
+  "nac supplement for kids",
+  "nac pills",
+  "nac tablets",
+  "nac supplement liquid",
+  "nac supplement organic",
+  "nac softgels",
+  "nac organic"
+ ]
+}

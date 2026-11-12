@@ -1,0 +1,302 @@
+{
+ "written_at": "2026-11-12T07:21:28+00:00",
+ "prereg_run": "runs_prereg/kids-magnesium-prereg__2026-11-12__887ccd72",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "kids magnesium",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "\\bkids?\\b|child|toddler",
+ "autocomplete_suggestions": [
+  "calm kids magnesium gummies",
+  "chewable magnesium for kids",
+  "ella ola magnesium for kids",
+  "hiya magnesium for kids sleep",
+  "hiya magnesium kids",
+  "hovika kids magnesium glycinate",
+  "kids magnesium",
+  "kids magnesium drops",
+  "kids magnesium for sleep",
+  "kids magnesium glycinate",
+  "kids magnesium glycinate gummies",
+  "kids magnesium gummies",
+  "kids magnesium liquid drops",
+  "kids magnesium lotion",
+  "liquid magnesium for kids",
+  "magnesium children's gummies",
+  "magnesium childrens",
+  "magnesium for kids",
+  "magnesium for kids adhd",
+  "magnesium for kids constipation",
+  "magnesium for kids gummies",
+  "magnesium for kids mary ruth",
+  "magnesium for kids sleep",
+  "magnesium kids",
+  "magnesium kids calm",
+  "magnesium kids drops",
+  "magnesium kids gummies",
+  "magnesium kids liquid",
+  "magnesium kids lotion",
+  "mary ruth magnesium kids",
+  "maryruth magnesium kids",
+  "natrol magnesium kids"
+ ],
+ "candidates_checked": 119,
+ "sleeve_cluster": {
+  "kids magnesium": {
+   "clicks": 7791,
+   "clicks_12m_ago": 8141,
+   "trend_12m_pct": -4.3
+  },
+  "kids magnesium glycinate": {
+   "clicks": 3854,
+   "clicks_12m_ago": 2124,
+   "trend_12m_pct": 81.5
+  },
+  "magnesium kids": {
+   "clicks": 3049,
+   "clicks_12m_ago": 2860,
+   "trend_12m_pct": 6.6
+  },
+  "mary ruth magnesium kids": {
+   "clicks": 1457,
+   "clicks_12m_ago": 2688,
+   "trend_12m_pct": -45.8
+  },
+  "kids magnesium for sleep": {
+   "clicks": 889,
+   "clicks_12m_ago": 859,
+   "trend_12m_pct": 3.5
+  },
+  "magnesium kids gummies": {
+   "clicks": 668,
+   "clicks_12m_ago": 783,
+   "trend_12m_pct": -14.7
+  },
+  "ella ola magnesium for kids": {
+   "clicks": 488,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "kids magnesium lotion": {
+   "clicks": 454,
+   "clicks_12m_ago": 660,
+   "trend_12m_pct": -31.2
+  },
+  "hovika kids magnesium glycinate": {
+   "clicks": 435,
+   "clicks_12m_ago": 285,
+   "trend_12m_pct": 52.6
+  },
+  "kids magnesium drops": {
+   "clicks": 422,
+   "clicks_12m_ago": 337,
+   "trend_12m_pct": 25.2
+  },
+  "magnesium for kids sleep": {
+   "clicks": 412,
+   "clicks_12m_ago": 1423,
+   "trend_12m_pct": -71.0
+  },
+  "kids magnesium glycinate gummies": {
+   "clicks": 404,
+   "clicks_12m_ago": 275,
+   "trend_12m_pct": 46.9
+  },
+  "magnesium for kids adhd": {
+   "clicks": 378,
+   "clicks_12m_ago": 302,
+   "trend_12m_pct": 25.2
+  },
+  "liquid magnesium for kids": {
+   "clicks": 363,
+   "clicks_12m_ago": 406,
+   "trend_12m_pct": -10.6
+  },
+  "calm kids magnesium gummies": {
+   "clicks": 278,
+   "clicks_12m_ago": 566,
+   "trend_12m_pct": -50.9
+  },
+  "magnesium for kids constipation": {
+   "clicks": 60,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium kids drops": {
+   "clicks": 44,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "hiya magnesium for kids sleep": {
+   "clicks": 44,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "hiya magnesium kids": {
+   "clicks": 32,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "maryruth magnesium kids": {
+   "clicks": 29,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "chewable magnesium for kids": {
+   "clicks": 28,
+   "clicks_12m_ago": 156,
+   "trend_12m_pct": -82.1
+  },
+  "magnesium for kids gummies": {
+   "clicks": 28,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium for kids mary ruth": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "kids magnesium liquid drops": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium kids lotion": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "magnesium for kids": {
+   "clicks": 11020,
+   "clicks_12m_ago": 114306,
+   "trend_12m_pct": -90.4
+  },
+  "kids magnesium powder": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "childrens magnesium": {
+   "clicks": 52,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "kids magnesium gummies": {
+   "clicks": 4410,
+   "clicks_12m_ago": 4917,
+   "trend_12m_pct": -10.3
+  }
+ },
+ "cluster_clicks": 37192,
+ "cluster_rows": 29,
+ "cluster_clicks_12m_ago": 141088,
+ "cluster_trend_12m_pct": -74.3,
+ "cluster_trend_basis": "17 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "magnesium",
+  "clicks": 225881,
+  "trend_12m_pct": -1.0
+ },
+ "no_data": [
+  "kids magnesium supplement",
+  "magnesium kids supplement",
+  "kids magnesium supplements",
+  "magnesium kids supplements",
+  "organic kids magnesium",
+  "magnesium kids organic",
+  "pure kids magnesium",
+  "magnesium kids pure",
+  "kids magnesium extract",
+  "magnesium kids extract",
+  "kids magnesium for women",
+  "magnesium kids for women",
+  "kids magnesium for men",
+  "magnesium kids for men",
+  "kids magnesium for kids",
+  "magnesium kids for kids",
+  "kids magnesium 500mg",
+  "magnesium kids 500mg",
+  "kids magnesium 1000mg",
+  "magnesium kids 1000mg",
+  "kids magnesium unflavored",
+  "magnesium kids unflavored",
+  "vegan kids magnesium",
+  "magnesium kids vegan",
+  "high potency kids magnesium",
+  "magnesium kids high potency",
+  "best kids magnesium",
+  "magnesium kids best",
+  "for kids magnesium",
+  "for kids magnesium supplement",
+  "magnesium for kids supplement",
+  "for kids magnesium supplements",
+  "magnesium for kids supplements",
+  "organic for kids magnesium",
+  "magnesium for kids organic",
+  "pure for kids magnesium",
+  "magnesium for kids pure",
+  "for kids magnesium extract",
+  "magnesium for kids extract",
+  "for kids magnesium for women",
+  "magnesium for kids for women",
+  "for kids magnesium for men",
+  "magnesium for kids for men",
+  "for kids magnesium for kids",
+  "magnesium for kids for kids",
+  "for kids magnesium 500mg",
+  "magnesium for kids 500mg",
+  "for kids magnesium 1000mg",
+  "magnesium for kids 1000mg",
+  "for kids magnesium unflavored",
+  "magnesium for kids unflavored",
+  "vegan for kids magnesium",
+  "magnesium for kids vegan",
+  "high potency for kids magnesium",
+  "magnesium for kids high potency",
+  "best for kids magnesium",
+  "magnesium for kids best",
+  "magnesium childrens",
+  "childrens magnesium supplement",
+  "magnesium childrens supplement",
+  "childrens magnesium supplements",
+  "magnesium childrens supplements",
+  "organic childrens magnesium",
+  "magnesium childrens organic",
+  "pure childrens magnesium",
+  "magnesium childrens pure",
+  "childrens magnesium extract",
+  "magnesium childrens extract",
+  "childrens magnesium for women",
+  "magnesium childrens for women",
+  "childrens magnesium for men",
+  "magnesium childrens for men",
+  "childrens magnesium for kids",
+  "magnesium childrens for kids",
+  "childrens magnesium 500mg",
+  "magnesium childrens 500mg",
+  "childrens magnesium 1000mg",
+  "magnesium childrens 1000mg",
+  "childrens magnesium unflavored",
+  "magnesium childrens unflavored",
+  "vegan childrens magnesium",
+  "magnesium childrens vegan",
+  "high potency childrens magnesium",
+  "magnesium childrens high potency",
+  "best childrens magnesium",
+  "magnesium childrens best",
+  "natrol magnesium kids",
+  "magnesium kids liquid",
+  "magnesium kids calm",
+  "magnesium children's gummies"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 37,192 clicks over 29 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

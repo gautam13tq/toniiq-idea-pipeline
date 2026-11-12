@@ -1,0 +1,46 @@
+{
+ "shelf_keyword": "magnesium l threonate",
+ "hero_name": "magnesium L-threonate",
+ "hero_regex": "magnes\\w*|magtein",
+ "form": "threonate",
+ "other_forms": "citrate|oxide|malate|glycinate|bisglycinate|taurate|taurinate|chloride|sulfate|orotate|lactate|aspartate|carbonate|hydroxide|gluconate|picolinate|triple|\\btri-|\\b\\d ?(in ?1|x)\\b|multi[- ]?magnesium|\\b\\d forms?\\b|full spectrum",
+ "qualifier_regex": "threonate|magtein",
+ "cluster_keywords": [
+  "magnesium l threonate",
+  "magnesium l-threonate",
+  "magnesium threonate",
+  "magtein magnesium l threonate",
+  "magnesium l threonate capsules"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium l threonate",
+  "magtein"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/magnesium-l-threonate__2026-11-10__b005f86d/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "scored_on": "parent",
+ "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+ "demand_keyword": "magnesium threonate",
+ "demand_cluster": [
+  "magnesium threonate",
+  "magnesium threonate supplement",
+  "magnesium threonate gummies",
+  "magnesium l threonate supplement",
+  "magnesium threonate powder",
+  "magnesium l threonate gummies",
+  "magnesium threonate 500mg",
+  "magnesium threonate liquid",
+  "magnesium threonate supplements",
+  "magnesium threonate capsules",
+  "magnesium l threonate powder",
+  "magnesium l threonate for kids",
+  "magnesium threonate for kids",
+  "magnesium threonate complex",
+  "magnesium threonate drops",
+  "magnesium l threonate liquid",
+  "magnesium threonate organic"
+ ]
+}

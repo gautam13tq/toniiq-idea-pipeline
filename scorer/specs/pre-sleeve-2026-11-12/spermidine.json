@@ -1,0 +1,32 @@
+{
+ "shelf_keyword": "spermidine",
+ "hero_name": "spermidine",
+ "hero_regex": "spermidine|primeadine",
+ "cluster_keywords": [
+  "spermidine",
+  "spermidine supplement",
+  "spermidine capsules",
+  "wheat germ spermidine",
+  "rice germ spermidine"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "spermidine",
+  "spermidine supplement"
+ ],
+ "candidate_subniches": [
+  "rice germ spermidine"
+ ],
+ "seed_asins": [],
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/spermidine__2026-11-10__af6fdf75/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "scored_on": "parent",
+ "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+ "demand_keyword": "spermidine",
+ "demand_cluster": [
+  "spermidine",
+  "spermidine supplements",
+  "spermidine powder",
+  "spermidine organic"
+ ]
+}

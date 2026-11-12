@@ -1,0 +1,61 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "saccharomyces boulardii": 8631,
+  "s boulardii": 1094
+ },
+ "demand_keyword": "saccharomyces boulardii",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (8,631)",
+ "lane_keyword": "saccharomyces boulardii",
+ "lane_clicks": 8631,
+ "demand_cluster": {
+  "saccharomyces boulardii": 8631,
+  "saccharomyces boulardii capsules": 33
+ },
+ "cluster_clicks": 10587,
+ "no_data": [
+  "saccharomyces boulardii supplement",
+  "saccharomyces boulardii supplements",
+  "saccharomyces boulardii pills",
+  "saccharomyces boulardii tablets",
+  "saccharomyces boulardii powder",
+  "saccharomyces boulardii gummies",
+  "saccharomyces boulardii liquid",
+  "saccharomyces boulardii drops",
+  "saccharomyces boulardii extract",
+  "saccharomyces boulardii softgels",
+  "saccharomyces boulardii for women",
+  "saccharomyces boulardii for men",
+  "saccharomyces boulardii for kids",
+  "saccharomyces boulardii organic",
+  "saccharomyces boulardii 500mg",
+  "saccharomyces boulardii 1000mg",
+  "saccharomyces boulardii chewable",
+  "saccharomyces boulardii tea",
+  "saccharomyces boulardii complex",
+  "s boulardii supplement",
+  "s boulardii supplements",
+  "s boulardii capsules",
+  "s boulardii pills",
+  "s boulardii tablets",
+  "s boulardii powder",
+  "s boulardii gummies",
+  "s boulardii liquid",
+  "s boulardii drops",
+  "s boulardii extract",
+  "s boulardii softgels",
+  "s boulardii for women",
+  "s boulardii for men",
+  "s boulardii for kids",
+  "s boulardii organic",
+  "s boulardii 500mg",
+  "s boulardii 1000mg",
+  "s boulardii chewable",
+  "s boulardii tea",
+  "s boulardii complex",
+  "boulardii probiotic"
+ ]
+}

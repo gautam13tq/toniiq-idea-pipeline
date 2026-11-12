@@ -1,0 +1,38 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "inulin": 8512
+ },
+ "demand_keyword": "inulin",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (8,512)",
+ "lane_keyword": "inulin powder",
+ "lane_clicks": 5018,
+ "demand_cluster": {
+  "inulin": 8512,
+  "inulin capsules": 1069,
+  "inulin supplement": 361,
+  "inulin gummies": 156,
+  "inulin organic": 30,
+  "inulin for kids": 26
+ },
+ "cluster_clicks": 19942,
+ "no_data": [
+  "inulin supplements",
+  "inulin pills",
+  "inulin tablets",
+  "inulin liquid",
+  "inulin drops",
+  "inulin extract",
+  "inulin softgels",
+  "inulin for women",
+  "inulin for men",
+  "inulin 500mg",
+  "inulin 1000mg",
+  "inulin chewable",
+  "inulin tea",
+  "inulin complex"
+ ]
+}

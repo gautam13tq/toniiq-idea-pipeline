@@ -1,0 +1,38 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "l theanine": 82382
+ },
+ "demand_keyword": "l theanine",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (82,382)",
+ "lane_keyword": "l theanine liquid",
+ "lane_clicks": 313,
+ "demand_cluster": {
+  "l theanine": 82382,
+  "l theanine supplement": 20962,
+  "l theanine gummies": 3374,
+  "l theanine powder": 1685,
+  "l theanine drops": 651,
+  "l theanine for kids": 399,
+  "l theanine chewable": 328,
+  "l theanine tea": 295,
+  "l theanine capsules": 99,
+  "l theanine supplements": 70,
+  "l theanine tablets": 61,
+  "l theanine organic": 32,
+  "l theanine pills": 26,
+  "l theanine 500mg": 25
+ },
+ "cluster_clicks": 110998,
+ "no_data": [
+  "l theanine extract",
+  "l theanine softgels",
+  "l theanine for women",
+  "l theanine for men",
+  "l theanine 1000mg",
+  "l theanine complex"
+ ]
+}

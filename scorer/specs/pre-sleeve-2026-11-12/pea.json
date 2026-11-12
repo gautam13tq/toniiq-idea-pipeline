@@ -1,0 +1,45 @@
+{
+ "shelf_keyword": "palmitoylethanolamide",
+ "hero_name": "palmitoylethanolamide (PEA)",
+ "hero_regex": "palmitoylethanolamide|palmitoyl ethanolamide|\\bpea\\b(?! protein)|levagen|optipea|micropea|pea-?um",
+ "cluster_keywords": [
+  "palmitoylethanolamide",
+  "pea supplement",
+  "palmitoylethanolamide supplement",
+  "pea palmitoylethanolamide",
+  "levagen pea",
+  "micronized pea"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "palmitoylethanolamide",
+  "PEA supplement"
+ ],
+ "candidate_subniches": [
+  "micronized palmitoylethanolamide",
+  "levagen plus"
+ ],
+ "seed_asins": [],
+ "hero_exclude_regex": "\\bprotein\\b|\\bfib(?:er|re)\\b|pea starch",
+ "hero_strong_regex": "palmitoyl|levagen|optipea|micropea",
+ "must_out": [
+  "B00NBIUGA2",
+  "B087WB98QB",
+  "B0GS944RN5"
+ ],
+ "must_out_notes": {
+  "B00NBIUGA2": "NAKED Pea protein powder, not PEA (9 Nov 2026 cloud run)",
+  "B087WB98QB": "Vital Planet flax+pea+hemp fiber",
+  "B0GS944RN5": "Hovika Sciatic Nerve Support, condition-led (Gautam 29 Oct)"
+ },
+ "spec_round": "pre-sleeve-2026-11-12 (from runs_final/palmitoylethanolamide__2026-11-10__4b7db3a7/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+ "scored_on": "parent",
+ "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+ "demand_keyword": "palmitoylethanolamide",
+ "demand_cluster": [
+  "palmitoylethanolamide",
+  "pea supplement"
+ ],
+ "demand_keyword_why": "override: \"pea supplement\" (2,798) is ambiguous with pea protein; the unambiguous head term palmitoylethanolamide (1,667) is primary, pea supplement stays in the cluster"
+}
