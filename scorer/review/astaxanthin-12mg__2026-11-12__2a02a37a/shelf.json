@@ -1,0 +1,79 @@
+{
+ "run_id": "astaxanthin-12mg__2026-11-12__2a02a37a",
+ "shelf_keyword": "astaxanthin 12mg",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "shelf_keyword": "astaxanthin 12mg",
+  "hero_name": "astaxanthin",
+  "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin|astareal|zanthin",
+  "cluster_keywords": [
+   "astaxanthin 12mg",
+   "astaxanthin 12 mg",
+   "astaxanthin 12mg softgels",
+   "astaxanthin supplement 12mg"
+  ],
+  "parent_keyword": "astaxanthin",
+  "microbial": false,
+  "finder_terms": [
+   "astaxanthin 12mg",
+   "astaxanthin"
+  ],
+  "candidate_subniches": [
+   "astaxanthin 4mg",
+   "liposomal astaxanthin"
+  ],
+  "seed_asins": [],
+  "notes": "Dose lane: spec 3.0 dose_lane is not implemented in v1 code, so the gate admits any astaxanthin dose; the 12 mg lane is carried by the keyword only.",
+  "required_regex": "\\b12\\s?mg\\b",
+  "spec_round": "pre-sleeve-2026-11-12 (from runs_final/astaxanthin-12mg__2026-11-09__20698f6a/spec.json; sleeve rule 11 Nov + 12 Nov changes)",
+  "sleeve_kind": "dose",
+  "sleeve_regex": "\\b12\\s*mg\\b",
+  "hero_names": [
+   "astaxanthin"
+  ],
+  "sleeve_words": [
+   "12mg",
+   "12 mg"
+  ],
+  "scored_on": "sleeve",
+  "scored_on_why": "dose sleeve: 12mg inside astaxanthin",
+  "demand_keyword": "astaxanthin",
+  "demand_cluster": [
+   "astaxanthin",
+   "astaxanthin supplements",
+   "astaxanthin liquid",
+   "astaxanthin organic",
+   "astaxanthin gummies",
+   "astaxanthin supplement",
+   "astaxanthin powder",
+   "astaxanthin capsules",
+   "astaxanthin for women",
+   "astaxanthin pills",
+   "astaxanthin softgels",
+   "astaxanthin drops"
+  ],
+  "sleeve_cluster": [
+   "astaxanthin 12mg",
+   "clarity md astaxanthin 12mg",
+   "rovina astaxanthin 12mg softgels",
+   "claritymd astaxanthin 12mg softgels",
+   "zions organics astaxanthin 12mg",
+   "sports research astaxanthin 12 mg",
+   "bioastin hawaiian astaxanthin 12 mg",
+   "microingredients astaxanthin 12 mg",
+   "astaxanthin 12mg with mct oil",
+   "astaxanthin 12mg supplements",
+   "12mg astaxanthin",
+   "astaxanthin 12 mg supplements",
+   "astaxanthin 12mg lifeworth",
+   "astaxanthin 12mg rovina",
+   "astaxanthin 12mg now",
+   "12 mg astaxanthin",
+   "astaxanthin 12 mg softgels",
+   "astaxanthin 12 mg",
+   "astaxanthin 12mg softgels"
+  ],
+  "written_at": "2026-11-12T07:12:06+00:00"
+ }
+}
