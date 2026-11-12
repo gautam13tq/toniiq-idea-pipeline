@@ -1,0 +1,112 @@
+{
+ "run_id": "magnesium-glycinate-gummies__2026-11-12__7c334105",
+ "shelf_keyword": "magnesium glycinate gummies",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "shelf_keyword": "magnesium glycinate gummies",
+  "hero_name": "magnesium glycinate",
+  "hero_regex": "magnes\\w*",
+  "form": "glycinate",
+  "other_forms": "citrate|oxide|malate|threonate|taurate|taurinate|chloride|sulfate|orotate|lactate|aspartate|carbonate|hydroxide|gluconate|picolinate|triple|\\btri-|\\b\\d ?(in ?1|x)\\b|multi[- ]?magnesium|\\b\\d forms?\\b|full spectrum",
+  "gate_format": "gummy",
+  "qualifier_regex": "glycinate",
+  "cluster_keywords": [
+   "magnesium glycinate gummies",
+   "magnesium glycinate gummy",
+   "magnesium glycinate gummies for adults",
+   "magnesium gummies glycinate"
+  ],
+  "parent_keyword": "magnesium glycinate",
+  "microbial": false,
+  "finder_terms": [
+   "magnesium glycinate gummies"
+  ],
+  "candidate_subniches": [
+   "magnesium glycinate gummies sugar free"
+  ],
+  "seed_asins": [],
+  "spec_round": "blindcheck2-2026-11-12",
+  "sleeve_kind": "format",
+  "hero_names": [
+   "magnesium glycinate",
+   "magnesium bisglycinate"
+  ],
+  "scored_on": "sleeve",
+  "sleeve_regex": "gumm(?:y|ies)",
+  "scored_on_why": "format sleeve: gummies inside magnesium glycinate; default-format test decides",
+  "demand_keyword": "magnesium glycinate",
+  "demand_cluster": [
+   "magnesium glycinate",
+   "magnesium glycinate 500mg",
+   "magnesium glycinate powder",
+   "magnesium glycinate for kids",
+   "magnesium glycinate capsules",
+   "magnesium glycinate liquid",
+   "magnesium glycinate supplements",
+   "magnesium glycinate drops",
+   "magnesium glycinate 1000mg",
+   "magnesium glycinate complex",
+   "magnesium glycinate for women",
+   "magnesium glycinate tablets",
+   "magnesium glycinate chewable",
+   "magnesium glycinate organic",
+   "magnesium glycinate softgels",
+   "magnesium glycinate for men",
+   "magnesium glycinate supplement",
+   "magnesium glycinate pills",
+   "magnesium glycinate tea"
+  ],
+  "sleeve_cluster": [
+   "magnesium glycinate gummies",
+   "magnesium bisglycinate gummies",
+   "spnutrition magnesium bisglycinate gummies",
+   "sp nutrition magnesium bisglycinate gummies",
+   "neviss magnesium glycinate gummies",
+   "magnesium glycinate gummies 200mg",
+   "magnesium bisglycinate gummies for women",
+   "goli magnesium glycinate gummies",
+   "magnesium glycinate 500mg gummies",
+   "sp magnesium bisglycinate gummies",
+   "magnesium glycinate gummies for kids",
+   "magnesium glycinate gummies 1000mg",
+   "magnesium glycinate gummies 600mg",
+   "spnutrition magnesium bisglycinate gummies maximum absorption",
+   "magnesium glycinate gummies sugar free",
+   "qunol magnesium glycinate gummies",
+   "magnesium glycinate gummies for sleep",
+   "magnesium bisglycinate gummies for men",
+   "magnesium bisglycinate gummy",
+   "best magnesium glycinate gummies",
+   "magnesium glycinate gummies for women",
+   "magnesium bisglycinate gummies sugar free",
+   "magnesium bisglycinate gummies 400mg",
+   "magnesium glycinate gummies 500mg",
+   "pure magnesium bisglycinate gummies",
+   "magnesium glycinate 1000mg gummies",
+   "vegan magnesium bisglycinate gummies",
+   "pure magnesium glycinate gummies",
+   "organic magnesium glycinate gummies",
+   "magnesium glycinate gummy 200mg",
+   "vegan magnesium glycinate gummies",
+   "magnesium glycinate gummy sugar free",
+   "magnesium bisglycinate 500mg gummies",
+   "magnesium glycinate gummy 400mg",
+   "magnesium glycinate 500mg gummy",
+   "magnesium glycinate gummy",
+   "magnesium glycinate gummies for adults",
+   "magnesium gummies glycinate"
+  ],
+  "written_at": "2026-11-12T07:27:35+00:00",
+  "manual_decisions": {
+   "B0GS12W7KQ": {
+    "decision": "IN",
+    "source": "manual_fop",
+    "by": "Gautam, 12 Nov (\"Yes to both\")",
+    "date": "2026-11-12T12:18:00+00:00",
+    "wording": "VCCVBB: magnesium glycinate leads the title and has the biggest dose."
+   }
+  },
+  "spec_note": "From pre-sleeve-2026-11-12/magnesium-glycinate-gummies.json plus blind-check 2 and Gautam decisions (12 Nov 2026)."
+ }
+}
