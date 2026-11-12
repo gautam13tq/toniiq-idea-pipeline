@@ -315,31 +315,6 @@
    ]
   },
   {
-   "asin": "B0BWYD45GL",
-   "brand": "Basigano",
-   "title": "Basigano Red Vine Leaf & Horse Chestnut Extract Capsule Supplements 1500mg",
-   "bullets": [
-    "Potent Formula: Our 60 capsules contain a potent blend of natural ingredients, including 1400 mg of red vine leaf extract and 100 mg of horse chestnut extract. It is one of the most effective blends of these extracts available on the market",
-    "100% Natural and Vegan: Our capsules and ingredients are derived from pure plant sources and are 100% vegan. We use cellulose to make our capsules, which is also derived from plants",
-    "Red Vine Leaf: Our Red Vine Leaf extract is rich procyanidins, which is powerful antioxidants and free radical scavengers. These compounds may benefit vein health and circulation",
-    "Horse Chestnut Seeds:Horse chestnut seeds also known as conker seeds, are seeds harvested from the horse chestnut tree. They contain a variety of nutrients such as aescin, carbohydrates, fats, proteins, vitamins, and minerals",
-    "Beneficial for Leg: Our Red Vine Leaf & Horse Chestnut Extract Capsules comprise a unique combination of natural compounds that promote healthy blood flow, which can be beneficial for good leg health"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71+GrKyhlOL.jpg",
-   "monthly_sold": 100,
-   "reviews": 413,
-   "family_asins": [
-    "B0BWYD2S8C",
-    "B0BWYD45GL",
-    "B0C3QV9L73",
-    "B0C4FHBDWB",
-    "B0C4FJ8LDZ",
-    "B0C4FK4BNT",
-    "B0CNLP87DD",
-    "B0D222NVPC"
-   ]
-  },
-  {
    "asin": "B0CFN1TW34",
    "brand": "Brieofood",
    "title": "Brieofood Horse Chestnut Extract 600 mg per Serving - 180 Tablets - 3rd Party Lab Tested for Purity & Quality - Supports Healthy Circulation & Fluid Balance in the Legs*",
@@ -401,24 +376,6 @@
    ]
   },
   {
-   "asin": "B09D42X2HZ",
-   "brand": "Carlyle",
-   "title": "Carlyle Leg Vein Support | 180 Capsules | with Horse Chestnut",
-   "bullets": [
-    "LEG VEIN SUPPORT: Get powerful support for healthy vein function in quick-release capsules*",
-    "PROPRIETARY BLEND: Features Hesperidin plus Gotu Kola, Butcher's Broom, Bilberry, and more",
-    "ROOTED IN WELLNESS: Carlyle provides premium, honest supplements in your pursuit to healthy living",
-    "CARLYLE MANUFACTURERS: Laboratory Tested, Trusted Ingredients, Superior Quality, 100% Guaranteed!",
-    "NATURALLY FREE OF: Gluten, Soy, Artificial Flavor, Artificial Sweetener, Preservatives & Non-GMO"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71UyZDZmqXL.jpg",
-   "monthly_sold": 100,
-   "reviews": 0,
-   "family_asins": [
-    "B09D42X2HZ"
-   ]
-  },
-  {
    "asin": "B0GYQ2Q42N",
    "brand": "Vitamatic",
    "title": "Vitamatic Horse Chestnut Extract 700 mg with Butcher’s Broom, 180 Capsules",
@@ -431,7 +388,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/51SHH6G4weL.jpg",
    "monthly_sold": 100,
-   "reviews": 0,
+   "reviews": 53,
    "family_asins": [
     "B0GYQ2Q42N"
    ]
@@ -452,6 +409,40 @@
    "reviews": 0,
    "family_asins": [
     "B0014AWLQQ"
+   ]
+  },
+  {
+   "asin": "B000M4AP04",
+   "brand": "Planetary Herbals",
+   "title": "Planetary Herbals Full Spectrum Horse Chestnut, 500 mg - 60 Tablets",
+   "bullets": [
+    "Benefits for circulatory health",
+    "Used for swelling and pain due to varicose veins and poor circulation in the legs",
+    "Planetary herbals horse chestnut full spectrum is 100% vegan, vegetarian and gluten-free"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71nZ7NmgF6L.jpg",
+   "monthly_sold": 100,
+   "reviews": 0,
+   "family_asins": [
+    "B000M4AP04",
+    "B00CQ7TAWO"
+   ]
+  },
+  {
+   "asin": "B00014DQKQ",
+   "brand": "Planetary Herbals",
+   "title": "Planetary Herbals Horse Chestnut Vein Strength 705mg, Supports The Integrity Of The Veins And Capillaries 90 capsules",
+   "bullets": [
+    "Supports the integrity of the veins and capillaries",
+    "Suggested Use. Take 1 tablet twice daily between meals.",
+    "Support for normal integrity of the vascular system and connective tissue"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71Mc4198U-S.jpg",
+   "monthly_sold": 50,
+   "reviews": 0,
+   "family_asins": [
+    "B00014DQKQ",
+    "B00CQ7RWLU"
    ]
   }
  ]
