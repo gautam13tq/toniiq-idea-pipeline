@@ -1,0 +1,47 @@
+{
+ "shelf_keyword": "colostrum capsules",
+ "hero_name": "colostrum",
+ "hero_regex": "colostrum",
+ "cluster_keywords": [
+  "colostrum capsules",
+  "colostrum pills",
+  "bovine colostrum capsules"
+ ],
+ "parent_keyword": "colostrum",
+ "microbial": false,
+ "finder_terms": [
+  "colostrum capsules",
+  "colostrum pills"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "audit3-2026-11-11 (copy of specs/audit2-2026-11-11/colostrum-capsules.json; sleeve rule of 11 Nov: tools/sleeve_terms.py)",
+ "gate_format": "pill",
+ "qualifier_regex": "capsule|pill",
+ "demand_keyword": "colostrum",
+ "demand_cluster": [
+  "colostrum",
+  "colostrum powder",
+  "colostrum supplement",
+  "bovine colostrum",
+  "colostrum gummies",
+  "bovine colostrum powder",
+  "colostrum for kids",
+  "colostrum for women",
+  "colostrum supplements"
+ ],
+ "sleeve_kind": "format",
+ "hero_names": [
+  "colostrum",
+  "bovine colostrum"
+ ],
+ "scored_on": "sleeve",
+ "sleeve_regex": "capsules?|\\bcaps\\b|vcaps?|veg[- ]?caps|tablets?|softgels?|soft gels|caplets?|\\bpills?\\b|lozenges?",
+ "sleeve_cluster": [
+  "colostrum capsules",
+  "colostrum pills for breastfeeding",
+  "colostrum capsule",
+  "colostrum pills",
+  "bovine colostrum capsules"
+ ]
+}

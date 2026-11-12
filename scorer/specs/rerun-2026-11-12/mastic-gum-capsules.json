@@ -1,0 +1,57 @@
+{
+ "shelf_keyword": "mastic gum",
+ "hero_name": "mastic gum",
+ "hero_regex": "mastic",
+ "cluster_keywords": [
+  "mastic gum",
+  "mastic",
+  "mastic gum organic",
+  "mastic gum powder",
+  "mastic tea",
+  "mastic powder",
+  "mastic gum chewable",
+  "mastic gum extract"
+ ],
+ "parent_keyword": "mastic gum",
+ "microbial": false,
+ "finder_terms": [
+  "mastic gum"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "audit3-2026-11-11 (copy of specs/audit2-2026-11-11/mastic-gum-capsules.json; sleeve rule of 11 Nov: tools/sleeve_terms.py)",
+ "demand_keyword": "mastic gum",
+ "demand_cluster": [
+  "mastic gum",
+  "mastic",
+  "mastic gum organic",
+  "mastic gum powder",
+  "mastic tea",
+  "mastic powder",
+  "mastic gum chewable",
+  "mastic gum extract"
+ ],
+ "hero_names": [
+  "mastic gum",
+  "mastic"
+ ],
+ "scored_on": "parent_default_format",
+ "sleeve_shelf_keyword": "mastic gum capsules",
+ "default_format_share": 1.0,
+ "manual_decisions": {
+  "B0GQB9CLRD": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "tracker, 11 Nov",
+   "date": "2026-11-11T20:00:00+00:00",
+   "wording": "LMADFLY remineralizing chewing gum: hero is hydroxyapatite; 'mastic mint' is a flavour."
+  },
+  "B0DXVG5PHJ": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "tracker, 11 Nov",
+   "date": "2026-11-11T20:00:00+00:00",
+   "wording": "Art of Nature MASTIHA capsules: Mastiha is the Greek name for mastic gum; hero regex missed the spelling."
+  }
+ }
+}
