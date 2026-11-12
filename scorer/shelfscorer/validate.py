@@ -80,6 +80,9 @@ def validate(run):
         man = run.read("manual_decisions.json")["decisions"] if run.exists("manual_decisions.json") else {}
         open_checks = [f["family_id"] for f in top if man.get(f["family_id"], {}).get("decision") == "NEEDS_CHECK"]
         chk("V-FOP", not open_checks, f"[NEEDS CHECK] in top 12: {open_checks}")
+        hand_out = [a for f in top for a in f.get("asins", [f["family_id"]])
+                    if man.get(a, {}).get("decision") == "OUT" and man.get(f["family_id"], {}).get("decision") != "IN"]
+        chk("V-HAND-OUT", not hand_out, f"listings marked OUT by hand are still on the shelf: {hand_out}")
         must_out = set(run.read("spec.json").get("must_out") or [])
         bad = [a for f in top for a in f.get("asins", [f["family_id"]]) if a in must_out]
         chk("V-GOLDEN-OUT", not bad, f"listings the golden set says must be OUT are on the shelf: {bad}")

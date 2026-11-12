@@ -278,8 +278,6 @@ def build_families(run):
     if (run.dir / "keepa" / "product_pass2_0.json").exists():
         prods.update(load_products(run, "product_pass2"))
     manual = run.read("manual_decisions.json")["decisions"] if run.exists("manual_decisions.json") else {}
-    kept = [a for a in g["kept"] if manual.get(a, {}).get("decision") != "OUT"]
-    kept += [a for a, m in manual.items() if m.get("decision") == "IN" and a not in kept]
     root = {}
     for a, d in g["decisions"].items():
         b = a
@@ -288,6 +286,13 @@ def build_families(run):
             seen.add(b)
             b = g["decisions"][b]["dup_of"]
         root[a] = b
+    # A hand OUT on any listing drops its whole variant family: reviewers decide on the listing they see, which can be
+    # a folded duplicate of the kept one (12 Nov 2026: Urinozinc B0046H39D8 -> B0HD2JSYS3 stayed on beta-sitosterol).
+    # A hand IN on the kept listing itself still wins.
+    out_roots = {root.get(a, a) for a, m in manual.items() if m.get("decision") == "OUT"}
+    kept = [a for a in g["kept"] if manual.get(a, {}).get("decision") != "OUT"
+            and not (a in out_roots and manual.get(a, {}).get("decision") != "IN")]
+    kept += [a for a, m in manual.items() if m.get("decision") == "IN" and a not in kept]
     fams = []
     for k in kept:
         members = sorted({a for a, r in root.items() if r == k} | {k})
