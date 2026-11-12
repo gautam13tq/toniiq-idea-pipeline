@@ -1,0 +1,26 @@
+{
+ "shelf_keyword": "beta sitosterol",
+ "hero_name": "beta-sitosterol",
+ "hero_regex": "beta[- ]?sitosterol|sitosterol",
+ "cluster_keywords": [
+  "beta sitosterol",
+  "beta sitosterol supplement"
+ ],
+ "parent_keyword": null,
+ "microbial": false,
+ "finder_terms": [
+  "beta sitosterol"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "audit3-2026-11-11 (copy of specs/audit2-2026-11-11/beta-sitosterol.json; sleeve rule of 11 Nov: tools/sleeve_terms.py)",
+ "demand_keyword": "beta sitosterol",
+ "demand_cluster": [
+  "beta sitosterol",
+  "beta sitosterol for men",
+  "beta-sitosterol",
+  "beta-sitosterol supplement",
+  "beta-sitosterol complex"
+ ],
+ "scored_on": "parent"
+}
