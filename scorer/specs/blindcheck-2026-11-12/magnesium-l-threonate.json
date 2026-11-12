@@ -1,0 +1,63 @@
+{
+ "shelf_keyword": "magnesium l threonate",
+ "hero_name": "magnesium L-threonate",
+ "hero_regex": "magnes\\w*|magtein",
+ "form": "threonate",
+ "other_forms": "citrate|oxide|malate|glycinate|bisglycinate|taurate|taurinate|chloride|sulfate|orotate|lactate|aspartate|carbonate|hydroxide|gluconate|picolinate|triple|\\btri-|\\b\\d ?(in ?1|x)\\b|multi[- ]?magnesium|\\b\\d forms?\\b|full spectrum",
+ "qualifier_regex": "threonate|magtein",
+ "cluster_keywords": [
+  "magnesium l threonate",
+  "magnesium l-threonate",
+  "magnesium threonate",
+  "magtein magnesium l threonate",
+  "magnesium l threonate capsules"
+ ],
+ "parent_keyword": "magnesium",
+ "microbial": false,
+ "finder_terms": [
+  "magnesium l threonate",
+  "magtein"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "blindcheck2-2026-11-12",
+ "scored_on": "parent",
+ "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+ "demand_keyword": "magnesium threonate",
+ "demand_cluster": [
+  "magnesium threonate",
+  "magnesium threonate supplement",
+  "magnesium threonate gummies",
+  "magnesium l threonate supplement",
+  "magnesium threonate powder",
+  "magnesium l threonate gummies",
+  "magnesium threonate 500mg",
+  "magnesium threonate liquid",
+  "magnesium threonate supplements",
+  "magnesium threonate capsules",
+  "magnesium l threonate powder",
+  "magnesium l threonate for kids",
+  "magnesium threonate for kids",
+  "magnesium threonate complex",
+  "magnesium threonate drops",
+  "magnesium l threonate liquid",
+  "magnesium threonate organic"
+ ],
+ "manual_decisions": {
+  "B00R70AQQO": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check 2 (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T12:18:00+00:00",
+   "wording": "Life Extension 2-pack: duplicate of B006P536E6."
+  },
+  "B0CB83LD77": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam, 12 Nov (\"Yes to both\")",
+   "date": "2026-11-12T12:18:00+00:00",
+   "wording": "TERRA ELMNT: magnesium L-threonate leads the title and has the biggest dose."
+  }
+ },
+ "spec_note": "From pre-sleeve-2026-11-12/magnesium-l-threonate.json plus blind-check 2 and Gautam decisions (12 Nov 2026)."
+}

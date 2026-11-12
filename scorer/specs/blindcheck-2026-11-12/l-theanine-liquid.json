@@ -1,0 +1,76 @@
+{
+ "shelf_keyword": "l theanine liquid",
+ "hero_name": "L-theanine",
+ "hero_regex": "theanine|suntheanine",
+ "gate_format": "liquid",
+ "qualifier_regex": "liquid|drops|tincture",
+ "cluster_keywords": [
+  "l theanine liquid",
+  "l theanine liquid drops",
+  "l-theanine drops",
+  "liquid l theanine",
+  "l theanine tincture"
+ ],
+ "parent_keyword": "l theanine",
+ "microbial": false,
+ "finder_terms": [
+  "l theanine liquid",
+  "l-theanine drops"
+ ],
+ "candidate_subniches": [
+  "l theanine drops for kids"
+ ],
+ "seed_asins": [],
+ "required_regex": "\\bliquid\\b|\\bdrops?\\b|\\btincture\\b",
+ "spec_round": "blindcheck2-2026-11-12",
+ "sleeve_kind": "format",
+ "hero_names": [
+  "l theanine",
+  "l-theanine",
+  "theanine"
+ ],
+ "scored_on": "sleeve",
+ "sleeve_regex": "liquid|\\bdrops\\b|tincture|syrup|\\bshots?\\b|elixir",
+ "scored_on_why": "format sleeve: liquid inside l-theanine; default-format test decides",
+ "demand_keyword": "l theanine",
+ "demand_cluster": [
+  "l theanine",
+  "l theanine supplement",
+  "l theanine gummies",
+  "l theanine powder",
+  "l theanine drops",
+  "l theanine for kids",
+  "l theanine chewable",
+  "l theanine tea",
+  "l theanine capsules",
+  "l theanine supplements",
+  "l theanine tablets",
+  "l theanine organic",
+  "l theanine pills",
+  "l theanine 500mg"
+ ],
+ "sleeve_cluster": [
+  "l theanine liquid",
+  "l theanine drops",
+  "mary ruth l theanine drops",
+  "mary ruth l-theanine liquid drops",
+  "l-theanine liquid",
+  "l theanine drops mary ruth",
+  "l-theanine liquid drops",
+  "l theanine liquid drops",
+  "l-theanine drops",
+  "liquid l theanine",
+  "l theanine tincture"
+ ],
+ "written_at": "2026-11-12T07:24:05+00:00",
+ "manual_decisions": {
+  "B0DY2FV198": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "blind check 2 (Grok+Cursor), tracker 12 Nov",
+   "date": "2026-11-12T12:18:00+00:00",
+   "wording": "Barlean's: flower-essence blend, L-theanine not the hero."
+  }
+ },
+ "spec_note": "From pre-sleeve-2026-11-12/l-theanine-liquid.json plus blind-check 2 and Gautam decisions (12 Nov 2026)."
+}
