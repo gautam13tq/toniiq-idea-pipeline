@@ -1,0 +1,14 @@
+{
+ "run_id": "magnesium-complex-for-men__2026-11-12__7b87972d",
+ "decisions": {
+  "B0GFGXXSL8": {
+   "scorer": "IN",
+   "rank": 1,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  }
+ }
+}
