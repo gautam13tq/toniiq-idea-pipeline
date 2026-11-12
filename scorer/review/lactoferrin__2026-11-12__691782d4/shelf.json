@@ -1,0 +1,54 @@
+{
+ "run_id": "lactoferrin__2026-11-12__691782d4",
+ "shelf_keyword": "lactoferrin",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "shelf_keyword": "lactoferrin",
+  "hero_name": "lactoferrin",
+  "hero_regex": "la[ck]toferrin",
+  "cluster_keywords": [
+   "lactoferrin",
+   "lactoferrin supplement",
+   "lactoferrin capsules",
+   "lactoferrin powder",
+   "bovine lactoferrin",
+   "apolactoferrin"
+  ],
+  "parent_keyword": null,
+  "microbial": false,
+  "finder_terms": [
+   "lactoferrin",
+   "lactoferrin supplement"
+  ],
+  "candidate_subniches": [
+   "lactoferrin powder",
+   "apolactoferrin"
+  ],
+  "seed_asins": [],
+  "spec_round": "blindcheck2-2026-11-12",
+  "scored_on": "parent",
+  "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+  "demand_keyword": "lactoferrin",
+  "demand_cluster": [
+   "lactoferrin",
+   "lactoferrin supplements",
+   "lactoferrin gummies",
+   "lactoferrin liquid",
+   "lactoferrin for kids",
+   "lactoferrin 500mg",
+   "lactoferrin 1000mg"
+  ],
+  "manual_decisions": {
+   "B0D9NZTHG2": {
+    "decision": "OUT",
+    "source": "manual_fop",
+    "by": "blind check 2 (Grok+Cursor), tracker 12 Nov",
+    "date": "2026-11-12T12:18:00+00:00",
+    "wording": "Natures Craft: monolaurin 1000 mg leads, lactoferrin 250 mg (dose rule)."
+   }
+  },
+  "spec_note": "From pre-sleeve-2026-11-12/lactoferrin.json plus blind-check 2 and Gautam decisions (12 Nov 2026).",
+  "written_at": "2026-11-12T15:43:13+00:00"
+ }
+}
