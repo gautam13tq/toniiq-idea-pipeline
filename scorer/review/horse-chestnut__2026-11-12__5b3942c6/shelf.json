@@ -1,0 +1,34 @@
+{
+ "run_id": "horse-chestnut__2026-11-12__5b3942c6",
+ "shelf_keyword": "horse chestnut",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "shelf_keyword": "horse chestnut",
+  "hero_name": "horse chestnut",
+  "hero_regex": "horse ?chestnut|aesculus|\\ba?escin\\b",
+  "cluster_keywords": [
+   "horse chestnut",
+   "horse chestnut extract",
+   "horse chestnut supplement",
+   "horse chestnut capsules"
+  ],
+  "parent_keyword": null,
+  "microbial": false,
+  "finder_terms": [
+   "horse chestnut",
+   "horse chestnut extract"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "audit3-2026-11-11 (copy of specs/audit2-2026-11-11/horse-chestnut.json; sleeve rule of 11 Nov: tools/sleeve_terms.py)",
+  "demand_keyword": "horse chestnut",
+  "demand_cluster": [
+   "horse chestnut",
+   "horse chestnut extract liquid",
+   "horse chestnut extract organic"
+  ],
+  "scored_on": "parent",
+  "written_at": "2026-11-12T07:03:37+00:00"
+ }
+}
