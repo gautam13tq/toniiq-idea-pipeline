@@ -291,5 +291,11 @@ def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_o
         info.append(f"thin_shelf ({n_kept} kept)")
     score = round(min(raw, K.CAP_SCORE) if soft else raw, 2)
     t = "ineligible" if hard else K.tier(score)
+    # Open gap (Gautam, 12 Nov 2026): the sleeve has real demand but fewer than 3 specialised products serve it. That
+    # is a finding, not a failure: no score, the evidence is reported instead. The sleeve sales gate fails with it,
+    # because there are too few specialised products to sell 2,000 a month.
+    gap_ok = {f"fewer than {K.MIN_KEPT_HARD} genuine competitors", f"sleeve top 12 sells < {K.SLEEVE_MIN_BADGES:,}/month"}
+    if hard and f"fewer than {K.MIN_KEPT_HARD} genuine competitors" in hard and set(hard) <= gap_ok:
+        t, score = K.OPEN_GAP, None
     return {"raw": round(raw, 4), "score": score, "tier": t, "hard": hard, "soft": soft, "info": info,
             "T": K.T_STRONG, "weights": w}

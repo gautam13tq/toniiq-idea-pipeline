@@ -594,9 +594,46 @@ def step_score(run):
     r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
                     n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], info=info, sales_ok=sales_ok)
     r["sleeve_sales_gate"] = {"pass": sales_ok, "why": sales_why}
+    if r["tier"] == K.OPEN_GAP:
+        r["open_gap"] = open_gap_report(dg, run.read("top12.json"), run.read("candidates.json")["page_pos"],
+                                        run.read("gate/decisions.json")["decisions"], _monthly_index(run))
     r.update(D=dg["D"], G=dg["G"], C=round(c["C"], 4), Diff=round(d["score"], 4), version=m["scorer_version"])
     run.save("score.json", r)
     run.step_done("score", "V-SCORE", True, f"{r['score']} {r['tier']}")
+
+
+def _monthly_index(run):
+    """asin -> Keepa monthly-sold badge, from every Keepa product file in the run."""
+    out = {}
+    for p in sorted((run.dir / "keepa").glob("product_*.json")):
+        for x in (json.loads(p.read_text()).get("products") or []):
+            if x.get("asin"):
+                out[x["asin"]] = max(out.get(x["asin"], 0), x.get("monthlySold") or 0)
+    return out
+
+
+def open_gap_report(dg, top, page_pos, decisions, monthly):
+    """The evidence for an open gap: demand, the specialised products with their badges, and how much of page one
+    is held by products that are not specialised (generic or unisex)."""
+    spec_asins = {a for f in top for a in f["asins"]}
+    p1 = [a for a, (pg, _pos) in page_pos.items() if pg == 1]
+    other = [a for a in p1 if a not in spec_asins]
+    b_spec = sum(monthly.get(a, 0) for a in p1 if a in spec_asins)
+    b_other = sum(monthly.get(a, 0) for a in other)
+    codes = {}
+    for a in other:
+        c = (decisions.get(a) or {}).get("code") or "not gated"
+        codes[c] = codes.get(c, 0) + 1
+    return {
+        "demand": {"clicks": dg.get("agg_clicks"), "phrasings": len(dg.get("cluster_keywords_with_data") or []),
+                   "yoy_pct": dg.get("yoy"), "primary_kw": dg.get("primary_kw")},
+        "specialised": [{"asin": f["primary_asin"], "brand": f["brand"], "title": f["title"],
+                         "monthly_sold": f["monthly_sold"]} for f in top],
+        "page1": {"listings": len(p1), "specialised": len(p1) - len(other), "other": len(other),
+                  "other_share": round(len(other) / len(p1), 3) if p1 else None,
+                  "other_badge_share": round(b_other / (b_spec + b_other), 3) if (b_spec + b_other) else None,
+                  "other_by_gate_code": dict(sorted(codes.items(), key=lambda kv: -kv[1]))},
+    }
 
 
 def score_ineligible(run, why):

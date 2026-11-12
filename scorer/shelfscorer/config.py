@@ -10,6 +10,7 @@ SHELF_SIZE = 12          # Gautam 8 Nov: the shelf is the top 12, all shown
 MIN_BADGED = 8           # n_sig < 8 -> sales_rank_pending cap
 MIN_KEPT_CAP = 8         # kept families < 8 -> thin_shelf cap
 MIN_KEPT_HARD = 3        # kept families < 3 -> no score
+OPEN_GAP = "open gap"    # demand passes, < 3 specialised products: no score, evidence reported (Gautam, 12 Nov 2026)
 MOAT_CAP = 8.0
 C_CAP = 6.0
 MIN_CANDIDATES = 30
