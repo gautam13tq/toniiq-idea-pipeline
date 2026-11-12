@@ -1,0 +1,71 @@
+{
+ "run_id": "beta-sitosterol__2026-11-12__33ff983e",
+ "shelf_keyword": "beta sitosterol",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "shelf_keyword": "beta sitosterol",
+  "hero_name": "beta-sitosterol",
+  "hero_regex": "beta[- ]?sitosterol|sitosterol",
+  "cluster_keywords": [
+   "beta sitosterol",
+   "beta sitosterol supplement"
+  ],
+  "parent_keyword": null,
+  "microbial": false,
+  "finder_terms": [
+   "beta sitosterol"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "blindcheck-2026-11-12",
+  "demand_keyword": "beta sitosterol",
+  "demand_cluster": [
+   "beta sitosterol",
+   "beta sitosterol for men",
+   "beta-sitosterol",
+   "beta-sitosterol supplement",
+   "beta-sitosterol complex"
+  ],
+  "scored_on": "parent",
+  "manual_decisions": {
+   "B0046H39D8": {
+    "decision": "OUT",
+    "source": "manual_fop",
+    "by": "blind check (Grok+Cursor), tracker 12 Nov",
+    "date": "2026-11-12T10:14:00+00:00",
+    "wording": "Urinozinc: saw palmetto 320 mg leads the front; beta-sitosterol is secondary (dose rule)."
+   },
+   "B08CZYNF7J": {
+    "decision": "OUT",
+    "source": "manual_fop",
+    "by": "blind check (Grok+Cursor), tracker 12 Nov",
+    "date": "2026-11-12T10:14:00+00:00",
+    "wording": "Theralogix Prostate SR: condition-led formula, hero not the biggest word (R2)."
+   },
+   "B008G2TYSI": {
+    "decision": "OUT",
+    "source": "manual_fop",
+    "by": "blind check (Grok+Cursor), tracker 12 Nov",
+    "date": "2026-11-12T10:14:00+00:00",
+    "wording": "KRK 2-bottle pack: duplicate of B007Y9PZLO."
+   },
+   "B0B785R3VT": {
+    "decision": "IN",
+    "source": "manual_fop",
+    "by": "Gautam, 12 Nov (\"agreed on both\")",
+    "date": "2026-11-12T10:14:00+00:00",
+    "wording": "Healthfare Plant Sterols: plant sterols count on the beta-sitosterol shelf."
+   },
+   "B001FXU9IO": {
+    "decision": "IN",
+    "source": "manual_fop",
+    "by": "Gautam, 12 Nov (\"agreed on both\")",
+    "date": "2026-11-12T10:14:00+00:00",
+    "wording": "Bluebonnet Plant Sterols: plant sterols count on the beta-sitosterol shelf."
+   }
+  },
+  "spec_note": "From rerun-2026-11-12/beta-sitosterol.json plus blind-check and Gautam decisions (12 Nov 2026).",
+  "written_at": "2026-11-12T13:11:14+00:00"
+ }
+}
