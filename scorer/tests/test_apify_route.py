@@ -1,5 +1,5 @@
-"""Apify routes (12 Nov 2026): system_config token direct; if it is missing or answers 401, the apify-proxy edge
-function; if neither works, ApifyFailed(unavailable=True), which only the opt-in no_apify_page1 fallback acts on."""
+"""Apify routes (12 Nov 2026): the apify-proxy edge function first; if it is refused or not deployed, the
+system_config token; if neither works, ApifyFailed(unavailable=True), which only the opt-in no_apify_page1 fallback acts on."""
 import io
 import json
 import os
@@ -50,30 +50,32 @@ class ApifyRoute(unittest.TestCase):
             raise AssertionError(url)
         clients._http = http
 
-    def test_direct_token_works(self):
+    def test_proxy_first(self):
         self.fake()
-        self.assertEqual(clients.apify_search(self.run, "mastic gum", "s0"), [{"asin": "B0DIRECT"}])
-        self.assertEqual(self.run.manifest()["apify_route"], "direct")
-
-    def test_401_goes_to_the_proxy_and_stays_there(self):
-        self.fake(direct_code=401)
         self.assertEqual(clients.apify_search(self.run, "mastic gum", "s0"), [{"asin": "B0PROXY"}])
         self.assertEqual(self.run.manifest()["apify_route"], "proxy")
-        url, body, headers = self.calls[-1]
+        self.assertEqual(len(self.calls), 1)
+        url, body, headers = self.calls[0]
         self.assertEqual(url, "https://sb.example/functions/v1/apify-proxy")
         self.assertEqual(body["method"], "POST")
         self.assertEqual(body["path"], "acts/axesso_data~amazon-search-scraper/run-sync-get-dataset-items")
         self.assertEqual(body["json"]["input"][0]["keyword"], "mastic gum")
         self.assertEqual(headers["Authorization"], "Bearer service-key")
         self.assertNotIn("token", json.dumps(body))           # the proxy adds the token server-side
-        n = len(self.calls)
-        clients.apify_search(self.run, "mastic", "s1")
-        self.assertEqual(len(self.calls), n + 1)              # no second try of the refused direct token
 
-    def test_missing_token_uses_the_proxy(self):
-        self.fake(has_token=False)
-        self.assertEqual(clients.apify_search(self.run, "x", "s0"), [{"asin": "B0PROXY"}])
-        self.assertFalse(any("api.apify.com" in c[0] for c in self.calls))
+    def test_proxy_refused_falls_back_to_the_token(self):
+        for code in (401, 403, 404):
+            self.calls.clear()
+            self.fake(proxy_code=code)
+            self.assertEqual(clients.apify_search(self.run, "x", f"s{code}"), [{"asin": "B0DIRECT"}])
+            self.assertEqual(self.run.manifest()["apify_route"], "direct")
+
+    def test_no_supabase_uses_the_token(self):
+        def none():
+            raise RuntimeError("no supabase")
+        keys.supabase = none
+        self.fake()
+        self.assertEqual(clients.apify_search(self.run, "x", "s0"), [{"asin": "B0DIRECT"}])
 
     def test_both_refused_is_unavailable(self):
         self.fake(direct_code=401, proxy_code=404)
@@ -82,11 +84,10 @@ class ApifyRoute(unittest.TestCase):
         self.assertTrue(cm.exception.unavailable)
 
     def test_transient_error_is_not_unavailable(self):
-        self.fake(direct_code=500)
+        self.fake(proxy_code=500)
         with self.assertRaises(clients.ApifyFailed) as cm:
             clients.apify_search(self.run, "x", "s0")
         self.assertFalse(cm.exception.unavailable)          # the no-Apify fallback must not hide outages
-
 
 if __name__ == "__main__":
     unittest.main()

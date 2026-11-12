@@ -81,7 +81,7 @@ class ApifyFailed(RuntimeError):
         self.unavailable = (code == 401) if unavailable is None else unavailable
 
 
-_APIFY = {"direct_refused": False}      # once the direct token answers 401, later calls go straight to the proxy
+_APIFY = {"direct_refused": False}      # once the direct token answers 401 it is not tried again
 AUTH_CODES = (401, 403)
 
 
@@ -99,16 +99,16 @@ def _apify_proxy(path, body, timeout):
 
 
 def apify_post(run, path, body, timeout=180):
-    """Direct with the system_config token; if that token is missing or answers 401, the apify-proxy. One retry each
-    on transient errors. Raises ApifyFailed. The route used is recorded in the run manifest (apify_route)."""
+    """The apify-proxy edge function first (12 Nov 2026); if it is refused or not deployed, the system_config token
+    directly. One retry each on transient errors. Raises ApifyFailed. The route used is recorded in the run manifest (apify_route)."""
     routes = []
-    if keys.has("apify") and not _APIFY["direct_refused"]:
-        routes.append(("direct", _apify_direct))
     try:
         keys.supabase()
         routes.append(("proxy", _apify_proxy))
     except RuntimeError:
         pass
+    if keys.has("apify") and not _APIFY["direct_refused"]:
+        routes.append(("direct", _apify_direct))
     last, auth_fail = None, True
     for name, f in routes:
         for _ in range(2):

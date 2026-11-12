@@ -84,9 +84,9 @@ D < 3 still stop a run.
 
 ## Apify routes and the no-Apify fallback (12 Nov 2026)
 
-`clients.apify_post` calls Apify directly with the system_config token. If the token is missing or answers 401 it uses
-the `apify-proxy` Supabase edge function (POST `{method, path, params, json}` with the service key; path relative to
-`/v2/`; the token is added server-side). Only when both are refused (`ApifyFailed.unavailable`) and the run was opened
+`clients.apify_post` calls the `apify-proxy` Supabase edge function first (POST `{method, path, params, json}` with the
+service key; path relative to `/v2/`; APIFY_API_TOKEN is a Supabase secret added server-side). If the proxy is refused
+or not deployed it falls back to the system_config token directly. Only when both are refused (`ApifyFailed.unavailable`) and the run was opened
 with `run_shelf.py new ... --allow-no-apify`, page-1 discovery uses Keepa product search (`NO_APIFY_KEEPA_PAGES` = 3
 pages of 20, about Apify's 2 Amazon pages). Such a run's score carries the info flag `no_apify_page1`, and only then
 the Apify checks (`V-CALLS-APIFY`, `V-CAND-APIFY`) are WARN instead of BLOCKER. A transient Apify error never
