@@ -35,6 +35,10 @@ MOAT_BLEND = 0.25        # C = C_old + 0.25 * (C_v8 - moat)
 APIFY_ACTOR = "axesso_data/amazon-search-scraper"
 APIFY_MAX_PAGES = 2
 APIFY_MAX_QUERIES = 4
+# Opt-in fallback (12 Nov 2026, run opened with --allow-no-apify): when Apify answers 401, page-1 discovery for each
+# query uses Keepa product search instead, 3 Keepa pages of 20 = 60 results, about Apify's 2 Amazon pages.
+NO_APIFY_KEEPA_PAGES = 3
+NO_APIFY_PAGE_SIZE = 48      # Amazon results per page, to turn a Keepa search index into (page, position)
 KEEPA_DOMAIN = 1
 KEEPA_ROOT_CATEGORY = 3760901   # Health & Household
 KEEPA_FINDER_PAGES = 2

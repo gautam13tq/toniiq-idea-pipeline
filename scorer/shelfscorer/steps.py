@@ -103,7 +103,7 @@ def step_demand_growth(run):
     top = dg["rows"][0]["keyword"] if dg["rows"] else None
     dg["v_kw"] = {"demand_keyword_has_data": dg["primary_clicks"] > 0, "largest_cluster_kw": top}
     run.save("demand_growth.json", dg)
-    eligible = dg["demand_gate"]["pass"] and dg["D"] >= 3 and dg["G"] >= 1
+    eligible = dg["demand_gate"]["pass"] and dg["D"] >= 3   # G < 1 is a penalty, not a gate (12 Nov 2026)
     run.update(eligible_after_demand=eligible)
     run.step_done("demand_growth", "V-DG", dg["agg_clicks"] > 0 or not dg["demand_gate"]["pass"],
                   f"D={dg['D']} G={dg['G']} gate={dg['demand_gate']}")
@@ -121,8 +121,22 @@ def step_discover(run):
             src.setdefault(a, set()).add(why)
     queries = [s["shelf_keyword"]] + [k for k in s["cluster_keywords"] if k != s["shelf_keyword"]][:K.APIFY_MAX_QUERIES - 1]
     pagepos = {}
+    no_apify = run.manifest().get("no_apify_page1", False)
     for qi, q in enumerate(queries):
-        items = clients.apify_search(run, q, f"search_{qi}") or []
+        if not no_apify:
+            try:
+                items = clients.apify_search(run, q, f"search_{qi}") or []
+            except clients.ApifyFailed as e:
+                if not e.unavailable or not run.manifest().get("allow_no_apify"):
+                    raise
+                no_apify = True
+                run.update(no_apify_page1=True, no_apify_reason=str(e))
+        if no_apify:
+            for i, a in enumerate(keepa_page1(run, q, qi)):
+                add(a, f"keepa_page1:{q}")
+                if q == s["shelf_keyword"] and a not in pagepos:
+                    pagepos[a] = (i // K.NO_APIFY_PAGE_SIZE + 1, i % K.NO_APIFY_PAGE_SIZE + 1)
+            continue
         for it in items:
             a = it.get("asin")
             add(a, f"apify:{q}")
@@ -148,9 +162,27 @@ def step_discover(run):
     cand = {a: sorted(v) for a, v in src.items()}
     run.save("candidates.json", {"candidates": cand, "page_pos": pagepos, "datarova_top3": sorted(winners)})
     kinds = {w.split(":")[0] for v in cand.values() for w in v}
-    need = {"apify", "keepa_finder", "keepa_search", "datarova_top3"}
+    need = {page1_source(run), "keepa_finder", "keepa_search", "datarova_top3"}
     ok = len(cand) >= K.MIN_CANDIDATES and need <= kinds
     run.step_done("discover", "V-CAND", ok, f"{len(cand)} candidates; sources {sorted(kinds)}")
+
+
+def page1_source(run):
+    """Where page-1 discovery came from: "apify", or "keepa_page1" under the opt-in no-Apify fallback."""
+    return "keepa_page1" if run.manifest().get("no_apify_page1") else "apify"
+
+
+def keepa_page1(run, q, qi):
+    """No-Apify fallback: Keepa product search for the query, in Keepa's order, NO_APIFY_KEEPA_PAGES pages."""
+    out = []
+    for page in range(K.NO_APIFY_KEEPA_PAGES):
+        d = clients.keepa(run, "search", {"domain": K.KEEPA_DOMAIN, "type": "product", "term": q, "page": page, "stats": 0},
+                          f"page1_{qi}_p{page}")
+        got = [p.get("asin") for p in d.get("products") or [] if p.get("asin")]
+        out += [a for a in got if a not in out]
+        if not got:
+            break
+    return out
 
 
 def datarova_winners(run):
@@ -556,6 +588,8 @@ def step_score(run):
     info = list(dg["flags"]) + list(x["flags"]) + (["diff_unstable"] if d["unstable"] else [])
     s = run.read("spec.json")
     info.append(f"scored_on = {s['scored_on']}")
+    if m.get("no_apify_page1"):
+        info.append("no_apify_page1")
     sales_ok, sales_why = SL.sleeve_sales_gate(s, run.read("top12.json"))
     r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
                     n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], info=info, sales_ok=sales_ok)

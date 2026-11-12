@@ -102,10 +102,20 @@ def candidate_phrasings(spec, autocomplete=()):
     return res
 
 
+NON_SUPPLEMENT = r"\btears\b|\bresin\b|chewing gum|\bgum base\b|\braw (?:mastic|resin)\b"
+
+
+def is_supplement_format(title):
+    """False for whole-food and non-supplement listings with no supplement format word: resin tears, chewing gum
+    (Gautam, 12 Nov 2026: the default-format share counts supplement formats only)."""
+    return fmt_of(title) is not None or not re.search(NON_SUPPLEMENT, title or "", re.I)
+
+
 def default_format_share(parent_top, fmt):
     """Share of the parent's top 12 by monthly-sold badge already in the sleeve's format.
     parent_top: [{asin, title, monthly_sold}] sorted by badge, at most 12. A pill shelf counts a title with no format
-    word but a printed mg dose as a pill (the gate's FORMAT_INFERRED_PILL)."""
+    word but a printed mg dose as a pill (the gate's FORMAT_INFERRED_PILL). Non-supplement listings (resin tears,
+    chewing gum) are listed with counted = False and left out of the share."""
     if not parent_top:
         return 0.0, []
     rows = []
@@ -113,8 +123,9 @@ def default_format_share(parent_top, fmt):
         f = fmt_of(p.get("title") or "")
         if f is None and fmt == "pill" and re.search(r"\d\s*(mg|mcg|iu)\b", p.get("title") or "", re.I):
             f = "pill"
-        rows.append({**p, "format": f, "in_format": f == fmt})
-    return sum(r["in_format"] for r in rows) / len(rows), rows
+        rows.append({**p, "format": f, "in_format": f == fmt, "counted": is_supplement_format(p.get("title") or "")})
+    counted = [r for r in rows if r["counted"]]
+    return (sum(r["in_format"] for r in counted) / len(counted) if counted else 0.0), rows
 
 
 def is_default_format(spec, share):

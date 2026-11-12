@@ -72,23 +72,74 @@ def keepa(run, path, params, label):
 
 
 # ---------------- Apify ----------------
+class ApifyFailed(RuntimeError):
+    """code: the HTTP code of the last failure. unavailable: no working Apify route (direct token refused and the
+    apify-proxy missing or refusing), which is the only case the opt-in no_apify_page1 fallback acts on."""
+    def __init__(self, msg, code=None, unavailable=None):
+        super().__init__(msg)
+        self.code = code
+        self.unavailable = (code == 401) if unavailable is None else unavailable
+
+
+_APIFY = {"direct_refused": False}      # once the direct token answers 401, later calls go straight to the proxy
+AUTH_CODES = (401, 403)
+
+
+def _apify_direct(path, body, timeout):
+    url = f"https://api.apify.com/v2/{path}?" + urllib.parse.urlencode({"token": keys.get("apify"), "timeout": timeout})
+    return _http(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}, timeout=timeout + 20)
+
+
+def _apify_proxy(path, body, timeout):
+    """apify-proxy edge function (holds APIFY_API_TOKEN as a Supabase secret; path relative to /v2/)."""
+    url, sk = keys.supabase()
+    req = {"method": "POST", "path": path, "params": {"timeout": timeout}, "json": body}
+    return _http(f"{url}/functions/v1/apify-proxy", data=json.dumps(req).encode(),
+                 headers={"Authorization": f"Bearer {sk}", "Content-Type": "application/json"}, timeout=timeout + 20)
+
+
+def apify_post(run, path, body, timeout=180):
+    """Direct with the system_config token; if that token is missing or answers 401, the apify-proxy. One retry each
+    on transient errors. Raises ApifyFailed. The route used is recorded in the run manifest (apify_route)."""
+    routes = []
+    if keys.has("apify") and not _APIFY["direct_refused"]:
+        routes.append(("direct", _apify_direct))
+    try:
+        keys.supabase()
+        routes.append(("proxy", _apify_proxy))
+    except RuntimeError:
+        pass
+    last, auth_fail = None, True
+    for name, f in routes:
+        for _ in range(2):
+            try:
+                res = f(path, body, timeout)
+                run.update(apify_route=name)
+                return res
+            except urllib.error.HTTPError as e:
+                last = e
+                if e.code in AUTH_CODES or (name == "proxy" and e.code == 404):   # 404: proxy not deployed
+                    if name == "direct" and e.code == 401:
+                        _APIFY["direct_refused"] = True
+                    break
+                auth_fail = False
+                time.sleep(3)
+            except Exception as e:  # transient: one retry, as the app does
+                last, auth_fail = e, False
+                time.sleep(3)
+        else:
+            break                   # a transient failure twice: do not fall through to another route
+    code = getattr(last, "code", None)
+    raise ApifyFailed(f"apify failed: {type(last).__name__ if last else 'no route'}" + (f" {code}" if code else ""),
+                      code, unavailable=auth_fail)
+
+
 def apify_search(run, keyword, label):
     inp = {"input": [{"keyword": keyword, "domainCode": "com", "sortBy": "relevanceblender",
                       "maxPages": K.APIFY_MAX_PAGES, "category": "aps"}]}
-
-    def fn():
-        slug = K.APIFY_ACTOR.replace("/", "~")
-        url = f"https://api.apify.com/v2/acts/{slug}/run-sync-get-dataset-items?token={keys.get('apify')}&timeout=180"
-        last = None
-        for _ in range(2):
-            try:
-                return _http(url, data=json.dumps(inp).encode(), headers={"Content-Type": "application/json"}, timeout=200)
-            except Exception as e:  # one retry on transient errors, as the app does
-                last = e
-                time.sleep(3)
-        raise RuntimeError(f"apify failed: {type(last).__name__}")
-    return run.call("apify", K.APIFY_ACTOR, {"keyword": keyword, "maxPages": K.APIFY_MAX_PAGES}, fn,
-                    raw_rel=f"apify/{label}.json", rows_fn=lambda r: len(r or []),
+    path = f"acts/{K.APIFY_ACTOR.replace('/', '~')}/run-sync-get-dataset-items"
+    return run.call("apify", K.APIFY_ACTOR, {"keyword": keyword, "maxPages": K.APIFY_MAX_PAGES},
+                    lambda: apify_post(run, path, inp), raw_rel=f"apify/{label}.json", rows_fn=lambda r: len(r or []),
                     cost_usd=lambda r: 0.0001 * len(r or []))
 
 

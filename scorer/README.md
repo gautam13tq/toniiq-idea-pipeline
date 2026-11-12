@@ -60,7 +60,9 @@ Code: `shelfscorer/sleeves.py`; tests: `tests/test_sleeve_rule.py`.
 2. **The parent is context only.** Its clicks and trend are logged; Competition and Diff come from the sleeve's own top 12.
 3. **Default format.** For a format sleeve, if 75%+ of the parent's top 12 by monthly-sold badge are already in the
    sleeve's format, the sleeve is the parent: the spec becomes the parent keyword and cluster with
-   `scored_on: parent_default_format`. Doses, audiences, varieties and pairings are always sleeves.
+   `scored_on: parent_default_format`. Doses, audiences, varieties and pairings are always sleeves. The share counts
+   supplement formats only (Gautam, 12 Nov 2026): listings with no supplement format word that are resin tears or
+   chewing gum (`sleeves.NON_SUPPLEMENT`) are listed with `counted: false` and left out of the denominator.
 4. **Sleeve gate.** A sleeve passes with >= 1,000 latest-month cluster clicks over 2+ keyword rows (checked before any
    Keepa spend) AND >= 2,000 summed monthly-sold badges in its top 12 (checked after ranking; a hard stop in the
    composite). Parent shelves keep the old gate on the parent keyword. `demand_growth.json` logs `demand_gate.path`;
@@ -73,6 +75,22 @@ Code: `shelfscorer/sleeves.py`; tests: `tests/test_sleeve_rule.py`.
    12-month trend, the parent's clicks, the parent's top 12 with formats, and the share. Every call goes into a
    pre-registration run folder. Commit the log with the spec.
 7. **Reporting.** Each shelf reports cluster clicks and keywords, parent clicks, the default-format share and the gate path.
+
+## Growth is a penalty, not a gate (Gautam, 12 Nov 2026)
+
+"I would rather just be a penalty with a low score rather than a disqualify." G < 1 no longer makes a shelf ineligible:
+a shrinking keyword keeps its low G (5% weight) and the score gets the info flag `shrinking`. The demand gate and
+D < 3 still stop a run.
+
+## Apify routes and the no-Apify fallback (12 Nov 2026)
+
+`clients.apify_post` calls Apify directly with the system_config token. If the token is missing or answers 401 it uses
+the `apify-proxy` Supabase edge function (POST `{method, path, params, json}` with the service key; path relative to
+`/v2/`; the token is added server-side). Only when both are refused (`ApifyFailed.unavailable`) and the run was opened
+with `run_shelf.py new ... --allow-no-apify`, page-1 discovery uses Keepa product search (`NO_APIFY_KEEPA_PAGES` = 3
+pages of 20, about Apify's 2 Amazon pages). Such a run's score carries the info flag `no_apify_page1`, and only then
+the Apify checks (`V-CALLS-APIFY`, `V-CAND-APIFY`) are WARN instead of BLOCKER. A transient Apify error never
+triggers the fallback.
 - Hand decisions on a listing can be carried in the spec as `manual_decisions` (logged with who decided).
 
 ## Gautam's shelf rules (10 Nov 2026, after his first label round)

@@ -96,6 +96,20 @@ class SleeveDemand(unittest.TestCase):
         self.assertIn("sleeve top 12 sells < 2,000/month", r["hard"])
 
 
+class GrowthIsAPenalty(unittest.TestCase):
+    def test_shrinking_keyword_is_scored_not_disqualified(self):
+        # Gautam, 12 Nov 2026: "rather just be a penalty with a low score rather than a disqualify"
+        r = P.composite(6, 0.8, 7, 7, demand_ok=True, n_kept=20, n_sig=12, moat=9)
+        self.assertNotEqual(r["tier"], "ineligible")
+        self.assertEqual(r["hard"], [])
+        self.assertIn("shrinking", r["info"])
+        self.assertAlmostEqual(r["raw"], 10 * (0.25 * 6 + 0.05 * 0.8 + 0.45 * 7 + 0.25 * 7), places=3)
+        self.assertNotIn("shrinking", P.composite(6, 1.0, 7, 7, demand_ok=True, n_kept=20, n_sig=12, moat=9)["info"])
+
+    def test_d_below_3_still_disqualifies(self):
+        self.assertIn("D < 3", P.composite(2, 5, 7, 7, demand_ok=True, n_kept=20, n_sig=12, moat=9)["hard"])
+
+
 class DefaultFormat(unittest.TestCase):
     def top(self, titles):
         return [{"asin": f"A{i}", "title": t, "monthly_sold": 1000 - i} for i, t in enumerate(titles)]
@@ -103,7 +117,7 @@ class DefaultFormat(unittest.TestCase):
     def test_mostly_capsules_parent_is_the_default(self):
         t = ["Mastic Gum 1000mg 120 Capsules"] * 9 + ["Mastic Gum 500 mg"] + ["Mastic Gum Powder", "Mastic Gum Chewing Gum"]
         share, rows = SL.default_format_share(self.top(t), "pill")
-        self.assertAlmostEqual(share, 10 / 12)                       # dose-stated, no format word = pill
+        self.assertAlmostEqual(share, 10 / 11)                       # dose-stated = pill; chewing gum not counted
         self.assertTrue(SL.is_default_format(dict(SLEEVE, parent_keyword="mastic gum"), share))
 
     def test_mixed_parent_keeps_the_sleeve(self):
@@ -111,6 +125,22 @@ class DefaultFormat(unittest.TestCase):
         share, _ = SL.default_format_share(self.top(t), "pill")
         self.assertEqual(share, 0.5)
         self.assertFalse(SL.is_default_format(SLEEVE, share))
+
+    def test_share_counts_supplement_formats_only(self):
+        # Mastic gum shelf as scored 11 Nov: tears and a chewing gum are not supplement formats (Gautam, 12 Nov 2026)
+        t = (["Jarrow Mastic Gum 1000mg, 60 Capsules", "Horbaach Mastic Gum | 1500mg | 100 Capsules",
+              "NOW Gastro Comfort with Mastic Gum, 60 Veg Caps",
+              "Chios Mastic Gum 50g/1.76oz Medium Tears, 100% Pure Chios Mastic Tears",
+              "Chios Mastic Gum 100g/3.53oz Large Tears", "ARG Mastica Chios Mastic Gum Resin Digestive, 120 Capsules",
+              "Vitamatic Mastic Gum 1000 mg per Serving, 120 Capsules", "Best Naturals Mastic Gum 500 mg 60 Capsules",
+              "SOLARAY Mastic Gum Extract 500 mg 45 Count", "Mastic Gum/DGL Licorice Chewable Tablets, 60 Tablets",
+              "Remineralizing Chewing Gum with Hydroxyapatite, Xylitol", "Mastic Gum Gummies with Zinc Carnosine, 90 Count"])
+        share, rows = SL.default_format_share(self.top(t), "pill")
+        self.assertEqual([r["title"][:12] for r in rows if not r["counted"]],
+                         ["Chios Mastic", "Chios Mastic", "Remineralizi"])
+        self.assertAlmostEqual(share, 8 / 9)                        # 8 pills of 9 supplement listings (gummy counts)
+        self.assertTrue(SL.is_default_format(dict(SLEEVE, parent_keyword="mastic gum"), share))
+        self.assertTrue(SL.is_supplement_format("ARG Mastic Gum Resin, 120 Capsules"))   # a format word wins
 
     def test_only_format_sleeves_can_be_default(self):
         self.assertFalse(SL.is_default_format(dict(SLEEVE, sleeve_kind="dose"), 1.0))

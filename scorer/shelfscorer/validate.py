@@ -36,9 +36,11 @@ def validate(run):
     # required calls (V-CALLS)
     tools = {(c["tool"], c["endpoint"]) for c in calls if c.get("ok")}
     need = [("datarova", "/keywords")]
+    no_apify = bool(m.get("no_apify_page1"))      # opt-in fallback: checks that need Apify page data become WARN
     if not ineligible:
-        need += [("apify", K.APIFY_ACTOR), ("keepa", "/query"), ("keepa", "/search"), ("keepa", "/product"),
-                 ("anthropic", "/v1/messages")]
+        need += [("keepa", "/query"), ("keepa", "/search"), ("keepa", "/product"), ("anthropic", "/v1/messages")]
+        chk("V-CALLS-APIFY", ("apify", K.APIFY_ACTOR) in tools, "no successful Apify search call"
+            + (" (no_apify_page1: Keepa search used for page 1)" if no_apify else ""), "WARN" if no_apify else "BLOCKER")
     chk("V-CALLS", all(n in tools for n in need), f"missing calls: {[n for n in need if n not in tools]}")
     # freshness I9
     now = dt.datetime.now(dt.timezone.utc)
@@ -55,8 +57,11 @@ def validate(run):
     if not ineligible:
         cand = run.read("candidates.json")
         kinds = {w.split(":")[0] for v in cand["candidates"].values() for w in v}
-        chk("V-CAND", len(cand["candidates"]) >= K.MIN_CANDIDATES and {"apify", "keepa_finder", "keepa_search", "datarova_top3"} <= kinds,
+        p1 = "keepa_page1" if no_apify else "apify"
+        chk("V-CAND", len(cand["candidates"]) >= K.MIN_CANDIDATES and {p1, "keepa_finder", "keepa_search", "datarova_top3"} <= kinds,
             f"{len(cand['candidates'])} candidates, sources {sorted(kinds)}")
+        chk("V-CAND-APIFY", "apify" in kinds, f"Apify page-1 candidates present: {'apify' in kinds}",
+            "WARN" if no_apify else "BLOCKER")
         chk("C1-WINNERS", set(cand["datarova_top3"]) <= set(cand["candidates"]), "every Datarova top-3 ASIN is a candidate")
         g = run.read("gate/decisions.json")
         dec = g["decisions"]

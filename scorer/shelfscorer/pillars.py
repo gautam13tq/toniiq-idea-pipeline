@@ -274,8 +274,9 @@ def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_o
         hard.append(f"sleeve top 12 sells < {K.SLEEVE_MIN_BADGES:,}/month")
     if D < 3:
         hard.append("D < 3")
-    if G < 1:
-        hard.append("G < 1")
+    info = list(info)
+    if G < 1 and "shrinking" not in info:   # growth is a penalty, not a gate (Gautam, 12 Nov 2026): the low G carries it
+        info.append("shrinking")
     if n_kept < K.MIN_KEPT_HARD:
         hard.append(f"fewer than {K.MIN_KEPT_HARD} genuine competitors")
     if moat < K.MOAT_CAP:
@@ -286,7 +287,6 @@ def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_o
         soft.append("sales_rank_pending")
     if n_kept < K.MIN_KEPT_CAP:
         soft.append("thin_shelf < 8")
-    info = list(info)
     if n_kept < K.SHELF_SIZE:
         info.append(f"thin_shelf ({n_kept} kept)")
     score = round(min(raw, K.CAP_SCORE) if soft else raw, 2)

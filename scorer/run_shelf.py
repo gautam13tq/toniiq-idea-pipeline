@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Score one shelf with the agreed scorer. Usage:
-  run_shelf.py new <spec.json> --idea <id> --runs <dir> [--cap 2.0]   # opens a run and records the spec (step 0-1)
+  run_shelf.py new <spec.json> --idea <id> --runs <dir> [--cap 2.0] [--allow-no-apify]   # opens a run (step 0-1)
   run_shelf.py go <run_dir>                                            # runs every remaining step, resumable
   run_shelf.py validate <run_dir>                                      # recompute and check everything
   run_shelf.py publish <run_dir>                                       # write the score (refuses on any BLOCKER)
@@ -28,7 +28,7 @@ def go(run):
         fn(run)
         if name == "demand_growth" and not run.manifest().get("eligible_after_demand"):
             dg = run.read("demand_growth.json")
-            why = "demand gate failed" if not dg["demand_gate"]["pass"] else ("D < 3" if dg["D"] < 3 else "G < 1")
+            why = "demand gate failed" if not dg["demand_gate"]["pass"] else "D < 3"
             S.score_ineligible(run, why)
             return
 
@@ -40,12 +40,14 @@ def main():
     ap.add_argument("--idea")
     ap.add_argument("--runs", default="runs")
     ap.add_argument("--cap", type=float, default=2.0)
+    ap.add_argument("--allow-no-apify", action="store_true",
+                    help="opt-in: if Apify answers 401, use Keepa search for page 1 and flag the score no_apify_page1")
     a = ap.parse_args()
     try:
         if a.cmd == "new":
             spec = json.load(open(a.path))
             spec.setdefault("written_at", now())
-            r = Run.open(a.runs, a.idea, spec["shelf_keyword"], getpass.getuser(), {"shelf_cap_usd": a.cap})
+            r = Run.open(a.runs, a.idea, spec["shelf_keyword"], getpass.getuser(), {"shelf_cap_usd": a.cap, "allow_no_apify": a.allow_no_apify})
             r.step_done("open", "V-OPEN", True)
             S.step_spec(r, spec)
             print(r.dir)
