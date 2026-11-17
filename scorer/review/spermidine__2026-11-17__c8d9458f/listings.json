@@ -55,7 +55,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/616LcuPk6TL.jpg",
    "monthly_sold": 800,
-   "reviews": 714,
+   "reviews": 0,
    "family_asins": [
     "B0C4J8QYDC"
    ]
@@ -310,7 +310,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61iK6sKCuBL.jpg",
    "monthly_sold": 100,
-   "reviews": 0,
+   "reviews": 78,
    "family_asins": [
     "B0DK5SRCZ1"
    ]
@@ -349,6 +349,24 @@
    "reviews": 0,
    "family_asins": [
     "B09C2TSQP7"
+   ]
+  },
+  {
+   "asin": "B09SBQ1TPP",
+   "brand": "Toniiq",
+   "title": "Toniiq Ultra Concentrated 500mg Spermidine Supplements for Men and Women",
+   "bullets": [
+    "The Highest Concentration of Non-Synthetic Spermidine - Most spermidine products on the market are either wheat germ sourced (which contain trace-amounts of spermidine), or synthetically derived as Spermidine trihydrochloride. Our spermidine product is a first of its kind highly concentrated spermidine from a non-wheat or non-synthetic source.",
+    "Naturally Occurring Polyamines - Spermidine is a type of polyamine, a class of compounds that play essential roles in cellular functions. In addition to spermidine, our supplement includes other naturally occurring polyamines from the included rice germ extract. These polyamines work synergistically to support cellular health, autophagy, and potentially enhance longevity. The natural origin of these polyamines ensures a bio-friendly, holistic approach to support your wellbeing.",
+    "Non-Wheat extract- Rice Germ-sourced spermidine is at least 9-11x more concentrated than wheatgerm-sourced Spermidine. It's also completely gluten-free, and has a far better value per serving, as a smaller serving size provides far more spermedine than it’s wheat-based counterparts.",
+    "Quality, First, and Foremost - Toniiq products are produced in a GMP-certified, state-of-the-art manufacturing facility right here in the USA.",
+    "Each Batch is Individually Tested - We test each batch both ourselves and through a third-party independent laboratory to ensure our ingredients contain the correct standardized level of purity and active ingredients. We also test each batch for any possible additives, contaminants, and impurities to ensure the highest level of quality."
+   ],
+   "image": "https://m.media-amazon.com/images/I/81g2l7W02WL.jpg",
+   "monthly_sold": 100,
+   "reviews": 0,
+   "family_asins": [
+    "B09SBQ1TPP"
    ]
   }
  ]

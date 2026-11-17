@@ -29,5 +29,14 @@
     "spermidine powder",
     "spermidine organic"
   ],
-  "spec_from": "specs/pre-sleeve-2026-11-12/spermidine.json"
+  "spec_from": "specs/pre-sleeve-2026-11-12/spermidine.json",
+  "manual_decisions": {
+    "B0C4J8QYDC": {
+      "decision": "OUT",
+      "source": "manual_fop",
+      "by": "hand check of FOP rescue, 17 Nov",
+      "date": "2026-11-17T08:00:00+00:00",
+      "wording": "Clean Nutraceuticals Age Defend: FISETIN leads the pack and the title; spermidine is second of five (multi-ingredient rule needs the hero to lead)."
+    }
+  }
 }
