@@ -62,6 +62,9 @@ def keepa(run, path, params, label):
                 if e.code == 429:
                     time.sleep(max(60, (d.get("refillIn") or 60000) / 1000))
                     continue
+                if e.code in (502, 503, 504):   # keepa-proxy idle timeout / gateway blips (17 Nov 2026): wait and retry
+                    time.sleep(90)
+                    continue
                 raise RuntimeError(f"keepa {e.code} {str(d)[:200]}") from None
         raise RuntimeError("keepa kept rate-limiting")
 

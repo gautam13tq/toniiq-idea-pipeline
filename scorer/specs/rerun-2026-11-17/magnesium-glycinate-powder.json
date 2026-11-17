@@ -86,5 +86,14 @@
     "magnesium glycinate powder unflavored",
     "magnesium glycinate drink powder"
   ],
-  "spec_from": "specs/audit3-2026-11-11/magnesium-glycinate-powder.json"
+  "spec_from": "specs/audit3-2026-11-11/magnesium-glycinate-powder.json",
+  "manual_decisions": {
+    "B0F7YX5Y9W": {
+      "decision": "OUT",
+      "source": "manual_fop",
+      "by": "hand check, 17 Nov",
+      "date": "2026-11-17T05:10:00+00:00",
+      "wording": "MoonBrew sleep hot cocoa: SLEEP is the biggest word and magnesium is not on the front (R2 condition-led; same call as the 11 Nov run)."
+    }
+  }
 }
