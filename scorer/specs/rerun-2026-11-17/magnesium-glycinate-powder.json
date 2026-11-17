@@ -94,6 +94,27 @@
       "by": "hand check, 17 Nov",
       "date": "2026-11-17T05:10:00+00:00",
       "wording": "MoonBrew sleep hot cocoa: SLEEP is the biggest word and magnesium is not on the front (R2 condition-led; same call as the 11 Nov run)."
+    },
+    "B0GSH9YKDW": {
+      "decision": "OUT",
+      "source": "manual_fop",
+      "by": "blind check 17 Nov (Grok+Cursor), tracker 17 Nov",
+      "date": "2026-11-17T09:20:00+00:00",
+      "wording": "Metagenics MagActive Night Powder: glycinate absent (G2)."
+    },
+    "B0DCFSSCZB": {
+      "decision": "OUT",
+      "source": "manual_fop",
+      "by": "blind check 17 Nov (Grok+Cursor), tracker 17 Nov",
+      "date": "2026-11-17T09:20:00+00:00",
+      "wording": "NATURE TARGET magnesium powder #18: both judges OUT."
+    },
+    "B0GD6Z1K7C": {
+      "decision": "IN",
+      "source": "manual_fop",
+      "by": "blind check 17 Nov (Grok+Cursor), tracker 17 Nov",
+      "date": "2026-11-17T09:20:00+00:00",
+      "wording": "Yesnap MAGICRELAX 8-in-1: same case as VCCVBB 14-in-1, ruled IN by Gautam 12 Nov."
     }
   }
 }

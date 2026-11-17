@@ -105,5 +105,14 @@
     "red ginseng",
     "korean ginseng"
   ],
-  "spec_from": "specs/audit3-2026-11-11/korean-red-ginseng.json"
+  "spec_from": "specs/audit3-2026-11-11/korean-red-ginseng.json",
+  "manual_decisions": {
+    "B07FF5XRCS": {
+      "decision": "OUT",
+      "source": "manual_fop",
+      "by": "blind check 17 Nov (Grok+Cursor), tracker 17 Nov",
+      "date": "2026-11-17T09:20:00+00:00",
+      "wording": "Jung Kwan Jang Hong Sam Won herbal drink: beverage with no dose (R5-4)."
+    }
+  }
 }
