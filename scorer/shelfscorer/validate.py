@@ -91,10 +91,10 @@ def validate(run):
         chk("V-COMP", abs(c2["C"] - c["C"]) < 0.001 and abs(c2["moat"] - c["moat"]) < 0.001, f"stored C {c['C']} recomputed {c2['C']}")
         d = run.read("diff.json")
         dcalls = [run.read(f"diff/call_{i}.json") for i in (1, 2, 3) if run.exists(f"diff/call_{i}.json")]
-        chk("V-DIFF", len(dcalls) >= 2 and all(x.get("prompt_sha") for x in dcalls), f"{len(dcalls)} diff calls")
-        sc2 = sorted(x["score"] for x in dcalls)
-        exp = sc2[1] if len(dcalls) == 3 else sum(sc2) / 2
-        chk("V-DIFF-AGG", abs(exp - d["score"]) < 1e-6, f"diff {d['score']} expected {exp}")
+        chk("V-DIFF", len(dcalls) == K.DIFF_CALLS and all(x.get("prompt_sha") for x in dcalls), f"{len(dcalls)} diff calls")
+        agg = P.diff_aggregate([x["score"] for x in dcalls]) if dcalls else {"score": None, "spread": None}
+        chk("V-DIFF-AGG", agg["score"] is not None and abs(agg["score"] - d["score"]) < 1e-6
+            and abs((d.get("spread") or 0) - agg["spread"]) < 1e-6, f"diff {d['score']} expected mean {agg['score']}")
         sales_ok, _ = SL.sleeve_sales_gate(s, top)
         r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
                         n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], sales_ok=sales_ok)

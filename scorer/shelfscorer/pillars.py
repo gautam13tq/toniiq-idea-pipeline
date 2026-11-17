@@ -264,6 +264,20 @@ def diff_from_vectors(vectors, microbial):
 
 
 # ---------------- Composite (3.7) ----------------
+def diff_aggregate(scores):
+    """Diff = mean of the judge runs (3 at temp 0 since 17 Nov 2026); spread = max - min, kept for the record."""
+    scores = [float(x) for x in scores]
+    mean = sum(scores) / len(scores)
+    return {"score": mean, "spread": round(max(scores) - min(scores), 4), "scores": scores,
+            "unstable": max(scores) - min(scores) > K.DIFF_UNSTABLE_DELTA}
+
+
+def small_market(top):
+    """True when the top 12 sell under K.SMALL_MARKET_UNITS a month in total (summed monthly-sold badges)."""
+    total = sum((f.get("monthly_sold") or 0) for f in top)
+    return total < K.SMALL_MARKET_UNITS, total
+
+
 def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_ok=True):
     w = K.WEIGHTS
     raw = 10 * (w["D"] * D + w["G"] * G + w["C"] * C + w["Diff"] * Diff)

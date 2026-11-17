@@ -16,6 +16,8 @@ C_CAP = 6.0
 MIN_CANDIDATES = 30
 MAX_DATA_AGE_DAYS = 7
 DIFF_UNSTABLE_DELTA = 1.0
+DIFF_CALLS = 3               # Diff = mean of 3 judge runs at temp 0, spread recorded (Gautam, 17 Nov 2026)
+SMALL_MARKET_UNITS = 3000    # info flag: top 12 sells under ~3,000 units a month in total; no score effect (17 Nov 2026)
 
 # Demand gate (scoring_core.ts L626-663)
 DEMAND_MIN_PRIMARY = 100

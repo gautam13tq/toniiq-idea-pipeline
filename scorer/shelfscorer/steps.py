@@ -531,16 +531,13 @@ def step_diff(run):
              for k in K.DIFF_VECTORS}, "summary": o.get("reasoning"), "score": sc}
         run.save(f"diff/call_{i}.json", r)
         return r
-    results = [one(1), one(2)]
-    unstable = abs(results[0]["score"] - results[1]["score"]) > K.DIFF_UNSTABLE_DELTA
-    if unstable:
-        results.append(one(3))
-        final = sorted(r["score"] for r in results)[1]
-    else:
-        final = (results[0]["score"] + results[1]["score"]) / 2
-    run.save("diff.json", {"score": final, "unstable": unstable, "calls": len(results), "microbial": s["microbial"],
+    results = [one(i) for i in range(1, K.DIFF_CALLS + 1)]
+    agg = P.diff_aggregate([r["score"] for r in results])
+    final, unstable = agg["score"], agg["unstable"]
+    run.save("diff.json", {"score": final, "spread": agg["spread"], "scores": agg["scores"], "method": "mean",
+                           "unstable": unstable, "calls": len(results), "microbial": s["microbial"],
                            "vectors_available": sum(1 for v in results[0]["vectors"].values() if v >= 6)})
-    run.step_done("diff", "V-DIFF", len(results) >= 2, f"Diff={final:.2f} unstable={unstable}")
+    run.step_done("diff", "V-DIFF", len(results) == K.DIFF_CALLS, f"Diff={final:.2f} spread={agg['spread']:.2f}")
 
 
 # ---------------- step 12: cross-checks ----------------
@@ -593,6 +590,9 @@ def step_score(run):
     info = list(dg["flags"]) + list(x["flags"]) + (["diff_unstable"] if d["unstable"] else [])
     s = run.read("spec.json")
     info.append(f"scored_on = {s['scored_on']}")
+    small, units = P.small_market(run.read("top12.json"))
+    if small:
+        info.append(f"small market ({units:,}/month across the top 12)")
     if m.get("no_apify_page1"):
         info.append("no_apify_page1")
     sales_ok, sales_why = SL.sleeve_sales_gate(s, run.read("top12.json"))
@@ -602,7 +602,9 @@ def step_score(run):
     if r["tier"] == K.OPEN_GAP:
         r["open_gap"] = open_gap_report(dg, run.read("top12.json"), run.read("candidates.json")["page_pos"],
                                         run.read("gate/decisions.json")["decisions"], _monthly_index(run))
-    r.update(D=dg["D"], G=dg["G"], C=round(c["C"], 4), Diff=round(d["score"], 4), version=m["scorer_version"])
+    r.update(D=dg["D"], G=dg["G"], C=round(c["C"], 4), Diff=round(d["score"], 4), version=m["scorer_version"],
+             diff_runs={"scores": d.get("scores"), "spread": d.get("spread"), "method": d.get("method", "legacy")},
+             top12_units=units)
     run.save("score.json", r)
     run.step_done("score", "V-SCORE", True, f"{r['score']} {r['tier']}")
 
