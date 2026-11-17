@@ -1,0 +1,32 @@
+{
+  "shelf_keyword": "saccharomyces boulardii",
+  "hero_name": "Saccharomyces boulardii",
+  "hero_regex": "boulardii|saccharomyces",
+  "class_regex": "probiotics?\\b|prebiotics?\\b",
+  "cluster_keywords": [
+    "saccharomyces boulardii",
+    "s boulardii",
+    "s boulardii probiotic",
+    "saccharomyces boulardii probiotic",
+    "boulardii probiotic"
+  ],
+  "parent_keyword": null,
+  "microbial": true,
+  "finder_terms": [
+    "saccharomyces boulardii",
+    "s boulardii"
+  ],
+  "candidate_subniches": [
+    "s boulardii 50 billion"
+  ],
+  "seed_asins": [],
+  "spec_round": "rerun-2026-11-17",
+  "scored_on": "parent",
+  "scored_on_why": "parent: the ingredient is the shelf, no sleeve qualifier",
+  "demand_keyword": "saccharomyces boulardii",
+  "demand_cluster": [
+    "saccharomyces boulardii",
+    "saccharomyces boulardii capsules"
+  ],
+  "spec_from": "specs/pre-sleeve-2026-11-12/saccharomyces-boulardii.json"
+}
