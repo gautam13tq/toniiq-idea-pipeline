@@ -16,7 +16,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/51iEqcGt+hL.jpg",
    "monthly_sold": 2000,
-   "reviews": 0,
+   "reviews": 128,
    "family_asins": [
     "B0GVL55W68"
    ]
@@ -34,7 +34,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81WD2qovaTL.jpg",
    "monthly_sold": 500,
-   "reviews": 0,
+   "reviews": 409,
    "family_asins": [
     "B0D81CJWZV",
     "B0D81H8FP9",
@@ -54,7 +54,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71oXJJHWV5L.jpg",
    "monthly_sold": 300,
-   "reviews": 0,
+   "reviews": 160,
    "family_asins": [
     "B0DLMFTXGF",
     "B0DLNDDFNY"
@@ -73,7 +73,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61kz3-vAgeL.jpg",
    "monthly_sold": 300,
-   "reviews": 0,
+   "reviews": 130,
    "family_asins": [
     "B0BX4QSRJ6"
    ]
@@ -91,7 +91,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71a-eVJNsaL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 10,
    "family_asins": [
     "B0FWRNWMTB"
    ]
@@ -109,7 +109,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71VBn0LWCZL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 59,
    "family_asins": [
     "B0DZ1YVTMT"
    ]
@@ -128,7 +128,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71mjaWyp5BL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 1,
    "family_asins": [
     "B0FJXGTMQN"
    ]
@@ -149,24 +149,6 @@
    "reviews": 0,
    "family_asins": [
     "B0F3CHXD46"
-   ]
-  },
-  {
-   "asin": "B0CG2MWH8S",
-   "brand": "SUPPLEMENTS STUDIO",
-   "title": "Hormonal, Digestive & Immune Support Bundle - DIM 200mg with BioPerine® & Cruciferous Whole Foods + Vegan 3-in-1 Probiotic 50 Billion CFU + Liposomal Vitamin C 1100mg with Acerola Cherry - No Fillers",
-   "bullets": [
-    "DIM 200mg with BioPerine & Organic Cruciferous Veggies for Hormonal Balance (2-Month Supply): Supports estrogen and hormone balance in both men and women with a potent blend of diindolylmethane (DIM) 200mg, kale, brussels sprouts, garlic, and lemongrass. BioPerine and sunflower lecithin for superior absorption.",
-    "3-in-1 Probiotic Complex (2-Month Supply): Combines 50 billion CFUs from 10 strains of probiotics, prebiotic fiber (inulin), and digestive enzymes (bromelain, papain, amylase & more) for comprehensive gut support for both women & men—all in just one convenient delayed-release capsule per day.",
-    "High-Absorption Liposomal Vitamin C (2-Month Supply): Delivers 1100mg of liposomal vitamin C liquid-gel (per serving) in delayed release capsules for enhanced absorption and maximum effectiveness. Gentle on the stomach. Enriched with organic acerola cherry, naturally rich in vitamin C, for an extra boost of nutrients.",
-    "Clean & Filler-free: Crafted with your health in mind, our products contain high-grade vitamins, minerals, and nutrients without the unwanted extras. Free from fillers like rice flour, magnesium stearate, and silicon dioxide, so you can trust what you're putting into your body. Formulated with integrity and transparency.",
-    "Proudly Made in the U.S.: All our supplements are manufactured with rigorous quality control standards and strict adherence to current Good Manufacturing Practices (cGMP). Made with high quality natural and vegan ingredients."
-   ],
-   "image": "https://m.media-amazon.com/images/I/51bGuLjcJZL.jpg",
-   "monthly_sold": 0,
-   "reviews": 0,
-   "family_asins": [
-    "B0CG2MWH8S"
    ]
   },
   {
@@ -200,7 +182,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/51zkd4ue6ZL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 1,
    "family_asins": [
     "B0BRT7ZK9P"
    ]

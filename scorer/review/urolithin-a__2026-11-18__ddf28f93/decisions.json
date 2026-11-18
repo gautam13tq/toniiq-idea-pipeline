@@ -46,18 +46,9 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0G26ZT1KK": {
-   "scorer": "IN",
-   "rank": 6,
-   "in_top12": true,
-   "gate_code": "HERO_SECONDARY",
-   "source": "front_of_pack",
-   "fop_rule": "R3 hero shares the front equally",
-   "manual": null
-  },
   "B0H72C1Y1R": {
    "scorer": "IN",
-   "rank": 7,
+   "rank": 6,
    "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -66,7 +57,7 @@
   },
   "B0CC438LCK": {
    "scorer": "IN",
-   "rank": 8,
+   "rank": 7,
    "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -75,7 +66,7 @@
   },
   "B0BWXTZJTD": {
    "scorer": "IN",
-   "rank": 9,
+   "rank": 8,
    "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -84,7 +75,7 @@
   },
   "B0H8SKVLBW": {
    "scorer": "IN",
-   "rank": 10,
+   "rank": 9,
    "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -92,6 +83,15 @@
    "manual": null
   },
   "B0HFM9M6KQ": {
+   "scorer": "IN",
+   "rank": 10,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0HLJ5PW26": {
    "scorer": "IN",
    "rank": 11,
    "in_top12": true,
@@ -109,21 +109,21 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0F6466RHC": {
+  "B0FCY4XRP1": {
    "scorer": "IN",
    "rank": 13,
    "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
+   "gate_code": "JUDGE_OUT",
+   "source": "front_of_pack",
+   "fop_rule": "hero leads the front",
    "manual": null
   },
-  "B0HLJ5PW26": {
+  "B0F6466RHC": {
    "scorer": "IN",
    "rank": 14,
    "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },
@@ -162,6 +162,16 @@
    "source": "IN_OK",
    "fop_rule": null,
    "manual": null
+  },
+  "B0G26ZT1KK": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "HERO_SECONDARY",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": "OUT"
   },
   "B0CP4C671V": {
    "scorer": "OUT",

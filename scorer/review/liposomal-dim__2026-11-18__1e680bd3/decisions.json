@@ -4,7 +4,7 @@
   "B0GVL55W68": {
    "scorer": "IN",
    "rank": 1,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -13,7 +13,7 @@
   "B0D81CJWZV": {
    "scorer": "IN",
    "rank": 2,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
@@ -22,7 +22,7 @@
   "B0DLMFTXGF": {
    "scorer": "IN",
    "rank": 3,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -31,7 +31,7 @@
   "B0BX4QSRJ6": {
    "scorer": "IN",
    "rank": 4,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
@@ -40,7 +40,7 @@
   "B0FWRNWMTB": {
    "scorer": "IN",
    "rank": 5,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -49,7 +49,7 @@
   "B0DZ1YVTMT": {
    "scorer": "IN",
    "rank": 6,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -58,7 +58,7 @@
   "B0FJXGTMQN": {
    "scorer": "IN",
    "rank": 7,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
@@ -67,25 +67,16 @@
   "B0F3CHXD46": {
    "scorer": "IN",
    "rank": 8,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },
-  "B0CG2MWH8S": {
-   "scorer": "IN",
-   "rank": 9,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "fop_unreadable",
-   "fop_rule": "front of pack unreadable",
-   "manual": null
-  },
   "B01NBHX3W1": {
    "scorer": "IN",
-   "rank": 10,
-   "in_top12": false,
+   "rank": 9,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -93,8 +84,8 @@
   },
   "B0BRT7ZK9P": {
    "scorer": "IN",
-   "rank": 11,
-   "in_top12": false,
+   "rank": 10,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -102,8 +93,8 @@
   },
   "B0HKTH59M4": {
    "scorer": "IN",
-   "rank": 12,
-   "in_top12": false,
+   "rank": 11,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
