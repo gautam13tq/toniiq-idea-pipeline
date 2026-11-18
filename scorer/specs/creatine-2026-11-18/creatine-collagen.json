@@ -1,0 +1,60 @@
+{
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "creatine-2026-11-18",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "scored_on": "sleeve",
+ "demand_keyword": "creatine",
+ "spec_note": "Gautam approved six creatine sleeves 18 Nov 2026 (product-dev/subniches/creatine-2026-11-18.md) plus #1 collagen creatine coffee.",
+ "shelf_keyword": "creatine and collagen for women",
+ "cluster_keywords": [
+  "creatine and collagen for women",
+  "creatine and collagen",
+  "creatine with collagen",
+  "collagen creatine"
+ ],
+ "finder_terms": [
+  "creatine and collagen",
+  "creatine with collagen"
+ ],
+ "required_regex": "collagen",
+ "sleeve_kind": "pairing",
+ "sleeve_regex": "collagen",
+ "sleeve_words": [
+  "and collagen",
+  "with collagen",
+  "collagen"
+ ],
+ "scored_on_why": "pairing sleeve: creatine + collagen",
+ "sleeve_cluster": [
+  "creatine and collagen for women",
+  "creatine collagen",
+  "creatine collagen for women",
+  "creatine with collagen for women",
+  "creatine collagen gummies",
+  "creatine and collagen gummies",
+  "wellah creatine and collagen",
+  "creatine collagen powder",
+  "collagen creatine for women",
+  "creatine and collagen powder",
+  "neocell creatine collagen peptides",
+  "creatine monohydrate with collagen",
+  "creatine and collagen gummies for women",
+  "creatine and collagen for men",
+  "creatine collagen electrolytes",
+  "bonafide creatine and collagen",
+  "creatine monohydrate collagen",
+  "creatine collagen peptides",
+  "creatine and collagen",
+  "creatine with collagen",
+  "collagen creatine"
+ ],
+ "written_at": "2026-11-18T12:20:41+00:00"
+}

@@ -1,0 +1,61 @@
+{
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "creatine-2026-11-18",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "scored_on": "sleeve",
+ "demand_keyword": "creatine",
+ "spec_note": "Gautam approved six creatine sleeves 18 Nov 2026 (product-dev/subniches/creatine-2026-11-18.md) plus #1 collagen creatine coffee.",
+ "shelf_keyword": "creatine packets",
+ "cluster_keywords": [
+  "creatine packets",
+  "creatine stick packs",
+  "creatine single serve packets",
+  "creatine travel packs"
+ ],
+ "finder_terms": [
+  "creatine packets",
+  "creatine stick packs"
+ ],
+ "gate_format": "powder",
+ "required_regex": "packets?|stick\\s*packs?|\\bsticks\\b|single[- ]serv|travel\\s*packs?|on[- ]the[- ]go",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "packets?|sticks?|single serv|travel",
+ "sleeve_words": [
+  "packets",
+  "stick packs",
+  "single serve packets",
+  "travel packs",
+  "sticks"
+ ],
+ "scored_on_why": "pack-format sleeve: single-serve packets and stick packs",
+ "sleeve_cluster": [
+  "creatine packets",
+  "creatine packets to go travel",
+  "thorne creatine travel packs",
+  "travel creatine packets",
+  "creatine sticks",
+  "creatine monohydrate packets",
+  "thorne creatine packets",
+  "creatine packets for women",
+  "creatine monohydrate travel packs",
+  "momentous creatine travel packs",
+  "creatine monohydrate packets to go",
+  "individual creatine packets",
+  "jocko creatine packets",
+  "creatine packets to go",
+  "orgain creatine travel packs",
+  "creatine monohydrate stick packs",
+  "creatine stick packs",
+  "creatine single serve packets",
+  "creatine travel packs"
+ ],
+ "written_at": "2026-11-18T12:12:14+00:00"
+}

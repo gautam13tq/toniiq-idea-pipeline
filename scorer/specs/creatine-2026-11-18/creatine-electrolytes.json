@@ -1,0 +1,60 @@
+{
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "creatine-2026-11-18",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "scored_on": "sleeve",
+ "demand_keyword": "creatine",
+ "spec_note": "Gautam approved six creatine sleeves 18 Nov 2026 (product-dev/subniches/creatine-2026-11-18.md) plus #1 collagen creatine coffee.",
+ "shelf_keyword": "creatine electrolytes",
+ "cluster_keywords": [
+  "creatine electrolytes",
+  "creatine with electrolytes",
+  "creatine and electrolytes",
+  "creatine hydration"
+ ],
+ "finder_terms": [
+  "creatine electrolytes",
+  "creatine hydration"
+ ],
+ "required_regex": "electrolyte|hydration",
+ "sleeve_kind": "pairing",
+ "sleeve_regex": "electrolyte|hydration",
+ "sleeve_words": [
+  "electrolytes",
+  "with electrolytes",
+  "and electrolytes",
+  "hydration"
+ ],
+ "scored_on_why": "pairing sleeve: creatine + electrolytes",
+ "sleeve_cluster": [
+  "creatine electrolytes",
+  "create creatine electrolytes",
+  "creatine and electrolytes packets",
+  "wellah creatine and electrolytes",
+  "micro creatine hydration",
+  "creatine with electrolytes for women",
+  "electrolytes creatine",
+  "trace creatine and electrolytes",
+  "creatine hydration packets",
+  "sports research creatine and electrolytes",
+  "creatine hydration micro ingredients",
+  "creatine and electrolytes for women",
+  "magna creatine electrolytes",
+  "flo creatine and electrolytes",
+  "creatine hydration for women",
+  "creatine monohydrate with electrolytes",
+  "creatine electrolytes mix",
+  "creatine with electrolytes",
+  "creatine and electrolytes",
+  "creatine hydration"
+ ],
+ "written_at": "2026-11-18T12:18:42+00:00"
+}

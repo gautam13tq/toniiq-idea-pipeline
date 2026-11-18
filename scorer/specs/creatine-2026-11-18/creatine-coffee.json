@@ -1,0 +1,40 @@
+{
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "creatine-2026-11-18",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "scored_on": "sleeve",
+ "demand_keyword": "creatine",
+ "spec_note": "Gautam approved six creatine sleeves 18 Nov 2026 (product-dev/subniches/creatine-2026-11-18.md) plus #1 collagen creatine coffee.",
+ "shelf_keyword": "creatine coffee",
+ "cluster_keywords": [
+  "creatine coffee",
+  "coffee with creatine",
+  "creatine instant coffee",
+  "collagen creatine coffee"
+ ],
+ "finder_terms": [
+  "creatine coffee",
+  "coffee with creatine"
+ ],
+ "gate_format": "coffee",
+ "required_regex": "\\bcoffee\\b",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "\\bcoffee\\b",
+ "sleeve_words": [
+  "coffee",
+  "instant coffee"
+ ],
+ "scored_on_why": "Product Ideas #1: instant coffee with 5 g creatine + 5 g collagen (+ lion's mane, L-theanine); no forced score if the shelf is unclear",
+ "sleeve_cluster": [
+  "creatine coffee"
+ ],
+ "written_at": "2026-11-18T12:22:39+00:00"
+}
