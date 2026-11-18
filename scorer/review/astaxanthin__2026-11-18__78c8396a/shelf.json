@@ -1,0 +1,47 @@
+{
+ "run_id": "astaxanthin__2026-11-18__78c8396a",
+ "shelf_keyword": "astaxanthin",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "astaxanthin",
+  "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin|astareal|zanthin",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "batch-c-2026-11-18",
+  "hero_names": [
+   "astaxanthin"
+  ],
+  "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+  "aktin_row": 12,
+  "shelf_keyword": "astaxanthin",
+  "scored_on": "parent",
+  "parent_keyword": "astaxanthin",
+  "demand_keyword": "astaxanthin",
+  "cluster_keywords": [
+   "astaxanthin",
+   "astaxanthin supplement"
+  ],
+  "finder_terms": [
+   "astaxanthin",
+   "astaxanthin supplement"
+  ],
+  "scored_on_why": "parent: all astaxanthin products, liposomal as the differentiation angle",
+  "diff_angle": "a liposomal astaxanthin (better absorption) as the point of difference",
+  "demand_cluster": [
+   "astaxanthin",
+   "astaxanthin supplements",
+   "astaxanthin liquid",
+   "astaxanthin organic",
+   "astaxanthin gummies",
+   "astaxanthin powder",
+   "astaxanthin capsules",
+   "astaxanthin for women",
+   "astaxanthin pills",
+   "astaxanthin softgels",
+   "astaxanthin drops"
+  ],
+  "written_at": "2026-11-18T22:40:29+00:00"
+ }
+}
