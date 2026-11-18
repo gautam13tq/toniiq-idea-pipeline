@@ -216,24 +216,6 @@
    ]
   },
   {
-   "asin": "B0GW88KRXL",
-   "brand": "Saphily",
-   "title": "Saphily ORVIA Labs NAC 1200mg Liposomal – Antioxidant & Cellular Support",
-   "bullets": [
-    "1200mg High-Potency Formula",
-    "Liposomal for Better Absorption",
-    "Supports Antioxidant Defense",
-    "Cellular Health Support",
-    "Clean & Simple Formula"
-   ],
-   "image": "https://m.media-amazon.com/images/I/51N61Hwju4L.jpg",
-   "monthly_sold": 0,
-   "reviews": 0,
-   "family_asins": [
-    "B0GW88KRXL"
-   ]
-  },
-  {
    "asin": "B0H1WHV2FM",
    "brand": "ANYTALK",
    "title": "ANYTALK Liposomal NAC Drops – N-Acetyl Cysteine 1000mg Liquid Supplement with Alpha Lipoic Acid, Quercetin & Zinc, Antioxidant, Immune, Liver & Lung Support, Sugar-Free, Adults & Kids",
@@ -339,6 +321,20 @@
    "family_asins": [
     "B0F66YTS21",
     "B0F6716F4G"
+   ]
+  },
+  {
+   "asin": "B0BLQ6GY55",
+   "brand": "SILENDOR",
+   "title": "NAC Supplement N-Acetyl Cysteine Plus L-Glutathione Intracellular Antioxidant Complex with Milk Thistle Extract-NAC and Liposomal Glutathione Powerful Antioxidant for Cells Rejuvenation and Repair",
+   "bullets": [
+    "NAC Supplement N-Acetyl Cysteine Plus L-Glutathione Intracellular Antioxidant Complex with Milk Thistle Extract-NAC and Liposomal Glutathione Powerful Antioxidant for Cells Rejuvenation and Repair"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81RwxOkZYbL.jpg",
+   "monthly_sold": 0,
+   "reviews": 0,
+   "family_asins": [
+    "B0BLQ6GY55"
    ]
   }
  ]
