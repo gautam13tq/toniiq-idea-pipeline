@@ -1,0 +1,46 @@
+{
+ "hero_name": "beet root (nitric oxide)",
+ "hero_regex": "\\bbeets?\\b|beetroot",
+ "parent_keyword": "nitric oxide",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-b-2026-11-18",
+ "hero_names": [
+  "beet root",
+  "beetroot"
+ ],
+ "demand_keyword": "nitric oxide",
+ "spec_note": "Batch B, tracker 18 Nov 2026 (Gautam 'Ok agreed' to the four astaxanthin and nitric oxide sleeves; 'rank the general nitric oxide shelf'). Keyword groups: product-dev/subniches/astaxanthin-2026-11-18.md and nitric-oxide-2026-11-18.md.",
+ "hero_exclude_regex": "erect|male enhancement|enhancement pill|libido|sexual|\\bsex\\b|bedroom|virility|\\bED\\b|\\bpenis|\\bmale performance\\b|blue ?chew|sildenafil|tadalafil",
+ "exclude_note": "Sexual-health / erection products kept off (tracker 18 Nov); unsure ones flagged by hand.",
+ "scored_on": "sleeve",
+ "shelf_keyword": "beet root nitric oxide",
+ "cluster_keywords": [
+  "beet root nitric oxide",
+  "beet root nitric oxide supplement",
+  "nitric oxide beet root",
+  "beetroot nitric oxide"
+ ],
+ "finder_terms": [
+  "beet root nitric oxide",
+  "nitric oxide beet root"
+ ],
+ "required_regex": "nitric|\\bnitrate",
+ "sleeve_kind": "pairing",
+ "sleeve_regex": "nitric",
+ "sleeve_words": [
+  "nitric oxide"
+ ],
+ "scored_on_why": "ingredient sleeve: beet root led, sold as a nitric oxide product",
+ "sleeve_cluster": [
+  "beet root nitric oxide",
+  "lemeli beetroot nitric oxide booster",
+  "beetroot nitric oxide booster",
+  "beet root nitric oxide booster",
+  "beet root nitric oxide supplement",
+  "nitric oxide beet root",
+  "beetroot nitric oxide"
+ ],
+ "written_at": "2026-11-18T14:17:14+00:00"
+}

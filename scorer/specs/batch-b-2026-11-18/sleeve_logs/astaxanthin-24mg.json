@@ -1,0 +1,163 @@
+{
+ "written_at": "2026-11-18T14:14:33+00:00",
+ "prereg_run": "runs_prereg/astaxanthin-24mg-prereg__2026-11-18__a165273c",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "astaxanthin 24mg",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "\\b24\\s*mg\\b",
+ "autocomplete_suggestions": [
+  "astaxanthin 24 mg",
+  "astaxanthin 24 mg lutein 40 mg",
+  "astaxanthin 24 mg made in usa",
+  "astaxanthin 24 mg per serving with mct oil",
+  "astaxanthin 24 mg revella",
+  "astaxanthin 24 mg softgels",
+  "astaxanthin 24 mg softgels 300",
+  "astaxanthin 24 mg supplements",
+  "astaxanthin 24 mg with mct oil",
+  "astaxanthin 24 mgs",
+  "astaxanthin 24mg",
+  "astaxanthin 24mg gummies",
+  "astaxanthin 24mg softgels",
+  "astaxanthin 24mg third party tested",
+  "astaxanthin 24mg with lutein",
+  "astaxanthin 24mg with mct oil",
+  "gold seal astaxanthin 24mg",
+  "liposomal astaxanthin 24mg",
+  "revella astaxanthin 24mg softgel supplements",
+  "rovina astaxanthin 24mg softgels"
+ ],
+ "candidates_checked": 76,
+ "sleeve_cluster": {
+  "astaxanthin 24mg": {
+   "clicks": 8864,
+   "clicks_12m_ago": 1105,
+   "trend_12m_pct": 702.2
+  },
+  "revella astaxanthin 24mg softgel supplements": {
+   "clicks": 2460,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "rovina astaxanthin 24mg softgels": {
+   "clicks": 761,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "gold seal astaxanthin 24mg": {
+   "clicks": 515,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal astaxanthin 24mg": {
+   "clicks": 121,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 24mg with mct oil": {
+   "clicks": 28,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 24 mg": {
+   "clicks": 166,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin 24mg softgels": {
+   "clicks": 364,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 13279,
+ "cluster_rows": 8,
+ "cluster_clicks_12m_ago": 1105,
+ "cluster_trend_12m_pct": 702.2,
+ "cluster_trend_basis": "1 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "astaxanthin",
+  "clicks": 100342,
+  "trend_12m_pct": 173.7
+ },
+ "no_data": [
+  "24mg astaxanthin",
+  "24mg astaxanthin supplement",
+  "astaxanthin 24mg supplement",
+  "24mg astaxanthin supplements",
+  "astaxanthin 24mg supplements",
+  "organic 24mg astaxanthin",
+  "astaxanthin 24mg organic",
+  "pure 24mg astaxanthin",
+  "astaxanthin 24mg pure",
+  "24mg astaxanthin extract",
+  "astaxanthin 24mg extract",
+  "24mg astaxanthin for women",
+  "astaxanthin 24mg for women",
+  "24mg astaxanthin for men",
+  "astaxanthin 24mg for men",
+  "24mg astaxanthin for kids",
+  "astaxanthin 24mg for kids",
+  "24mg astaxanthin 500mg",
+  "astaxanthin 24mg 500mg",
+  "24mg astaxanthin 1000mg",
+  "astaxanthin 24mg 1000mg",
+  "24mg astaxanthin unflavored",
+  "astaxanthin 24mg unflavored",
+  "vegan 24mg astaxanthin",
+  "astaxanthin 24mg vegan",
+  "high potency 24mg astaxanthin",
+  "astaxanthin 24mg high potency",
+  "best 24mg astaxanthin",
+  "astaxanthin 24mg best",
+  "24 mg astaxanthin",
+  "24 mg astaxanthin supplement",
+  "astaxanthin 24 mg supplement",
+  "24 mg astaxanthin supplements",
+  "astaxanthin 24 mg supplements",
+  "organic 24 mg astaxanthin",
+  "astaxanthin 24 mg organic",
+  "pure 24 mg astaxanthin",
+  "astaxanthin 24 mg pure",
+  "24 mg astaxanthin extract",
+  "astaxanthin 24 mg extract",
+  "24 mg astaxanthin for women",
+  "astaxanthin 24 mg for women",
+  "24 mg astaxanthin for men",
+  "astaxanthin 24 mg for men",
+  "24 mg astaxanthin for kids",
+  "astaxanthin 24 mg for kids",
+  "24 mg astaxanthin 500mg",
+  "astaxanthin 24 mg 500mg",
+  "24 mg astaxanthin 1000mg",
+  "astaxanthin 24 mg 1000mg",
+  "24 mg astaxanthin unflavored",
+  "astaxanthin 24 mg unflavored",
+  "vegan 24 mg astaxanthin",
+  "astaxanthin 24 mg vegan",
+  "high potency 24 mg astaxanthin",
+  "astaxanthin 24 mg high potency",
+  "best 24 mg astaxanthin",
+  "astaxanthin 24 mg best",
+  "astaxanthin 24mg gummies",
+  "astaxanthin 24mg with lutein",
+  "astaxanthin 24mg third party tested",
+  "astaxanthin 24 mg softgels",
+  "astaxanthin 24 mg with mct oil",
+  "astaxanthin 24 mg made in usa",
+  "astaxanthin 24 mg revella",
+  "astaxanthin 24 mg softgels 300",
+  "astaxanthin 24 mg per serving with mct oil",
+  "astaxanthin 24 mg lutein 40 mg"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 13,279 clicks over 8 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

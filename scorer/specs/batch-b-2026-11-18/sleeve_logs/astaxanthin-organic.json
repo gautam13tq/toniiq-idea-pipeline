@@ -1,0 +1,99 @@
+{
+ "written_at": "2026-11-18T14:15:04+00:00",
+ "prereg_run": "runs_prereg/astaxanthin-organic-prereg__2026-11-18__56737519",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "astaxanthin organic",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "\\borganic\\b",
+ "autocomplete_suggestions": [
+  "astaxanthin organic",
+  "astaxanthin organic 12mg",
+  "astaxanthin organic 24mg",
+  "astaxanthin organic 3rd party tested",
+  "astaxanthin organic 6mg",
+  "astaxanthin organic capsules",
+  "astaxanthin organic gummies",
+  "astaxanthin organic haematococcus pluvialis",
+  "astaxanthin organic pure",
+  "astaxanthin organic softgels"
+ ],
+ "candidates_checked": 38,
+ "sleeve_cluster": {
+  "astaxanthin organic": {
+   "clicks": 1840,
+   "clicks_12m_ago": 130,
+   "trend_12m_pct": 1315.4
+  },
+  "organic astaxanthin supplements": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin organic supplements": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "organic astaxanthin": {
+   "clicks": 479,
+   "clicks_12m_ago": 113,
+   "trend_12m_pct": 323.9
+  }
+ },
+ "cluster_clicks": 2372,
+ "cluster_rows": 4,
+ "cluster_clicks_12m_ago": 243,
+ "cluster_trend_12m_pct": 854.3,
+ "cluster_trend_basis": "2 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "astaxanthin",
+  "clicks": 100342,
+  "trend_12m_pct": 173.7
+ },
+ "no_data": [
+  "organic astaxanthin supplement",
+  "astaxanthin organic supplement",
+  "organic organic astaxanthin",
+  "astaxanthin organic organic",
+  "pure organic astaxanthin",
+  "astaxanthin organic pure",
+  "organic astaxanthin extract",
+  "astaxanthin organic extract",
+  "organic astaxanthin for women",
+  "astaxanthin organic for women",
+  "organic astaxanthin for men",
+  "astaxanthin organic for men",
+  "organic astaxanthin for kids",
+  "astaxanthin organic for kids",
+  "organic astaxanthin 500mg",
+  "astaxanthin organic 500mg",
+  "organic astaxanthin 1000mg",
+  "astaxanthin organic 1000mg",
+  "organic astaxanthin unflavored",
+  "astaxanthin organic unflavored",
+  "vegan organic astaxanthin",
+  "astaxanthin organic vegan",
+  "high potency organic astaxanthin",
+  "astaxanthin organic high potency",
+  "best organic astaxanthin",
+  "astaxanthin organic best",
+  "astaxanthin organic softgels",
+  "astaxanthin organic 3rd party tested",
+  "astaxanthin organic 12mg",
+  "astaxanthin organic gummies",
+  "astaxanthin organic 24mg",
+  "astaxanthin organic capsules",
+  "astaxanthin organic 6mg",
+  "astaxanthin organic haematococcus pluvialis"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 2,372 clicks over 4 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

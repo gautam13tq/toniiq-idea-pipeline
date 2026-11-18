@@ -1,0 +1,43 @@
+{
+ "hero_name": "nitric oxide",
+ "hero_regex": "nitric oxide|\\bnitric\\b",
+ "parent_keyword": "nitric oxide",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-b-2026-11-18",
+ "hero_names": [
+  "nitric oxide"
+ ],
+ "demand_keyword": "nitric oxide",
+ "spec_note": "Batch B, tracker 18 Nov 2026 (Gautam 'Ok agreed' to the four astaxanthin and nitric oxide sleeves; 'rank the general nitric oxide shelf'). Keyword groups: product-dev/subniches/astaxanthin-2026-11-18.md and nitric-oxide-2026-11-18.md.",
+ "hero_exclude_regex": "erect|male enhancement|enhancement pill|libido|sexual|\\bsex\\b|bedroom|virility|\\bED\\b|\\bpenis|\\bmale performance\\b|blue ?chew|sildenafil|tadalafil",
+ "exclude_note": "Sexual-health / erection products kept off (tracker 18 Nov); unsure ones flagged by hand.",
+ "scored_on": "parent",
+ "shelf_keyword": "nitric oxide",
+ "cluster_keywords": [
+  "nitric oxide",
+  "nitric oxide supplement",
+  "nitric oxide booster",
+  "nitric oxide supplements"
+ ],
+ "finder_terms": [
+  "nitric oxide",
+  "nitric oxide booster"
+ ],
+ "scored_on_why": "parent: the general nitric oxide shelf (Gautam 18 Nov)",
+ "demand_cluster": [
+  "nitric oxide",
+  "nitric oxide supplements for men",
+  "nitric oxide gummies",
+  "nitric oxide booster for men",
+  "nitric oxide powder",
+  "nitric oxide for women",
+  "nitric oxide booster powder",
+  "nitric oxide for men",
+  "nitric oxide pills",
+  "nitric oxide supplement for men",
+  "nitric oxide capsules",
+  "nitric oxide supplements for women"
+ ]
+}
