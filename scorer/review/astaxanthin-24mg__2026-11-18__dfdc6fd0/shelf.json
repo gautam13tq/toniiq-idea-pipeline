@@ -1,0 +1,51 @@
+{
+ "run_id": "astaxanthin-24mg__2026-11-18__dfdc6fd0",
+ "shelf_keyword": "astaxanthin 24mg",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "astaxanthin",
+  "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin|astareal|zanthin",
+  "parent_keyword": "astaxanthin",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "batch-b-2026-11-18",
+  "hero_names": [
+   "astaxanthin"
+  ],
+  "scored_on": "sleeve",
+  "demand_keyword": "astaxanthin",
+  "spec_note": "Batch B, tracker 18 Nov 2026 (Gautam 'Ok agreed' to the four astaxanthin and nitric oxide sleeves; 'rank the general nitric oxide shelf'). Keyword groups: product-dev/subniches/astaxanthin-2026-11-18.md and nitric-oxide-2026-11-18.md.",
+  "shelf_keyword": "astaxanthin 24mg",
+  "cluster_keywords": [
+   "astaxanthin 24mg",
+   "astaxanthin 24 mg",
+   "24mg astaxanthin",
+   "astaxanthin 24mg softgels"
+  ],
+  "finder_terms": [
+   "astaxanthin 24mg",
+   "astaxanthin 24 mg"
+  ],
+  "required_regex": "\\b24\\s?mg\\b",
+  "sleeve_kind": "dose",
+  "sleeve_regex": "\\b24\\s*mg\\b",
+  "sleeve_words": [
+   "24mg",
+   "24 mg"
+  ],
+  "scored_on_why": "dose sleeve: 24mg inside astaxanthin",
+  "sleeve_cluster": [
+   "astaxanthin 24mg",
+   "revella astaxanthin 24mg softgel supplements",
+   "rovina astaxanthin 24mg softgels",
+   "gold seal astaxanthin 24mg",
+   "liposomal astaxanthin 24mg",
+   "astaxanthin 24mg with mct oil",
+   "astaxanthin 24 mg",
+   "astaxanthin 24mg softgels"
+  ],
+  "written_at": "2026-11-18T14:14:33+00:00"
+ }
+}
