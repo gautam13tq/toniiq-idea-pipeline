@@ -1,0 +1,45 @@
+{
+ "run_id": "astaxanthin-organic__2026-11-18__0219b8e2",
+ "shelf_keyword": "astaxanthin organic",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "astaxanthin",
+  "hero_regex": "astaxanthin|astaxanthine|astapure|bioastin|astareal|zanthin",
+  "parent_keyword": "astaxanthin",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "batch-b-2026-11-18",
+  "hero_names": [
+   "astaxanthin"
+  ],
+  "scored_on": "sleeve",
+  "demand_keyword": "astaxanthin",
+  "spec_note": "Batch B, tracker 18 Nov 2026 (Gautam 'Ok agreed' to the four astaxanthin and nitric oxide sleeves; 'rank the general nitric oxide shelf'). Keyword groups: product-dev/subniches/astaxanthin-2026-11-18.md and nitric-oxide-2026-11-18.md.",
+  "shelf_keyword": "astaxanthin organic",
+  "cluster_keywords": [
+   "astaxanthin organic",
+   "organic astaxanthin",
+   "organic astaxanthin supplement"
+  ],
+  "finder_terms": [
+   "organic astaxanthin",
+   "astaxanthin organic"
+  ],
+  "required_regex": "\\borganic\\b",
+  "sleeve_kind": "variety",
+  "sleeve_regex": "\\borganic\\b",
+  "sleeve_words": [
+   "organic"
+  ],
+  "scored_on_why": "variety sleeve: organic astaxanthin",
+  "sleeve_cluster": [
+   "astaxanthin organic",
+   "organic astaxanthin supplements",
+   "astaxanthin organic supplements",
+   "organic astaxanthin"
+  ],
+  "written_at": "2026-11-18T14:15:04+00:00"
+ }
+}
