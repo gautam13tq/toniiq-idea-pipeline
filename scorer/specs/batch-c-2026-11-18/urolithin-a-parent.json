@@ -34,5 +34,14 @@
   "urolithin a supplements",
   "urolithin a capsules",
   "urolithin a supplement 1000mg"
- ]
+ ],
+ "manual_decisions": {
+  "B0G26ZT1KK": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Thinbi NMN & NAD Supplement with Urolithin A (NMN and NAD lead, urolithin A secondary)"
+  }
+ }
 }
