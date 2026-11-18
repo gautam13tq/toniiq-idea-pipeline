@@ -1,0 +1,23 @@
+{
+ "run_id": "liposomal-tongkat-ali__2026-11-18__002d55b4",
+ "decisions": {
+  "B0H4S7TKWQ": {
+   "scorer": "IN",
+   "rank": 1,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0CJCY462X": {
+   "scorer": "IN",
+   "rank": 2,
+   "in_top12": true,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  }
+ }
+}
