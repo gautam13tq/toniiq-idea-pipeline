@@ -1,0 +1,49 @@
+{
+ "run_id": "liposomal-nac__2026-11-18__48769ecb",
+ "shelf_keyword": "liposomal nac",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "NAC (N-acetyl cysteine)",
+  "hero_regex": "\\bnac\\b|n[- ]?acetyl[- ]?(?:l[- ]?)?cysteine",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "batch-c-2026-11-18",
+  "hero_names": [
+   "nac",
+   "n acetyl cysteine"
+  ],
+  "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+  "aktin_row": 20,
+  "shelf_keyword": "liposomal nac",
+  "scored_on": "sleeve",
+  "sleeve_kind": "variety",
+  "sleeve_words": [
+   "liposomal"
+  ],
+  "sleeve_regex": "liposom",
+  "required_regex": "liposom",
+  "qualifier_regex": "liposom",
+  "parent_keyword": "nac supplement",
+  "demand_keyword": "nac supplement",
+  "cluster_keywords": [
+   "liposomal nac",
+   "orvia labs liposomal nac 1200mg",
+   "liposomal nac 1200 mg"
+  ],
+  "finder_terms": [
+   "liposomal nac",
+   "orvia labs liposomal nac 1200mg"
+  ],
+  "scored_on_why": "variety sleeve: liposomal NAC (N-acetyl cysteine), scored against liposomal products only",
+  "sleeve_cluster": [
+   "liposomal nac",
+   "nac liposomal",
+   "liposomal nac supplement",
+   "orvia labs liposomal nac 1200mg",
+   "liposomal nac 1200 mg"
+  ],
+  "written_at": "2026-11-18T16:57:38+00:00"
+ }
+}
