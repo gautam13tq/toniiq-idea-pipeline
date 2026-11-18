@@ -35,5 +35,49 @@
   "astaxanthin organic supplements",
   "organic astaxanthin"
  ],
- "written_at": "2026-11-18T14:15:04+00:00"
+ "written_at": "2026-11-18T14:15:04+00:00",
+ "manual_decisions": {
+  "B00J2GBIU4": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T15:45:00+00:00",
+   "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  },
+  "B08KD7823R": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T15:45:00+00:00",
+   "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  },
+  "B0GNXCKBCL": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T15:45:00+00:00",
+   "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  },
+  "B0BTRWVSKC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T15:45:00+00:00",
+   "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  },
+  "B0F46PYZT3": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T15:45:00+00:00",
+   "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  },
+  "B0HNKQB4FC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T15:45:00+00:00",
+   "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  }
+ }
 }

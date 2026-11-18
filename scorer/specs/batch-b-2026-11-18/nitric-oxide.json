@@ -39,5 +39,38 @@
   "nitric oxide supplement for men",
   "nitric oxide capsules",
   "nitric oxide supplements for women"
- ]
+ ],
+ "manual_decisions": {
+  "B0C5JQNGFB": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check on NO for men, 18 Nov",
+   "date": "2026-11-18T15:40:00+00:00",
+   "wording": "Joymode Hard+: front says SEXUAL PERFORMANCE BOOSTER and STRONGER + FIRMER ERECTIONS; sexual-health products are off this shelf (tracker 18 Nov)."
+  },
+  "B07X4YN737": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check on NO for men, 18 Nov",
+   "date": "2026-11-18T15:40:00+00:00",
+   "wording": "Promescent VitaFLUX: \"Male Enhancing Pills for Stamina, Size & Performance\"; sexual-health, off this shelf."
+  },
+  "B0DHBH5BXD": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check on NO for men, 18 Nov",
+   "date": "2026-11-18T15:40:00+00:00",
+   "wording": "THELABSMENCO: \"Happy Wife, Happy Nights\", male endurance with tribulus; sexual-health positioning, off this shelf (judgement call, flagged)."
+  },
+  "B0GMXKPNBX": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check, 18 Nov",
+   "date": "2026-11-18T15:56:26+00:00",
+   "wording": "Jacked Factory N.O. XT second ASIN: same product, title and review pool (15,633) as B076CRGF8H; counted once."
+  }
+ },
+ "booster_names_hero": true,
+ "booster_note": "18 Nov first run dropped every \"Nitric Oxide Booster\" (frozen gate precursor/booster rule; 108 listings on the parent incl. Nutricost, the top click winner). Rerun with the gate reading \"booster\" after the hero as naming the hero.",
+ "written_at": "2026-11-18T15:56:26+00:00"
 }

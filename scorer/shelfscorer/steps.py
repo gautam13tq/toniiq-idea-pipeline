@@ -230,6 +230,12 @@ def load_products(run, prefix):
 
 
 # ---------------- step 6-7: gate and collapse ----------------
+def booster_title(spec, title):
+    """Gate-only reading of a title on a booster_names_hero shelf: "Nitric Oxide Booster" -> "Nitric Oxide supplement"."""
+    bx = re.compile(r"(" + spec["hero_regex"] + r")(\s+)(?:booster|boosting(?:\s+agent)?|boost)\b", re.I)
+    return bx.sub(r"\1\2supplement", title)
+
+
 def step_gate(run):
     run.require("keepa_pass1")
     s = run.read("spec.json")
@@ -237,6 +243,12 @@ def step_gate(run):
     prods = load_products(run, "product_pass1")
     pp = run.read("candidates.json")["page_pos"]
     recs = [GA.gate_record(p, tuple(pp[a]) if a in pp else None) for a, p in prods.items() if p.get("title")]
+    # booster_names_hero (18 Nov 2026, nitric oxide): the hero is a category sold only as boosters, so the frozen gate's
+    # "hero named only as a precursor/booster" rule would drop every "Nitric Oxide Booster". For the gate only, the word
+    # after the hero is read as "supplement"; the listing's real title is kept everywhere else.
+    if s.get("booster_names_hero"):
+        for r in recs:
+            r["title"] = booster_title(s, r["title"])
     judge, merge, n = GA.make_judges(run)
     res = GA.GATE.run_shelf(s["shelf_keyword"], recs, k=K.SHELF_SIZE, judge_fn=judge, merge_fn=merge)
     dec = res["dec"]
