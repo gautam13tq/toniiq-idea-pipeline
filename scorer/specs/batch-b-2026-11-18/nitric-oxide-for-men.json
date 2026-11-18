@@ -74,6 +74,27 @@
    "by": "hand check, 18 Nov",
    "date": "2026-11-18T15:56:26+00:00",
    "wording": "Jacked Factory N.O. XT second ASIN: same product, title and review pool (15,633) as B076CRGF8H; counted once."
+  },
+  "B08PFYF9ND": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of NO for men top 12, 18 Nov",
+   "date": "2026-11-18T17:30:00+00:00",
+   "wording": "Force Factor Score! \"Hardcore\": Force Factor's male sexual-performance line; sexual-health products are off this shelf (judgement call, flagged)."
+  },
+  "B09YVLKT94": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of NO for men top 12, 18 Nov",
+   "date": "2026-11-18T17:30:00+00:00",
+   "wording": "Nitro Wood Magnum: male-enhancement branding; sexual-health products are off this shelf (judgement call, flagged)."
+  },
+  "B09J3F8V87": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of NO for men top 12, 18 Nov",
+   "date": "2026-11-18T17:30:00+00:00",
+   "wording": "Tongkat Ali Fadogia: tongkat ali leads the title and formula; nitric oxide is a secondary add-on."
   }
  },
  "booster_names_hero": true,
