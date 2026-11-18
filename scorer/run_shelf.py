@@ -26,7 +26,10 @@ def go(run):
             continue
         print(f"[{now()}] step {name}", flush=True)
         fn(run)
-        if name == "demand_growth" and not run.manifest().get("eligible_after_demand"):
+        # below_gate_check (18 Nov 2026, Aktin liposomal batch): a sleeve under the click gate still gets its shelf built
+        # and its sales checked, so the products serving it can be counted; the score stays ineligible.
+        if name == "demand_growth" and not run.manifest().get("eligible_after_demand") \
+                and not run.read("spec.json").get("below_gate_check"):
             dg = run.read("demand_growth.json")
             why = "demand gate failed" if not dg["demand_gate"]["pass"] else "D < 3"
             S.score_ineligible(run, why)

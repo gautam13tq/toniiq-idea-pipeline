@@ -611,6 +611,8 @@ def step_score(run):
     r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
                     n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], info=info, sales_ok=sales_ok)
     r["sleeve_sales_gate"] = {"pass": sales_ok, "why": sales_why}
+    if s.get("below_gate_check") and not dg["demand_gate"]["pass"]:   # shelf built for counting only: no score
+        r.update(score=None, tier="ineligible", below_gate_check=True)
     if r["tier"] == K.OPEN_GAP:
         r["open_gap"] = open_gap_report(dg, run.read("top12.json"), run.read("candidates.json")["page_pos"],
                                         run.read("gate/decisions.json")["decisions"], _monthly_index(run))

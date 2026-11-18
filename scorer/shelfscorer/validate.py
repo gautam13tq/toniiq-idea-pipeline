@@ -20,7 +20,7 @@ def validate(run):
     m = run.manifest()
     calls = run.calls()
     s = run.read("spec.json")
-    ineligible = not m.get("eligible_after_demand", True)
+    ineligible = not m.get("eligible_after_demand", True) and not s.get("below_gate_check")
     req = REQ_ARTIFACTS[:3] + ["score.json"] if ineligible else REQ_ARTIFACTS
     miss = [a for a in req if not run.exists(a)]
     chk("V-ARTIFACTS", not miss, f"missing {miss}")
@@ -98,6 +98,8 @@ def validate(run):
         sales_ok, _ = SL.sleeve_sales_gate(s, top)
         r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
                         n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], sales_ok=sales_ok)
+        if s.get("below_gate_check") and not dg["demand_gate"]["pass"]:
+            r["score"] = None
         chk("V-SCORE", abs(r["raw"] - sc["raw"]) < 0.01 and r["score"] == sc["score"] and set(r["soft"]) <= set(sc["soft"]),
             f"stored {sc['score']} recomputed {r['score']}")
         x = run.read("crosschecks.json")

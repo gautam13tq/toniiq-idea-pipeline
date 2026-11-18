@@ -118,6 +118,29 @@ class E2E(unittest.TestCase):
         self.assertIn("sleeve_sales_gate", sc)
         self.assertEqual(r.read("demand_growth.json")["demand_gate"]["path"], "sleeve")
 
+    def test_below_gate_check_builds_the_shelf_but_stays_ineligible(self):
+        from shelfscorer import sleeves as SL
+        saved = SL.sleeve_gate
+        SL.sleeve_gate = lambda *a, **k: (False, "forced: cluster under 1,000 clicks")
+        try:
+            for flag, built in ((False, False), (True, True)):
+                spec = dict(SPEC, scored_on="sleeve", sleeve_kind="dose", sleeve_regex="12 ?mg",
+                            sleeve_cluster=["astaxanthin 12mg", "astaxanthin 12 mg"], below_gate_check=flag)
+                r = Run.open(self.tmp, f"idea-b{int(flag)}", spec["shelf_keyword"], "test", {"shelf_cap_usd": 5})
+                r.step_done("open", "V-OPEN", True)
+                S.step_spec(r, dict(spec, written_at=now()))
+                run_shelf.go(r)
+                self.assertEqual(r.exists("top12.json"), built)
+                sc = r.read("score.json")
+                self.assertIsNone(sc["score"])
+                self.assertEqual(sc["tier"], "ineligible")
+                self.assertIn("demand gate failed", sc["hard"])
+                rep = V.validate(r)
+                failed = [c for c in rep["checks"] if not c["pass"] and c["severity"] == "BLOCKER"]
+                self.assertEqual(failed, [], json.dumps(failed, indent=1))
+        finally:
+            SL.sleeve_gate = saved
+
     def test_cannot_skip_a_step(self):
         r = self.new_run()
         with self.assertRaises(Exception):
