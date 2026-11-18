@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "urolithin a": 24554,
+  "urolithin a supplement": 5674
+ },
+ "demand_keyword": "urolithin a",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (24,554)",
+ "lane_keyword": "urolithin a",
+ "lane_clicks": 24554,
+ "demand_cluster": {
+  "urolithin a": 24554,
+  "urolithin a gummies": 847,
+  "urolithin a 500mg": 429,
+  "urolithin a 1000mg": 402,
+  "urolithin a powder": 178,
+  "urolithin a supplements": 94,
+  "urolithin a capsules": 75,
+  "urolithin a supplement 1000mg": 27
+ },
+ "cluster_clicks": 32280,
+ "no_data": [
+  "urolithin a pills",
+  "urolithin a tablets",
+  "urolithin a liquid",
+  "urolithin a drops",
+  "urolithin a extract",
+  "urolithin a softgels",
+  "urolithin a for women",
+  "urolithin a for men",
+  "urolithin a for kids",
+  "urolithin a organic",
+  "urolithin a chewable",
+  "urolithin a tea",
+  "urolithin a complex",
+  "urolithin a supplement supplement",
+  "urolithin a supplement supplements",
+  "urolithin a supplement capsules",
+  "urolithin a supplement pills",
+  "urolithin a supplement tablets",
+  "urolithin a supplement powder",
+  "urolithin a supplement gummies",
+  "urolithin a supplement liquid",
+  "urolithin a supplement drops",
+  "urolithin a supplement extract",
+  "urolithin a supplement softgels",
+  "urolithin a supplement for women",
+  "urolithin a supplement for men",
+  "urolithin a supplement for kids",
+  "urolithin a supplement organic",
+  "urolithin a supplement 500mg",
+  "urolithin a supplement chewable",
+  "urolithin a supplement tea",
+  "urolithin a supplement complex"
+ ]
+}

@@ -1,0 +1,187 @@
+{
+ "written_at": "2026-11-18T16:55:07+00:00",
+ "prereg_run": "runs_prereg/liposomal-vitamin-c-prereg__2026-11-18__cf059132",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal vitamin c",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "dr mercola liposomal vitamin c",
+  "liposomal vitamin c",
+  "liposomal vitamin c 1000mg",
+  "liposomal vitamin c 500mg",
+  "liposomal vitamin c gummies",
+  "liposomal vitamin c liquid",
+  "liposomal vitamin c powder",
+  "livon labs liposomal vitamin c",
+  "now liposomal vitamin c",
+  "pure liposomal vitamin c",
+  "stonehenge vitamin c liposomal",
+  "vitamin c liposomal 1000mg",
+  "vitamin c liposomal 1000mg liquid",
+  "vitamin c liposomal 2000mg",
+  "vitamin c liposomal 500mg",
+  "vitamin c liposomal gel",
+  "vitamin c liposomal gummies",
+  "vitamin c liposomal kids",
+  "vitamin c liposomal liquid",
+  "vitamin c liposomal powder"
+ ],
+ "candidates_checked": 44,
+ "sleeve_cluster": {
+  "liposomal vitamin c": {
+   "clicks": 25649,
+   "clicks_12m_ago": 25535,
+   "trend_12m_pct": 0.4
+  },
+  "liposomal vitamin c 1000mg": {
+   "clicks": 1000,
+   "clicks_12m_ago": 1255,
+   "trend_12m_pct": -20.3
+  },
+  "liposomal vitamin c liquid": {
+   "clicks": 764,
+   "clicks_12m_ago": 878,
+   "trend_12m_pct": -13.0
+  },
+  "vitamin c liposomal 1000mg": {
+   "clicks": 664,
+   "clicks_12m_ago": 578,
+   "trend_12m_pct": 14.9
+  },
+  "livon labs liposomal vitamin c": {
+   "clicks": 454,
+   "clicks_12m_ago": 628,
+   "trend_12m_pct": -27.7
+  },
+  "now liposomal vitamin c": {
+   "clicks": 394,
+   "clicks_12m_ago": 563,
+   "trend_12m_pct": -30.0
+  },
+  "liposomal vitamin c supplement": {
+   "clicks": 361,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal vitamin c gummies": {
+   "clicks": 268,
+   "clicks_12m_ago": 169,
+   "trend_12m_pct": 58.6
+  },
+  "liposomal vitamin c powder": {
+   "clicks": 195,
+   "clicks_12m_ago": 142,
+   "trend_12m_pct": 37.3
+  },
+  "pure liposomal vitamin c": {
+   "clicks": 188,
+   "clicks_12m_ago": 161,
+   "trend_12m_pct": 16.8
+  },
+  "vitamin c liposomal 2000mg": {
+   "clicks": 182,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal vitamin c 500mg": {
+   "clicks": 176,
+   "clicks_12m_ago": 120,
+   "trend_12m_pct": 46.7
+  },
+  "vitamin c liposomal liquid": {
+   "clicks": 143,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c liposomal 500mg": {
+   "clicks": 131,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "stonehenge vitamin c liposomal": {
+   "clicks": 79,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "organic liposomal vitamin c": {
+   "clicks": 62,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal vitamin c supplements": {
+   "clicks": 58,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "best liposomal vitamin c": {
+   "clicks": 31,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c liposomal gel": {
+   "clicks": 30,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal vitamin c for kids": {
+   "clicks": 28,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c liposomal": {
+   "clicks": 3562,
+   "clicks_12m_ago": 3548,
+   "trend_12m_pct": 0.4
+  },
+  "dr mercola liposomal vitamin c": {
+   "clicks": 1103,
+   "clicks_12m_ago": 1116,
+   "trend_12m_pct": -1.2
+  }
+ },
+ "cluster_clicks": 35522,
+ "cluster_rows": 22,
+ "cluster_clicks_12m_ago": 34693,
+ "cluster_trend_12m_pct": -0.8,
+ "cluster_trend_basis": "12 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "vitamin c",
+  "clicks": 260806,
+  "trend_12m_pct": 14.3
+ },
+ "no_data": [
+  "vitamin c liposomal supplement",
+  "vitamin c liposomal supplements",
+  "vitamin c liposomal organic",
+  "vitamin c liposomal pure",
+  "liposomal vitamin c extract",
+  "vitamin c liposomal extract",
+  "liposomal vitamin c for women",
+  "vitamin c liposomal for women",
+  "liposomal vitamin c for men",
+  "vitamin c liposomal for men",
+  "vitamin c liposomal for kids",
+  "liposomal vitamin c unflavored",
+  "vitamin c liposomal unflavored",
+  "vegan liposomal vitamin c",
+  "vitamin c liposomal vegan",
+  "high potency liposomal vitamin c",
+  "vitamin c liposomal high potency",
+  "vitamin c liposomal best",
+  "vitamin c liposomal gummies",
+  "vitamin c liposomal kids",
+  "vitamin c liposomal powder",
+  "vitamin c liposomal 1000mg liquid"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 35,522 clicks over 22 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

@@ -1,0 +1,50 @@
+{
+ "hero_name": "vitamin C",
+ "hero_regex": "(?<![a-z0-9])(?:vitamin[\\s-]?c)(?![a-z0-9])|ascorbic|ascorbate",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "vitamin c"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 27,
+ "shelf_keyword": "vitamin c",
+ "scored_on": "parent",
+ "parent_keyword": "vitamin c",
+ "demand_keyword": "vitamin c",
+ "cluster_keywords": [
+  "vitamin c",
+  "vitamin c supplement"
+ ],
+ "finder_terms": [
+  "vitamin c",
+  "vitamin c supplement"
+ ],
+ "scored_on_why": "parent: all vitamin C products, liposomal as the differentiation angle",
+ "diff_angle": "a liposomal vitamin C (better absorption) as the point of difference",
+ "demand_cluster": [
+  "vitamin c",
+  "vitamin c 1000mg",
+  "vitamin c gummies",
+  "vitamin c 500mg",
+  "vitamin c powder",
+  "vitamin c chewable",
+  "vitamin c drops",
+  "vitamin c for kids",
+  "vitamin c tablets",
+  "vitamin c capsules",
+  "vitamin c liquid",
+  "vitamin c supplements",
+  "vitamin c pills",
+  "vitamin c softgels",
+  "vitamin c organic",
+  "vitamin c complex",
+  "vitamin c tea",
+  "vitamin c for women",
+  "vitamin c for men",
+  "vitamin c supplement capsules",
+  "vitamin c supplement 1000mg"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "hero_name": "vitamin C",
+ "hero_regex": "(?<![a-z0-9])(?:vitamin[\\s-]?c)(?![a-z0-9])|ascorbic|ascorbate",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "vitamin c"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 27,
+ "shelf_keyword": "liposomal vitamin c",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "vitamin c",
+ "demand_keyword": "vitamin c",
+ "cluster_keywords": [
+  "liposomal vitamin c",
+  "vitamin c liposomal",
+  "dr mercola liposomal vitamin c"
+ ],
+ "finder_terms": [
+  "liposomal vitamin c",
+  "vitamin c liposomal"
+ ],
+ "scored_on_why": "variety sleeve: liposomal vitamin C, scored against liposomal products only",
+ "sleeve_cluster": [
+  "liposomal vitamin c",
+  "liposomal vitamin c 1000mg",
+  "liposomal vitamin c liquid",
+  "vitamin c liposomal 1000mg",
+  "livon labs liposomal vitamin c",
+  "now liposomal vitamin c",
+  "liposomal vitamin c supplement",
+  "liposomal vitamin c gummies",
+  "liposomal vitamin c powder",
+  "pure liposomal vitamin c",
+  "vitamin c liposomal 2000mg",
+  "liposomal vitamin c 500mg",
+  "vitamin c liposomal liquid",
+  "vitamin c liposomal 500mg",
+  "stonehenge vitamin c liposomal",
+  "organic liposomal vitamin c",
+  "liposomal vitamin c supplements",
+  "best liposomal vitamin c",
+  "vitamin c liposomal gel",
+  "liposomal vitamin c for kids",
+  "vitamin c liposomal",
+  "dr mercola liposomal vitamin c"
+ ],
+ "written_at": "2026-11-18T16:55:07+00:00"
+}

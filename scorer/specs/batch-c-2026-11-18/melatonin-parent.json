@@ -1,0 +1,46 @@
+{
+ "hero_name": "melatonin",
+ "hero_regex": "melatonin",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "melatonin"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 48,
+ "shelf_keyword": "melatonin",
+ "scored_on": "parent",
+ "parent_keyword": "melatonin",
+ "demand_keyword": "melatonin",
+ "cluster_keywords": [
+  "melatonin",
+  "melatonin supplement"
+ ],
+ "finder_terms": [
+  "melatonin",
+  "melatonin supplement"
+ ],
+ "scored_on_why": "parent: all melatonin products, liposomal as the differentiation angle",
+ "diff_angle": "a liposomal melatonin (better absorption) as the point of difference",
+ "demand_cluster": [
+  "melatonin",
+  "melatonin gummies",
+  "melatonin for kids",
+  "melatonin tea",
+  "melatonin liquid",
+  "melatonin pills",
+  "melatonin drops",
+  "melatonin tablets",
+  "melatonin powder",
+  "melatonin chewable",
+  "melatonin capsules",
+  "melatonin supplements",
+  "melatonin organic",
+  "melatonin for men",
+  "melatonin complex",
+  "melatonin for women",
+  "melatonin 1000mg"
+ ]
+}

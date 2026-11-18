@@ -1,0 +1,98 @@
+{
+ "written_at": "2026-11-18T17:05:19+00:00",
+ "prereg_run": "runs_prereg/liposomal-tongkat-ali-prereg__2026-11-18__bf7ffca3",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal tongkat ali",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "liposomal tongkat ali",
+  "liposomal tongkat ali for men",
+  "liposomal tongkat ali for women",
+  "liposomal tongkat ali gummies",
+  "liposomal tongkat ali rho",
+  "liposomal tongkat ali supplement",
+  "liposomal tongkat ali testosterone and stress balance",
+  "tongkat ali liposomal",
+  "tongkat ali liposomal rho"
+ ],
+ "candidates_checked": 34,
+ "sleeve_cluster": {
+  "liposomal tongkat ali": {
+   "clicks": 157,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "tongkat ali liposomal": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "tongkat ali liposomal rho": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal tongkat ali for men": {
+   "clicks": 163,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal tongkat ali rho": {
+   "clicks": 62,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 433,
+ "cluster_rows": 5,
+ "cluster_clicks_12m_ago": null,
+ "cluster_trend_12m_pct": null,
+ "cluster_trend_basis": "0 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "tongkat ali",
+  "clicks": 23450,
+  "trend_12m_pct": -9.5
+ },
+ "no_data": [
+  "liposomal tongkat ali supplement",
+  "tongkat ali liposomal supplement",
+  "liposomal tongkat ali supplements",
+  "tongkat ali liposomal supplements",
+  "organic liposomal tongkat ali",
+  "tongkat ali liposomal organic",
+  "pure liposomal tongkat ali",
+  "tongkat ali liposomal pure",
+  "liposomal tongkat ali extract",
+  "tongkat ali liposomal extract",
+  "liposomal tongkat ali for women",
+  "tongkat ali liposomal for women",
+  "tongkat ali liposomal for men",
+  "liposomal tongkat ali for kids",
+  "tongkat ali liposomal for kids",
+  "liposomal tongkat ali 500mg",
+  "tongkat ali liposomal 500mg",
+  "liposomal tongkat ali 1000mg",
+  "tongkat ali liposomal 1000mg",
+  "liposomal tongkat ali unflavored",
+  "tongkat ali liposomal unflavored",
+  "vegan liposomal tongkat ali",
+  "tongkat ali liposomal vegan",
+  "high potency liposomal tongkat ali",
+  "tongkat ali liposomal high potency",
+  "best liposomal tongkat ali",
+  "tongkat ali liposomal best",
+  "liposomal tongkat ali testosterone and stress balance",
+  "liposomal tongkat ali gummies"
+ ],
+ "sleeve_gate_part1": {
+  "pass": false,
+  "why": "sleeve cluster 433 < 1,000 clicks"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

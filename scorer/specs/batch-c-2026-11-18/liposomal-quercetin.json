@@ -1,0 +1,42 @@
+{
+ "hero_name": "quercetin",
+ "hero_regex": "quercetin",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "quercetin"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 24,
+ "shelf_keyword": "liposomal quercetin",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "quercetin",
+ "demand_keyword": "quercetin",
+ "cluster_keywords": [
+  "liposomal quercetin",
+  "quercetin liposomal",
+  "liposomal quercetin with bromelain"
+ ],
+ "finder_terms": [
+  "liposomal quercetin",
+  "quercetin liposomal"
+ ],
+ "scored_on_why": "variety sleeve: liposomal quercetin, scored against liposomal products only",
+ "below_gate_check": true,
+ "below_gate_note": "Under 1,000 clicks: shelf built only to count liposomal products and check sales (tracker 18 Nov); no score.",
+ "sleeve_cluster": [
+  "liposomal quercetin",
+  "quercetin liposomal",
+  "liposomal quercetin with bromelain"
+ ],
+ "written_at": "2026-11-18T17:03:49+00:00"
+}

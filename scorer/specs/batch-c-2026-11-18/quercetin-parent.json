@@ -1,0 +1,42 @@
+{
+ "hero_name": "quercetin",
+ "hero_regex": "quercetin",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "quercetin"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 24,
+ "shelf_keyword": "quercetin",
+ "scored_on": "parent",
+ "parent_keyword": "quercetin",
+ "demand_keyword": "quercetin",
+ "cluster_keywords": [
+  "quercetin",
+  "quercetin supplement"
+ ],
+ "finder_terms": [
+  "quercetin",
+  "quercetin supplement"
+ ],
+ "scored_on_why": "parent: all quercetin products, liposomal as the differentiation angle",
+ "diff_angle": "a liposomal quercetin (better absorption) as the point of difference",
+ "demand_cluster": [
+  "quercetin",
+  "quercetin supplements",
+  "quercetin 1000mg",
+  "quercetin 500mg",
+  "quercetin gummies",
+  "quercetin complex",
+  "quercetin for kids",
+  "quercetin powder",
+  "quercetin liquid",
+  "quercetin drops",
+  "quercetin organic",
+  "quercetin extract",
+  "quercetin capsules"
+ ]
+}

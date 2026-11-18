@@ -1,0 +1,186 @@
+{
+ "written_at": "2026-11-18T16:56:44+00:00",
+ "prereg_run": "runs_prereg/liposomal-magnesium-prereg__2026-11-18__03937df5",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal magnesium",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "codeage liposomal magnesium glycinate",
+  "liposomal magnesium",
+  "liposomal magnesium 18 in 1",
+  "liposomal magnesium 18-in-1 complex",
+  "liposomal magnesium complex",
+  "liposomal magnesium glycinate gummies",
+  "liposomal magnesium glycinate sleep gummies",
+  "liposomal magnesium gummies",
+  "liposomal magnesium l-threonate",
+  "magnesium glycinate liposomal",
+  "magnesium glycinate liposomal 500mg",
+  "magnesium glycinate liposomal elemental",
+  "magnesium glycinate liposomal liquid",
+  "magnesium glycinate liposomal pills",
+  "magnesium glycinate liposomal sleep",
+  "magnesium liposomal",
+  "magnesium liposomal 18 in 1",
+  "magnesium liposomal complex",
+  "magnesium liposomal glycinate",
+  "magnesium liposomal gummy",
+  "magnesium liposomal liquid",
+  "magnesium liposomal mary ruth",
+  "magnesium liposomal rootlabhealth organic for sleep",
+  "magnesium liposomal supplement",
+  "rho magnesium liposomal",
+  "root labs liposomal magnesium ashwagandha gummies"
+ ],
+ "candidates_checked": 81,
+ "sleeve_cluster": {
+  "liposomal magnesium": {
+   "clicks": 1393,
+   "clicks_12m_ago": 749,
+   "trend_12m_pct": 86.0
+  },
+  "liposomal magnesium 18 in 1": {
+   "clicks": 497,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal magnesium glycinate sleep gummies": {
+   "clicks": 304,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal magnesium complex": {
+   "clicks": 196,
+   "clicks_12m_ago": 139,
+   "trend_12m_pct": 41.0
+  },
+  "magnesium liposomal": {
+   "clicks": 189,
+   "clicks_12m_ago": 117,
+   "trend_12m_pct": 61.5
+  },
+  "liposomal magnesium l-threonate": {
+   "clicks": 137,
+   "clicks_12m_ago": 256,
+   "trend_12m_pct": -46.5
+  },
+  "magnesium glycinate liposomal": {
+   "clicks": 114,
+   "clicks_12m_ago": 80,
+   "trend_12m_pct": 42.5
+  },
+  "root labs liposomal magnesium ashwagandha gummies": {
+   "clicks": 97,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "rho magnesium liposomal": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal magnesium glycinate": {
+   "clicks": 1540,
+   "clicks_12m_ago": 626,
+   "trend_12m_pct": 146.0
+  },
+  "codeage liposomal magnesium glycinate": {
+   "clicks": 721,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 5215,
+ "cluster_rows": 11,
+ "cluster_clicks_12m_ago": 1967,
+ "cluster_trend_12m_pct": 81.4,
+ "cluster_trend_basis": "6 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "magnesium glycinate",
+  "clicks": 486651,
+  "trend_12m_pct": 21.3
+ },
+ "no_data": [
+  "liposomal magnesium supplement",
+  "magnesium liposomal supplement",
+  "liposomal magnesium supplements",
+  "magnesium liposomal supplements",
+  "organic liposomal magnesium",
+  "magnesium liposomal organic",
+  "pure liposomal magnesium",
+  "magnesium liposomal pure",
+  "liposomal magnesium extract",
+  "magnesium liposomal extract",
+  "liposomal magnesium for women",
+  "magnesium liposomal for women",
+  "liposomal magnesium for men",
+  "magnesium liposomal for men",
+  "liposomal magnesium for kids",
+  "magnesium liposomal for kids",
+  "liposomal magnesium 500mg",
+  "magnesium liposomal 500mg",
+  "liposomal magnesium 1000mg",
+  "magnesium liposomal 1000mg",
+  "liposomal magnesium unflavored",
+  "magnesium liposomal unflavored",
+  "vegan liposomal magnesium",
+  "magnesium liposomal vegan",
+  "high potency liposomal magnesium",
+  "magnesium liposomal high potency",
+  "best liposomal magnesium",
+  "magnesium liposomal best",
+  "liposomal magnesium glycinate supplement",
+  "magnesium glycinate liposomal supplement",
+  "liposomal magnesium glycinate supplements",
+  "magnesium glycinate liposomal supplements",
+  "organic liposomal magnesium glycinate",
+  "magnesium glycinate liposomal organic",
+  "pure liposomal magnesium glycinate",
+  "magnesium glycinate liposomal pure",
+  "liposomal magnesium glycinate extract",
+  "magnesium glycinate liposomal extract",
+  "liposomal magnesium glycinate for women",
+  "magnesium glycinate liposomal for women",
+  "liposomal magnesium glycinate for men",
+  "magnesium glycinate liposomal for men",
+  "liposomal magnesium glycinate for kids",
+  "magnesium glycinate liposomal for kids",
+  "liposomal magnesium glycinate 500mg",
+  "magnesium glycinate liposomal 500mg",
+  "liposomal magnesium glycinate 1000mg",
+  "magnesium glycinate liposomal 1000mg",
+  "liposomal magnesium glycinate unflavored",
+  "magnesium glycinate liposomal unflavored",
+  "vegan liposomal magnesium glycinate",
+  "magnesium glycinate liposomal vegan",
+  "high potency liposomal magnesium glycinate",
+  "magnesium glycinate liposomal high potency",
+  "best liposomal magnesium glycinate",
+  "magnesium glycinate liposomal best",
+  "liposomal magnesium gummies",
+  "liposomal magnesium glycinate gummies",
+  "liposomal magnesium 18-in-1 complex",
+  "magnesium liposomal 18 in 1",
+  "magnesium liposomal complex",
+  "magnesium liposomal glycinate",
+  "magnesium liposomal rootlabhealth organic for sleep",
+  "magnesium liposomal liquid",
+  "magnesium liposomal mary ruth",
+  "magnesium liposomal gummy",
+  "magnesium glycinate liposomal liquid",
+  "magnesium glycinate liposomal sleep",
+  "magnesium glycinate liposomal pills",
+  "magnesium glycinate liposomal elemental"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 5,215 clicks over 11 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

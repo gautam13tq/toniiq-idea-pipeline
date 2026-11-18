@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "vitamin c": 260806,
+  "vitamin c supplement": 4925
+ },
+ "demand_keyword": "vitamin c",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (260,806)",
+ "lane_keyword": "vitamin c",
+ "lane_clicks": 260806,
+ "demand_cluster": {
+  "vitamin c": 260806,
+  "vitamin c 1000mg": 29009,
+  "vitamin c gummies": 24615,
+  "vitamin c 500mg": 11314,
+  "vitamin c powder": 10288,
+  "vitamin c chewable": 7177,
+  "vitamin c drops": 3819,
+  "vitamin c for kids": 3137,
+  "vitamin c tablets": 2659,
+  "vitamin c capsules": 1989,
+  "vitamin c liquid": 1756,
+  "vitamin c supplements": 1650,
+  "vitamin c pills": 1272,
+  "vitamin c softgels": 510,
+  "vitamin c organic": 503,
+  "vitamin c complex": 450,
+  "vitamin c tea": 353,
+  "vitamin c for women": 292,
+  "vitamin c for men": 127,
+  "vitamin c supplement capsules": 45,
+  "vitamin c supplement 1000mg": 28
+ },
+ "cluster_clicks": 366724,
+ "no_data": [
+  "vitamin c extract",
+  "vitamin c supplement supplement",
+  "vitamin c supplement supplements",
+  "vitamin c supplement pills",
+  "vitamin c supplement tablets",
+  "vitamin c supplement powder",
+  "vitamin c supplement gummies",
+  "vitamin c supplement liquid",
+  "vitamin c supplement drops",
+  "vitamin c supplement extract",
+  "vitamin c supplement softgels",
+  "vitamin c supplement for women",
+  "vitamin c supplement for men",
+  "vitamin c supplement for kids",
+  "vitamin c supplement organic",
+  "vitamin c supplement 500mg",
+  "vitamin c supplement chewable",
+  "vitamin c supplement tea",
+  "vitamin c supplement complex"
+ ]
+}

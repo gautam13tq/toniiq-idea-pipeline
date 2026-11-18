@@ -531,6 +531,8 @@ def step_diff(run):
             f"Top 12 included competitors:\n{json.dumps(comp, indent=1)}\n\n"
             "Score the 6 differentiation vectors strictly based on whether this niche has ROOM for Toniiq's playbook — "
             "independent of the concept's draft spec.")
+    if s.get("diff_angle"):   # liposomal judgement rule (Gautam, 18 Nov 2026): parent shelf judged with a named angle
+        user += f"\n\nToniiq's intended angle on this shelf: {s['diff_angle']}. Judge the room for that angle too."
     results = []
 
     def one(i):

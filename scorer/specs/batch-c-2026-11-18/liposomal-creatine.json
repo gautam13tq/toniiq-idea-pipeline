@@ -1,0 +1,42 @@
+{
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 52,
+ "shelf_keyword": "liposomal creatine",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "creatine",
+ "demand_keyword": "creatine",
+ "cluster_keywords": [
+  "liposomal creatine",
+  "rho creatine liposomal",
+  "liposomal creatine monohydrate"
+ ],
+ "finder_terms": [
+  "liposomal creatine",
+  "rho creatine liposomal"
+ ],
+ "scored_on_why": "variety sleeve: liposomal creatine, scored against liposomal products only",
+ "sleeve_cluster": [
+  "liposomal creatine",
+  "creatine liposomal",
+  "rho creatine liposomal",
+  "liposomal creatine monohydrate"
+ ],
+ "written_at": "2026-11-18T16:58:19+00:00"
+}

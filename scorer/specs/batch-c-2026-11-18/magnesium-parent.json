@@ -1,0 +1,49 @@
+{
+ "hero_name": "magnesium",
+ "hero_regex": "magnesium",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "magnesium",
+  "magnesium glycinate"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 42,
+ "shelf_keyword": "magnesium glycinate",
+ "scored_on": "parent",
+ "parent_keyword": "magnesium glycinate",
+ "demand_keyword": "magnesium glycinate",
+ "cluster_keywords": [
+  "magnesium glycinate",
+  "magnesium glycinate supplement"
+ ],
+ "finder_terms": [
+  "magnesium glycinate",
+  "magnesium glycinate supplement"
+ ],
+ "scored_on_why": "parent: all magnesium products, liposomal as the differentiation angle",
+ "diff_angle": "a liposomal magnesium (better absorption) as the point of difference",
+ "demand_cluster": [
+  "magnesium glycinate",
+  "magnesium glycinate 500mg",
+  "magnesium glycinate gummies",
+  "magnesium glycinate powder",
+  "magnesium glycinate for kids",
+  "magnesium glycinate capsules",
+  "magnesium glycinate liquid",
+  "magnesium glycinate supplements",
+  "magnesium glycinate drops",
+  "magnesium glycinate 1000mg",
+  "magnesium glycinate complex",
+  "magnesium glycinate for women",
+  "magnesium glycinate tablets",
+  "magnesium glycinate chewable",
+  "magnesium glycinate organic",
+  "magnesium glycinate softgels",
+  "magnesium glycinate for men",
+  "magnesium glycinate pills",
+  "magnesium glycinate tea"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "tongkat ali": 23450,
+  "tongkat ali supplement": 526
+ },
+ "demand_keyword": "tongkat ali",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (23,450)",
+ "lane_keyword": "tongkat ali",
+ "lane_clicks": 23450,
+ "demand_cluster": {
+  "tongkat ali": 23450,
+  "tongkat ali for men": 7184,
+  "tongkat ali powder": 489,
+  "tongkat ali for women": 178,
+  "tongkat ali gummies": 159,
+  "tongkat ali extract": 158,
+  "tongkat ali drops": 114,
+  "tongkat ali complex": 52,
+  "tongkat ali capsules": 29,
+  "tongkat ali liquid": 28,
+  "tongkat ali organic": 28
+ },
+ "cluster_clicks": 32395,
+ "no_data": [
+  "tongkat ali supplements",
+  "tongkat ali pills",
+  "tongkat ali tablets",
+  "tongkat ali softgels",
+  "tongkat ali for kids",
+  "tongkat ali 500mg",
+  "tongkat ali 1000mg",
+  "tongkat ali chewable",
+  "tongkat ali tea",
+  "tongkat ali supplement supplement",
+  "tongkat ali supplement supplements",
+  "tongkat ali supplement capsules",
+  "tongkat ali supplement pills",
+  "tongkat ali supplement tablets",
+  "tongkat ali supplement powder",
+  "tongkat ali supplement gummies",
+  "tongkat ali supplement liquid",
+  "tongkat ali supplement drops",
+  "tongkat ali supplement extract",
+  "tongkat ali supplement softgels",
+  "tongkat ali supplement for women",
+  "tongkat ali supplement for men",
+  "tongkat ali supplement for kids",
+  "tongkat ali supplement organic",
+  "tongkat ali supplement 500mg",
+  "tongkat ali supplement 1000mg",
+  "tongkat ali supplement chewable",
+  "tongkat ali supplement tea",
+  "tongkat ali supplement complex"
+ ]
+}

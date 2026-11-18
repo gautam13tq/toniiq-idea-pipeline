@@ -1,0 +1,133 @@
+{
+ "written_at": "2026-11-18T17:02:23+00:00",
+ "prereg_run": "runs_prereg/liposomal-dim-prereg__2026-11-18__3357d14b",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal dim",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "dim liposomal",
+  "dim liposomal supplement",
+  "liposomal dim",
+  "liposomal dim for men",
+  "liposomal dim for women",
+  "liposomal dim plus",
+  "liposomal dim sgs",
+  "liposomal dim supplement",
+  "liposomal dim supplement for men",
+  "liposomal dim supplement women",
+  "liposomal dim+ liquid supplement",
+  "liposomal dim-e+ codeage"
+ ],
+ "candidates_checked": 66,
+ "sleeve_cluster": {
+  "liposomal dim": {
+   "clicks": 185,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal dim for women": {
+   "clicks": 58,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal dim for men": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal dim supplement women": {
+   "clicks": 148,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "dim liposomal": {
+   "clicks": 99,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 515,
+ "cluster_rows": 5,
+ "cluster_clicks_12m_ago": null,
+ "cluster_trend_12m_pct": null,
+ "cluster_trend_basis": "0 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "dim supplement",
+  "clicks": 24721,
+  "trend_12m_pct": -2.2
+ },
+ "no_data": [
+  "liposomal dim supplement",
+  "dim liposomal supplement",
+  "liposomal dim supplements",
+  "dim liposomal supplements",
+  "organic liposomal dim",
+  "dim liposomal organic",
+  "pure liposomal dim",
+  "dim liposomal pure",
+  "liposomal dim extract",
+  "dim liposomal extract",
+  "dim liposomal for women",
+  "dim liposomal for men",
+  "liposomal dim for kids",
+  "dim liposomal for kids",
+  "liposomal dim 500mg",
+  "dim liposomal 500mg",
+  "liposomal dim 1000mg",
+  "dim liposomal 1000mg",
+  "liposomal dim unflavored",
+  "dim liposomal unflavored",
+  "vegan liposomal dim",
+  "dim liposomal vegan",
+  "high potency liposomal dim",
+  "dim liposomal high potency",
+  "best liposomal dim",
+  "dim liposomal best",
+  "liposomal diindolylmethane",
+  "diindolylmethane liposomal",
+  "liposomal diindolylmethane supplement",
+  "diindolylmethane liposomal supplement",
+  "liposomal diindolylmethane supplements",
+  "diindolylmethane liposomal supplements",
+  "organic liposomal diindolylmethane",
+  "diindolylmethane liposomal organic",
+  "pure liposomal diindolylmethane",
+  "diindolylmethane liposomal pure",
+  "liposomal diindolylmethane extract",
+  "diindolylmethane liposomal extract",
+  "liposomal diindolylmethane for women",
+  "diindolylmethane liposomal for women",
+  "liposomal diindolylmethane for men",
+  "diindolylmethane liposomal for men",
+  "liposomal diindolylmethane for kids",
+  "diindolylmethane liposomal for kids",
+  "liposomal diindolylmethane 500mg",
+  "diindolylmethane liposomal 500mg",
+  "liposomal diindolylmethane 1000mg",
+  "diindolylmethane liposomal 1000mg",
+  "liposomal diindolylmethane unflavored",
+  "diindolylmethane liposomal unflavored",
+  "vegan liposomal diindolylmethane",
+  "diindolylmethane liposomal vegan",
+  "high potency liposomal diindolylmethane",
+  "diindolylmethane liposomal high potency",
+  "best liposomal diindolylmethane",
+  "diindolylmethane liposomal best",
+  "liposomal dim-e+ codeage",
+  "liposomal dim plus",
+  "liposomal dim supplement for men",
+  "liposomal dim+ liquid supplement",
+  "liposomal dim sgs"
+ ],
+ "sleeve_gate_part1": {
+  "pass": false,
+  "why": "sleeve cluster 515 < 1,000 clicks"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

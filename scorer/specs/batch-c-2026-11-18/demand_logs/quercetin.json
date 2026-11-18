@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "quercetin": 30817,
+  "quercetin supplement": 58
+ },
+ "demand_keyword": "quercetin",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (30,817)",
+ "lane_keyword": "quercetin",
+ "lane_clicks": 30817,
+ "demand_cluster": {
+  "quercetin": 30817,
+  "quercetin supplements": 1162,
+  "quercetin 1000mg": 1083,
+  "quercetin 500mg": 669,
+  "quercetin gummies": 591,
+  "quercetin complex": 337,
+  "quercetin for kids": 264,
+  "quercetin powder": 217,
+  "quercetin liquid": 177,
+  "quercetin drops": 94,
+  "quercetin organic": 77,
+  "quercetin extract": 34,
+  "quercetin capsules": 25
+ },
+ "cluster_clicks": 35605,
+ "no_data": [
+  "quercetin pills",
+  "quercetin tablets",
+  "quercetin softgels",
+  "quercetin for women",
+  "quercetin for men",
+  "quercetin chewable",
+  "quercetin tea",
+  "quercetin supplement supplement",
+  "quercetin supplement supplements",
+  "quercetin supplement capsules",
+  "quercetin supplement pills",
+  "quercetin supplement tablets",
+  "quercetin supplement powder",
+  "quercetin supplement gummies",
+  "quercetin supplement liquid",
+  "quercetin supplement drops",
+  "quercetin supplement extract",
+  "quercetin supplement softgels",
+  "quercetin supplement for women",
+  "quercetin supplement for men",
+  "quercetin supplement for kids",
+  "quercetin supplement organic",
+  "quercetin supplement 500mg",
+  "quercetin supplement 1000mg",
+  "quercetin supplement chewable",
+  "quercetin supplement tea",
+  "quercetin supplement complex"
+ ]
+}

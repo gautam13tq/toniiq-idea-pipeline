@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "dim supplement": 24721,
+  "dim": 16075
+ },
+ "demand_keyword": "dim supplement",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (24,721)",
+ "lane_keyword": "dim supplement",
+ "lane_clicks": 24721,
+ "demand_cluster": {
+  "dim supplement": 24721,
+  "dim for men": 1310,
+  "dim supplement for men": 912,
+  "dim for women": 183,
+  "dim complex": 135,
+  "dim supplements": 59,
+  "dim gummies": 55,
+  "dim supplement for women": 26,
+  "dim powder": 26,
+  "dim capsules": 25
+ },
+ "cluster_clicks": 43527,
+ "no_data": [
+  "dim supplement supplement",
+  "dim supplement supplements",
+  "dim supplement capsules",
+  "dim supplement pills",
+  "dim supplement tablets",
+  "dim supplement powder",
+  "dim supplement gummies",
+  "dim supplement liquid",
+  "dim supplement drops",
+  "dim supplement extract",
+  "dim supplement softgels",
+  "dim supplement for kids",
+  "dim supplement organic",
+  "dim supplement 500mg",
+  "dim supplement 1000mg",
+  "dim supplement chewable",
+  "dim supplement tea",
+  "dim supplement complex",
+  "dim pills",
+  "dim tablets",
+  "dim liquid",
+  "dim drops",
+  "dim extract",
+  "dim softgels",
+  "dim for kids",
+  "dim organic",
+  "dim 500mg",
+  "dim 1000mg",
+  "dim chewable",
+  "dim tea"
+ ]
+}

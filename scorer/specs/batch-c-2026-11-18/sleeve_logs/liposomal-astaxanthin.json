@@ -1,0 +1,100 @@
+{
+ "written_at": "2026-11-18T17:04:35+00:00",
+ "prereg_run": "runs_prereg/liposomal-astaxanthin-prereg__2026-11-18__560ea780",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal astaxanthin",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "astaxanthin liposomal",
+  "astaxanthin liposomal 12mg",
+  "astaxanthin liposomal drops",
+  "liposomal astaxanthin",
+  "liposomal astaxanthin & hyaluronic acid 90 softgels",
+  "liposomal astaxanthin 12mg",
+  "liposomal astaxanthin 24mg",
+  "liposomal astaxanthin 24mg liquid drops",
+  "liposomal astaxanthin 35mg",
+  "liposomal astaxanthin 3rd party tested",
+  "liposomal astaxanthin gummies",
+  "liposomal astaxanthin liquid drops",
+  "liposomal astaxanthin supplements"
+ ],
+ "candidates_checked": 40,
+ "sleeve_cluster": {
+  "liposomal astaxanthin": {
+   "clicks": 325,
+   "clicks_12m_ago": 140,
+   "trend_12m_pct": 132.1
+  },
+  "liposomal astaxanthin 24mg": {
+   "clicks": 121,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "astaxanthin liposomal": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 471,
+ "cluster_rows": 3,
+ "cluster_clicks_12m_ago": 140,
+ "cluster_trend_12m_pct": 132.1,
+ "cluster_trend_basis": "1 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "astaxanthin",
+  "clicks": 100342,
+  "trend_12m_pct": 173.7
+ },
+ "no_data": [
+  "liposomal astaxanthin supplement",
+  "astaxanthin liposomal supplement",
+  "liposomal astaxanthin supplements",
+  "astaxanthin liposomal supplements",
+  "organic liposomal astaxanthin",
+  "astaxanthin liposomal organic",
+  "pure liposomal astaxanthin",
+  "astaxanthin liposomal pure",
+  "liposomal astaxanthin extract",
+  "astaxanthin liposomal extract",
+  "liposomal astaxanthin for women",
+  "astaxanthin liposomal for women",
+  "liposomal astaxanthin for men",
+  "astaxanthin liposomal for men",
+  "liposomal astaxanthin for kids",
+  "astaxanthin liposomal for kids",
+  "liposomal astaxanthin 500mg",
+  "astaxanthin liposomal 500mg",
+  "liposomal astaxanthin 1000mg",
+  "astaxanthin liposomal 1000mg",
+  "liposomal astaxanthin unflavored",
+  "astaxanthin liposomal unflavored",
+  "vegan liposomal astaxanthin",
+  "astaxanthin liposomal vegan",
+  "high potency liposomal astaxanthin",
+  "astaxanthin liposomal high potency",
+  "best liposomal astaxanthin",
+  "astaxanthin liposomal best",
+  "liposomal astaxanthin 12mg",
+  "liposomal astaxanthin 35mg",
+  "liposomal astaxanthin liquid drops",
+  "liposomal astaxanthin 3rd party tested",
+  "liposomal astaxanthin gummies",
+  "liposomal astaxanthin 24mg liquid drops",
+  "liposomal astaxanthin & hyaluronic acid 90 softgels",
+  "astaxanthin liposomal drops",
+  "astaxanthin liposomal 12mg"
+ ],
+ "sleeve_gate_part1": {
+  "pass": false,
+  "why": "sleeve cluster 471 < 1,000 clicks"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

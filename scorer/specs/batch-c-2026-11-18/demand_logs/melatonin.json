@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "melatonin": 200131,
+  "melatonin supplement": 25
+ },
+ "demand_keyword": "melatonin",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (200,131)",
+ "lane_keyword": "melatonin",
+ "lane_clicks": 200131,
+ "demand_cluster": {
+  "melatonin": 200131,
+  "melatonin gummies": 100485,
+  "melatonin for kids": 2078,
+  "melatonin tea": 1461,
+  "melatonin liquid": 1364,
+  "melatonin pills": 1171,
+  "melatonin drops": 1104,
+  "melatonin tablets": 923,
+  "melatonin powder": 621,
+  "melatonin chewable": 524,
+  "melatonin capsules": 413,
+  "melatonin supplements": 210,
+  "melatonin organic": 152,
+  "melatonin for men": 32,
+  "melatonin complex": 30,
+  "melatonin for women": 29,
+  "melatonin 1000mg": 25
+ },
+ "cluster_clicks": 310778,
+ "no_data": [
+  "melatonin extract",
+  "melatonin softgels",
+  "melatonin 500mg",
+  "melatonin supplement supplement",
+  "melatonin supplement supplements",
+  "melatonin supplement capsules",
+  "melatonin supplement pills",
+  "melatonin supplement tablets",
+  "melatonin supplement powder",
+  "melatonin supplement gummies",
+  "melatonin supplement liquid",
+  "melatonin supplement drops",
+  "melatonin supplement extract",
+  "melatonin supplement softgels",
+  "melatonin supplement for women",
+  "melatonin supplement for men",
+  "melatonin supplement for kids",
+  "melatonin supplement organic",
+  "melatonin supplement 500mg",
+  "melatonin supplement 1000mg",
+  "melatonin supplement chewable",
+  "melatonin supplement tea",
+  "melatonin supplement complex"
+ ]
+}

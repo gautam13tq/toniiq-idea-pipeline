@@ -1,0 +1,45 @@
+{
+ "hero_name": "curcumin",
+ "hero_regex": "curcumin|turmeric",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "curcumin",
+  "turmeric"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 23,
+ "shelf_keyword": "liposomal curcumin",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "curcumin",
+ "demand_keyword": "curcumin",
+ "cluster_keywords": [
+  "liposomal curcumin",
+  "liposomal turmeric",
+  "curcumin liposomal"
+ ],
+ "finder_terms": [
+  "liposomal curcumin",
+  "liposomal turmeric"
+ ],
+ "scored_on_why": "variety sleeve: liposomal curcumin, scored against liposomal products only",
+ "below_gate_check": true,
+ "below_gate_note": "Under 1,000 clicks: shelf built only to count liposomal products and check sales (tracker 18 Nov); no score.",
+ "sleeve_cluster": [
+  "liposomal curcumin",
+  "liposomal curcumin liquid",
+  "liposomal curcumin with black pepper",
+  "liposomal turmeric",
+  "curcumin liposomal"
+ ],
+ "written_at": "2026-11-18T17:00:13+00:00"
+}

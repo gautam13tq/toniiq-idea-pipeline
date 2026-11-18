@@ -1,0 +1,52 @@
+{
+ "hero_name": "curcumin",
+ "hero_regex": "curcumin|turmeric",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "curcumin",
+  "turmeric"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 23,
+ "shelf_keyword": "curcumin",
+ "scored_on": "parent",
+ "parent_keyword": "curcumin",
+ "demand_keyword": "curcumin",
+ "cluster_keywords": [
+  "curcumin",
+  "curcumin supplement",
+  "turmeric curcumin"
+ ],
+ "finder_terms": [
+  "curcumin",
+  "curcumin supplement"
+ ],
+ "scored_on_why": "parent: all curcumin products, liposomal as the differentiation angle",
+ "diff_angle": "a liposomal curcumin (better absorption) as the point of difference",
+ "demand_cluster": [
+  "curcumin",
+  "turmeric curcumin supplement",
+  "curcumin supplements",
+  "curcumin powder",
+  "turmeric curcumin gummies",
+  "turmeric curcumin powder",
+  "curcumin 500mg",
+  "curcumin extract",
+  "turmeric curcumin drops",
+  "curcumin gummies",
+  "turmeric curcumin capsules",
+  "curcumin capsules",
+  "turmeric curcumin 500mg",
+  "curcumin organic",
+  "turmeric curcumin 1000mg",
+  "curcumin 1000mg",
+  "curcumin tea",
+  "turmeric curcumin supplements",
+  "curcumin complex",
+  "curcumin liquid",
+  "curcumin drops"
+ ]
+}

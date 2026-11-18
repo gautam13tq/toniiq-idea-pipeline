@@ -1,0 +1,43 @@
+{
+ "hero_name": "urolithin A",
+ "hero_regex": "urolithin|mitopure",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "urolithin a",
+  "urolithin"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 8,
+ "shelf_keyword": "liposomal urolithin a",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "urolithin a",
+ "demand_keyword": "urolithin a",
+ "cluster_keywords": [
+  "liposomal urolithin a",
+  "codeage liposomal urolithin a",
+  "urolithin a liposomal"
+ ],
+ "finder_terms": [
+  "liposomal urolithin a",
+  "codeage liposomal urolithin a"
+ ],
+ "scored_on_why": "variety sleeve: liposomal urolithin A, scored against liposomal products only",
+ "below_gate_check": true,
+ "below_gate_note": "Under 1,000 clicks: shelf built only to count liposomal products and check sales (tracker 18 Nov); no score.",
+ "sleeve_cluster": [
+  "liposomal urolithin a",
+  "codeage liposomal urolithin a",
+  "urolithin a liposomal"
+ ],
+ "written_at": "2026-11-18T17:01:52+00:00"
+}

@@ -1,0 +1,40 @@
+{
+ "hero_name": "zinc",
+ "hero_regex": "\\bzinc\\b",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "zinc"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 43,
+ "shelf_keyword": "liposomal zinc",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "zinc",
+ "demand_keyword": "zinc",
+ "cluster_keywords": [
+  "liposomal zinc",
+  "zinc liposomal"
+ ],
+ "finder_terms": [
+  "liposomal zinc",
+  "zinc liposomal"
+ ],
+ "scored_on_why": "variety sleeve: liposomal zinc, scored against liposomal products only",
+ "below_gate_check": true,
+ "below_gate_note": "Under 1,000 clicks: shelf built only to count liposomal products and check sales (tracker 18 Nov); no score.",
+ "sleeve_cluster": [
+  "liposomal zinc",
+  "zinc liposomal"
+ ],
+ "written_at": "2026-11-18T17:07:33+00:00"
+}

@@ -1,0 +1,38 @@
+{
+ "hero_name": "urolithin A",
+ "hero_regex": "urolithin|mitopure",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "urolithin a",
+  "urolithin"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 8,
+ "shelf_keyword": "urolithin a",
+ "scored_on": "parent",
+ "parent_keyword": "urolithin a",
+ "demand_keyword": "urolithin a",
+ "cluster_keywords": [
+  "urolithin a",
+  "urolithin a supplement"
+ ],
+ "finder_terms": [
+  "urolithin a",
+  "urolithin a supplement"
+ ],
+ "scored_on_why": "parent: all urolithin A products, liposomal as the differentiation angle",
+ "diff_angle": "a liposomal urolithin A (better absorption) as the point of difference",
+ "demand_cluster": [
+  "urolithin a",
+  "urolithin a gummies",
+  "urolithin a 500mg",
+  "urolithin a 1000mg",
+  "urolithin a powder",
+  "urolithin a supplements",
+  "urolithin a capsules",
+  "urolithin a supplement 1000mg"
+ ]
+}

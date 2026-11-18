@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "astaxanthin": 100342,
+  "astaxanthin supplement": 401
+ },
+ "demand_keyword": "astaxanthin",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (100,342)",
+ "lane_keyword": "astaxanthin",
+ "lane_clicks": 100342,
+ "demand_cluster": {
+  "astaxanthin": 100342,
+  "astaxanthin supplements": 13431,
+  "astaxanthin liquid": 4503,
+  "astaxanthin organic": 1840,
+  "astaxanthin gummies": 638,
+  "astaxanthin powder": 328,
+  "astaxanthin capsules": 151,
+  "astaxanthin for women": 52,
+  "astaxanthin pills": 42,
+  "astaxanthin softgels": 31,
+  "astaxanthin drops": 26
+ },
+ "cluster_clicks": 121785,
+ "no_data": [
+  "astaxanthin tablets",
+  "astaxanthin extract",
+  "astaxanthin for men",
+  "astaxanthin for kids",
+  "astaxanthin 500mg",
+  "astaxanthin 1000mg",
+  "astaxanthin chewable",
+  "astaxanthin tea",
+  "astaxanthin complex",
+  "astaxanthin supplement supplement",
+  "astaxanthin supplement supplements",
+  "astaxanthin supplement capsules",
+  "astaxanthin supplement pills",
+  "astaxanthin supplement tablets",
+  "astaxanthin supplement powder",
+  "astaxanthin supplement gummies",
+  "astaxanthin supplement liquid",
+  "astaxanthin supplement drops",
+  "astaxanthin supplement extract",
+  "astaxanthin supplement softgels",
+  "astaxanthin supplement for women",
+  "astaxanthin supplement for men",
+  "astaxanthin supplement for kids",
+  "astaxanthin supplement organic",
+  "astaxanthin supplement 500mg",
+  "astaxanthin supplement 1000mg",
+  "astaxanthin supplement chewable",
+  "astaxanthin supplement tea",
+  "astaxanthin supplement complex"
+ ]
+}

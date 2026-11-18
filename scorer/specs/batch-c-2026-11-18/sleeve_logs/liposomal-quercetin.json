@@ -1,0 +1,105 @@
+{
+ "written_at": "2026-11-18T17:03:49+00:00",
+ "prereg_run": "runs_prereg/liposomal-quercetin-prereg__2026-11-18__f75cff29",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal quercetin",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "liposomal quercetin",
+  "liposomal quercetin 1000mg",
+  "liposomal quercetin kids",
+  "liposomal quercetin liquid",
+  "liposomal quercetin luteolin",
+  "liposomal quercetin phytosome",
+  "liposomal quercetin supplements",
+  "liposomal quercetin with bromelain",
+  "liposomal quercetin with bromelain for dogs",
+  "liposomal quercetin with bromelain liquid drops",
+  "quercetin liposomal",
+  "quercetin liposomal 1000 mg",
+  "quercetin liposomal drops",
+  "quercetin liposomal liquid",
+  "quercetin liposomal maryruth",
+  "quercetin liposomal organic",
+  "quercetin liposomal supplement"
+ ],
+ "candidates_checked": 41,
+ "sleeve_cluster": {
+  "liposomal quercetin": {
+   "clicks": 398,
+   "clicks_12m_ago": 352,
+   "trend_12m_pct": 13.1
+  },
+  "quercetin liposomal": {
+   "clicks": 63,
+   "clicks_12m_ago": 86,
+   "trend_12m_pct": -26.7
+  },
+  "liposomal quercetin with bromelain": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 486,
+ "cluster_rows": 3,
+ "cluster_clicks_12m_ago": 438,
+ "cluster_trend_12m_pct": 5.3,
+ "cluster_trend_basis": "2 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "quercetin",
+  "clicks": 30817,
+  "trend_12m_pct": -8.0
+ },
+ "no_data": [
+  "liposomal quercetin supplement",
+  "quercetin liposomal supplement",
+  "liposomal quercetin supplements",
+  "quercetin liposomal supplements",
+  "organic liposomal quercetin",
+  "quercetin liposomal organic",
+  "pure liposomal quercetin",
+  "quercetin liposomal pure",
+  "liposomal quercetin extract",
+  "quercetin liposomal extract",
+  "liposomal quercetin for women",
+  "quercetin liposomal for women",
+  "liposomal quercetin for men",
+  "quercetin liposomal for men",
+  "liposomal quercetin for kids",
+  "quercetin liposomal for kids",
+  "liposomal quercetin 500mg",
+  "quercetin liposomal 500mg",
+  "liposomal quercetin 1000mg",
+  "quercetin liposomal 1000mg",
+  "liposomal quercetin unflavored",
+  "quercetin liposomal unflavored",
+  "vegan liposomal quercetin",
+  "quercetin liposomal vegan",
+  "high potency liposomal quercetin",
+  "quercetin liposomal high potency",
+  "best liposomal quercetin",
+  "quercetin liposomal best",
+  "liposomal quercetin phytosome",
+  "liposomal quercetin kids",
+  "liposomal quercetin liquid",
+  "liposomal quercetin luteolin",
+  "liposomal quercetin with bromelain for dogs",
+  "liposomal quercetin with bromelain liquid drops",
+  "quercetin liposomal liquid",
+  "quercetin liposomal drops",
+  "quercetin liposomal 1000 mg",
+  "quercetin liposomal maryruth"
+ ],
+ "sleeve_gate_part1": {
+  "pass": false,
+  "why": "sleeve cluster 486 < 1,000 clicks"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "zinc": 156798,
+  "zinc supplement": 2022
+ },
+ "demand_keyword": "zinc",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (156,798)",
+ "lane_keyword": "zinc",
+ "lane_clicks": 156798,
+ "demand_cluster": {
+  "zinc": 156798,
+  "zinc supplements": 74310,
+  "zinc gummies": 11676,
+  "zinc for kids": 4173,
+  "zinc tablets": 1607,
+  "zinc drops": 1439,
+  "zinc for men": 1366,
+  "zinc chewable": 864,
+  "zinc for women": 839,
+  "zinc liquid": 823,
+  "zinc capsules": 713,
+  "zinc powder": 711,
+  "zinc complex": 640,
+  "zinc pills": 514,
+  "zinc organic": 255,
+  "zinc softgels": 189,
+  "zinc tea": 84,
+  "zinc 1000mg": 56,
+  "zinc supplement for kids": 29,
+  "zinc supplement gummies": 28,
+  "zinc supplement for men": 26,
+  "zinc supplement for women": 25
+ },
+ "cluster_clicks": 259187,
+ "no_data": [
+  "zinc extract",
+  "zinc 500mg",
+  "zinc supplement supplement",
+  "zinc supplement supplements",
+  "zinc supplement capsules",
+  "zinc supplement pills",
+  "zinc supplement tablets",
+  "zinc supplement powder",
+  "zinc supplement liquid",
+  "zinc supplement drops",
+  "zinc supplement extract",
+  "zinc supplement softgels",
+  "zinc supplement organic",
+  "zinc supplement 500mg",
+  "zinc supplement 1000mg",
+  "zinc supplement chewable",
+  "zinc supplement tea",
+  "zinc supplement complex"
+ ]
+}

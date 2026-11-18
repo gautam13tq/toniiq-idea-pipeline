@@ -1,0 +1,49 @@
+{
+ "hero_name": "magnesium",
+ "hero_regex": "magnesium",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "batch-c-2026-11-18",
+ "hero_names": [
+  "magnesium",
+  "magnesium glycinate"
+ ],
+ "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+ "aktin_row": 42,
+ "shelf_keyword": "liposomal magnesium",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "magnesium glycinate",
+ "demand_keyword": "magnesium glycinate",
+ "cluster_keywords": [
+  "liposomal magnesium",
+  "liposomal magnesium glycinate",
+  "codeage liposomal magnesium glycinate"
+ ],
+ "finder_terms": [
+  "liposomal magnesium",
+  "liposomal magnesium"
+ ],
+ "scored_on_why": "variety sleeve: liposomal magnesium, scored against liposomal products only",
+ "sleeve_cluster": [
+  "liposomal magnesium",
+  "liposomal magnesium 18 in 1",
+  "liposomal magnesium glycinate sleep gummies",
+  "liposomal magnesium complex",
+  "magnesium liposomal",
+  "liposomal magnesium l-threonate",
+  "magnesium glycinate liposomal",
+  "root labs liposomal magnesium ashwagandha gummies",
+  "rho magnesium liposomal",
+  "liposomal magnesium glycinate",
+  "codeage liposomal magnesium glycinate"
+ ],
+ "written_at": "2026-11-18T16:56:44+00:00"
+}
