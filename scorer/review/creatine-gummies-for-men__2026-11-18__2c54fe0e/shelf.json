@@ -1,0 +1,71 @@
+{
+ "run_id": "creatine-gummies-for-men__2026-11-18__2c54fe0e",
+ "shelf_keyword": "creatine gummies for men",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "creatine",
+  "hero_regex": "creatine|creapure",
+  "parent_keyword": "creatine",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "creatine-2026-11-18",
+  "hero_names": [
+   "creatine",
+   "creatine monohydrate"
+  ],
+  "scored_on": "sleeve",
+  "demand_keyword": "creatine",
+  "spec_note": "Gautam approved six creatine sleeves 18 Nov 2026 (product-dev/subniches/creatine-2026-11-18.md) plus #1 collagen creatine coffee.",
+  "shelf_keyword": "creatine gummies for men",
+  "cluster_keywords": [
+   "creatine gummies for men",
+   "creatine for men",
+   "mens creatine gummies",
+   "creatine gummies men"
+  ],
+  "finder_terms": [
+   "creatine gummies for men",
+   "creatine for men"
+  ],
+  "gate_format": "gummy",
+  "required_regex": "^(?!.*\\bwom[ae]n\\b)(?!.*\\bher\\b).*(?:\\bmen\\b|\\bmen'?s\\b|\\bmale\\b|\\bhim\\b)",
+  "audience": "men",
+  "sleeve_kind": "audience",
+  "sleeve_regex": "\\bmen\\b|\\bmens\\b|\\bmen's\\b|\\bmale\\b",
+  "sleeve_words": [
+   "for men",
+   "men",
+   "mens"
+  ],
+  "scored_on_why": "audience sleeve: men's creatine gummies (unisex titles OUT, R4)",
+  "sleeve_cluster": [
+   "creatine gummies for men",
+   "best creatine for men over 50",
+   "omni creatine gummies for men",
+   "creatine for men over 50",
+   "bear balanced creatine gummies for men",
+   "mens creatine",
+   "best creatine for men",
+   "creatine men",
+   "creatine monohydrate for men",
+   "best mens creatine",
+   "creatine for men over 60",
+   "create creatine gummies for men",
+   "creatine for men over 40",
+   "legion creatine gummies for men",
+   "best creatine for men over 40",
+   "men creatine",
+   "creatine for men muscle gain",
+   "creatine monohydrate men",
+   "liquid creatine for men",
+   "creatine gummies for men over 50",
+   "creatine for men gummies",
+   "creatine for men",
+   "mens creatine gummies",
+   "creatine gummies men"
+  ],
+  "written_at": "2026-11-18T12:09:30+00:00"
+ }
+}
