@@ -1,0 +1,47 @@
+{
+ "run_id": "tongkat-ali__2026-11-18__c19e4465",
+ "shelf_keyword": "tongkat ali",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "tongkat ali",
+  "hero_regex": "tongkat|longjack|eurycoma",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "batch-c-2026-11-18",
+  "hero_names": [
+   "tongkat ali"
+  ],
+  "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+  "aktin_row": 66,
+  "shelf_keyword": "tongkat ali",
+  "scored_on": "parent",
+  "parent_keyword": "tongkat ali",
+  "demand_keyword": "tongkat ali",
+  "cluster_keywords": [
+   "tongkat ali",
+   "tongkat ali supplement"
+  ],
+  "finder_terms": [
+   "tongkat ali",
+   "tongkat ali supplement"
+  ],
+  "scored_on_why": "parent: all tongkat ali products, liposomal as the differentiation angle",
+  "diff_angle": "a liposomal tongkat ali (better absorption) as the point of difference",
+  "demand_cluster": [
+   "tongkat ali",
+   "tongkat ali for men",
+   "tongkat ali powder",
+   "tongkat ali for women",
+   "tongkat ali gummies",
+   "tongkat ali extract",
+   "tongkat ali drops",
+   "tongkat ali complex",
+   "tongkat ali capsules",
+   "tongkat ali liquid",
+   "tongkat ali organic"
+  ],
+  "written_at": "2026-11-18T23:15:43+00:00"
+ }
+}
