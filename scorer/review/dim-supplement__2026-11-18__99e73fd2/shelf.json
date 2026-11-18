@@ -1,0 +1,47 @@
+{
+ "run_id": "dim-supplement__2026-11-18__99e73fd2",
+ "shelf_keyword": "dim supplement",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "DIM (diindolylmethane)",
+  "hero_regex": "\\bdim\\b|diindolylmethane",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "batch-c-2026-11-18",
+  "hero_names": [
+   "dim",
+   "diindolylmethane"
+  ],
+  "spec_note": "Batch C, Aktin liposomal (Gautam 18 Nov: 'for liposomal lets rank - vitamin c, magnesium, nac, creatine, curcumin, urolithin a, dim, quercetin, astaxanthin, tongkat ali, melatonin, zinc'). Judgement rule: product-dev/aktin-liposomal/JUDGEMENT-RULE.md.",
+  "aktin_row": 40,
+  "shelf_keyword": "dim supplement",
+  "scored_on": "parent",
+  "parent_keyword": "dim supplement",
+  "demand_keyword": "dim supplement",
+  "cluster_keywords": [
+   "dim supplement",
+   "dim"
+  ],
+  "finder_terms": [
+   "dim supplement",
+   "dim"
+  ],
+  "scored_on_why": "parent: all DIM (diindolylmethane) products, liposomal as the differentiation angle",
+  "diff_angle": "a liposomal DIM (diindolylmethane) (better absorption) as the point of difference",
+  "demand_cluster": [
+   "dim supplement",
+   "dim for men",
+   "dim supplement for men",
+   "dim for women",
+   "dim complex",
+   "dim supplements",
+   "dim gummies",
+   "dim supplement for women",
+   "dim powder",
+   "dim capsules"
+  ],
+  "written_at": "2026-11-18T21:09:25+00:00"
+ }
+}
