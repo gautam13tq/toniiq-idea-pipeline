@@ -45,5 +45,21 @@
   "magnesium glycinate for men",
   "magnesium glycinate pills",
   "magnesium glycinate tea"
- ]
+ ],
+ "manual_decisions": {
+  "B006P536E6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Life Extension Neuro-Mag: magnesium L-threonate, not glycinate; off the magnesium glycinate shelf."
+  },
+  "B08WPLW4VN": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "BIOptimizers Magnesium Breakthrough: seven forms, not glycinate-led; off the magnesium glycinate shelf."
+  }
+ }
 }
