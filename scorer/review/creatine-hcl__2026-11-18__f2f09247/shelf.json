@@ -1,0 +1,63 @@
+{
+ "run_id": "creatine-hcl__2026-11-18__f2f09247",
+ "shelf_keyword": "creatine hcl",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "creatine",
+  "hero_regex": "creatine|creapure",
+  "parent_keyword": "creatine",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "creatine-2026-11-18",
+  "hero_names": [
+   "creatine",
+   "creatine monohydrate"
+  ],
+  "scored_on": "sleeve",
+  "demand_keyword": "creatine",
+  "spec_note": "Gautam approved six creatine sleeves 18 Nov 2026 (product-dev/subniches/creatine-2026-11-18.md) plus #1 collagen creatine coffee.",
+  "shelf_keyword": "creatine hcl",
+  "cluster_keywords": [
+   "creatine hcl",
+   "creatine hydrochloride",
+   "creatine hcl powder",
+   "creatine hcl capsules"
+  ],
+  "finder_terms": [
+   "creatine hcl",
+   "creatine hydrochloride"
+  ],
+  "required_regex": "\\bhcl\\b|hydrochloride",
+  "sleeve_kind": "variety",
+  "sleeve_regex": "\\bhcl\\b|hydrochloride",
+  "sleeve_words": [
+   "hcl",
+   "hydrochloride"
+  ],
+  "scored_on_why": "variety sleeve: creatine HCl",
+  "sleeve_cluster": [
+   "creatine hcl",
+   "hcl creatine",
+   "creatine hcl gummies",
+   "kaged creatine hcl",
+   "con crete creatine hcl",
+   "concrete creatine hcl",
+   "con-cret creatine hcl",
+   "creatine hcl pills",
+   "creatine hcl supplements",
+   "creatine hcl for women",
+   "hcl creatine for women",
+   "creatine hydrochloride powder",
+   "creatine hydrochloride gummies",
+   "creatine monohydrate hcl",
+   "creatine hcl 189",
+   "creatine hydrochloride capsules",
+   "creatine hydrochloride",
+   "creatine hcl powder",
+   "creatine hcl capsules"
+  ],
+  "written_at": "2026-11-18T12:15:09+00:00"
+ }
+}
