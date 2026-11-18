@@ -56,5 +56,21 @@
   "creatine and electrolytes",
   "creatine hydration"
  ],
- "written_at": "2026-11-18T12:18:42+00:00"
+ "written_at": "2026-11-18T12:18:42+00:00",
+ "manual_decisions": {
+  "B0GFXVT66V": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T13:30:00+00:00",
+   "wording": "TASTY GAINS kids creatine gummies with B12: no electrolytes; only matched on \"muscle hydration\" wording."
+  },
+  "B0GTYVHGXG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T13:30:00+00:00",
+   "wording": "Welvigor 3-in-1 whey protein gummies: whey protein leads; creatine is not the hero."
+  }
+ }
 }

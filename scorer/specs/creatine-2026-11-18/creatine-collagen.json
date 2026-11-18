@@ -56,5 +56,35 @@
   "creatine with collagen",
   "collagen creatine"
  ],
- "written_at": "2026-11-18T12:20:41+00:00"
+ "written_at": "2026-11-18T12:20:41+00:00",
+ "manual_decisions": {
+  "B0F1W9M5L5": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T13:30:00+00:00",
+   "wording": "Clean Nutraceuticals: labelled for men; a men product is OUT on a for-women shelf."
+  },
+  "B0FN99R9XJ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T13:30:00+00:00",
+   "wording": "NeoCell Creatine & Multi Collagen: unisex, not for women; unisex is OUT on a for-women shelf."
+  },
+  "B0GNCD7ZC9": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T13:30:00+00:00",
+   "wording": "Vital Proteins Advanced Collagen Plus Creatine: collagen leads, creatine second, and unisex."
+  },
+  "B0CMD1MNS5": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T14:40:00+00:00",
+   "wording": "Creatine gummies \"for Men & Women\": unisex is OUT on a for-women shelf."
+  }
+ }
 }
