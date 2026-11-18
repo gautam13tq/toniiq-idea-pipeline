@@ -46,5 +46,21 @@
   "vitamin c for men",
   "vitamin c supplement capsules",
   "vitamin c supplement 1000mg"
- ]
+ ],
+ "manual_decisions": {
+  "B0D2Z3GGCY": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "medicube Deep Vita C Capsule Cream: a topical skin cream, not a supplement."
+  },
+  "B0014D2GEK": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Nature's Bounty Super B Complex with Vitamin C: B complex leads; vitamin C is secondary."
+  }
+ }
 }
