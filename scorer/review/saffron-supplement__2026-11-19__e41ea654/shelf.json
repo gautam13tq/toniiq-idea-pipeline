@@ -1,0 +1,52 @@
+{
+ "run_id": "saffron-supplement__2026-11-19__e41ea654",
+ "shelf_keyword": "saffron supplement",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "saffron",
+  "hero_regex": "saffron",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "saffron"
+  ],
+  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+  "shelf_keyword": "saffron supplement",
+  "scored_on": "parent",
+  "parent_keyword": "saffron supplement",
+  "demand_keyword": "saffron supplements",
+  "cluster_keywords": [
+   "saffron supplement",
+   "saffron l-theanine"
+  ],
+  "finder_terms": [
+   "saffron supplement",
+   "saffron l-theanine"
+  ],
+  "demand_cluster": [
+   "saffron supplements",
+   "saffron extract",
+   "saffron supplements for women",
+   "saffron supplements for kids",
+   "saffron extract supplements",
+   "saffron capsules",
+   "saffron extract for kids",
+   "saffron supplements for men",
+   "saffron extract liquid",
+   "saffron supplements organic",
+   "saffron supplements gummies",
+   "saffron supplement for kids",
+   "saffron capsules supplement",
+   "saffron capsules organic",
+   "saffron extract gummies",
+   "saffron supplement capsules",
+   "saffron supplement extract",
+   "saffron extract powder"
+  ],
+  "form": "supplement|capsule|pill|tablet|softgel|gummies|gummy|extract|oral|\\bmg\\b|for (mood|sleep|women|men|skin)",
+  "written_at": "2026-11-19T12:07:20+00:00"
+ }
+}
