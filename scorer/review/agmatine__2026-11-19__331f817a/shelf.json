@@ -1,0 +1,39 @@
+{
+ "run_id": "agmatine__2026-11-19__331f817a",
+ "shelf_keyword": "agmatine",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "agmatine",
+  "hero_regex": "agmatine",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "agmatine"
+  ],
+  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+  "shelf_keyword": "agmatine",
+  "scored_on": "parent",
+  "parent_keyword": "agmatine",
+  "demand_keyword": "agmatine sulfate",
+  "cluster_keywords": [
+   "agmatine",
+   "agmatine sulfate"
+  ],
+  "finder_terms": [
+   "agmatine",
+   "agmatine sulfate"
+  ],
+  "demand_cluster": [
+   "agmatine sulfate",
+   "agmatine sulfate powder",
+   "agmatine supplement",
+   "agmatine sulfate capsules",
+   "agmatine sulfate 1000mg",
+   "agmatine sulfate 500mg"
+  ],
+  "written_at": "2026-11-19T21:49:41+00:00"
+ }
+}
