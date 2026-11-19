@@ -1,0 +1,46 @@
+{
+ "run_id": "d3-k2__2026-11-19__ac89f648",
+ "shelf_keyword": "d3 k2",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "vitamin D3 + K2",
+  "hero_regex": "d3\\W{0,5}(?:and\\W+|&\\W*|\\+\\W*|with\\W+)?(?:vitamin\\W+)?k2|k2\\W{0,5}(?:and\\W+|&\\W*|\\+\\W*)?(?:vitamin\\W+)?d3",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "d3 k2",
+   "vitamin d3 k2"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "scored_on": "parent_default_format",
+  "parent_keyword": "d3 k2",
+  "demand_keyword": "d3 k2",
+  "shelf_keyword": "d3 k2",
+  "cluster_keywords": [
+   "d3 k2"
+  ],
+  "finder_terms": [
+   "d3 k2"
+  ],
+  "scored_on_why": "format sleeve: d3 k2 capsules",
+  "demand_cluster": [
+   "d3 k2",
+   "d3 k2 gummies",
+   "d3 k2 drops",
+   "d3 k2 liquid",
+   "d3 k2 for kids",
+   "d3 k2 supplement",
+   "d3 k2 softgels",
+   "d3 k2 supplements",
+   "d3 k2 organic",
+   "d3 k2 powder",
+   "d3 k2 chewable"
+  ],
+  "sleeve_shelf_keyword": "d3 k2 capsules",
+  "default_format_share": 0.75,
+  "written_at": "2026-11-19T11:49:33+00:00"
+ }
+}
