@@ -1,0 +1,39 @@
+{
+ "run_id": "phosphatidylcholine__2026-11-19__87d36b5f",
+ "shelf_keyword": "phosphatidylcholine",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "phosphatidylcholine",
+  "hero_regex": "phosphatidyl ?choline",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "phosphatidylcholine"
+  ],
+  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+  "shelf_keyword": "phosphatidylcholine",
+  "scored_on": "parent",
+  "parent_keyword": "phosphatidylcholine",
+  "demand_keyword": "phosphatidylcholine",
+  "cluster_keywords": [
+   "phosphatidylcholine",
+   "sunflower lecithin phosphatidylcholine"
+  ],
+  "finder_terms": [
+   "phosphatidylcholine",
+   "sunflower lecithin phosphatidylcholine"
+  ],
+  "demand_cluster": [
+   "phosphatidylcholine",
+   "phosphatidylcholine supplement",
+   "phosphatidyl choline",
+   "phosphatidylcholine liquid",
+   "phosphatidylcholine powder",
+   "phosphatidyl choline supplements"
+  ],
+  "written_at": "2026-11-19T20:51:26+00:00"
+ }
+}
