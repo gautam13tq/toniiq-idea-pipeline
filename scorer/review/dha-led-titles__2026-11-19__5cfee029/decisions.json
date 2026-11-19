@@ -64,16 +64,16 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0BN722SD6": {
+  "B081T378YX": {
    "scorer": "IN",
    "rank": 8,
    "in_top12": true,
-   "gate_code": "HERO_SECONDARY",
-   "source": "front_of_pack",
-   "fop_rule": "R3 hero shares the front equally",
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
    "manual": null
   },
-  "B081T378YX": {
+  "B07P2H9RBR": {
    "scorer": "IN",
    "rank": 9,
    "in_top12": true,
@@ -82,34 +82,34 @@
    "fop_rule": null,
    "manual": null
   },
-  "B09ZQ3FWBZ": {
+  "B0BNP4ZPH9": {
    "scorer": "IN",
    "rank": 10,
    "in_top12": true,
-   "gate_code": "HERO_SECONDARY",
-   "source": "front_of_pack",
-   "fop_rule": "R3 hero shares the front equally",
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
    "manual": null
   },
-  "B09FRFQHCH": {
+  "B0073M4VIA": {
    "scorer": "IN",
    "rank": 11,
    "in_top12": true,
    "gate_code": "HERO_SECONDARY",
    "source": "front_of_pack",
-   "fop_rule": "R3 hero shares the front equally",
+   "fop_rule": "hero leads the front",
    "manual": null
   },
-  "B07P2H9RBR": {
+  "B0039LF25A": {
    "scorer": "IN",
    "rank": 12,
    "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },
-  "B0BNP4ZPH9": {
+  "B08WHZZP5F": {
    "scorer": "IN",
    "rank": 13,
    "in_top12": false,
@@ -118,16 +118,16 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0073M4VIA": {
+  "B00YO0PHZK": {
    "scorer": "IN",
    "rank": 14,
    "in_top12": false,
-   "gate_code": "HERO_SECONDARY",
-   "source": "front_of_pack",
-   "fop_rule": "hero leads the front",
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
    "manual": null
   },
-  "B0039LF25A": {
+  "B0C683NQ9S": {
    "scorer": "IN",
    "rank": 15,
    "in_top12": false,
@@ -136,25 +136,25 @@
    "fop_rule": null,
    "manual": null
   },
-  "B08WHZZP5F": {
+  "B0FW2RKMB1": {
    "scorer": "IN",
    "rank": 16,
    "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B00YO0PHZK": {
+  "B000WUJ7B6": {
    "scorer": "IN",
    "rank": 17,
    "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B0C683NQ9S": {
+  "B001HKRWFS": {
    "scorer": "IN",
    "rank": 18,
    "in_top12": false,
