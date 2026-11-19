@@ -1,0 +1,47 @@
+{
+ "run_id": "phgg__2026-11-19__b1c8215d",
+ "shelf_keyword": "phgg",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "Sunfiber / PHGG",
+  "hero_regex": "sunfiber|\\bphgg\\b|partially hydrolyzed guar|guar (gum )?fiber",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "sunfiber",
+   "PHGG",
+   "partially hydrolyzed guar gum"
+  ],
+  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/. Widened to the Sunfiber space (Gautam 19 Nov: rate this space on Amazon for Gentle Fiber).",
+  "shelf_keyword": "phgg",
+  "scored_on": "parent",
+  "parent_keyword": "phgg",
+  "demand_keyword": "sunfiber",
+  "cluster_keywords": [
+   "phgg",
+   "partially hydrolyzed guar gum"
+  ],
+  "finder_terms": [
+   "phgg",
+   "partially hydrolyzed guar gum"
+  ],
+  "demand_cluster": [
+   "sunfiber",
+   "sunfiber powder",
+   "phgg powder",
+   "guar gum fiber",
+   "guar fiber",
+   "phgg supplement",
+   "guar fiber organic",
+   "guar gum fiber supplement",
+   "sunfiber capsules",
+   "sunfiber supplement",
+   "sunfiber supplements",
+   "guar fiber powder"
+  ],
+  "written_at": "2026-11-19T11:06:51+00:00"
+ }
+}
