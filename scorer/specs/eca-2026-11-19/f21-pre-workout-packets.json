@@ -43,5 +43,35 @@
   "pre workout single serve packets",
   "preworkout sticks"
  ],
- "written_at": "2026-11-19T11:36:20+00:00"
+ "written_at": "2026-11-19T11:36:20+00:00",
+ "manual_decisions": {
+  "B0GZVSMWPF": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Title says Energy Drink Packets Pre-Workout; sachets on the front. Shred is the product name."
+  },
+  "B0DJDZTL5T": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Title says Pre Workout Powder with no packets or sticks word (sleeve word must be in the title, Gautam 19 Nov)."
+  },
+  "B0CBNGNWLH": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "SuperBeets Sport is a canister powder; no packets or sticks word in the title."
+  },
+  "B09CCXW663": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Good Clean Fuel title has no packets or sticks word."
+  }
+ }
 }
