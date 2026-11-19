@@ -42,5 +42,14 @@
   "melatonin complex",
   "melatonin for women",
   "melatonin 1000mg"
- ]
+ ],
+ "manual_decisions": {
+  "B00NJ1BQZA": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Relaxium Sleep: brand and sleep claim lead, melatonin one of several"
+  }
+ }
 }

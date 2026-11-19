@@ -36,5 +36,14 @@
   "liposomal melatonin",
   "liposomal melatonin 60 mg"
  ],
- "written_at": "2026-11-18T17:06:45+00:00"
+ "written_at": "2026-11-18T17:06:45+00:00",
+ "manual_decisions": {
+  "B0BLHTT4KW": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Aurora Ultra-Liposomal Sleep Support: sleep-led blend, melatonin not the biggest word"
+  }
+ }
 }
