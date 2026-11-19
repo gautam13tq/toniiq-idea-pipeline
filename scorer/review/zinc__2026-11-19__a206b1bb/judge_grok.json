@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "zinc__2026-11-19__a206b1bb",
+ "verdicts": {
+  "B08YLTCDTN": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title is a zinc 50 mg caplet and zinc is the only lead ingredient."
+  },
+  "B001F71XAI": {
+   "decision": "OUT",
+   "why": "v2.1 Multi/Multivitamin named before the hero is HERO_SECONDARY: this is a men's multivitamin and zinc is one listed nutrient."
+  },
+  "B09KCD4D7F": {
+   "decision": "OUT",
+   "why": "v2.1 Multi/Multivitamin named before the hero is HERO_SECONDARY: Centrum Silver is a men's 50+ multivitamin and zinc does not lead."
+  },
+  "B00083B1DY": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Pure Encapsulations Zinc 30 mg is a single-hero zinc supplement on this plain zinc shelf."
+  },
+  "B08VK4ZF87": {
+   "decision": "OUT",
+   "why": "v2.3 co-named earlier active / R13-1: elderberry is named before zinc, and this listing is the elderberry-led example."
+  },
+  "B09QBKGDLS": {
+   "decision": "OUT",
+   "why": "v2.1 Multi/Multivitamin named before the hero is HERO_SECONDARY: this is a women's multivitamin and zinc is a trailing nutrient."
+  },
+  "B0797NSHQX": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with zinc picolinate 15 mg, and a plain zinc shelf does not require one form."
+  },
+  "B0012ZQPKG": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with zinc picolinate 30 mg as the product itself."
+  },
+  "B0000DJAPU": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made Zinc 30 mg leads the title, and the immune-health words are benefit words under R4-2."
+  },
+  "B000WZI4WY": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: the title leads with immune support and 1000 mg vitamin C, and zinc is a later listed mineral."
+  },
+  "B08FNKSPD2": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: collagen leads the title and zinc is an undosed add-in after vitamin C."
+  },
+  "B0017QCNUQ": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Pure Encapsulations Zinc 15 mg is a single-hero zinc supplement."
+  },
+  "B07735XF2K": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nutricost Zinc Picolinate 50 mg names zinc as the lead product."
+  },
+  "B086V9K5F7": {
+   "decision": "IN",
+   "why": "G1 IN_OK: MaryRuth's ionic zinc liquid drops are sold as a zinc supplement."
+  },
+  "B0098U0QC0": {
+   "decision": "IN",
+   "why": "R13-6: zinc is named alone in the title and listed first, so the later 60 mg vitamin C does not lead."
+  },
+  "B0FG7LX9G6": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Amazon Basics Zinc Capsules 50 mg is a single-hero zinc supplement."
+  },
+  "B09SRCW64V": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made Zinc 30 mg gummies name zinc as the product on a format-free parent shelf."
+  },
+  "B0DDQDSQ86": {
+   "decision": "OUT",
+   "why": "Dose rule: the front is a 7-in-1 immune formula whose other actives are not shown below the printed 30 mg zinc, so zinc does not lead as a single-hero product."
+  },
+  "B004S8CNMS": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Life Extension Zinc Caps 50 mg names zinc as the product, and this parent shelf is not a citrate form shelf."
+  },
+  "B000TMJZ4G": {
+   "decision": "IN",
+   "why": "G1 IN_OK: NOW Zinc Picolinate 50 mg is a single-hero zinc supplement."
+  },
+  "B00020ICLC": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Solgar Zinc Picolinate 22 mg leads with zinc."
+  },
+  "B0035BYOSA": {
+   "decision": "IN",
+   "why": "R11-1: PepZin GI is the zinc-carnosine ingredient and the title names Zinc-L-Carnosine as the product."
+  },
+  "B0001VKDDM": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: zinc 15 mg is named first and copper 1 mg is the smaller paired mineral, not an earlier active."
+  },
+  "B000MGR1CM": {
+   "decision": "IN",
+   "why": "G1 IN_OK: NOW Zinc Gluconate 50 mg is a single-hero zinc supplement."
+  }
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-creatine__2026-11-18__6ec0e626",
+ "verdicts": {
+  "B0D63NF2HH": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal creatine liquid and creatine is the only active on the front."
+  },
+  "B0GF4MF67F": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title is a liposomal creatine product at a 5g hero dose and no other active is named."
+  },
+  "B09M67YKHY": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title leads with liposomal creatine monohydrate powder as the hero."
+  },
+  "B0CD89JVLT": {
+   "decision": "IN",
+   "why": "IN under R3-2, R5-2 and R3-5: these liposomal creatine capsules are a separate product from the same brand's powder because the format and 2500mg dose differ."
+  },
+  "B0HKFPR3FZ": {
+   "decision": "IN",
+   "why": "IN under R4-2 and R3-2: benefit and format words do not lead, creatine monohydrate is the first named active, and the brand carries the liposomal sleeve qualifier."
+  },
+  "B0HHZ66LGG": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title is a liposomal creatine supplement and creatine is the lead active."
+  },
+  "B0HMJQHRF9": {
+   "decision": "IN",
+   "why": "IN under the hero-first bundle rule: the title names Liposomal Creatine before the separate NAD+ product."
+  },
+  "B0H6CH2YQ4": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G9: the title names both liposomal delivery and creatine on the front."
+  },
+  "B0BLP6LK9D": {
+   "decision": "IN",
+   "why": "IN under R3-2 and R13-5: the title names liposomal delivery and bills creatine ahead of glutamine, with no larger glutamine dose printed on the front."
+  },
+  "B0G7YGYVLM": {
+   "decision": "IN",
+   "why": "IN under R3-2 and R13-6: the title names liposomal creatine monohydrate alone, and the bullets dose creatine at 5000mg above L-carnitine, taurine and green tea."
+  },
+  "B0CY3W2GWH": {
+   "decision": "IN",
+   "why": "IN under R3-2 and R13-6: the title names liposomal creatine alone, and the bullets list creatine before GAA and R-ALA with no higher dose for those actives."
+  },
+  "B0DBHTQBJQ": {
+   "decision": "IN",
+   "why": "IN under R3-2 and the dose rule: the title names liposomal creatine, and the 4220mg figure is the creatine blend weight rather than a larger competing ingredient."
+  },
+  "B0DQXV55K4": {
+   "decision": "OUT",
+   "why": "OUT under R3-2 and the hero-first bundle rule: Liposomal NAD+ capsules are named first and the creatine item is plain gummies, so this is not a liposomal creatine product (HERO_SECONDARY)."
+  },
+  "B0CWN6HQZQ": {
+   "decision": "OUT",
+   "why": "OUT under G5 and Q5: this is the same Cymbiotika Creatine+ raspberry liposomal glutamine 20-packet formula as B0BLP6LK9D, which is kept because it has more reviews (EX_VARIANT_DUP)."
+  },
+  "B0FRG38K8B": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G9: the title names liquid liposomal creatine, so the hero and the delivery tech are both on the front."
+  }
+ }
+}

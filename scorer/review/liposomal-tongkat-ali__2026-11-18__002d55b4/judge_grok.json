@@ -1,0 +1,14 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-tongkat-ali__2026-11-18__002d55b4",
+ "verdicts": {
+  "B0H4S7TKWQ": {
+   "decision": "IN",
+   "why": "R3-2 delivery-named shelf and G1: the title names liposomal Tongkat Ali as the sole lead active (200mg Eurycoma longifolia), so it is the product this shelf sells."
+  },
+  "B0CJCY462X": {
+   "decision": "IN",
+   "why": "R3-2 and R13-6: the title names liposomal Longjack Tongkat Ali alone and the bullets list Tongkat Ali before Tribulus, with black pepper skipped as a helper, so the hero leads."
+  }
+ }
+}

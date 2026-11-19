@@ -1,0 +1,9 @@
+{
+ "run_id": "astaxanthin__2026-11-18__78c8396a",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 0,
+ "check": []
+}

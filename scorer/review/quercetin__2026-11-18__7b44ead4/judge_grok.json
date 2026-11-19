@@ -1,0 +1,94 @@
+{
+ "judge": "grok",
+ "run_id": "quercetin__2026-11-18__7b44ead4",
+ "verdicts": {
+  "B002JNK8EY": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: quercetin leads the title and bromelain is only the following helper."
+  },
+  "B0DZQG5YF6": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: vitamin D3 is named before quercetin, so quercetin is an add-in rather than the product lead."
+  },
+  "B0FWGXBT3C": {
+   "decision": "OUT",
+   "why": "R5-3: this NMN product only includes quercetin after with, so the hero is a minor add-in."
+  },
+  "B09GWCQGD6": {
+   "decision": "IN",
+   "why": "R13-1: quercetin leads the title, so the higher vitamin C dose does not make this hero-plus-vitamins product secondary."
+  },
+  "B0016J2K16": {
+   "decision": "IN",
+   "why": "G1: the title sells a single-hero quercetin 500 mg supplement."
+  },
+  "B07RN1BMLQ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: quercetin leads the title with bromelain, and no later active is printed above quercetin's 500 mg dose under R7-1."
+  },
+  "B087YLTR4G": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: zinc is named before quercetin, so the hero does not lead the title."
+  },
+  "B0899C4YBK": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: quercetin leads at 1,000 mg and bromelain is the smaller 200 mg helper."
+  },
+  "B097Z5387H": {
+   "decision": "OUT",
+   "why": "R5-3: NR is named before quercetin in the ResveraCel formula, so quercetin is not the featured lead."
+  },
+  "B0797DQTVZ": {
+   "decision": "IN",
+   "why": "R3-2: phytosome is a delivery modifier on this plain quercetin shelf, and the title leads with quercetin."
+  },
+  "B07H9LGDPM": {
+   "decision": "IN",
+   "why": "G1: the title sells a single-hero quercetin 1,000 mg supplement."
+  },
+  "B00012NKRC": {
+   "decision": "IN",
+   "why": "R5-1: quercetin leads the title and Ester-C is the paired vitamin, so the hero still leads."
+  },
+  "B09YN99TKQ": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: glutathione is named before quercetin, so quercetin is only a with-add-in."
+  },
+  "B0FPDQBTM6": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: vitamin D3 is named before quercetin, so quercetin does not lead this stack."
+  },
+  "B00S59NYT2": {
+   "decision": "IN",
+   "why": "G1: the title sells a single-hero quercetin 500 mg supplement."
+  },
+  "B087WR6JBQ": {
+   "decision": "IN",
+   "why": "G1: the title sells a single-hero quercetin capsule supplement."
+  },
+  "B01MU30S6Z": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: quercetin leads at 880 mg and bromelain is the smaller helper."
+  },
+  "B095XC4VZG": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: zinc is named before quercetin, so the hero does not lead the title."
+  },
+  "B087Z8PSW6": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: zinc is named before quercetin, so the hero does not lead this complex."
+  },
+  "B07KVX6B5N": {
+   "decision": "IN",
+   "why": "R13-5: vitamin C and Bio-Quercetin are one billed pair, and the front prints no bigger mg dose of vitamin C than of quercetin."
+  },
+  "B0HKTCZL9Z": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints bromelain at 500 mg, a bigger mg dose than quercetin at 250 mg, so the hero does not lead."
+  },
+  "B08WM2FS9S": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: quercetin leads the title at 500 mg, above the bromelain, vitamin C, and zinc doses."
+  }
+ }
+}

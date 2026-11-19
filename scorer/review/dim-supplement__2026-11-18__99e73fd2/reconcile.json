@@ -1,0 +1,60 @@
+{
+ "run_id": "dim-supplement__2026-11-18__99e73fd2",
+ "judges": [
+  "grok"
+ ],
+ "rows": 19,
+ "to_check": 2,
+ "check": [
+  {
+   "asin": "B07RR9JF9B",
+   "title": "THORNE Hormone Advantage, DIM, SGS & Pomegranate Extract, 60 Capsules",
+   "brand": "THORNE",
+   "monthly_sold": 7000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 5,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R14-1: Hormone Advantage is a condition-led headline with DIM listed under it beside SGS and pomegranate, so the product does not lead with the hero."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B00BFD09LG",
+   "title": "Jarrow DIM Plus, DIM Supplement Hormone Balance, 30 Count",
+   "brand": "Jarrow Formulas",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 17,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R7-1: calcium D-glucarate 250 mg is listed ahead of DIM 100 mg, so a higher-dose active leads the label."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

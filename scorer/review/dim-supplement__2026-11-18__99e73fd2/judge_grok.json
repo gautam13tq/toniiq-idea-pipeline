@@ -1,0 +1,82 @@
+{
+ "judge": "grok",
+ "run_id": "dim-supplement__2026-11-18__99e73fd2",
+ "verdicts": {
+  "B006KL4TYG": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM 200 mg as the hero, and BioPerine is only a skipped absorption helper under v1.9."
+  },
+  "B01HQR0RZW": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM Plus 300 mg, and BioPerine is a skipped piperine helper under v1.9."
+  },
+  "B087YXPP96": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: DIM is the first named active in DIM SGS, and no bigger dose of SGS is printed."
+  },
+  "B07WDCW8W7": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: the title leads with DIM 300 mg, and calcium D-glucarate is an added active with no bigger printed dose."
+  },
+  "B07RR9JF9B": {
+   "decision": "OUT",
+   "why": "R14-1: Hormone Advantage is a condition-led headline with DIM listed under it beside SGS and pomegranate, so the product does not lead with the hero."
+  },
+  "B07NCJH91H": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM Supplement 300 mg, and BioPerine is a skipped absorption helper under v1.9."
+  },
+  "B0009F3RP6": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM-plus diindolylmethane 100 mg, and the vegetable blend is an undosed complement."
+  },
+  "B0063X0J0O": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: DIM Detox is named with DIM as the lead word, and no other active is printed at a higher dose than DIM."
+  },
+  "B0CKJ55J9X": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: Clear Skin Acne Support names zinc before DIM, so DIM is not the lead ingredient."
+  },
+  "B0BT264J3L": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM 400 mg as the hero, and BioPerine is a skipped absorption helper under v1.9."
+  },
+  "B0C46WG6MP": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM Supplement, and black pepper is a skipped absorption helper under v1.9."
+  },
+  "B07FCXFLXQ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: DIM 200 is the first named active, with calcium D-glucarate added and no bigger CDG dose printed."
+  },
+  "B0GVL55W68": {
+   "decision": "IN",
+   "why": "R3-2: Liposomal is a delivery modifier ignored on this plain dim supplement shelf, and the title leads with DIM."
+  },
+  "B0BYKSCJNR": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM 400 mg, and estrogen balance plus clear skin are benefit words under R4-2."
+  },
+  "B0015XD8X2": {
+   "decision": "IN",
+   "why": "R8-1: DIMPRO contains the hero word and the title also names diindolylmethane as the supplement."
+  },
+  "B082BF13C2": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM 200 mg diindolylmethane, and BioPerine is a skipped absorption helper under v1.9."
+  },
+  "B0050O8FWQ": {
+   "decision": "IN",
+   "why": "G1 IN_OK: DIM-Evail leads with diindolylmethane 100 mg per softgel, and the Evail MCT carrier is not an active under R13-4."
+  },
+  "B00BFD09LG": {
+   "decision": "OUT",
+   "why": "R7-1: calcium D-glucarate 250 mg is listed ahead of DIM 100 mg, so a higher-dose active leads the label."
+  },
+  "B07WV689LY": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with DIM 300 mg, and black pepper extract is a skipped absorption helper under v1.9."
+  }
+ }
+}

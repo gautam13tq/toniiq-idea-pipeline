@@ -1,0 +1,110 @@
+{
+ "run_id": "liposomal-nac__2026-11-18__48769ecb",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 4,
+ "check": [
+  {
+   "asin": "B0H869XVSB",
+   "title": "Orvia Labs Liposomal Nac Supplement, Liver Support & Glutathione Precursor – Gentle Absorption, No Sulfur Burps, Easy-to-Swallow Capsules, 60 Count",
+   "brand": "Orvia Labs",
+   "monthly_sold": 100,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 7,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G5 EX_VARIANT_DUP: this is the same ORVIA Labs liposomal NAC line as B0H3NW3BHV, which is kept under the most-reviews rule."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0GZGVGFVV",
+   "title": "Hyuikiu ORVIA Labs Liposomal NAC Supplement, 60 Capsules",
+   "brand": "Hyuikiu",
+   "monthly_sold": 50,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 9,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G5 EX_VARIANT_DUP: the title prints ORVIA Labs Liposomal NAC under the Hyuikiu brand, so this reseller copy collapses to B0H3NW3BHV, which has more reviews."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HCC4HY59",
+   "title": "Bluora GlyNAC NAC Supplement with Liposomal NMN Supplement & Glycine 30 day",
+   "brand": "Bluora",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 15,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R3-2 EX_FORM_MISMATCH: the title and bullets attach liposomal delivery to NMN, so this GlyNAC plus liposomal NMN fails the liposomal-NAC delivery shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0BLQ6GY55",
+   "title": "NAC Supplement N-Acetyl Cysteine Plus L-Glutathione Intracellular Antioxidant Complex with Milk Thistle Extract-NAC and Liposomal Glutathione Powerful Antioxidant for Cells Rejuvenation and Repair",
+   "brand": "SILENDOR",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 18,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R3-2 EX_FORM_MISMATCH: the title attaches liposomal delivery to glutathione, so this NAC plus liposomal glutathione fails the liposomal-NAC delivery shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

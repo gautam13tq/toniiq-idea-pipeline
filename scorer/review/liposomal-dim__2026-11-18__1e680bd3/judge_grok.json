@@ -1,0 +1,50 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-dim__2026-11-18__1e680bd3",
+ "verdicts": {
+  "B0GVL55W68": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title leads with liposomal DIM as the hero product."
+  },
+  "B0D81CJWZV": {
+   "decision": "IN",
+   "why": "G1 hero-led complex: liposomal DIM 400 mg is the first named active, with the later botanicals as helpers under the dose rule."
+  },
+  "B0DLMFTXGF": {
+   "decision": "IN",
+   "why": "G1 and the dose rule: liposomal DIM leads at 500 mg beside SGS at 100 mg, and 600 mg is the blend total."
+  },
+  "B0BX4QSRJ6": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: liposomal DIM is the first named active in the DIM, SGS, broccoli and vitamin E formula."
+  },
+  "B0FWRNWMTB": {
+   "decision": "IN",
+   "why": "R3-1 and G1: liposomal DIM 400 mg leads the title, with CDG and the 12-in-1 named after the hero."
+  },
+  "B0DZ1YVTMT": {
+   "decision": "IN",
+   "why": "G1 and R4-2: the title leads with liposomal DIM 400 mg, and the menopause and hormone phrases are benefit words."
+  },
+  "B0FJXGTMQN": {
+   "decision": "IN",
+   "why": "R3-1 and G1: liposomal DIM 400 mg is the first named active in the 12-in-1, with black cohosh, soy isoflavones and alpha lipoic acid as helpers."
+  },
+  "B0F3CHXD46": {
+   "decision": "OUT",
+   "why": "Dose rule: maca is printed at 600 mg, a bigger dose than DIM at 200 mg, so the hero does not lead."
+  },
+  "B01NBHX3W1": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title is liposomal DIM liquid and the printed serving is 100 mg of DIM."
+  },
+  "B0BRT7ZK9P": {
+   "decision": "IN",
+   "why": "R3-2 and G9: the title names liposomal DIM and emulsified diindolylmethane on the front."
+  },
+  "B0HKTH59M4": {
+   "decision": "IN",
+   "why": "G1 and the dose rule: liposomal DIM is named first in the DIM + I3C pair, and 200 mg is the blend weight."
+  }
+ }
+}

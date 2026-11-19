@@ -1,0 +1,61 @@
+{
+ "run_id": "vitamin-c__2026-11-18__2180ef78",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 2,
+ "check": [
+  {
+   "asin": "B00NNR38JC",
+   "title": "Emergen-C Immune+ Triple Action Immune Support Powder, BetaVia (R), 1000 mg Vitamin C, B Vitamins, Vitamin D and Antioxidants, Super Orange – 30 Count",
+   "brand": "Emergen-C",
+   "monthly_sold": 10000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R4-2 HERO_SECONDARY: BetaVia is another active named before vitamin C, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B071F1F9DW",
+   "title": "Airborne Immune Support Effervescent Tablets, Very Berry Flavor - 30ct with 1000mg Vitamin C + Vitamins A, D, E, Zinc, Selenium, Manganese & Herbal Blend - Sugar‑Free, Gluten‑Free",
+   "brand": "Airborne",
+   "monthly_sold": 10000,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "HERO_SECONDARY",
+    "source": "gate",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "IN",
+     "why": "R6-3: Immune Support is a benefit name and 1000mg vitamin C is the first dosed active ahead of the other vitamins and minerals."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

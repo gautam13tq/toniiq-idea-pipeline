@@ -1,0 +1,135 @@
+{
+ "run_id": "quercetin__2026-11-18__7b44ead4",
+ "judges": [
+  "grok"
+ ],
+ "rows": 22,
+ "to_check": 5,
+ "check": [
+  {
+   "asin": "B087YLTR4G",
+   "title": "Zinc Quercetin Immune Support Supplement | 120 Veg Capsules",
+   "brand": "Sandhu's",
+   "monthly_sold": 5000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 5,
+    "in_top12": true,
+    "gate_code": "HERO_SECONDARY",
+    "source": "front_of_pack",
+    "fop_rule": "R2 condition-led but the hero is the biggest word",
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY: zinc is named before quercetin, so the hero does not lead the title."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B097Z5387H",
+   "title": "THORNE ResveraCel, NR, Quercetin, Resveratrol & Betaine, 60 Capsules",
+   "brand": "THORNE",
+   "monthly_sold": 4000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 7,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R5-3: NR is named before quercetin in the ResveraCel formula, so quercetin is not the featured lead."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B095XC4VZG",
+   "title": "Zinc Quercetin 500mg with Vitamin C Vitamin D3 Bromelain Immune Support High Potency Quercetin Zinc Supplement ZQV by SPARTIS (Pack of 1 Bottle at 120-Caps)",
+   "brand": "SPARTIS",
+   "monthly_sold": 2000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 14,
+    "in_top12": false,
+    "gate_code": "HERO_SECONDARY",
+    "source": "front_of_pack",
+    "fop_rule": "R3 hero shares the front equally",
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY: zinc is named before quercetin, so the hero does not lead the title."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B087Z8PSW6",
+   "title": "Micro Ingredients Zinc Quercetin Vitamin C Complex, 240 Capsules",
+   "brand": "Micro Ingredients",
+   "monthly_sold": 2000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 15,
+    "in_top12": false,
+    "gate_code": "HERO_SECONDARY",
+    "source": "front_of_pack",
+    "fop_rule": "R3 hero shares the front equally",
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY: zinc is named before quercetin, so the hero does not lead this complex."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HKTCZL9Z",
+   "title": "ClarityMD Bromelain 500mg & Quercetin 250mg Softgels, 30 Servings",
+   "brand": "ClarityMD",
+   "monthly_sold": 2000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 17,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front prints bromelain at 500 mg, a bigger mg dose than quercetin at 250 mg, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

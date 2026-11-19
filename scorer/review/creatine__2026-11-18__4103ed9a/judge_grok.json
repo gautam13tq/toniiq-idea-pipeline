@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "creatine__2026-11-18__4103ed9a",
+ "verdicts": {
+  "B07978VPPH": {
+   "decision": "IN",
+   "why": "G1: Thorne sells micronized creatine monohydrate powder as the only active, so the hero leads."
+  },
+  "B002DYIZEO": {
+   "decision": "IN",
+   "why": "G1: Optimum Nutrition\u2019s unflavored powder is 5 g creatine monohydrate per serving and no other active leads."
+  },
+  "B00GL2HMES": {
+   "decision": "IN",
+   "why": "G1: Nutricost\u2019s unflavored powder is micronized creatine monohydrate at 5 g per serving, so the hero leads."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "IN",
+   "why": "G1: Orgain states the powder is creatine monohydrate and nothing else, so the hero is the product."
+  },
+  "B00E9M4XEE": {
+   "decision": "IN",
+   "why": "G1: BulkSupplements is a single-ingredient creatine monohydrate powder with a 5 g serving, so it is a dosed supplement and the hero leads."
+  },
+  "B00DLWONF2": {
+   "decision": "IN",
+   "why": "G1 and R5-2: these Optimum Nutrition capsules are creatine monohydrate, and on a plain shelf capsules count separately from the same brand\u2019s powder."
+  },
+  "B085Z9P87K": {
+   "decision": "IN",
+   "why": "G1: Momentous is unflavored creatine monohydrate powder and the hero is the only active named."
+  },
+  "B0DJDQCJX2": {
+   "decision": "IN",
+   "why": "G1 hero-led complex and the Dose rule: creatine is named first at 5,000 mg, which is larger than the printed collagen, BCAA, and inositol doses."
+  },
+  "B0B9YMNYWK": {
+   "decision": "IN",
+   "why": "G1: NAKED is 100% micronized creatine monohydrate with no other active, so the hero leads."
+  },
+  "B0CP9XPYX6": {
+   "decision": "IN",
+   "why": "G1 and G3: Create\u2019s gummies are one-ingredient creatine monohydrate, and this parent shelf does not lock a single format."
+  },
+  "B0CDFDDRCF": {
+   "decision": "OUT",
+   "why": "G5: Nutricost Pineapple Mango is the same 5 g micronized creatine monohydrate powder formula as B00GL2HMES, so the flavour variant counts once and the higher-review listing is kept."
+  },
+  "B0CCJZVJYG": {
+   "decision": "IN",
+   "why": "G1: Sports Research is 5 g creatine monohydrate per scoop and no other active is named ahead of the hero."
+  },
+  "B078JZQ5QL": {
+   "decision": "IN",
+   "why": "G1 hero-led complex and the Dose rule: creatine is named before HMB, and no bigger HMB dose is printed."
+  },
+  "B01IW245EY": {
+   "decision": "IN",
+   "why": "G1 and R5-2: Nutricost\u2019s 3,000 mg creatine monohydrate capsules are a different format from its powder, so they count as their own product on this plain shelf."
+  },
+  "B0F8BFSCC7": {
+   "decision": "IN",
+   "why": "G1 and the Dose rule: the title leads with creatine monohydrate at 5,000 mg, and no other ingredient is printed at a higher dose."
+  },
+  "B0B4Z5JM25": {
+   "decision": "IN",
+   "why": "G1 and G3: Animal\u2019s chews are a 5 g creatine monohydrate dose with sea salt only as an absorption helper, and this parent shelf does not require gummies."
+  },
+  "B0BKCVLYGX": {
+   "decision": "IN",
+   "why": "G1 and G2: Creatine HCl names the hero, and G2\u2019s form limit does not apply because the shelf keyword is plain creatine rather than one salt."
+  },
+  "B0CHK24CC4": {
+   "decision": "IN",
+   "why": "G1: Jacked Factory is 5 g pure creatine monohydrate per scoop and no other active leads."
+  }
+ }
+}

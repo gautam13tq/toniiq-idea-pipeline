@@ -1,0 +1,82 @@
+{
+ "judge": "grok",
+ "run_id": "curcumin__2026-11-18__2f23764b",
+ "verdicts": {
+  "B01BMDAVIY": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with Turmeric Curcumin 2250mg, and the shelf dose rule does not show ginger or BioPerine at a higher front dose."
+  },
+  "B07XFGCP21": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Turmeric Curcumin leads the title, with ginger as a helper and BioPerine skipped under R7-1."
+  },
+  "B09YGG58LZ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Turmeric leads, and the shelf dose rule keeps it in front because curcuminoids are 2250mg against ginger 150mg."
+  },
+  "B01D8V075U": {
+   "decision": "IN",
+   "why": "R3-2: on this plain curcumin shelf, phytosome is only a delivery word and the title leads with Curcumin Phytosome 1,000 mg."
+  },
+  "B0CWN94D2V": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title is Turmeric Curcumin 1000mg, and hydro-soluble absorption is a delivery modifier under R3-2."
+  },
+  "B0B8F5F11T": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Turmeric Curcumin leads the title and black pepper is a bioavailability helper under R7-1."
+  },
+  "B074QHCL9Z": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made Turmeric Curcumin 500 mg names the hero on the title under G9 as a single-hero capsule supplement."
+  },
+  "B01DBTFO98": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Turmeric Curcumin with Black Pepper Extract 1500mg names the hero first, and BioPerine is a skipped helper under R7-1."
+  },
+  "B08966BN6P": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: Provitalize is a coined probiotic for menopause and bloat, so turmeric is a later add-in in a broader base formula under R5-3 and R6-1."
+  },
+  "B08GMP4WRP": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Qunol Turmeric 2250mg leads the title, and black pepper extract is an absorption helper under R7-1."
+  },
+  "B07DX7W7VP": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Nature's Bounty Turmeric with Black Pepper Extract names turmeric first, with 95% curcuminoids as the lead active under R7-1."
+  },
+  "B00A39MPNI": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Turmeric Curcumin leads the title, and coconut oil is a carrier that does not lead under R13-4."
+  },
+  "B07JR5KB6N": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Turmeric is the first-named active ahead of boswellia and ginger, so the joint-benefit words do not lead under R4-2."
+  },
+  "B0DS6LCFRH": {
+   "decision": "IN",
+   "why": "R3-1: the 6-in-1 counts as hero-led because the title leads with Turmeric Curcumin 1,000mg and the other actives are helpers."
+  },
+  "B018GPDCV4": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nutricost Turmeric Curcumin with BioPerine 2300mg names the hero on the title under G9, and BioPerine is a helper under R7-1."
+  },
+  "B09W4RSYLH": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: on this plain parent shelf the gummy still counts under R5-2, and Turmeric Curcumin is named before ginger with 550mg as a blend weight under the dose rule."
+  },
+  "B08PMPMSH6": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Qunol Turmeric Curcumin 1500mg is a single-hero supplement and a different dose from the 1000mg Qunol line under R3-5."
+  },
+  "B07G2FHVJL": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: the title leads with Turmeric Supplement and the first bullet doses 100mg curcumin, with ginger, black pepper and probiotics as helpers under R4-2."
+  },
+  "B09ZPHT2S6": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Turmeric Tablets lead the title as a counted oral supplement under G4, with black pepper and ginger as helpers rather than the lead."
+  }
+ }
+}

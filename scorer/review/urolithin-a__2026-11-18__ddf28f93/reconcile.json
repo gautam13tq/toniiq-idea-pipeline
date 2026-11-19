@@ -1,0 +1,111 @@
+{
+ "run_id": "urolithin-a__2026-11-18__ddf28f93",
+ "judges": [
+  "grok"
+ ],
+ "rows": 22,
+ "to_check": 4,
+ "check": [
+  {
+   "asin": "B0CC438LCK",
+   "title": "Nutri Urolithin A Diacetate 500mg - Cellular Energy - 30 Caps",
+   "brand": "Nature's Fusions",
+   "monthly_sold": 400,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 7,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "HERO_SECONDARY under R13-3: Urolithin A diacetate is an acetyl derivative and is out on the parent urolithin A shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0FCY4XRP1",
+   "title": "Triple-Strength Urolithin A+ Complex for Cellular Health, Function & Well-Being | Concentrated Pre-Fermented Urolithin A+ Complex Plus Wormwood & DGL for Gut Support–Plant Based, GMP, 120 Count",
+   "brand": "Lukaree",
+   "monthly_sold": 200,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "JUDGE_OUT",
+    "source": "front_of_pack",
+    "fop_rule": "hero leads the front",
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "EX_HERO_MISSING under G1 and the urolithin A shelf note: the listing says the Urolithin A+ complex is a precursor and is free of isolated Urolithin A."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HCVC2T7M",
+   "title": "TIME LONG EVITY COMP Urolithin A Supplement 1000mg | Precursor Urolithin Pro+ Capsules 90 Count | Support for Muscle Recovery and Mitochondrial Support",
+   "brand": "TIME LONG EVITY COMP",
+   "monthly_sold": 200,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 15,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "EX_HERO_MISSING under G1 and the urolithin A shelf note: the title says Precursor Urolithin Pro+ and the formula bullet lists pomegranate extract, spermidine, CoQ10, PQQ and Akkermansia rather than Urolithin A."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0GMF7QBZQ",
+   "title": "GulpGrove Urolithin A Supplement with Liposomal NAD+, Trans-Resveratrol, Ubiquinol, TMG, PQQ, 6-in-1 Formula for Cellular Energy & Mitochondrial Support, 120 Softgels",
+   "brand": "GulpGrove",
+   "monthly_sold": 600,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "JUDGE_OUT",
+    "source": "stale_keepa",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "IN",
+     "why": "HERO_LED_COMPLEX under R3-1: the title leads with Urolithin A and the 6-in-1 helpers are named after it."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "magnesium-glycinate__2026-11-18__c725da2e",
+ "verdicts": {
+  "B07P5K7DQP": {
+   "decision": "IN",
+   "why": "G1 and G2: the title names magnesium glycinate as the only hero in capsules."
+  },
+  "B08XXHCGZT": {
+   "decision": "IN",
+   "why": "G2: the title leads with magnesium glycinate and the bullets state bisglycinate, the shelf form."
+  },
+  "B0DT1JKGPH": {
+   "decision": "IN",
+   "why": "G2 and R3-2: high absorption is a delivery modifier on a magnesium glycinate capsule."
+  },
+  "B0F5XYHRPV": {
+   "decision": "IN",
+   "why": "G2 and R3-2: chelated is a delivery modifier and the title leads with magnesium glycinate."
+  },
+  "B0B6CTYD6S": {
+   "decision": "IN",
+   "why": "G1 and G2: the title and bullets sell a single magnesium glycinate/bisglycinate capsule."
+  },
+  "B07TNJRN9N": {
+   "decision": "IN",
+   "why": "Q3 and G2: the title leads with Magnesium Glycinate Complex and glycinate is the first of the glycinate, malate and citrate forms."
+  },
+  "B0C88BJYX2": {
+   "decision": "IN",
+   "why": "G1 and G2: the title and bullets are a single magnesium glycinate capsule."
+  },
+  "B0DDK4XJ7Z": {
+   "decision": "IN",
+   "why": "G1, Q1 and Q3: the title leads with magnesium glycinate/bisglycinate, the Adults and Kids line gives adult dosing, and glycinate stays the lead form."
+  },
+  "B000BD0RT0": {
+   "decision": "IN",
+   "why": "G2 and R4-1: the title names magnesium glycinate and the bullets' lysinate-glycinate chelate is that glycinate form."
+  },
+  "B0CWM5K6W6": {
+   "decision": "IN",
+   "why": "G1, G2 and R4-2: the title leads with magnesium glycinate and sleep support is a benefit word, not another form."
+  },
+  "B0CV2RSRFX": {
+   "decision": "IN",
+   "why": "G2 and R4-1: the title names magnesium glycinate and the bullets state magnesium bisglycinate."
+  },
+  "B0FBX7G1JB": {
+   "decision": "IN",
+   "why": "G1 and G2: the title and bullets are a single magnesium glycinate chelate with no second form."
+  },
+  "B0DL6JVD1Z": {
+   "decision": "IN",
+   "why": "R13-1 and R3-1: magnesium glycinate leads the title, and D3, B6 and zinc are added vitamins and minerals rather than another magnesium form."
+  },
+  "B0CBVZ9B2G": {
+   "decision": "IN",
+   "why": "G2 and G3: this parent shelf does not limit format, and the title is magnesium glycinate gummies."
+  },
+  "B0FWJ7TP6X": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: the title is a multi-form Magnesium Complex and glycinate is never named in the title or bullets."
+  },
+  "B0H1DN22N4": {
+   "decision": "IN",
+   "why": "G2: the title and bullets are magnesium bisglycinate gummies, and bisglycinate is the glycinate form."
+  },
+  "B09L57WWMY": {
+   "decision": "IN",
+   "why": "G2 and R3-2: enhanced absorption is a modifier and the title and bullets name magnesium glycinate/bisglycinate."
+  },
+  "B0CTJ5K5GQ": {
+   "decision": "IN",
+   "why": "R13-1: magnesium glycinate leads the title and zinc is a later co-mineral, not a higher-dosed lead active."
+  }
+ }
+}

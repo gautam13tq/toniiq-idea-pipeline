@@ -1,0 +1,35 @@
+{
+ "run_id": "liposomal-curcumin__2026-11-18__1b302d8b",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0CQVJ81SJ",
+   "title": "Liposomal Turmeric Curcumin Supplement 2000mg, 95% Standardized Curcuminoid Extract & Organic Root Powder with Piperine Black Pepper Fruit (15mg), 60 softgels",
+   "brand": "Svaiketa",
+   "monthly_sold": 200,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 5,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G5 EX_VARIANT_DUP: same Svaiketa 2000mg liposomal turmeric curcumin with piperine, 60-softgel formula as the 2-bottle listing B0CQVG7KF5, which has more reviews."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

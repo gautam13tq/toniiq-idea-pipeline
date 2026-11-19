@@ -1,0 +1,35 @@
+{
+ "run_id": "creatine__2026-11-18__4103ed9a",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0CDFDDRCF",
+   "title": "Nutricost Creatine Monohydrate Powder (Pineapple Mango, 500G), Micronized",
+   "brand": "Nutricost",
+   "monthly_sold": 22950,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 11,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G5: Nutricost Pineapple Mango is the same 5 g micronized creatine monohydrate powder formula as B00GL2HMES, so the flavour variant counts once and the higher-review listing is kept."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

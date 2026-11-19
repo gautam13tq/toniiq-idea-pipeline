@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-magnesium__2026-11-18__90bba598",
+ "verdicts": {
+  "B07P5K7DQP": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: the title and brand do not name liposomal, so this is EX_FORM_MISMATCH."
+  },
+  "B0DT1JKGPH": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: high-absorption is only a claim word, and the title and brand do not name liposomal, so this is EX_FORM_MISMATCH."
+  },
+  "B0058HWV9S": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: the title and brand do not name liposomal, so this is EX_FORM_MISMATCH."
+  },
+  "B0F5XYHRPV": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: the title and brand do not name liposomal, so this is EX_FORM_MISMATCH."
+  },
+  "B006P536E6": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: Magtein names magnesium threonate under R11-1, but the title and brand do not name liposomal, so this is EX_FORM_MISMATCH."
+  },
+  "B0B6CTYD6S": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: chelated is not liposomal, and the title and brand do not name liposomal, so this is EX_FORM_MISMATCH."
+  },
+  "B0DY8698NC": {
+   "decision": "IN",
+   "why": "R3-2 and G1 HERO_LED_COMPLEX: the title leads with liposomal magnesium, and apigenin, L-theanine and valerian are lower-dose helpers under R7-1."
+  },
+  "B0G6ZS415P": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: this N-in-1 liposomal magnesium complex leads with magnesium, and D3 and K2 are vitamin helpers under R13-1."
+  },
+  "B0FX3G9JJ9": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: liposomal magnesium complex is the hero-led product, and sleep, calm and recovery are benefit words under R4-2."
+  },
+  "B0CV4P4131": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title is a liposomal magnesium supplement with magnesium as the only hero."
+  },
+  "B0FJLKJT2F": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: the title leads with liposomal magnesium complex, and ashwagandha, CoQ10 and vitamins are later helpers rather than a higher-dose label lead under R7-1."
+  },
+  "B0B6L8RT4F": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title names liposomal magnesium glycinate as the product."
+  },
+  "B0FF4Y7ZQJ": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title leads with magnesium glycinate and names liposomal capsules as the delivery."
+  },
+  "B0FP55449N": {
+   "decision": "IN",
+   "why": "R3-2 and G1: liposomal magnesium leads the title at 3000 mg, the vitamin doses are smaller under R7-1, and the adults wording is not kids-only under Q1."
+  },
+  "B0FMQYS9H5": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: the title is a liposomal magnesium complex with magnesium as the lead active."
+  },
+  "B07MTSP62S": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title names liposomal magnesium, and the misspelled L-Theronate form still names the hero under the v1.8 misspelling rule."
+  },
+  "B0H1D39X59": {
+   "decision": "IN",
+   "why": "R3-2 and G1 HERO_LED_COMPLEX: liposomal magnesium leads the title, with L-theanine, apigenin and vitamins as later helpers under R13-1."
+  },
+  "B0CD889W72": {
+   "decision": "IN",
+   "why": "R3-2 and R11-1: the title names liposomal magnesium L-threonate, and Magtein is the magnesium threonate trademark."
+  },
+  "B0GT8WTDHX": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: the N-in-1 liposomal magnesium complex leads with magnesium."
+  },
+  "B0GSVD9PPD": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: the title leads with liposomal magnesium complex, and the later botanicals and vitamins do not outrank the hero under R7-1."
+  },
+  "B0G2Y4B4PP": {
+   "decision": "IN",
+   "why": "Q1 and R3-2: liposomal magnesium glycinate leads the title, and the Adults and Kids dosing is all-ages rather than EX_KIDS."
+  },
+  "B0FD9T1H2H": {
+   "decision": "IN",
+   "why": "Q1 and R3-2: the title leads with liposomal magnesium threonate for adults and kids, which is all-ages rather than EX_KIDS."
+  },
+  "B0HJ4LZCH1": {
+   "decision": "IN",
+   "why": "R3-2 and the shelf dose rule: the title leads with 2000 mg magnesium L-threonate plus liposomal delivery, and no front dose of another ingredient is larger."
+  },
+  "B0F4D59FQR": {
+   "decision": "IN",
+   "why": "R11-1 and R3-2: Magtein names magnesium, the title says liposomal, and 1000 mg magnesium leads 450 mg phosphatidylcholine under R7-1."
+  }
+ }
+}

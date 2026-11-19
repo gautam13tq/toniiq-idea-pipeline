@@ -1,0 +1,111 @@
+{
+ "run_id": "tongkat-ali__2026-11-18__c19e4465",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 4,
+ "check": [
+  {
+   "asin": "B0BRTKXV95",
+   "title": "Turkesterone Tongkat Ali Supplement for Muscle Strength & Recovery Support",
+   "brand": "Peak Revival-X",
+   "monthly_sold": 2000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 8,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "R7-1: turkesterone leads the title and the label at 500mg, above Tongkat Ali at 250mg."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B09HR7VJB1",
+   "title": "600mg Fadogia Agrestis & 500mg Tongkat Ali for Men, 180 Caps | Earth Elixir",
+   "brand": "Earth Elixir",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 11,
+    "in_top12": true,
+    "gate_code": "HERO_SECONDARY",
+    "source": "front_of_pack",
+    "fop_rule": "R3 hero shares the front equally",
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front prints fadogia at 600mg, a bigger dose than Tongkat Ali at 500mg, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0G1T7QQJF",
+   "title": "Kind Patches Mojo Patches with Tongkat Ali Extract, Zinc Picolinate, Pomegranate Extract, and Boron Picolinate - 30 Count",
+   "brand": "Kind Patches",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 14,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G4: Mojo Patches are worn on the skin, so this is not an oral tongkat ali supplement."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DFR883P7",
+   "title": "MARS MEN Testosterone Booster for Men - Natural Supplement Premium Tongkat Ali, Fenugreek, Shilajit & Boron - Male Support - Libido, Energy & Muscle Growth Support - 30 Servings (150 Caps)",
+   "brand": "MARS MEN",
+   "monthly_sold": 8000,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "JUDGE_OUT",
+    "source": "gate",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "IN",
+     "why": "R4-2: Testosterone Booster is a benefit phrase, and Tongkat Ali is the first named active before fenugreek, shilajit and boron."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

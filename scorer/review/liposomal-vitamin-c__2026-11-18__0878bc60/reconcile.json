@@ -1,0 +1,60 @@
+{
+ "run_id": "liposomal-vitamin-c__2026-11-18__0878bc60",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 2,
+ "check": [
+  {
+   "asin": "B0089EYWEE",
+   "title": "LivOn Laboratories - Lypo–Spheric Vitamin C – 1,000 mg Vitamin C & 1,000 mg Essential Phospholipids Per Packet – Liposome Encapsulated for Improved Absorption – Non–GMO - 2 Pack (60 Count)",
+   "brand": "LivOn Laboratories",
+   "monthly_sold": 1900,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 16,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under G5 and Q5 as EX_VARIANT_DUP: this is the same LivOn Lypo-Spheric vitamin C 1000mg formula as B000CD9XGC sold as a 2-pack, and B000CD9XGC has more reviews."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0D4QTN6DB",
+   "title": "Liposomal Vitamin C Gummies for Women and Men, Easy to Chew, 1 Pack",
+   "brand": "NEVISS",
+   "monthly_sold": 1500,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 18,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under R2: this is a condition-led formula (for Women and Men) and the hero is not the biggest word on the front."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

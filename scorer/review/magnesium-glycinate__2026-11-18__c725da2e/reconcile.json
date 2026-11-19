@@ -1,0 +1,35 @@
+{
+ "run_id": "magnesium-glycinate__2026-11-18__c725da2e",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0FWJ7TP6X",
+   "title": "Micro Ingredients Magnesium Complex for Women, 240 Veggie Capsules",
+   "brand": "Micro Ingredients",
+   "monthly_sold": 30000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 15,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G2 EX_FORM_MISMATCH: the title is a multi-form Magnesium Complex and glycinate is never named in the title or bullets."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

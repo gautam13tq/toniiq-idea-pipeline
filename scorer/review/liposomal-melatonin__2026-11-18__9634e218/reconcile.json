@@ -1,0 +1,35 @@
+{
+ "run_id": "liposomal-melatonin__2026-11-18__9634e218",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0C4G3LYKM",
+   "title": "Renue By Science Restore PM | Liposomal Melatonin GABA Supplements | 60 Capsules with Melatonin (1mg) 5HTP (100mg) Glutathione (65mg) Apigenin (75mg) GABA (150mg) - Non-GMO | Made in the USA",
+   "brand": "Renue By Science",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 8,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front prints GABA 150mg, 5HTP 100mg, apigenin 75mg and glutathione 65mg above melatonin 1mg, so the hero does not lead (R7-1)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

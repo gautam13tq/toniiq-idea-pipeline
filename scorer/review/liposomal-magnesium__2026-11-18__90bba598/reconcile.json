@@ -1,0 +1,9 @@
+{
+ "run_id": "liposomal-magnesium__2026-11-18__90bba598",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 0,
+ "check": []
+}

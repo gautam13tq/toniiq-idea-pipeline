@@ -1,0 +1,60 @@
+{
+ "run_id": "liposomal-creatine__2026-11-18__6ec0e626",
+ "judges": [
+  "grok"
+ ],
+ "rows": 15,
+ "to_check": 2,
+ "check": [
+  {
+   "asin": "B0DQXV55K4",
+   "title": "Liposomal NAD+ Capsules and Creatine Gummies Bundle, 2 Piece Set",
+   "brand": "WELLNESS LABSRX",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under R3-2 and the hero-first bundle rule: Liposomal NAD+ capsules are named first and the creatine item is plain gummies, so this is not a liposomal creatine product (HERO_SECONDARY)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0CWN6HQZQ",
+   "title": "Cymbiotika Liposomal Creatine+, Raspberry, 4g Creatine, 500mg L-Glutamine, Plant-Based, Keto Friendly, Sugar Free, Gluten Free & Non-GMO, 1 Box of 20 Packets, 20.3 Fluid Ounce (Pack of 1)",
+   "brand": "Cymbiotika",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 14,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under G5 and Q5: this is the same Cymbiotika Creatine+ raspberry liposomal glutamine 20-packet formula as B0BLP6LK9D, which is kept because it has more reviews (EX_VARIANT_DUP)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

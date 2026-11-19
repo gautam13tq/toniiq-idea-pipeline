@@ -1,0 +1,135 @@
+{
+ "run_id": "liposomal-urolithin-a__2026-11-18__d94438e3",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 5,
+ "check": [
+  {
+   "asin": "B0HDC2PQJQ",
+   "title": "Urolithin A Supplement, Liposomal NAD+, Turmeric, Taurine, TMG, Apigenin",
+   "brand": "Clean Nutraceuticals",
+   "monthly_sold": 100,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 7,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under R3-2: the title and bullets attach liposomal to NAD+, not urolithin A, so the hero is not in the required delivery form (EX_FORM_MISMATCH)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HMW88VCS",
+   "title": "Urolithin A Gummies with Liposomal NMN, CoQ10, Trans-Resveratrol, PQQ",
+   "brand": "Ovola",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 12,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under R3-2: liposomal modifies NMN, not urolithin A, so the hero is not in the shelf's delivery form (EX_FORM_MISMATCH)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HLLC4561",
+   "title": "Urolithin A Supplement with Liposomal NAD+, Resveratrol, CoQ10, Ergothioneine, PQQ & Magnesium Glycinate, 8-in-1 Cellular Wellness Formula, Softgels for Energy Metabolism & Healthy Aging, 120 Count",
+   "brand": "vopxccvy",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under R3-2: the title and bullets attach liposomal to NAD+, not urolithin A (EX_FORM_MISMATCH)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HJYSDK1X",
+   "title": "DNOUHN Urolithin A Supplement with Liposomal NAD+, Trans-Resveratrol, Ubiquinol, Tmg, Pqq, for Cellular Energy & Mitochondrial Support 90 Capsules",
+   "brand": "DNOUHN",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 14,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under R3-2: the title is Urolithin A with Liposomal NAD+, so the delivery tech is not the hero's form and the bullet cannot rescue it (EX_FORM_MISMATCH)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0FG25DJZD",
+   "title": "NAD+ Liquid Drops w. Urolithin A Extra Strength Liposomal NAD Supplement for Women & Men | CoQ10, Resveratrol, Alpha Lipoic Acid & Astaxanthin | NMNH Alternative for Antioxidant, Anti-Aging & Energy",
+   "brand": "GLOVVUUP",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 15,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT under G1 and R7-1: NAD+ leads the title and the label at 1000mg of liposomal NAD versus 100mg Mitopure urolithin A, so the hero is secondary."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

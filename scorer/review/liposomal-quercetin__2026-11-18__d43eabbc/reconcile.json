@@ -1,0 +1,85 @@
+{
+ "run_id": "liposomal-quercetin__2026-11-18__d43eabbc",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 3,
+ "check": [
+  {
+   "asin": "B0DF7D3ZZQ",
+   "title": "Fisetin+Resveratrol +Quercetin Supplement-Liposomal Fisetin 1200mg 98% Pure",
+   "brand": "LILICARE",
+   "monthly_sold": 300,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 3,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY: the title leads with liposomal fisetin 1200 mg and quercetin is only an added ingredient."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0G15BY86Y",
+   "title": "Codeage Liposomal NMNH, 500mg, NAD+ Precursor, Quercetin, 60 Capsules",
+   "brand": "Codeage",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 10,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY: liposomal NMNH 500 mg leads the title and quercetin is a later add-in."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DQFWJT41",
+   "title": "Nikoni Liposomal Spermidine, Quercetin, Fisetin 860mg Supplement for Healthy Aging, Cellular Renewal, Cognitive Function 60 Softgelss",
+   "brand": "Nikoni",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 16,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY under R13-5: spermidine is named before quercetin in a three-active list, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

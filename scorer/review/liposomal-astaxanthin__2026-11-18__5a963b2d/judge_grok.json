@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-astaxanthin__2026-11-18__5a963b2d",
+ "verdicts": {
+  "B09VX787GV": {
+   "decision": "IN",
+   "why": "IN because the title leads with liposomal astaxanthin 24 mg as the sole dosed active and the delivery tech is on the front (R3-2, G1)."
+  },
+  "B0GQMFMJKG": {
+   "decision": "OUT",
+   "why": "OUT because the front prints resveratrol at 100 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+  },
+  "B0GWV4D6FB": {
+   "decision": "IN",
+   "why": "IN because this is an N-in-1 whose first named active is liposomal astaxanthin 12 mg and no higher competing dose is printed on the front (R3-1, R3-2)."
+  },
+  "B0HN4PKZP5": {
+   "decision": "OUT",
+   "why": "OUT because the title is a condition-led self-tan formula that leads with tanning and names astaxanthin only after with (R14-1, R2)."
+  },
+  "B0GVSHRC31": {
+   "decision": "IN",
+   "why": "IN because the title leads with liposomal astaxanthin 24 mg before the 21-in-1 helpers and no higher competing dose is printed on the front (R3-1, G1)."
+  },
+  "B0GK8X7NJB": {
+   "decision": "IN",
+   "why": "IN because the title is a single-hero liposomal astaxanthin 12 mg gummy with the delivery tech named on the front (R3-2, G1)."
+  },
+  "B0GTQ5RZ96": {
+   "decision": "IN",
+   "why": "IN because liposomal astaxanthin 12 mg leads the title and the label, and the later hyaluronic acid dose does not lead (R13-6, R3-2)."
+  },
+  "B0GWLGC8B7": {
+   "decision": "IN",
+   "why": "IN because the title names liposomal astaxanthin 12 mg alone and the later lycopene dose does not lead the label (R13-6, R3-2)."
+  },
+  "B0F64Z1SRX": {
+   "decision": "IN",
+   "why": "IN because the title leads with 35 mg liposomal astaxanthin and no other active is named ahead of the hero (G1, R3-2)."
+  },
+  "B0GWLNKKMQ": {
+   "decision": "IN",
+   "why": "IN because the title leads with liposomal astaxanthin 12 mg as the first active, with lycopene, CoQ10 and lutein only as later helpers (G1, R3-1)."
+  },
+  "B0H14PBL72": {
+   "decision": "OUT",
+   "why": "OUT because the front prints resveratrol at 100 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+  },
+  "B0FGW83MQH": {
+   "decision": "IN",
+   "why": "IN because the title leads with liposomal astaxanthin before the 9-in-1 helpers and ashwagandha is not named first (R3-1, R3-2)."
+  },
+  "B0HJWGPKDR": {
+   "decision": "IN",
+   "why": "IN because the title is liposomal astaxanthin 24 mg drops with the hero leading and the delivery tech on the front (R3-2, G1)."
+  },
+  "B0GYRS86ND": {
+   "decision": "IN",
+   "why": "IN because the title is liposomal astaxanthin 24 mg drops with the hero leading and the delivery tech on the front (R3-2, G1)."
+  },
+  "B0GJCH2NVV": {
+   "decision": "IN",
+   "why": "IN because liposomal astaxanthin 24 mg leads the title and the label, and the later 40 mg lycopene does not lead (R13-6, R3-1)."
+  },
+  "B0DR3T3CL4": {
+   "decision": "OUT",
+   "why": "OUT because the front prints krill oil at 500 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+  },
+  "B0DHVCYL57": {
+   "decision": "OUT",
+   "why": "OUT because the front prints liposomal vitamin C at 1000 mg, a bigger dose than astaxanthin 6 mg, so the hero does not lead (dose rule, R7-1)."
+  },
+  "B0BFXNFDM6": {
+   "decision": "OUT",
+   "why": "OUT because the front prints artemisinin at 600 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+  }
+ }
+}

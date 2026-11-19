@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-curcumin__2026-11-18__1b302d8b",
+ "verdicts": {
+  "B01BMDAVIY": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: NatureWise turmeric curcumin with BioPerine does not name liposomal in the title or brand, so it is EX_FORM_MISMATCH."
+  },
+  "B09YGG58LZ": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: Qunol turmeric with black pepper and ginger does not name liposomal in the title or brand, so it is EX_FORM_MISMATCH."
+  },
+  "B01BMDAVB6": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: NatureWise turmeric curcumin with BioPerine does not name liposomal in the title or brand, so it is EX_FORM_MISMATCH."
+  },
+  "B01D8V075U": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: Thorne Curcumin Phytosome is Meriva phytosome, a different delivery tech from liposomal, so it is EX_FORM_MISMATCH."
+  },
+  "B01DBTFO98": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: BioSchwartz turmeric curcumin with black pepper does not name liposomal in the title or brand, so it is EX_FORM_MISMATCH."
+  },
+  "B07DX7W7VP": {
+   "decision": "OUT",
+   "why": "R3-2 delivery-named shelf: Nature's Bounty turmeric with black pepper does not name liposomal in the title or brand, so it is EX_FORM_MISMATCH."
+  },
+  "B0BQ4QGDKC": {
+   "decision": "IN",
+   "why": "R3-2 and the shelf dose rule: liposomal curcumin leads the title, and resveratrol at 75mg does not exceed curcuminoids at 200mg, so this is HERO_LED_COMPLEX."
+  },
+  "B07YF6JTL2": {
+   "decision": "IN",
+   "why": "R3-2 and G1: liposomal turmeric is the first-named product, with ashwagandha and ginger only as later helpers and no larger competing dose printed."
+  },
+  "B086L3KLHB": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal turmeric and curcumin, and black pepper/piperine is an absorption helper skipped under the R7-1 helper rule."
+  },
+  "B09V7PP7BK": {
+   "decision": "IN",
+   "why": "R3-2: the title is a liposomal curcumin liquid supplement and no other ingredient is printed at a larger milligram dose than the hero."
+  },
+  "B0CQVJ81SJ": {
+   "decision": "OUT",
+   "why": "G5 EX_VARIANT_DUP: same Svaiketa 2000mg liposomal turmeric curcumin with piperine, 60-softgel formula as the 2-bottle listing B0CQVG7KF5, which has more reviews."
+  },
+  "B0CQVG7KF5": {
+   "decision": "IN",
+   "why": "R3-2 and G5: liposomal turmeric curcumin with piperine is the hero, and this 2-bottle listing is the kept line because it has more reviews than B0CQVJ81SJ."
+  },
+  "B0DD914R2N": {
+   "decision": "IN",
+   "why": "R3-2: Manna liposomal liquid curcumin is named as the hero, and R5-2 keeps this liquid separate from the brand's softgel."
+  },
+  "B08FXXQB9F": {
+   "decision": "IN",
+   "why": "R3 and R3-2: liposomal turmeric is named first beside DHA, and no larger DHA milligram dose is printed, so equal front billing stays in."
+  },
+  "B0GTLQXZH3": {
+   "decision": "IN",
+   "why": "R3-2 and the shelf dose rule: the title is liposomal turmeric curcumin with black pepper, and 1500mg is the hero or blend total rather than a larger competing ingredient."
+  },
+  "B0H4QSJ6ZR": {
+   "decision": "IN",
+   "why": "R3-2 and the shelf dose rule: liposomal is in the title of a turmeric curcumin 2250mg product, and vitamin C at 100mg does not out-dose the hero."
+  },
+  "B0D7386D7C": {
+   "decision": "IN",
+   "why": "R3-2: Kraftvoll is titled liposomal turmeric curcumin, with black pepper/piperine only as the smaller absorption helper under the R7-1 helper rule."
+  },
+  "B0F752RTBL": {
+   "decision": "IN",
+   "why": "R3-2 and G1: liposomal turmeric curcumin leads the title, and ginger and garlic are not printed at a higher dose than curcumin."
+  },
+  "B0G3YQT5JX": {
+   "decision": "IN",
+   "why": "R3-2 and the shelf dose rule: liposomal turmeric and curcumin lead, while boswellia 100mg, ginger 100mg and resveratrol 50mg are below the 500mg curcuminoids."
+  },
+  "B0FVG87QWZ": {
+   "decision": "IN",
+   "why": "R3-2 and R5-2: these Manna liposomal curcumin softgels are a separate format from the brand's liposomal liquid, and curcumin is the named hero."
+  },
+  "B0G28QV1CC": {
+   "decision": "IN",
+   "why": "R3-2, R7-1 and R13-4: liposomal turmeric curcumin leads at 1000mg, later botanicals are not printed higher, and MCT oil is a carrier."
+  },
+  "B019E846AI": {
+   "decision": "IN",
+   "why": "R3-2 and the shelf dose rule: liposomal curcumin leads the title, and resveratrol at 75mg does not exceed curcuminoid at 200mg."
+  },
+  "B07ND52VS7": {
+   "decision": "IN",
+   "why": "R3-2 and R4-2: Amy Myers liposomal curcumin is the named hero, and the inflammation and gut phrases are benefit words rather than another leading active."
+  },
+  "B0F26GZGWN": {
+   "decision": "IN",
+   "why": "R3-2 and R7-1: liposomal turmeric is the first active, 2000mg is a blend total, and lutein 20mg plus zeaxanthin 4mg do not lead the label."
+  }
+ }
+}

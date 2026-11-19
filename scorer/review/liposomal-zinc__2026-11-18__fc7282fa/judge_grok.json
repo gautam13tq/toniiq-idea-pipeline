@@ -1,0 +1,62 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-zinc__2026-11-18__fc7282fa",
+ "verdicts": {
+  "B0G4CMFTWV": {
+   "decision": "IN",
+   "why": "R13-1 and R3-2: the title leads with liposomal zinc at 50mg, so vitamin C\u2019s higher bullet dose does not take the lead."
+  },
+  "B09F8BNW8B": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title is a single-hero liposomal zinc 50mg gluconate product."
+  },
+  "B0H2HR2MZD": {
+   "decision": "IN",
+   "why": "R13-1 and Q1: the title leads with liposomal zinc picolinate 30mg on an all-ages Adult & Kid product, so the later 10-in-1 list does not take the lead."
+  },
+  "B0CPYTWWH1": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title names liposomal zinc 30mg with no other active ahead of the hero."
+  },
+  "B0GTQ5TY3G": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and R3-2: the title leads with liposomal zinc at 30mg and the with-list minerals come after the hero."
+  },
+  "B0HJ4JLCYQ": {
+   "decision": "IN",
+   "why": "Front-of-pack R3 and R3-2: liposomal zinc is named first at 30mg zinc picolinate, and copper sharing the front has no bigger printed dose."
+  },
+  "B0FMJG33F1": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY and the shelf dose rule: the front leads with 35mg liposomal spermidine and zinc is only a later add-in."
+  },
+  "B0HBP97N1B": {
+   "decision": "IN",
+   "why": "R7-1 and R3-2: on this mineral shelf magnesium\u2019s 300mg bullet dose is not compared by mg, and the title leads with liposomal zinc picolinate 100mg."
+  },
+  "B08GF9X9HZ": {
+   "decision": "IN",
+   "why": "R3-2 and G1 HERO_LED_COMPLEX: the title leads with liposomal zinc picolinate and copper is only a with-ingredient after the hero."
+  },
+  "B08WRBFB89": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title names zinc with liposomal delivery as a serving-dosed liquid supplement."
+  },
+  "B0H2685NV4": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and R3-2: the title leads with liposomal zinc, then copper and selenium, and the printed 50mg is the zinc blend."
+  },
+  "B0C9NZRWFH": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title is liposomal liquid zinc 15mg with no other active named ahead of the hero."
+  },
+  "B0H4KSYBJW": {
+   "decision": "IN",
+   "why": "R3-2 and front-of-pack R3: the title leads with liposomal zinc before copper, and elderberry in a bullet is not a bigger front dose."
+  },
+  "B0CDY5XHHT": {
+   "decision": "IN",
+   "why": "R3-2 and G1 IN_OK: the title is liposomal zinc picolinate, and the 2mg copper in the bullets does not lead."
+  }
+ }
+}

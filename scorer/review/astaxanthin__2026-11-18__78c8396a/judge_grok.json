@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "astaxanthin__2026-11-18__78c8396a",
+ "verdicts": {
+  "B08MWZQ4S6": {
+   "decision": "IN",
+   "why": "G1 and R13-4: the title leads with astaxanthin 12 mg softgels, and MCT oil is a carrier fat."
+  },
+  "B07V574YYY": {
+   "decision": "IN",
+   "why": "G1 and R13-4: the title leads with astaxanthin 12 mg softgels, and coconut oil is a carrier fat."
+  },
+  "B0GH2CPCTZ": {
+   "decision": "IN",
+   "why": "G1 and R3-2: the title leads with astaxanthin 12 mg softgels, and lipid-based is a delivery modifier on this plain shelf."
+  },
+  "B09ZBL2LP2": {
+   "decision": "IN",
+   "why": "G1 and R11-1: the title leads with astaxanthin 12 mg softgels, and AstaReal is the astaxanthin ingredient name."
+  },
+  "B0GS1BK638": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B0G4GKMRSM": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B0184SMS9A": {
+   "decision": "OUT",
+   "why": "H12 and G1: this is Antarctic krill oil 500 mg, and astaxanthin is only a minor constituent (HERO_SECONDARY)."
+  },
+  "B097F68J43": {
+   "decision": "IN",
+   "why": "G1: the title leads with BioAstin Hawaiian astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B078Z16G8W": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B0F4M8Y6V6": {
+   "decision": "IN",
+   "why": "G1 and R13-4: the title leads with astaxanthin 24 mg softgels, and MCT oil is a carrier fat."
+  },
+  "B07B6HMNYD": {
+   "decision": "OUT",
+   "why": "H12 and G1: this is Antarctic krill oil 1000 mg, and astaxanthin is only a minor constituent (HERO_SECONDARY)."
+  },
+  "B01070FUDE": {
+   "decision": "OUT",
+   "why": "H12 and G1: this is krill oil 350 mg, and astaxanthin is only the oil's minor coloring constituent (HERO_SECONDARY)."
+  },
+  "B0013OVXA8": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 4 mg Zanthin veg softgels as the single hero product."
+  },
+  "B0C2S5MC6J": {
+   "decision": "OUT",
+   "why": "Dose rule and G1: the front prints lutein at 40 mg, a bigger dose than the 20 mcg astaxanthin, so the hero does not lead."
+  },
+  "B0H4MN1TDL": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B00N9CMTV4": {
+   "decision": "IN",
+   "why": "G1 and R13-4: the title leads with astaxanthin 4 mg, and phospholipids are a carrier fat with no bigger printed dose."
+  },
+  "B01HFRINMC": {
+   "decision": "OUT",
+   "why": "R6-1 and front-of-pack R2: MacuGuard Ocular is a condition-led coined formula whose bullets lead with lutein and zeaxanthin, so astaxanthin is an add-in."
+  },
+  "B01JNNAN4C": {
+   "decision": "OUT",
+   "why": "H12 and the dose rule: this is Antarctic krill oil 1,000 mg with 400 mcg naturally occurring astaxanthin, so the hero is a minor constituent."
+  },
+  "B0058AB0AQ": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 10 mg Zanthin softgels as the single hero product."
+  },
+  "B0GFCNK99S": {
+   "decision": "IN",
+   "why": "G1 and R13-4: the title leads with astaxanthin 6 mg softgels, and MCT oil is a carrier fat."
+  },
+  "B09VX787GV": {
+   "decision": "IN",
+   "why": "R3-2 and G1: on this plain astaxanthin shelf the liposomal delivery word is ignored, and the title leads with astaxanthin 24 mg."
+  },
+  "B0FLDLP1LZ": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B0GRGS9MFQ": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  },
+  "B0FX4L6GXW": {
+   "decision": "IN",
+   "why": "G1: the title leads with astaxanthin 12 mg softgels as the single hero product."
+  }
+ }
+}

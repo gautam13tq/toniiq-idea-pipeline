@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-vitamin-c__2026-11-18__0878bc60",
+ "verdicts": {
+  "B0BQW7H8VV": {
+   "decision": "IN",
+   "why": "IN under G1 and the shelf dose rule: the title leads with liposomal vitamin C at 1000mg and propolis is a smaller 100mg helper, so the hero leads."
+  },
+  "B000CD9XGC": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 1000mg as the single hero on this delivery shelf."
+  },
+  "B0098U0S8C": {
+   "decision": "OUT",
+   "why": "OUT under R3-2 EX_FORM_MISMATCH: a liposomal delivery shelf counts only when the title or brand names that tech, and this raw vitamin C title and brand do not."
+  },
+  "B00NNR38JC": {
+   "decision": "OUT",
+   "why": "OUT under R3-2 EX_FORM_MISMATCH: a liposomal delivery shelf counts only when the title or brand names that tech, and this Emergen-C immune powder title and brand do not."
+  },
+  "B09FYFM7N3": {
+   "decision": "OUT",
+   "why": "OUT under R3-2 EX_FORM_MISMATCH: a liposomal delivery shelf counts only when the title or brand names that tech, and this Thorne vitamin C title and brand do not."
+  },
+  "B0GTBGW9YN": {
+   "decision": "OUT",
+   "why": "OUT under G1 and R5-3 as HERO_SECONDARY: the title leads with liposomal glutathione and resveratrol, and vitamin C appears only as a with-add-in."
+  },
+  "B07DH1ZJZ9": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 1700mg as the leading hero."
+  },
+  "B00JFF48I6": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 1,000 mg as the leading hero."
+  },
+  "B09FYHTSNW": {
+   "decision": "OUT",
+   "why": "OUT under R3-2 EX_FORM_MISMATCH: a liposomal delivery shelf counts only when the title or brand names that tech, and this Thorne ascorbic acid title and brand do not."
+  },
+  "B0CQ6FQWCL": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C as the leading hero."
+  },
+  "B0BV8BM7LX": {
+   "decision": "IN",
+   "why": "IN under R4-2 and R3-2: immune support is a benefit word, and liposomal vitamin C is the first named active."
+  },
+  "B0FC9HR9G9": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 1000mg as the leading hero."
+  },
+  "B07K8QLGHN": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 1650mg as the leading hero."
+  },
+  "B086GK9SWD": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C as the leading hero, and buffered is only a delivery modifier."
+  },
+  "B008HFOLXW": {
+   "decision": "OUT",
+   "why": "OUT under R3-2 EX_FORM_MISMATCH: a liposomal delivery shelf counts only when the title or brand names that tech, and this Pure Radiance C title and brand do not."
+  },
+  "B0GJYVVHWG": {
+   "decision": "IN",
+   "why": "IN under R5-1 and R3-2: liposomal vitamin C 1000mg leads the title and biotin is one added vitamin with no larger printed dose."
+  },
+  "B07DR13XSX": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 1700mg as the leading hero."
+  },
+  "B0BTFHH8G6": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 2200mg as the leading hero."
+  },
+  "B09YCYKFWX": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liposomal vitamin C 2000mg liquid as the leading hero."
+  },
+  "B086D3TN83": {
+   "decision": "IN",
+   "why": "IN under G1 and the v1.7 source-qualified hero rule: liposomal vitamin C leads, and acerola and camu camu are vitamin C sources named after the hero."
+  },
+  "B08FXY6542": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names liquid vitamin C 500mg as the hero and includes the liposomal delivery tech."
+  },
+  "B0089EYWEE": {
+   "decision": "OUT",
+   "why": "OUT under G5 and Q5 as EX_VARIANT_DUP: this is the same LivOn Lypo-Spheric vitamin C 1000mg formula as B000CD9XGC sold as a 2-pack, and B000CD9XGC has more reviews."
+  },
+  "B09S2G84CD": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title names Aurora Nutrascience liposomal liquid vitamin C as the leading hero."
+  },
+  "B0D4QTN6DB": {
+   "decision": "OUT",
+   "why": "OUT under R2: this is a condition-led formula (for Women and Men) and the hero is not the biggest word on the front."
+  }
+ }
+}

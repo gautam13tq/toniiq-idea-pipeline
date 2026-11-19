@@ -1,0 +1,160 @@
+{
+ "run_id": "liposomal-astaxanthin__2026-11-18__5a963b2d",
+ "judges": [
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 6,
+ "check": [
+  {
+   "asin": "B0GQMFMJKG",
+   "title": "Astaxanthin 24mg, Resveratrol 100mg & Lycopene 40mg, Liposome with MCT Oil",
+   "brand": "Puyflam",
+   "monthly_sold": 450,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 2,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT because the front prints resveratrol at 100 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HN4PKZP5",
+   "title": "Tanning Gummies, Liposomal Self Tan for Women with Astaxanthin, 60 Servings",
+   "brand": "XIHOLIY",
+   "monthly_sold": 200,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 4,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT because the title is a condition-led self-tan formula that leads with tanning and names astaxanthin only after with (R14-1, R2)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0H14PBL72",
+   "title": "Astaxanthin 24mg, Resveratrol 100mg & Lycopene 40mg, Advanced Liposomal with MCT Oil | Maximizes Potency via Liposome Encapsulation | Ideal for High‑Absorption Needs | Non-GMO, No Soy -8 Softgels",
+   "brand": "Puyflam",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 11,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT because the front prints resveratrol at 100 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DR3T3CL4",
+   "title": "Nikoni Liposomal Astaxanthin 24mg with Kril Oil 500mg Supplement (240 Softgelss)",
+   "brand": "Nikoni",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 16,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT because the front prints krill oil at 500 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DHVCYL57",
+   "title": "VEETAGYO Astaxanthin Supplements 6mg + Liposomal Vitamin C 1000mg - Dual Layer - Niacin B6,B12,Folate,Biotin - Antioxidants - Gelatin Free,Sugar Free,60Cts",
+   "brand": "VEETAGYO",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 17,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT because the front prints liposomal vitamin C at 1000 mg, a bigger dose than astaxanthin 6 mg, so the hero does not lead (dose rule, R7-1)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0BFXNFDM6",
+   "title": "Osasuna Liposomal Astaxanthin 24MG with Artemisinin 600 mg",
+   "brand": "Osasuna",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 18,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "OUT because the front prints artemisinin at 600 mg, a bigger dose than astaxanthin 24 mg, so the hero does not lead (dose rule)."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

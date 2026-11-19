@@ -1,0 +1,98 @@
+{
+ "judge": "grok",
+ "run_id": "melatonin__2026-11-18__a0602918",
+ "verdicts": {
+  "B07BBFFTKH": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title names adult melatonin gummies and melatonin is the only active."
+  },
+  "B08666GMWG": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Natrol adult 10 mg gummies name melatonin as the only active."
+  },
+  "B01E14X7SM": {
+   "decision": "IN",
+   "why": "G1 IN_OK and R3-2: fast-dissolve is a delivery modifier on this plain shelf, and melatonin is the only named active."
+  },
+  "B07S38C5WW": {
+   "decision": "IN",
+   "why": "G1 IN_OK and R3-2: fast-dissolve is a delivery modifier, and these 5 mg tablets name melatonin as the only active."
+  },
+  "B086KHBY2J": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: melatonin 6 mg is the first named dosed active, and ashwagandha plus the botanicals have no bigger printed milligram dose."
+  },
+  "B07N46LTJJ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: melatonin 2 mg leads the title, and chamomile, lavender, and lemon balm are an undosed complementary blend."
+  },
+  "B00H2FG8RK": {
+   "decision": "IN",
+   "why": "G1 IN_OK and R3-2: dual-spectrum release is a delivery modifier, and melatonin 5 mg is the only named active."
+  },
+  "B07VMJMZNP": {
+   "decision": "OUT",
+   "why": "EX_KIDS under Q1: Natrol Kids is directed only for children ages four and up, so this kids-only product is excluded."
+  },
+  "B0CXM73KFT": {
+   "decision": "OUT",
+   "why": "v1.8 X Free and EX_HERO_MISSING: the title says Melatonin Free and the bullets say no melatonin is added, while magnesium glycinate leads."
+  },
+  "B0DBPXDYWT": {
+   "decision": "OUT",
+   "why": "EX_KIDS under Q1: Zarbee's is a children-3+ melatonin gummy with no adult dosing, so this kids-only product is excluded."
+  },
+  "B0DDK4XJ7Z": {
+   "decision": "OUT",
+   "why": "v1.8 X Free and EX_HERO_MISSING: the title says Melatonin Free and the bullets say no melatonin is added, while magnesium glycinate leads."
+  },
+  "B0F5W6C3PL": {
+   "decision": "OUT",
+   "why": "EX_KIDS under Q1: the title is Kids Melatonin and the listing gives no adult dose, so this kids-only product is excluded."
+  },
+  "B08451719W": {
+   "decision": "IN",
+   "why": "G1 IN_OK and R3-2: Carlyle 12 mg fast-dissolve tablets name melatonin as the only active."
+  },
+  "B00C3Q5JVE": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Natrol 1 mg fast-dissolve tablets name melatonin for adults as the only active."
+  },
+  "B079TD92GS": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Natrol adult 5 mg gummies name melatonin as the only active, and R3-5 keeps this dose as its own product."
+  },
+  "B07PXT5LYR": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: Sleep3 names melatonin 10 mg as the lead active, and L-theanine plus the herbal blend have no bigger printed dose."
+  },
+  "B0149LAJTW": {
+   "decision": "IN",
+   "why": "G1 IN_OK and R3-2: Natrol 3 mg fast-dissolve tablets name melatonin as the only active."
+  },
+  "B07PF1SN5B": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Vitafusion gummies name melatonin 10 mg as the only active."
+  },
+  "B005DEK990": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made 3 mg tablets name melatonin as the only active."
+  },
+  "B072SD2PNY": {
+   "decision": "IN",
+   "why": "R5-1 and R3-2: melatonin leads this time-release tablet and vitamin B6 is a co-active vitamin on the plain melatonin shelf."
+  },
+  "B0CRMWK9PH": {
+   "decision": "IN",
+   "why": "G1 and the dose rule: melatonin 3 mg is the first printed dose and L-theanine is an undosed co-active, so melatonin leads."
+  },
+  "B0CB77Z8RP": {
+   "decision": "IN",
+   "why": "R4-2 and the dose rule: Sleep Support is a benefit phrase, melatonin 10 mg is the first dosed active, and L-theanine has no bigger printed dose."
+  },
+  "B089DZH7TY": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Amazon Basics 10 mg gummies name melatonin as the only active, and R3-5 keeps this dose as its own product."
+  }
+ }
+}

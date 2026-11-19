@@ -1,0 +1,35 @@
+{
+ "run_id": "liposomal-zinc__2026-11-18__fc7282fa",
+ "judges": [
+  "grok"
+ ],
+ "rows": 14,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0FMJG33F1",
+   "title": "FloraBliss 35mg Liposomal Spermidine with Thiamin, Zinc, Biotin, Vitamin C",
+   "brand": "FloraBliss",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 7,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY and the shelf dose rule: the front leads with 35mg liposomal spermidine and zinc is only a later add-in."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-quercetin__2026-11-18__d43eabbc",
+ "verdicts": {
+  "B0DXP9LBZ7": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: the title leads with liposomal quercetin, and the dose rule keeps quercetin ahead because 1000 mg is above bromelain 500 mg."
+  },
+  "B0CRNQSJJZ": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title is a liposomal quercetin liquid and quercetin is the only active."
+  },
+  "B0DF7D3ZZQ": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: the title leads with liposomal fisetin 1200 mg and quercetin is only an added ingredient."
+  },
+  "B09XX836WS": {
+   "decision": "IN",
+   "why": "Dose rule: the front prints liposomal quercetin at 1600 mg, above bromelain 200 mg, zinc 30 mg and turmeric 40 mg."
+  },
+  "B0FH2BWJJ2": {
+   "decision": "IN",
+   "why": "G1 and Q1: liposomal quercetin 700 mg leads the title, and the kids-and-adults wording is all-ages rather than kids-only."
+  },
+  "B0CKZBMJ5J": {
+   "decision": "IN",
+   "why": "R3-2 and G1: liposomal quercetin leads the title, with bromelain, zinc and vitamin C only as helpers."
+  },
+  "B0F5GZT3NZ": {
+   "decision": "IN",
+   "why": "Dose rule: the front prints quercetin 1000 mg above bromelain 500 mg on a liposomal quercetin title."
+  },
+  "B0GZV8PC6Q": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: liposomal quercetin 1000 mg is the first active, ahead of bromelain, elderberry, berberine and mullein."
+  },
+  "B0CW8LGRRK": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title names liposomal quercetin at 150 mg per serving and no other active is named before it."
+  },
+  "B0G15BY86Y": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: liposomal NMNH 500 mg leads the title and quercetin is a later add-in."
+  },
+  "B0GHTF9P46": {
+   "decision": "IN",
+   "why": "G1 and Q1: the title is liposomal quercetin with bromelain for kids and adults, which Q1 counts as all-ages."
+  },
+  "B0CKBSDSYZ": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title is a liposomal quercetin 200 mg supplement and the hero is the sole active."
+  },
+  "B0GL9F5V1V": {
+   "decision": "IN",
+   "why": "R4-2 and G1: Longevity is a benefit word, and liposomal quercetin leads the title with fisetin named only after it."
+  },
+  "B0FNTPSJ1M": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title is liposomal quercetin 250 mg per serving and the hero is the only active."
+  },
+  "B0DFMZRFKK": {
+   "decision": "IN",
+   "why": "R3-2 and G1: the title names quercetin liposomal, so both the hero and the delivery tech are on the front."
+  },
+  "B0DQFWJT41": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY under R13-5: spermidine is named before quercetin in a three-active list, so the hero does not lead."
+  },
+  "B0DPBJ26QD": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: liposomal quercetin 150 mg leads, with bromelain, vitamin C and zinc named only as helpers."
+  },
+  "B0FGZ3JL9V": {
+   "decision": "IN",
+   "why": "R4-2: Relief Tonic is a benefit-word formula name and liquid quercetin 200 mg is the first active, with liposomal delivery in the title."
+  }
+ }
+}

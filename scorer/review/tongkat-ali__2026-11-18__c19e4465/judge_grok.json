@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "tongkat-ali__2026-11-18__c19e4465",
+ "verdicts": {
+  "B0C361XRFK": {
+   "decision": "IN",
+   "why": "G1: Nutricost names Tongkat Ali as the product at 1,000mg per serving, and BioPerine is only an absorption helper."
+  },
+  "B07TTDFXFV": {
+   "decision": "IN",
+   "why": "G1: the title leads with Tongkat Ali at 1,000mg, and the 20mg tribulus does not lead the label under R7-1."
+  },
+  "B0DFR883P7": {
+   "decision": "IN",
+   "why": "R4-2: Testosterone Booster is a benefit phrase, and Tongkat Ali is the first named active before fenugreek, shilajit and boron."
+  },
+  "B09WX9VHVX": {
+   "decision": "IN",
+   "why": "G1: Momentous is a single-hero Tongkat Ali longjack extract dosed at 400mg."
+  },
+  "B0F1D14FF8": {
+   "decision": "OUT",
+   "why": "R5-3: this is a shilajit gummy with Tongkat Ali only as an add-in, so the hero is secondary."
+  },
+  "B09X2CG92L": {
+   "decision": "OUT",
+   "why": "G1: ashwagandha is named before Tongkat Ali, so another active leads this testosterone stack."
+  },
+  "B0GSCM4RSF": {
+   "decision": "OUT",
+   "why": "G5: this is the same Mars Men brand and formula as B0DFR883P7, with only the capsule-count wording removed."
+  },
+  "B0C4NV7Q2B": {
+   "decision": "IN",
+   "why": "G1: Tongkat Ali is the first named active, with fadogia as a helper and no bigger fadogia milligram dose on the front."
+  },
+  "B088GQDV76": {
+   "decision": "IN",
+   "why": "G1: Nootropics Depot sells a single-hero Tongkat Ali Eurycoma longifolia extract in capsules."
+  },
+  "B0H4S7TKWQ": {
+   "decision": "IN",
+   "why": "R3-2: on this plain tongkat ali shelf a liposomal delivery word is ignored, and Tongkat Ali is the only active."
+  },
+  "B09ML2VFJK": {
+   "decision": "OUT",
+   "why": "R5-3: ashwagandha and maca lead the title, and Tongkat Ali is a minor add-in in a broader blend."
+  },
+  "B07HZ529T5": {
+   "decision": "IN",
+   "why": "G1: Horb\u00e4ach names Longjack Tongkat Ali as the sole hero in capsules."
+  },
+  "B0BRTKXV95": {
+   "decision": "OUT",
+   "why": "R7-1: turkesterone leads the title and the label at 500mg, above Tongkat Ali at 250mg."
+  },
+  "B0CKM11RM7": {
+   "decision": "OUT",
+   "why": "R7-1: shilajit leads the title and the label at 1000mg, above Tongkat Ali at 300mg."
+  },
+  "B0BQT8N2Z5": {
+   "decision": "IN",
+   "why": "G1: Solaray names Tongkat Ali 400 mg as the sole hero in capsules."
+  },
+  "B09TM2LTM5": {
+   "decision": "IN",
+   "why": "G1: LJ100 Tongkat is a single-hero Eurycoma longifolia extract with no other active leading."
+  },
+  "B09HR7VJB1": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints fadogia at 600mg, a bigger dose than Tongkat Ali at 500mg, so the hero does not lead."
+  },
+  "B0C8KTCSW8": {
+   "decision": "IN",
+   "why": "G1: Carlyle names Tongkat Ali as the sole hero in capsules."
+  },
+  "B0FJ44M36M": {
+   "decision": "IN",
+   "why": "R3-1: Tongkat Ali leads this 4-in-1, and its 400mg dose is higher than maca, ashwagandha and shilajit."
+  },
+  "B0G1T7QQJF": {
+   "decision": "OUT",
+   "why": "G4: Mojo Patches are worn on the skin, so this is not an oral tongkat ali supplement."
+  },
+  "B0DH5PL3H9": {
+   "decision": "IN",
+   "why": "G1: the title leads with Tongkat Ali drops, and no later active is printed at a bigger dose than the hero."
+  },
+  "B0971V1HGK": {
+   "decision": "IN",
+   "why": "G1: Tongkat Ali leads the title, with horny goat weed as the paired active in this 2-in-1."
+  },
+  "B0C3J8BT5P": {
+   "decision": "IN",
+   "why": "G1: Nugenix names Longjack Tongkat Ali as the sole hero at 200mg per capsule."
+  },
+  "B01L2TFQHY": {
+   "decision": "IN",
+   "why": "v2.2: this Tongkat Ali extract powder is sold as a herbal supplement with a scoop, and extracts are not culinary bulk."
+  }
+ }
+}

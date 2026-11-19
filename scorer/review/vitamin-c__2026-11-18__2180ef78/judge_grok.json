@@ -1,0 +1,102 @@
+{
+ "judge": "grok",
+ "run_id": "vitamin-c__2026-11-18__2180ef78",
+ "verdicts": {
+  "B00016RL9G": {
+   "decision": "IN",
+   "why": "G1 IN_OK: the title leads with Vitamin C 1000mg powder, so the hero is the product."
+  },
+  "B0000DJASY": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made Extra Strength Vitamin C 1000 mg tablets are a single-hero vitamin C supplement."
+  },
+  "B005D0DTS2": {
+   "decision": "OUT",
+   "why": "R5-3 HERO_SECONDARY: Super B Complex is the base product and vitamin C is only a with-add-in."
+  },
+  "B0D2Z3GGCY": {
+   "decision": "OUT",
+   "why": "G4 EX_TOPICAL: medicube Capsule Cream is a facial moisturizer, not an oral vitamin C supplement."
+  },
+  "B07122C9VC": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Amazon Basics Vitamin C 1000mg tablets sell vitamin C as the sole hero."
+  },
+  "B0CBVWPPR9": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made Vitamin C gummies are a single-hero vitamin C supplement at 1000mg per serving."
+  },
+  "B000GG87V2": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature's Bounty Vitamin C 500mg tablets are a single-hero vitamin C supplement."
+  },
+  "B00140Z5DW": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: Vitron-C is an iron supplement and vitamin C is only the with-add-in."
+  },
+  "B08FNKSPD2": {
+   "decision": "OUT",
+   "why": "R5-3 HERO_SECONDARY: collagen gummies are the base product and vitamin C is a with-add-in beside zinc."
+  },
+  "B0F6YMQPTF": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY: marine collagen peptides lead the title and vitamin C is only an infused helper."
+  },
+  "B07BBMND7W": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Amazon Basics Vitamin C 250 mg gummies sell vitamin C as the hero."
+  },
+  "B0098U0S8C": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Raw Vitamin C 500mg leads, and the fruit, probiotic and enzyme blend are helpers."
+  },
+  "B074GCB1ND": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: vitamin C leads at 1000mg and rose hips are the smaller 25mg paired helper."
+  },
+  "B00ND99HY0": {
+   "decision": "IN",
+   "why": "R13-1: 1000mg vitamin C leads the title and vitamin D, zinc and electrolytes are added vitamins and minerals."
+  },
+  "B09FYFM7N3": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Vitamin C 500 mg leads and citrus bioflavonoids are the paired helper."
+  },
+  "B08FNSB7YN": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nature Made Vitamin C 500mg gummies sell vitamin C as the hero."
+  },
+  "B000CD9XGC": {
+   "decision": "IN",
+   "why": "R3-2: liposomal is only a delivery word on this plain vitamin C shelf, and Lypo-Spheric Vitamin C 1000mg is the hero."
+  },
+  "B00NNR38JC": {
+   "decision": "OUT",
+   "why": "R4-2 HERO_SECONDARY: BetaVia is another active named before vitamin C, so the hero does not lead."
+  },
+  "B0013FYHSW": {
+   "decision": "IN",
+   "why": "R11-1: Ester-C is the vitamin C trademark and the title leads with Ester-C Vitamin C 1000 mg."
+  },
+  "B071F1F9DW": {
+   "decision": "IN",
+   "why": "R6-3: Immune Support is a benefit name and 1000mg vitamin C is the first dosed active ahead of the other vitamins and minerals."
+  },
+  "B086PL2D5R": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Sports Research Vitamin C 1000mg capsules are a single-hero vitamin C supplement."
+  },
+  "B005P0MK1M": {
+   "decision": "IN",
+   "why": "R3-2: time release is a delivery modifier on this plain shelf, and Vitamin C 1000 mg is the hero."
+  },
+  "B07DH1ZJZ9": {
+   "decision": "IN",
+   "why": "R3-2: liposomal is only a delivery word on this plain vitamin C shelf, and Liposomal Vitamin C 1700mg is the hero."
+  },
+  "B000GX7E8W": {
+   "decision": "IN",
+   "why": "G9: ascorbic acid matches the shelf hero regex and the title leads with Ascorbic Acid as the sole active."
+  }
+ }
+}

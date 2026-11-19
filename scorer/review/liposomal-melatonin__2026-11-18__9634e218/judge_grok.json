@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-melatonin__2026-11-18__9634e218",
+ "verdicts": {
+  "B07FWFJXJ4": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal melatonin as a single-hero liquid."
+  },
+  "B0CY44D2HX": {
+   "decision": "IN",
+   "why": "G1: liposomal melatonin 60mg leads the title, and chamomile, D3 and K2 are named after it with no bigger printed dose."
+  },
+  "B0FR9CNH3P": {
+   "decision": "IN",
+   "why": "G1: liposomal melatonin is the first-named active ahead of magnesium, and the front prints no bigger dose of another ingredient."
+  },
+  "B0GWLQYYGQ": {
+   "decision": "IN",
+   "why": "G1: the title leads with liposomal melatonin 30mg/60mg before folate, ALA, DHA, lion's mane and resveratrol."
+  },
+  "B09D5WSZV6": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal liquid melatonin 5mg as the hero."
+  },
+  "B0058A9NU0": {
+   "decision": "IN",
+   "why": "R3-2: the title names a liposomal melatonin spray as the hero."
+  },
+  "B0GQSKM6TX": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal extended-release melatonin, and magnesium is not printed at a bigger dose."
+  },
+  "B0C4G3LYKM": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints GABA 150mg, 5HTP 100mg, apigenin 75mg and glutathione 65mg above melatonin 1mg, so the hero does not lead (R7-1)."
+  },
+  "B07W1ZMWRL": {
+   "decision": "IN",
+   "why": "R3-2: the title names ARG liposomal melatonin liquid as the hero."
+  },
+  "B0CZ6DYLXZ": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal melatonin capsules at 1mg as the single hero."
+  },
+  "B003EE422G": {
+   "decision": "IN",
+   "why": "R5-1: liposomal melatonin leads the title, with vitamin B6 as the paired vitamin."
+  },
+  "B0FC11DQ86": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal liquid melatonin drops at 1mg to 3mg as the hero."
+  },
+  "B0GS8BLL69": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal melatonin 10mg chewable tablets for adults as the hero."
+  },
+  "B0CF24XFST": {
+   "decision": "IN",
+   "why": "Q1: this Adults & Kids liposomal melatonin spray is all-ages, and R3-2 is met because the title names melatonin and liposomal delivery."
+  },
+  "B0BX11Z2D1": {
+   "decision": "IN",
+   "why": "R3-2: the title names melatonin 12mg in an advanced liposomal formula."
+  },
+  "B08NYZKYYN": {
+   "decision": "IN",
+   "why": "R3-2: the title names a liposomal melatonin spray as the hero."
+  },
+  "B076MVSXND": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal melatonin, so the hero and the delivery tech are on the front (G9)."
+  },
+  "B07YG32X4C": {
+   "decision": "IN",
+   "why": "R3-2: the title names liposomal melatonin liquid with an adjustable dose."
+  }
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "judge": "grok",
+ "run_id": "urolithin-a__2026-11-18__ddf28f93",
+ "verdicts": {
+  "B0F5FPSDQV": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and R11-1: Mitopure is the trademark for urolithin A and the title sells a single Urolithin A softgel supplement."
+  },
+  "B0F1ZJM7X6": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and R5-2: these Mitopure Urolithin A gummies are a separate format of the same hero on a plain any-format shelf."
+  },
+  "B0H1HNCTGY": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R3-1 and the urolithin A shelf note: the 4-in-1 names Urolithin A as the lead active at 500mg, and 1,500mg is the blend total, not a bigger competing ingredient."
+  },
+  "B0HF6FG46G": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and R3-2: the title leads with 1,000mg Urolithin A capsules, and liposomal is only a delivery modifier on this plain shelf."
+  },
+  "B0FMKMX51X": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with 500 mg Urolithin A and names resveratrol and pomegranate only after the hero."
+  },
+  "B0G26ZT1KK": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under R5-3: the title is an NMN and NAD supplement with Urolithin A only as a with-add-in."
+  },
+  "B0CP4C671V": {
+   "decision": "OUT",
+   "why": "EX_HERO_MISSING under G1 and the urolithin A shelf note: this Urolithin Precursor is a pomegranate-extract formula with spermidine, CoQ10, PQQ and Akkermansia, not Urolithin A."
+  },
+  "B0GMF7QBZQ": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R3-1: the title leads with Urolithin A and the 6-in-1 helpers are named after it."
+  },
+  "B0H72C1Y1R": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R3-1: the title leads with Urolithin A 1000mg and the 10-in-1 complex names the hero as the first active."
+  },
+  "B0FY448R55": {
+   "decision": "OUT",
+   "why": "EX_HERO_MISSING under G1 and the urolithin A shelf note: the formula is a 900mg pomegranate activator for the body's own urolithin production and does not contain Urolithin A."
+  },
+  "B0CC438LCK": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under R13-3: Urolithin A diacetate is an acetyl derivative and is out on the parent urolithin A shelf."
+  },
+  "B0BWXTZJTD": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R3-2: liposomal is ignored on this plain shelf and the title leads with 500mg Urolithin A before resveratrol and CoQ10."
+  },
+  "B0H8SKVLBW": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under the urolithin A shelf note: Urolithin A 1000mg leads and the paired NMN dose is lower at 250mg."
+  },
+  "B0HFM9M6KQ": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R3-1 and R3-2: liposomal is a delivery modifier and the title leads with Urolithin A in a 10-in-1 complex."
+  },
+  "B0HLJ5PW26": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and R3-2: the title sells 500mg Urolithin A with liposomal delivery only, a different formula from Codeage's resveratrol and CoQ10 listing."
+  },
+  "B0HG4VMZPB": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R13-6: Urolithin A is the named lead at 1500mg, above CoQ10 120mg, PQQ 30mg and ergothioneine 7.5mg."
+  },
+  "B0FCY4XRP1": {
+   "decision": "OUT",
+   "why": "EX_HERO_MISSING under G1 and the urolithin A shelf note: the listing says the Urolithin A+ complex is a precursor and is free of isolated Urolithin A."
+  },
+  "B0F6466RHC": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1 and R3-2: Full Spectrum is a claim modifier and the title leads with Urolithin A, with pomegranate and grape extracts as helpers."
+  },
+  "B0HCVC2T7M": {
+   "decision": "OUT",
+   "why": "EX_HERO_MISSING under G1 and the urolithin A shelf note: the title says Precursor Urolithin Pro+ and the formula bullet lists pomegranate extract, spermidine, CoQ10, PQQ and Akkermansia rather than Urolithin A."
+  },
+  "B0HCMC8ZCK": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with Urolithin A and the bullets say the formula supplies Urolithin A itself, with PQQ, CoQ10 and ergothioneine after it."
+  },
+  "B0HFMS7QZY": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and G-NAME: the title names Urolithin A at 2126mg in softgels and no other active leads."
+  },
+  "B0HHR65HLR": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R13-1: the title leads with Urolithin A gummies, and NAD+, vitamin C and vitamin E are companions on a shelf with no gendered audience."
+  }
+ }
+}

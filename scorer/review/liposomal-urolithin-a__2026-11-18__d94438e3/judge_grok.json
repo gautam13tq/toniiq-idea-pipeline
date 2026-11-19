@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-urolithin-a__2026-11-18__d94438e3",
+ "verdicts": {
+  "B0BWXTZJTD": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: Liposomal Urolithin A leads the title at 500mg, and resveratrol and CoQ10 are undosed helpers so the hero leads."
+  },
+  "B0HFM9M6KQ": {
+   "decision": "IN",
+   "why": "IN under R3-1 and R3-2: Liposomal Urolithin A is the first active in this 10-in-1, and no other ingredient is printed at a bigger mg dose."
+  },
+  "B0HKS6S2ZV": {
+   "decision": "IN",
+   "why": "IN under R3-1 and R3-2: Liposomal Urolithin A 1000 mg leads the 10-in-1, and no other ingredient is printed at a higher dose."
+  },
+  "B0HLJ5PW26": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: Codeage Liposomal Urolithin A 500mg is a single-hero product in the shelf's liposomal delivery form."
+  },
+  "B0GJ6W9NLM": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: the title leads with Urolithin A and states it is in Liposomal Form, with no other active named before the hero."
+  },
+  "B0HKJ21MKK": {
+   "decision": "IN",
+   "why": "IN under R3-1, R3-2 and the dose rule: Liposomal Urolithin A 1000mg leads the 10-in-1, and every other printed ingredient dose is smaller."
+  },
+  "B0HDC2PQJQ": {
+   "decision": "OUT",
+   "why": "OUT under R3-2: the title and bullets attach liposomal to NAD+, not urolithin A, so the hero is not in the required delivery form (EX_FORM_MISMATCH)."
+  },
+  "B0HMDL8JZP": {
+   "decision": "IN",
+   "why": "IN under R3-1 and R3-2: Urolithin A 1000 mg leads and the title says Liposomal urolithin A drops, with no higher dose of another ingredient printed."
+  },
+  "B0HJCVT654": {
+   "decision": "IN",
+   "why": "IN under R3-1 and R3-2: Liposomal Urolithin A Complex leads at 1000mg, and the bullets liposomally encapsulate the hero."
+  },
+  "B0G52T2RLQ": {
+   "decision": "IN",
+   "why": "IN under R3-2 and the dose rule: Liposomal Urolithin A leads at 1800mg versus NAD 200mg, and a pomegranate source is not the pomegranate-only precursor exclusion."
+  },
+  "B0HG6J972D": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: Urolithin A 1000mg Liposomal Supplement is a single-hero product in the liposomal delivery form."
+  },
+  "B0HMW88VCS": {
+   "decision": "OUT",
+   "why": "OUT under R3-2: liposomal modifies NMN, not urolithin A, so the hero is not in the shelf's delivery form (EX_FORM_MISMATCH)."
+  },
+  "B0HLLC4561": {
+   "decision": "OUT",
+   "why": "OUT under R3-2: the title and bullets attach liposomal to NAD+, not urolithin A (EX_FORM_MISMATCH)."
+  },
+  "B0HJYSDK1X": {
+   "decision": "OUT",
+   "why": "OUT under R3-2: the title is Urolithin A with Liposomal NAD+, so the delivery tech is not the hero's form and the bullet cannot rescue it (EX_FORM_MISMATCH)."
+  },
+  "B0FG25DJZD": {
+   "decision": "OUT",
+   "why": "OUT under G1 and R7-1: NAD+ leads the title and the label at 1000mg of liposomal NAD versus 100mg Mitopure urolithin A, so the hero is secondary."
+  },
+  "B0HQP19JB4": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: Urolithin A Liposomal Capsules lead at 2000 mg, and no other ingredient is printed at a bigger dose."
+  },
+  "B0CVMC4198": {
+   "decision": "IN",
+   "why": "IN under R3-2 and G1: Neurogan Liposomal Urolithin A Capsules are a single-hero liposomal product at 1000 mg per serving."
+  },
+  "B0FWS3TF3F": {
+   "decision": "IN",
+   "why": "IN under the hero-first bundle rule and R3-2: Liposomal Urolithin A Capsules are named before the Lion's Mane product."
+  }
+ }
+}

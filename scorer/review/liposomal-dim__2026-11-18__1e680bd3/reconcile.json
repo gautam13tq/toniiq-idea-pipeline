@@ -1,0 +1,35 @@
+{
+ "run_id": "liposomal-dim__2026-11-18__1e680bd3",
+ "judges": [
+  "grok"
+ ],
+ "rows": 11,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0F3CHXD46",
+   "title": "Vital Herbal Liposomal DIM 13-in-1 Complex with Ashwagandha, 150 Capsules",
+   "brand": "VITAL HERBAL",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 8,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: maca is printed at 600 mg, a bigger dose than DIM at 200 mg, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}

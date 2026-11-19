@@ -1,0 +1,78 @@
+{
+ "judge": "grok",
+ "run_id": "liposomal-nac__2026-11-18__48769ecb",
+ "verdicts": {
+  "B0GSD6BGRH": {
+   "decision": "IN",
+   "why": "G1 and R3-2: the title leads with NAC and liposomal NAC drops at 1000mg, and vitamin C at 100mg does not out-dose the hero under the dose rule."
+  },
+  "B0FG6WPVM3": {
+   "decision": "IN",
+   "why": "G1, R3-2 and Q1: the title leads with liposomal NAC at 600mg, glutathione, resveratrol and zinc are later helpers without a bigger printed dose, and Adults & Kids is all-ages."
+  },
+  "B0F1L1R7Y4": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and R3-2: the title names Codeage Liposomal NAC and the bullets state free-form N-acetyl L-cysteine as the single active."
+  },
+  "B0H3NW3BHV": {
+   "decision": "IN",
+   "why": "G1, R3-2 and G5: the title is ORVIA Labs liposomal NAC at 1200mg and this listing is kept as that line because it has the most reviews."
+  },
+  "B0DRKDH2RX": {
+   "decision": "IN",
+   "why": "G1 and R3-2: the title is liposomal liquid NAC at 600mg, and quercetin and zinc are unnamed-dose helpers rather than a higher-dosed lead."
+  },
+  "B0F2921GJ7": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1 and R3-2: the title leads with liposomal NAC, and milk thistle and quercetin follow without a bigger printed dose."
+  },
+  "B0H869XVSB": {
+   "decision": "OUT",
+   "why": "G5 EX_VARIANT_DUP: this is the same ORVIA Labs liposomal NAC line as B0H3NW3BHV, which is kept under the most-reviews rule."
+  },
+  "B0H55BVKFL": {
+   "decision": "IN",
+   "why": "G1, R3-2 and the dose rule: the title is liposomal NAC, and quercetin at 500mg does not exceed the hero at 1000mg on the front or 720mg per serving."
+  },
+  "B0GZGVGFVV": {
+   "decision": "OUT",
+   "why": "G5 EX_VARIANT_DUP: the title prints ORVIA Labs Liposomal NAC under the Hyuikiu brand, so this reseller copy collapses to B0H3NW3BHV, which has more reviews."
+  },
+  "B0FZGNYJSC": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: the title leads with liposomal NAC at 600mg, and the 9-in-1 helpers are not printed at a higher dose than the hero."
+  },
+  "B0H2BRKTMX": {
+   "decision": "IN",
+   "why": "R3-1 and the dose rule: Liposomal NAC Complex names NAC first, and 1500mg is a blend weight rather than another ingredient at a bigger dose."
+  },
+  "B0H1WHV2FM": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1 and R3-2: the title leads with liposomal NAC drops at 1000mg, and alpha lipoic acid, quercetin and zinc have no bigger printed dose."
+  },
+  "B0GWMVJ41J": {
+   "decision": "IN",
+   "why": "G1, R3-2 and Q1: liposomal NAC gummies at 1200mg are the hero on this variety sleeve, and Adults & Kids is all-ages rather than kids-only."
+  },
+  "B0HRFF9KLH": {
+   "decision": "IN",
+   "why": "G1 and R3-2: the title and bullet name liposomal NAC at 1200mg as the hero, with milk thistle only as a following ingredient."
+  },
+  "B0HCC4HY59": {
+   "decision": "OUT",
+   "why": "R3-2 EX_FORM_MISMATCH: the title and bullets attach liposomal delivery to NMN, so this GlyNAC plus liposomal NMN fails the liposomal-NAC delivery shelf."
+  },
+  "B0F83XRVDF": {
+   "decision": "IN",
+   "why": "G1, R3-2, R5-2 and Q1: these liposomal NAC gummies are a separate Geeoasis format from the liquid, and Kids & Adults is all-ages."
+  },
+  "B0F6716F4G": {
+   "decision": "IN",
+   "why": "R3-1 and R3-2: the title leads with liposomal NAC at 600mg, milk thistle follows the hero, and no other ingredient is printed at a bigger dose."
+  },
+  "B0BLQ6GY55": {
+   "decision": "OUT",
+   "why": "R3-2 EX_FORM_MISMATCH: the title attaches liposomal delivery to glutathione, so this NAC plus liposomal glutathione fails the liposomal-NAC delivery shelf."
+  }
+ }
+}

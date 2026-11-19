@@ -1,0 +1,9 @@
+{
+ "run_id": "curcumin__2026-11-18__2f23764b",
+ "judges": [
+  "grok"
+ ],
+ "rows": 19,
+ "to_check": 0,
+ "check": []
+}

@@ -1,0 +1,35 @@
+{
+ "run_id": "zinc__2026-11-19__a206b1bb",
+ "judges": [
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 1,
+ "check": [
+  {
+   "asin": "B0DDQDSQ86",
+   "title": "Dr. Berg Zinc 30 mg (60 Capsules) – High Potency 7-in-1 Immune Support Formula – Chelated Zinc with Vitamin D & Selenium for Healthy Skin, Hair & Daily Wellness – No Fillers, 4X Tested*",
+   "brand": "Dr. Berg Nutritionals",
+   "monthly_sold": 9000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 12,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front is a 7-in-1 immune formula whose other actives are not shown below the printed 30 mg zinc, so zinc does not lead as a single-hero product."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  }
+ ]
+}
