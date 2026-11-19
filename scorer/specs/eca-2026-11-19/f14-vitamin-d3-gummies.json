@@ -1,0 +1,29 @@
+{
+ "hero_name": "vitamin D3",
+ "hero_regex": "\\bd3\\b|vitamin d\\b",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "vitamin d3",
+  "vitamin d"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "vitamin d3",
+ "demand_keyword": "vitamin d3",
+ "shelf_keyword": "vitamin d3 gummies",
+ "cluster_keywords": [
+  "vitamin d3 gummies",
+  "vitamin d gummies"
+ ],
+ "finder_terms": [
+  "vitamin d3 gummies",
+  "vitamin d gummies"
+ ],
+ "scored_on_why": "format sleeve: vitamin d3 gummies",
+ "sleeve_kind": "format",
+ "gate_format": "gummy",
+ "qualifier_regex": "gumm"
+}

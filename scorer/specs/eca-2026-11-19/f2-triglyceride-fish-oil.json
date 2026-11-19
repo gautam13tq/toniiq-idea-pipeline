@@ -1,0 +1,34 @@
+{
+ "hero_name": "fish oil",
+ "hero_regex": "fish oil|omega[- ]?3",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "fish oil",
+  "omega 3"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "fish oil",
+ "demand_keyword": "fish oil",
+ "shelf_keyword": "triglyceride fish oil",
+ "cluster_keywords": [
+  "triglyceride fish oil",
+  "fish oil triglyceride form"
+ ],
+ "finder_terms": [
+  "triglyceride fish oil",
+  "fish oil triglyceride form"
+ ],
+ "scored_on_why": "variety sleeve: triglyceride fish oil",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "triglyceride|\\btg\\b|re-?esterified",
+ "required_regex": "triglyceride|\\btg\\b|re-?esterified",
+ "sleeve_words": [
+  "triglyceride",
+  "triglyceride form",
+  "rtg"
+ ]
+}

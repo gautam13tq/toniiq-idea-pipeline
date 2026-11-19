@@ -1,0 +1,28 @@
+{
+ "hero_name": "multivitamin",
+ "hero_regex": "multi[- ]?vitamin|\\bmulti\\b",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "multivitamin"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "multivitamin",
+ "demand_keyword": "multivitamin",
+ "shelf_keyword": "multivitamin capsules",
+ "cluster_keywords": [
+  "multivitamin capsules",
+  "multivitamin tablets"
+ ],
+ "finder_terms": [
+  "multivitamin capsules",
+  "multivitamin tablets"
+ ],
+ "scored_on_why": "format sleeve: multivitamin capsules",
+ "sleeve_kind": "format",
+ "gate_format": "pill",
+ "qualifier_regex": "caps|pill|tablet|softgel|soft gel"
+}

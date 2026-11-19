@@ -1,0 +1,37 @@
+{
+ "hero_name": "probiotic",
+ "hero_regex": "probiotic|synbiotic",
+ "microbial": true,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "probiotic",
+  "probiotic powder"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "probiotic powder",
+ "demand_keyword": "probiotic powder",
+ "shelf_keyword": "probiotic powder packets",
+ "cluster_keywords": [
+  "probiotic powder packets",
+  "probiotic packets"
+ ],
+ "finder_terms": [
+  "probiotic powder packets",
+  "probiotic packets"
+ ],
+ "scored_on_why": "variety sleeve: probiotic powder packets",
+ "sleeve_kind": "variety",
+ "required_regex": "packets?|stick\\s*packs?|\\bsticks\\b|single[- ]serv|travel\\s*packs?|on[- ]the[- ]go",
+ "sleeve_regex": "packets?|sticks?|single serv|travel",
+ "sleeve_words": [
+  "packets",
+  "stick packs",
+  "single serve packets",
+  "travel packs",
+  "sticks"
+ ],
+ "gate_format": "powder"
+}

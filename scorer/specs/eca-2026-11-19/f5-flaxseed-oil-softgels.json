@@ -1,0 +1,29 @@
+{
+ "hero_name": "flaxseed oil",
+ "hero_regex": "flax ?seed oil|flax oil",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "flaxseed oil",
+  "flax oil"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "flaxseed oil",
+ "demand_keyword": "flaxseed oil",
+ "shelf_keyword": "flaxseed oil softgels",
+ "cluster_keywords": [
+  "flaxseed oil softgels",
+  "flaxseed oil capsules"
+ ],
+ "finder_terms": [
+  "flaxseed oil softgels",
+  "flaxseed oil capsules"
+ ],
+ "scored_on_why": "format sleeve: flaxseed oil softgels",
+ "sleeve_kind": "format",
+ "gate_format": "pill",
+ "qualifier_regex": "caps|pill|tablet|softgel|soft gel"
+}

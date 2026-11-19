@@ -1,0 +1,60 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "evening primrose oil": 14563,
+  "evening primrose oil supplement": 0
+ },
+ "demand_keyword": "evening primrose oil",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (14,563)",
+ "lane_keyword": "evening primrose oil",
+ "lane_clicks": 14563,
+ "demand_cluster": {
+  "evening primrose oil": 14563,
+  "evening primrose oil for women": 5748,
+  "evening primrose oil capsules": 1030,
+  "evening primrose oil 1000mg": 401,
+  "evening primrose oil liquid": 268,
+  "evening primrose oil supplement capsules": 203,
+  "evening primrose oil 500mg": 170,
+  "evening primrose oil softgels": 117,
+  "evening primrose oil organic": 28,
+  "evening primrose oil gummies": 25
+ },
+ "cluster_clicks": 22553,
+ "no_data": [
+  "evening primrose oil supplement",
+  "evening primrose oil supplements",
+  "evening primrose oil pills",
+  "evening primrose oil tablets",
+  "evening primrose oil powder",
+  "evening primrose oil drops",
+  "evening primrose oil extract",
+  "evening primrose oil for men",
+  "evening primrose oil for kids",
+  "evening primrose oil chewable",
+  "evening primrose oil tea",
+  "evening primrose oil complex",
+  "evening primrose oil supplement supplement",
+  "evening primrose oil supplement supplements",
+  "evening primrose oil supplement pills",
+  "evening primrose oil supplement tablets",
+  "evening primrose oil supplement powder",
+  "evening primrose oil supplement gummies",
+  "evening primrose oil supplement liquid",
+  "evening primrose oil supplement drops",
+  "evening primrose oil supplement extract",
+  "evening primrose oil supplement softgels",
+  "evening primrose oil supplement for women",
+  "evening primrose oil supplement for men",
+  "evening primrose oil supplement for kids",
+  "evening primrose oil supplement organic",
+  "evening primrose oil supplement 500mg",
+  "evening primrose oil supplement 1000mg",
+  "evening primrose oil supplement chewable",
+  "evening primrose oil supplement tea",
+  "evening primrose oil supplement complex"
+ ]
+}

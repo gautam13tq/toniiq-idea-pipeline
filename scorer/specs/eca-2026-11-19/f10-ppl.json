@@ -1,0 +1,27 @@
+{
+ "hero_name": "PPL",
+ "hero_regex": "\\bppl\\b|polyenylphosphatidylcholine",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "PPL"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "shelf_keyword": "ppl supplement",
+ "scored_on": "parent",
+ "parent_keyword": "ppl supplement",
+ "demand_keyword": "ppl",
+ "cluster_keywords": [
+  "ppl supplement",
+  "polyenylphosphatidylcholine"
+ ],
+ "finder_terms": [
+  "ppl supplement",
+  "polyenylphosphatidylcholine"
+ ],
+ "demand_cluster": [
+  "ppl"
+ ]
+}

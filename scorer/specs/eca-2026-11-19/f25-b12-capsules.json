@@ -1,0 +1,29 @@
+{
+ "hero_name": "vitamin B12",
+ "hero_regex": "\\bb[- ]?12\\b|methylcobalamin|cyanocobalamin",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "b12",
+  "vitamin b12"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "b12",
+ "demand_keyword": "b12",
+ "shelf_keyword": "b12 capsules",
+ "cluster_keywords": [
+  "b12 capsules",
+  "vitamin b12 capsules"
+ ],
+ "finder_terms": [
+  "b12 capsules",
+  "vitamin b12 capsules"
+ ],
+ "scored_on_why": "format sleeve: b12 capsules",
+ "sleeve_kind": "format",
+ "gate_format": "pill",
+ "qualifier_regex": "caps|pill|tablet|softgel|soft gel"
+}

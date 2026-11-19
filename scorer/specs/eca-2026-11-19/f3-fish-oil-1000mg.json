@@ -1,0 +1,32 @@
+{
+ "hero_name": "fish oil",
+ "hero_regex": "fish oil",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "fish oil"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "fish oil",
+ "demand_keyword": "fish oil",
+ "shelf_keyword": "fish oil 1000mg",
+ "cluster_keywords": [
+  "fish oil 1000mg",
+  "fish oil 1000 mg"
+ ],
+ "finder_terms": [
+  "fish oil 1000mg",
+  "fish oil 1000 mg"
+ ],
+ "scored_on_why": "dose sleeve: fish oil 1000mg",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "1,?000 ?mg",
+ "required_regex": "1,?000 ?mg",
+ "sleeve_words": [
+  "1000mg",
+  "1000 mg"
+ ]
+}

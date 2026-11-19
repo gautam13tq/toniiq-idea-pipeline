@@ -1,0 +1,35 @@
+{
+ "hero_name": "vitamin D3",
+ "hero_regex": "\\bd3\\b|vitamin d\\b",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "vitamin d3",
+  "d3"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "vitamin d3",
+ "demand_keyword": "vitamin d3",
+ "shelf_keyword": "vitamin d3 1000 iu",
+ "cluster_keywords": [
+  "vitamin d3 1000 iu",
+  "d3 1000 iu",
+  "vitamin d3 coconut oil",
+  "d3 coconut oil"
+ ],
+ "finder_terms": [
+  "vitamin d3 1000 iu",
+  "d3 1000 iu"
+ ],
+ "scored_on_why": "dose sleeve: vitamin d3 1000 iu",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "1,?000 ?iu|coconut oil",
+ "required_regex": "1,?000 ?iu|coconut oil",
+ "sleeve_words": [
+  "1000 iu",
+  "1000iu"
+ ]
+}

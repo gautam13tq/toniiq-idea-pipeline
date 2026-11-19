@@ -1,0 +1,26 @@
+{
+ "hero_name": "vitamin C",
+ "hero_regex": "vitamin c\\b",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "vitamin c"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "vitamin c",
+ "demand_keyword": "vitamin c",
+ "shelf_keyword": "vitamin c gummies",
+ "cluster_keywords": [
+  "vitamin c gummies"
+ ],
+ "finder_terms": [
+  "vitamin c gummies"
+ ],
+ "scored_on_why": "format sleeve: vitamin c gummies",
+ "sleeve_kind": "format",
+ "gate_format": "gummy",
+ "qualifier_regex": "gumm"
+}

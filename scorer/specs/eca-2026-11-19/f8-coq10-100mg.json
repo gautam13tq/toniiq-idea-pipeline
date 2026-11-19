@@ -1,0 +1,32 @@
+{
+ "hero_name": "CoQ10",
+ "hero_regex": "coq ?10|co-?q-?10|coenzyme q|ubiquinone",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "coq10"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "scored_on": "sleeve",
+ "parent_keyword": "coq10",
+ "demand_keyword": "coq10",
+ "shelf_keyword": "coq10 100mg",
+ "cluster_keywords": [
+  "coq10 100mg",
+  "coq10 100 mg"
+ ],
+ "finder_terms": [
+  "coq10 100mg",
+  "coq10 100 mg"
+ ],
+ "scored_on_why": "dose sleeve: coq10 100mg",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "100 ?mg",
+ "required_regex": "\\b100 ?mg",
+ "sleeve_words": [
+  "100mg",
+  "100 mg"
+ ]
+}
