@@ -47,5 +47,14 @@
   "zinc supplement gummies",
   "zinc supplement for men",
   "zinc supplement for women"
- ]
+ ],
+ "manual_decisions": {
+  "B002BXAMJS": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Nature's Bounty Calcium Magnesium Zinc: calcium leads the title and is the biggest dose"
+  }
+ }
 }
