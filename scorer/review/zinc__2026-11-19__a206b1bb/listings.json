@@ -300,24 +300,6 @@
    ]
   },
   {
-   "asin": "B002BXAMJS",
-   "brand": "Nature's Bounty",
-   "title": "Nature's Bounty Calcium Magnesium & Zinc Caplets, 100 Count",
-   "bullets": [
-    "FROM THE TRUSTED WELLNESS EXPERTS: Nature's Bounty Calcium Magnesium & Zinc is a product of 50 years of dedication to quality; consistency; and scientific research to make vitamins and nutritional supplements of unrivaled excellence",
-    "PROMOTES A CALM, RELAXED MOOD: Feeling stressed. Nature's Bounty Calcium Magnesium Zinc Caplets offer the support you want for a calm and relaxed mood (1)",
-    "VITAMIN D3 FOR IMMUNE SUPPORT: The addition of Vitamin D3 promotes immune system health and aids with Calcium absorption to help you get the most from this potent mineral supplement (1)",
-    "QUALITY, PURITY, POTENCY: Nature's Bounty is committed to safety and purity in all of our supplements; Our Calcium Magnesium Zinc caplets are gluten free, sugar free and contain no artificial flavor or sweetener",
-    "FROM THE TRUSTED WELLNESS EXPERTS: Nature's Bounty Calcium Magnesium Zinc is a product of dedication to quality; consistency; and scientific research to make vitamins and nutritional supplements of unrivaled excellence"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71W3sdlEI+L.jpg",
-   "monthly_sold": 10000,
-   "reviews": 24267,
-   "family_asins": [
-    "B002BXAMJS"
-   ]
-  },
-  {
    "asin": "B0FG7LX9G6",
    "brand": "Amazon Basics",
    "title": "Amazon Basics Zinc Capsules, 50 mg, 200 Count",
@@ -424,7 +406,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71Ae+f9cpQL.jpg",
    "monthly_sold": 6000,
-   "reviews": 0,
+   "reviews": 10073,
    "family_asins": [
     "B00020ICLC"
    ]
@@ -463,6 +445,24 @@
    "reviews": 0,
    "family_asins": [
     "B0001VKDDM"
+   ]
+  },
+  {
+   "asin": "B000MGR1CM",
+   "brand": "NOW Foods",
+   "title": "Now Supplements, Zinc (Zinc Gluconate) 50 mg, Immune Support*, 250 Tabs",
+   "bullets": [
+    "SUPPORTS ENZYME FUNCTIONS*: Zinc is essential to the normal function of many organs and systems within the body including the skeletal, immune, neurological, and endocrine systems*",
+    "IMMUNE SUPPORT*: Zinc is a necessary mineral co-factor for hundreds of enzymatic reactions related to protein and carbohydrate metabolism, RNA/DNA synthesis, and intercellular signaling*",
+    "CLASSIFICATIONS/CERTIFICATIONS: Vegan, Soy Free, Kosher, Non-GMO, Halal, Sugar Free",
+    "GMP Quality Assured: NPA A-rated GMP certification means that every aspect of the NOW manufacturing process has been examined, including our laboratory/testing methods (for stability, potency, and product formulation)",
+    "Packaged in the USA by a family owned and operated company since 1968"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71I251DmvKL.jpg",
+   "monthly_sold": 6000,
+   "reviews": 0,
+   "family_asins": [
+    "B000MGR1CM"
    ]
   }
  ]
