@@ -1,5 +1,5 @@
 {
- "hero_name": "Sunfiber / PHGG",
+ "hero_name": "Sunfiber (partially hydrolyzed guar gum, PHGG)",
  "hero_regex": "sunfiber|\\bphgg\\b|partially hydrolyzed guar|guar (gum )?fiber",
  "microbial": false,
  "candidate_subniches": [],
@@ -7,19 +7,21 @@
  "spec_round": "eca-2026-11-19",
  "hero_names": [
   "sunfiber",
-  "PHGG",
+  "phgg",
   "partially hydrolyzed guar gum"
  ],
  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/. Widened to the Sunfiber space (Gautam 19 Nov: rate this space on Amazon for Gentle Fiber).",
- "shelf_keyword": "phgg",
+ "shelf_keyword": "sunfiber",
  "scored_on": "parent",
- "parent_keyword": "phgg",
+ "parent_keyword": "sunfiber",
  "demand_keyword": "sunfiber",
  "cluster_keywords": [
+  "sunfiber",
   "phgg",
   "partially hydrolyzed guar gum"
  ],
  "finder_terms": [
+  "sunfiber",
   "phgg",
   "partially hydrolyzed guar gum"
  ],
@@ -36,5 +38,85 @@
   "sunfiber supplement",
   "sunfiber supplements",
   "guar fiber powder"
- ]
+ ],
+ "scored_on_why": "parent: the Sunfiber / PHGG space (Gautam 19 Nov), for Gentle Fiber",
+ "manual_decisions": {
+  "B00GYHWJRA": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "Tomorrow's Nutrition Fiber, made with Sunfiber"
+  },
+  "B08ZT51X8V": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "Tomorrow's Nutrition Fiber, made with Sunfiber"
+  },
+  "B0BGQFTC9C": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "Tomorrow's Nutrition Sunfiber GI Prebiotic Fiber"
+  },
+  "B00PFXPB38": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "Healthy Origins Healthy Fiber Powder featuring Sunfiber PHGG (single-ingredient Sunfiber, not culinary guar gum)"
+  },
+  "B07RQC1VBX": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "Essential Stacks Sunfiber PHGG & Acacia (Sunfiber leads; not culinary guar gum)"
+  },
+  "B09B8VC5C2": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "CAVU Sunfiber Soluble Prebiotic Fiber"
+  },
+  "B09B8Z878Q": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "NATURE'S CALLING Sunfiber Soluble Fiber"
+  },
+  "B0B3MZ43BS": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "LABO Nutrition Bioactive Organic Fiber Sunfiber sachets"
+  },
+  "B0FWJ565RN": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "LABO Nutrition Bioactive Organic Fiber Sunfiber 3-pack"
+  },
+  "B09L3Q3XG6": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "TOUGH-N-TONE ClearFiber, soluble fiber with SunFiber PHGG (Sunfiber is the only fiber)"
+  },
+  "B09L4CNRX4": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "hand check 19 Nov: Sunfiber is the hero ingredient of this shelf (the gate read it as a separate trademark ingredient named before the hero)",
+   "date": "2026-11-19T12:00:00+00:00",
+   "wording": "TOUGH-N-TONE ClearFiber, soluble fiber with SunFiber PHGG (Sunfiber is the only fiber)"
+  }
+ }
 }
