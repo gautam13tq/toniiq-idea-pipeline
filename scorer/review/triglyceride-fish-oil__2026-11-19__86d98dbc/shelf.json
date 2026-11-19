@@ -1,0 +1,51 @@
+{
+ "run_id": "triglyceride-fish-oil__2026-11-19__86d98dbc",
+ "shelf_keyword": "triglyceride fish oil",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "fish oil",
+  "hero_regex": "fish oil|omega[- ]?3",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "fish oil",
+   "omega 3"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "scored_on": "sleeve",
+  "parent_keyword": "fish oil",
+  "demand_keyword": "fish oil",
+  "shelf_keyword": "triglyceride fish oil",
+  "cluster_keywords": [
+   "triglyceride fish oil",
+   "fish oil triglyceride form"
+  ],
+  "finder_terms": [
+   "triglyceride fish oil",
+   "fish oil triglyceride form"
+  ],
+  "scored_on_why": "variety sleeve: triglyceride fish oil",
+  "sleeve_kind": "variety",
+  "sleeve_regex": "triglyceride|\\btg\\b|re-?esterified",
+  "required_regex": "triglyceride|\\btg\\b|re-?esterified",
+  "sleeve_words": [
+   "triglyceride",
+   "triglyceride form",
+   "rtg"
+  ],
+  "sleeve_cluster": [
+   "triglyceride fish oil",
+   "triglyceride form fish oil supplements",
+   "omega 3 triglyceride form",
+   "omega 3 fish oil triglyceride form",
+   "omega 3 triglyceride",
+   "triglyceride omega 3",
+   "fish oil triglyceride",
+   "fish oil triglyceride form"
+  ],
+  "written_at": "2026-11-19T11:30:21+00:00"
+ }
+}
