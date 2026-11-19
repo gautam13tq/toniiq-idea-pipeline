@@ -186,6 +186,27 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "Prenatal multivitamin leads; DHA is the add-on"
+  },
+  "B0BN722SD6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 leads the title, not DHA (variant of an earlier OUT; wrong FOP rescue)"
+  },
+  "B09ZQ3FWBZ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 leads the title, not DHA (variant of an earlier OUT; wrong FOP rescue)"
+  },
+  "B09FRFQHCH": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
   }
  },
  "version_note": "Version B (tracker, 19 Nov): only titles that lead with DHA count; general omega-3 / EPA & DHA fish oils OUT. Same data as run dha-supplement__2026-11-19__5cfee029."
