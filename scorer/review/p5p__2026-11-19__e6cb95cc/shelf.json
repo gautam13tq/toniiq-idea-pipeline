@@ -1,0 +1,37 @@
+{
+ "run_id": "p5p__2026-11-19__e6cb95cc",
+ "shelf_keyword": "p5p",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "P5P",
+  "hero_regex": "\\bp-?5-?p\\b|pyridoxal",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "P5P"
+  ],
+  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+  "shelf_keyword": "p5p",
+  "scored_on": "parent",
+  "parent_keyword": "p5p",
+  "demand_keyword": "p5p",
+  "cluster_keywords": [
+   "p5p",
+   "p-5-p vitamin b6"
+  ],
+  "finder_terms": [
+   "p5p",
+   "p-5-p vitamin b6"
+  ],
+  "demand_cluster": [
+   "p5p",
+   "p5p supplement",
+   "p-5-p",
+   "pyridoxal 5 phosphate"
+  ],
+  "written_at": "2026-11-19T20:02:03+00:00"
+ }
+}
