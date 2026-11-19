@@ -1,0 +1,39 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "d3 k2": 89866
+ },
+ "demand_keyword": "d3 k2",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (89,866)",
+ "lane_keyword": "d3 k2",
+ "lane_clicks": 89866,
+ "demand_cluster": {
+  "d3 k2": 89866,
+  "d3 k2 gummies": 1981,
+  "d3 k2 drops": 972,
+  "d3 k2 liquid": 276,
+  "d3 k2 for kids": 173,
+  "d3 k2 supplement": 123,
+  "d3 k2 softgels": 101,
+  "d3 k2 supplements": 35,
+  "d3 k2 organic": 29,
+  "d3 k2 powder": 26,
+  "d3 k2 chewable": 26
+ },
+ "cluster_clicks": 93608,
+ "no_data": [
+  "d3 k2 capsules",
+  "d3 k2 pills",
+  "d3 k2 tablets",
+  "d3 k2 extract",
+  "d3 k2 for women",
+  "d3 k2 for men",
+  "d3 k2 500mg",
+  "d3 k2 1000mg",
+  "d3 k2 tea",
+  "d3 k2 complex"
+ ]
+}

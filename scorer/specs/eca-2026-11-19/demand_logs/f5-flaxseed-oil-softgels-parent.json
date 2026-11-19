@@ -1,0 +1,39 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "flaxseed oil": 12992
+ },
+ "demand_keyword": "flaxseed oil",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (12,992)",
+ "lane_keyword": "flaxseed oil",
+ "lane_clicks": 12992,
+ "demand_cluster": {
+  "flaxseed oil": 12992,
+  "flaxseed oil capsules": 2660,
+  "flaxseed oil liquid": 426,
+  "flaxseed oil organic": 276,
+  "flaxseed oil softgels": 56,
+  "flaxseed oil supplement": 54,
+  "flaxseed oil pills": 26
+ },
+ "cluster_clicks": 16490,
+ "no_data": [
+  "flaxseed oil supplements",
+  "flaxseed oil tablets",
+  "flaxseed oil powder",
+  "flaxseed oil gummies",
+  "flaxseed oil drops",
+  "flaxseed oil extract",
+  "flaxseed oil for women",
+  "flaxseed oil for men",
+  "flaxseed oil for kids",
+  "flaxseed oil 500mg",
+  "flaxseed oil 1000mg",
+  "flaxseed oil chewable",
+  "flaxseed oil tea",
+  "flaxseed oil complex"
+ ]
+}
