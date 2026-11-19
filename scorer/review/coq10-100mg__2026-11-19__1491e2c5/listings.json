@@ -259,26 +259,6 @@
    ]
   },
   {
-   "asin": "B01LTHMG4A",
-   "brand": "Nordic Naturals",
-   "title": "Nordic Naturals Ultimate Omega + CoQ10,1280mg/100mg, Lemon Flavor - 120 ct",
-   "bullets": [
-    "WHY OMEGA-3 + COQ10 - Ultimate Omega + CoQ10 combines high-potency, concentrated fish oil and Coenzyme Q10 (CoQ10) for cardiovascular health, normal cellular energy levels, and, antioxidant support.",
-    "#1 SELLING OMEGA-3 BRAND IN THE U.S* - This unique formula helps maintain natural CoQ10 levels, which have been shown to decrease with age. Ultimate Omega + CoQ10 is recommended for people with cardiovascular concerns, performance athletes, and anyone over the age of 40. *Based on Stackline, Nielsen, and SPINS annual sales data in the U.S. as of 4/16/2026. **Based on SPINS Scan Data as of 4/8/2026.",
-    "BETTER ABSORPTION, BETTER TASTE, NO FISHY BURPS - All of our omega-3 fish oil concentrates are in the triglyceride molecular form (the form naturally found in fish) for optimal absorption.",
-    "PURITY GUARANTEED - Every batch of Nordic Naturals fish oil is non-GMO and third-party tested, surpassing the strictest international standards for purity and freshness. This product is gluten & dairy free with no artificial colors or flavors.",
-    "ETHICAL INNOVATION - Nordic Naturals is proud to be at the forefront of sustainable & ethical practices in the natural products industry. Through science & innovation, we are committed to delivering safe, effective nutrients to support foundational wellness."
-   ],
-   "image": "https://m.media-amazon.com/images/I/611HQLz5neL.jpg",
-   "monthly_sold": 7000,
-   "reviews": 3487,
-   "family_asins": [
-    "B002CQU532",
-    "B01LTHMG4A",
-    "B07VP9B9GS"
-   ]
-  },
-  {
    "asin": "B0BXYZXV3G",
    "brand": "Horbäach",
    "title": "Horbäach CoQ10 100mg Softgels | 120 Count",
@@ -432,7 +412,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/619HrG-aZ2L.jpg",
    "monthly_sold": 2000,
-   "reviews": 0,
+   "reviews": 2792,
    "family_asins": [
     "B000PR3HCG",
     "B002JQBC96",
@@ -478,6 +458,24 @@
    "reviews": 0,
    "family_asins": [
     "B004USC5N8"
+   ]
+  },
+  {
+   "asin": "B06XPQ1ZHT",
+   "brand": "Nordic Naturals",
+   "title": "Nordic Naturals CoQ10 Gummies,100mg, Vegan, Heart Health & Energy, 60 Count",
+   "bullets": [
+    "WHY CoQ10 - The powerful antioxidant coenzyme Q10 (CoQ10) plays a vital role in cellular energy production and supports cardiovascular function.*",
+    "TASTY & CONVENIENT - With 100 mg of CoQ10 per piece, these strawberry CoQ10 Gummies are a great-tasting, convenient way to replenish the body’s levels of CoQ10, which tend to decline as we age.",
+    "GUMMIES FOR ADULTS - These vegan, gelatin-free gummies are recommended for performance athletes and any adult looking to replenish their CoQ10 levels.",
+    "THIRD-PARTY PURITY TESTED - Meeting or exceeding Good Manufacturing Practices quality standards for purity, identity, strength, and composition. This product is non-GMO and contains no gluten, milk derivatives, wheat, soy, or synthetic dyes.",
+    "ETHICAL INNOVATION - Nordic Naturals is proud to be at the forefront of sustainable & ethical practices in the natural products industry. Through science & innovation, we are committed to delivering effective and reliable nutrients to support foundational wellness."
+   ],
+   "image": "https://m.media-amazon.com/images/I/51NaP6ToVpL.jpg",
+   "monthly_sold": 1000,
+   "reviews": 0,
+   "family_asins": [
+    "B06XPQ1ZHT"
    ]
   }
  ]

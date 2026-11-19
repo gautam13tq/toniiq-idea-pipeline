@@ -284,24 +284,6 @@
    ]
   },
   {
-   "asin": "B00I0VPZA6",
-   "brand": "Nature's Way",
-   "title": "Nature’s Way Alive! Chewable Calcium Gummies with Vitamin D3, 60 ct",
-   "bullets": [
-    "Bone Health Support* – Formulated with calcium and vitamin D3 to help support healthy bones and teeth as part of everyday wellness, making it a smart option for adults looking to maintain bone health and daily nutritional balance.*",
-    "Supports Muscle Function* – Includes vitamin D3, which supports normal muscle function and helps the body absorb and use calcium effectively, working together to support musculoskeletal wellness.*",
-    "Includes a Plant-Based Blend – Includes an Orchard Fruits and Garden Veggies powder blend to provide added variety from plant-based sources, complementing daily calcium and vitamin D3 intake as part of a balanced wellness routine.",
-    "Made to Enjoy Daily – Delicious strawberry and raspberry-lemonade-flavored gummies offer a convenient and enjoyable way to take a daily calcium supplement, making it easier to stay consistent without swallowing pills.",
-    "Over 50 Years of Expertise – At Nature’s Way, we believe nature is the ultimate problem solver. For over 50 years, we have looked to the natural world for inspiration. Our quality vitamins are formulated to help you find your way to wellness."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71ijgqMvmjL.jpg",
-   "monthly_sold": 4000,
-   "reviews": 9956,
-   "family_asins": [
-    "B00I0VPZA6"
-   ]
-  },
-  {
    "asin": "B07GC86WMY",
    "brand": "MARYRUTH'S",
    "title": "MARYRUTH'S Vitamin D3 K2 Calcium Gummies, Bone Health, 2 Month Supply, 60ct",
@@ -425,7 +407,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81+Q+H+6NyL.jpg",
    "monthly_sold": 4000,
-   "reviews": 0,
+   "reviews": 515,
    "family_asins": [
     "B0BL9ZQGBY",
     "B0BNNZ7CY8"
@@ -471,6 +453,25 @@
    "family_asins": [
     "B0C1YVTZ8T",
     "B0CJRMNNZK"
+   ]
+  },
+  {
+   "asin": "B06XPK3Q4C",
+   "brand": "Nordic Naturals",
+   "title": "Nordic Naturals Vitamin D3+K2 Gummies, Pomegranate - 60 Count",
+   "bullets": [
+    "WHY VITAMIN D3 + K2 - The combination of vitamin D3 and vitamin K2 provides superior support for the health and maintenance of normal bones, facilitates calcium & phosphorus balance in the blood, and promotes healthy muscle function.",
+    "DELICIOUS & CONVENIENT - Our vegetarian, gelatin-free Vitamin D3 + K2 Gummies for adults are a great-tasting, convenient way to get a healthy dose of these important nutrients. They provide 1000 IU vitamin D3 + 45 mcg vitamin K2.",
+    "BETTER ABSORPTION - Vitamin D3 (cholecalciferol) is the natural, most easily absorbed & utilized form of vitamin D. Vitamin K2 as menaquinone-7 (MK7) is the most bioactive & bioavailable form of vitamin K. This product has a great pomegranate taste.",
+    "PURITY GUARANTEED - Everything we make is third-party tested, surpassing the strictest international standards for purity & freshness. This product is non-GMO, gluten & dairy free, and contains no artificially derived colors or flavors.",
+    "ETHICAL INNOVATION - Nordic Naturals is proud to be at the forefront of sustainable & ethical practices in the natural products industry. Through science & innovation, we are committed to delivering safe, effective nutrients to support foundational wellness."
+   ],
+   "image": "https://m.media-amazon.com/images/I/51G++Vnj7GL.jpg",
+   "monthly_sold": 3000,
+   "reviews": 0,
+   "family_asins": [
+    "B06XPK3Q4C",
+    "B0BTTZWRMS"
    ]
   }
  ]
