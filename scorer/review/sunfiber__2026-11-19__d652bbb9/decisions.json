@@ -1,0 +1,167 @@
+{
+ "run_id": "sunfiber__2026-11-19__d652bbb9",
+ "decisions": {
+  "B00GYHWJRA": {
+   "scorer": "IN",
+   "rank": 1,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B00PFXPB38": {
+   "scorer": "IN",
+   "rank": 2,
+   "in_top12": true,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B0BGQFTC9C": {
+   "scorer": "IN",
+   "rank": 3,
+   "in_top12": true,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B0CP2Z72JG": {
+   "scorer": "IN",
+   "rank": 4,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0B3MZ43BS": {
+   "scorer": "IN",
+   "rank": 5,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B07RQC1VBX": {
+   "scorer": "IN",
+   "rank": 6,
+   "in_top12": true,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B0DJN3QNWY": {
+   "scorer": "IN",
+   "rank": 7,
+   "in_top12": true,
+   "gate_code": "HERO_SECONDARY",
+   "source": "front_of_pack",
+   "fop_rule": "hero leads the front",
+   "manual": null
+  },
+  "B09B8YBX5S": {
+   "scorer": "IN",
+   "rank": 8,
+   "in_top12": true,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B09B8VC5C2": {
+   "scorer": "IN",
+   "rank": 9,
+   "in_top12": true,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B09B8Z878Q": {
+   "scorer": "IN",
+   "rank": 10,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B0D7WL4M63": {
+   "scorer": "IN",
+   "rank": 11,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B09T55WQYK": {
+   "scorer": "IN",
+   "rank": 12,
+   "in_top12": true,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B09L4CNRX4": {
+   "scorer": "IN",
+   "rank": 13,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B09L3Q3XG6": {
+   "scorer": "IN",
+   "rank": 14,
+   "in_top12": false,
+   "gate_code": "EX_VARIANT_DUP",
+   "source": "manual_fop",
+   "fop_rule": null,
+   "manual": "IN"
+  },
+  "B07VT5GSVS": {
+   "scorer": "IN",
+   "rank": 15,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0C6CMSBQK": {
+   "scorer": "IN",
+   "rank": 16,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0CGFC4HH9": {
+   "scorer": "IN",
+   "rank": 17,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0GR52VW62": {
+   "scorer": "IN",
+   "rank": 18,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  }
+ }
+}
