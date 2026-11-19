@@ -4,34 +4,16 @@
   "B0GZVSMWPF": {
    "scorer": "IN",
    "rank": 1,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
-   "source": "fop_unreadable",
-   "fop_rule": "front of pack unreadable",
-   "manual": null
-  },
-  "B0DJDZTL5T": {
-   "scorer": "IN",
-   "rank": 2,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
-  },
-  "B0CBNGNWLH": {
-   "scorer": "IN",
-   "rank": 3,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
   "B0D6ZC2MG1": {
    "scorer": "IN",
-   "rank": 4,
-   "in_top12": false,
+   "rank": 2,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -39,8 +21,8 @@
   },
   "B0BN2N55NP": {
    "scorer": "IN",
-   "rank": 5,
-   "in_top12": false,
+   "rank": 3,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -48,8 +30,8 @@
   },
   "B0FLMBL76H": {
    "scorer": "IN",
-   "rank": 6,
-   "in_top12": false,
+   "rank": 4,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
@@ -57,8 +39,8 @@
   },
   "B0H6C4PH5V": {
    "scorer": "IN",
-   "rank": 7,
-   "in_top12": false,
+   "rank": 5,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
@@ -66,8 +48,8 @@
   },
   "B0CJQV9H5B": {
    "scorer": "IN",
-   "rank": 8,
-   "in_top12": false,
+   "rank": 6,
+   "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
@@ -75,8 +57,8 @@
   },
   "B0H4RX4PFC": {
    "scorer": "IN",
-   "rank": 9,
-   "in_top12": false,
+   "rank": 7,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -84,8 +66,8 @@
   },
   "B0H95RYNCD": {
    "scorer": "IN",
-   "rank": 10,
-   "in_top12": false,
+   "rank": 8,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -93,8 +75,8 @@
   },
   "B0H9T4QNMW": {
    "scorer": "IN",
-   "rank": 11,
-   "in_top12": false,
+   "rank": 9,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
@@ -102,14 +84,32 @@
   },
   "B0CXSLCCL2": {
    "scorer": "IN",
-   "rank": 12,
-   "in_top12": false,
+   "rank": 10,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
   "B0F3Q4WR17": {
+   "scorer": "IN",
+   "rank": 11,
+   "in_top12": true,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0HHJN8HGH": {
+   "scorer": "IN",
+   "rank": 12,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0CV4G63G1": {
    "scorer": "IN",
    "rank": 13,
    "in_top12": false,
@@ -118,34 +118,34 @@
    "fop_rule": null,
    "manual": null
   },
-  "B09CCXW663": {
+  "B0C1TPKM3P": {
    "scorer": "IN",
    "rank": 14,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B0HHJN8HGH": {
-   "scorer": "IN",
-   "rank": 15,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B0GN2G4PJF": {
+  "B0DMTX846V": {
    "scorer": "IN",
-   "rank": 16,
+   "rank": 15,
    "in_top12": false,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },
-  "B0CV4G63G1": {
+  "B0F7KTD36H": {
+   "scorer": "IN",
+   "rank": 16,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0HNYSYBVR": {
    "scorer": "IN",
    "rank": 17,
    "in_top12": false,
@@ -154,7 +154,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B01N49EYJ2": {
+  "B0HP3FBD26": {
    "scorer": "IN",
    "rank": 18,
    "in_top12": false,
