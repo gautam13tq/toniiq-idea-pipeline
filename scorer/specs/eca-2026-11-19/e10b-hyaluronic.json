@@ -1,0 +1,31 @@
+{
+ "hero_name": "hyaluronic acid",
+ "hero_regex": "hyaluronic",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "hyaluronic acid"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+ "shelf_keyword": "hyaluronic acid capsules",
+ "scored_on": "parent",
+ "parent_keyword": "hyaluronic acid capsules",
+ "demand_keyword": "hyaluronic acid supplements",
+ "cluster_keywords": [
+  "hyaluronic acid capsules",
+  "hyaluronic acid supplement"
+ ],
+ "finder_terms": [
+  "hyaluronic acid capsules",
+  "hyaluronic acid supplement"
+ ],
+ "demand_cluster": [
+  "hyaluronic acid supplements",
+  "hyaluronic acid pills",
+  "hyaluronic acid pills for women",
+  "hyaluronic acid supplements liquid"
+ ],
+ "form": "supplement|capsule|pill|tablet|softgel|gummies|gummy|extract|oral|\\bmg\\b|for (mood|sleep|women|men|skin)"
+}

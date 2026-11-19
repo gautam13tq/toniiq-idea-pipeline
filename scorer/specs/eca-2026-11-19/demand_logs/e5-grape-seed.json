@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "grape seed extract": 5941,
+  "grape seed": 417
+ },
+ "demand_keyword": "grape seed extract",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (5,941)",
+ "lane_keyword": "grape seed extract",
+ "lane_clicks": 5941,
+ "demand_cluster": {
+  "grape seed extract": 5941,
+  "grape seed extract capsules": 870,
+  "grape seed extract 500mg": 172,
+  "grape seed extract liquid": 140,
+  "grape seed extract powder": 131,
+  "grape seed extract organic": 60,
+  "grape seed extract drops": 33,
+  "grape seed extract gummies": 30,
+  "grape seed extract supplement": 28,
+  "grape seed powder": 28
+ },
+ "cluster_clicks": 7850,
+ "no_data": [
+  "grape seed extract supplements",
+  "grape seed extract pills",
+  "grape seed extract tablets",
+  "grape seed extract extract",
+  "grape seed extract softgels",
+  "grape seed extract for women",
+  "grape seed extract for men",
+  "grape seed extract for kids",
+  "grape seed extract 1000mg",
+  "grape seed extract chewable",
+  "grape seed extract tea",
+  "grape seed extract complex",
+  "grape seed supplement",
+  "grape seed supplements",
+  "grape seed capsules",
+  "grape seed pills",
+  "grape seed tablets",
+  "grape seed gummies",
+  "grape seed liquid",
+  "grape seed drops",
+  "grape seed softgels",
+  "grape seed for women",
+  "grape seed for men",
+  "grape seed for kids",
+  "grape seed organic",
+  "grape seed 500mg",
+  "grape seed 1000mg",
+  "grape seed chewable",
+  "grape seed tea",
+  "grape seed complex"
+ ]
+}

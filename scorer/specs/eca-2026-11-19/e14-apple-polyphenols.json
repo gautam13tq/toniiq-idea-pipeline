@@ -1,0 +1,27 @@
+{
+ "hero_name": "apple polyphenols",
+ "hero_regex": "apple polyphenol",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "apple polyphenols"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+ "shelf_keyword": "apple polyphenols",
+ "scored_on": "parent",
+ "parent_keyword": "apple polyphenols",
+ "demand_keyword": "apple polyphenols",
+ "cluster_keywords": [
+  "apple polyphenols",
+  "apple polyphenol"
+ ],
+ "finder_terms": [
+  "apple polyphenols",
+  "apple polyphenol"
+ ],
+ "demand_cluster": [
+  "apple polyphenols"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "hmb": 9205,
+  "hmb supplement": 111
+ },
+ "demand_keyword": "hmb",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (9,205)",
+ "lane_keyword": "hmb",
+ "lane_clicks": 9205,
+ "demand_cluster": {
+  "hmb": 9205,
+  "hmb supplements": 4326,
+  "hmb powder": 1552,
+  "hmb capsules": 303,
+  "hmb gummies": 148,
+  "hmb pills": 28,
+  "hmb tablets": 27
+ },
+ "cluster_clicks": 15700,
+ "no_data": [
+  "hmb liquid",
+  "hmb drops",
+  "hmb extract",
+  "hmb softgels",
+  "hmb for women",
+  "hmb for men",
+  "hmb for kids",
+  "hmb organic",
+  "hmb 500mg",
+  "hmb 1000mg",
+  "hmb chewable",
+  "hmb tea",
+  "hmb complex",
+  "hmb supplement supplement",
+  "hmb supplement supplements",
+  "hmb supplement capsules",
+  "hmb supplement pills",
+  "hmb supplement tablets",
+  "hmb supplement powder",
+  "hmb supplement gummies",
+  "hmb supplement liquid",
+  "hmb supplement drops",
+  "hmb supplement extract",
+  "hmb supplement softgels",
+  "hmb supplement for women",
+  "hmb supplement for men",
+  "hmb supplement for kids",
+  "hmb supplement organic",
+  "hmb supplement 500mg",
+  "hmb supplement 1000mg",
+  "hmb supplement chewable",
+  "hmb supplement tea",
+  "hmb supplement complex"
+ ]
+}

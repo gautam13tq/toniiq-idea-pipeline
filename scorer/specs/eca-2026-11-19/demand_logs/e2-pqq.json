@@ -1,0 +1,39 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "pqq": 4665
+ },
+ "demand_keyword": "pqq",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (4,665)",
+ "lane_keyword": "pqq",
+ "lane_clicks": 4665,
+ "demand_cluster": {
+  "pqq": 4665,
+  "pqq supplement": 2516,
+  "pqq supplements": 29,
+  "pqq complex": 29,
+  "pqq powder": 28
+ },
+ "cluster_clicks": 7267,
+ "no_data": [
+  "pqq capsules",
+  "pqq pills",
+  "pqq tablets",
+  "pqq gummies",
+  "pqq liquid",
+  "pqq drops",
+  "pqq extract",
+  "pqq softgels",
+  "pqq for women",
+  "pqq for men",
+  "pqq for kids",
+  "pqq organic",
+  "pqq 500mg",
+  "pqq 1000mg",
+  "pqq chewable",
+  "pqq tea"
+ ]
+}

@@ -1,0 +1,212 @@
+{
+ "written_at": "2026-11-19T11:04:23+00:00",
+ "prereg_run": "runs_prereg/liposomal-nad-prereg__2026-11-19__7b17c45f",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "liposomal nad",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "liposom",
+ "autocomplete_suggestions": [
+  "codeage liposomal nad",
+  "ingreens liposomal nad",
+  "liposomal nad",
+  "liposomal nad for women",
+  "liposomal nad plus",
+  "liposomal nad supplement",
+  "liposomal nad+ capsules",
+  "liposomal nad+ for men",
+  "nad liposomal",
+  "nad liposomal 1000mg",
+  "nad liposomal con resveratrol",
+  "nad liposomal glutathione",
+  "nad liposomal liquid",
+  "nad liposomal resveratrol",
+  "nad liposomal supplement",
+  "nad liposomal supplements for women",
+  "nad liposomal xkq",
+  "nad liposomal xkq de alta calidad",
+  "nad+ liposomal",
+  "nad+ liposomal glutathione",
+  "nad+ liposomal liquid",
+  "nad+ liposomal nmn",
+  "nad+ liposomal para hombres",
+  "nad+ liposomal resveratrol",
+  "nad+ liposomal supplement",
+  "nad+ liposomal supplements for women",
+  "nad+ liposomal, trans-resveratrol, vitamin b3 and tmg naturgizer+",
+  "thinbi liposomal nad supplement with resveratrol & coq10",
+  "thinbi liposomal nad+ supplement with resveratrol & coq10, 60 count"
+ ],
+ "candidates_checked": 80,
+ "sleeve_cluster": {
+  "liposomal nad": {
+   "clicks": 6118,
+   "clicks_12m_ago": 5212,
+   "trend_12m_pct": 17.4
+  },
+  "liposomal nad for women": {
+   "clicks": 1490,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad liposomal": {
+   "clicks": 600,
+   "clicks_12m_ago": 953,
+   "trend_12m_pct": -37.0
+  },
+  "liposomal nad plus": {
+   "clicks": 369,
+   "clicks_12m_ago": 1626,
+   "trend_12m_pct": -77.3
+  },
+  "liposomal nad+ for men": {
+   "clicks": 314,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "thinbi liposomal nad supplement with resveratrol & coq10": {
+   "clicks": 271,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad liposomal supplement": {
+   "clicks": 202,
+   "clicks_12m_ago": 431,
+   "trend_12m_pct": -53.1
+  },
+  "liposomal nad+ for women": {
+   "clicks": 150,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad+ liposomal": {
+   "clicks": 101,
+   "clicks_12m_ago": 343,
+   "trend_12m_pct": -70.6
+  },
+  "liposomal nad supplement": {
+   "clicks": 95,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad+ liposomal para hombres": {
+   "clicks": 66,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "codeage liposomal nad": {
+   "clicks": 35,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal nad+ capsules": {
+   "clicks": 29,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad+ liposomal supplement": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad liposomal xkq": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nad liposomal resveratrol": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "liposomal nad+": {
+   "clicks": 677,
+   "clicks_12m_ago": 791,
+   "trend_12m_pct": -14.4
+  }
+ },
+ "cluster_clicks": 10594,
+ "cluster_rows": 17,
+ "cluster_clicks_12m_ago": 9356,
+ "cluster_trend_12m_pct": -13.8,
+ "cluster_trend_basis": "6 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "nad supplement",
+  "clicks": 91790,
+  "trend_12m_pct": -65.6
+ },
+ "no_data": [
+  "liposomal nad supplements",
+  "nad liposomal supplements",
+  "organic liposomal nad",
+  "nad liposomal organic",
+  "pure liposomal nad",
+  "nad liposomal pure",
+  "liposomal nad extract",
+  "nad liposomal extract",
+  "nad liposomal for women",
+  "liposomal nad for men",
+  "nad liposomal for men",
+  "liposomal nad for kids",
+  "nad liposomal for kids",
+  "liposomal nad 500mg",
+  "nad liposomal 500mg",
+  "liposomal nad 1000mg",
+  "nad liposomal 1000mg",
+  "liposomal nad unflavored",
+  "nad liposomal unflavored",
+  "vegan liposomal nad",
+  "nad liposomal vegan",
+  "high potency liposomal nad",
+  "nad liposomal high potency",
+  "best liposomal nad",
+  "nad liposomal best",
+  "liposomal nad+ supplement",
+  "liposomal nad+ supplements",
+  "nad+ liposomal supplements",
+  "organic liposomal nad+",
+  "nad+ liposomal organic",
+  "pure liposomal nad+",
+  "nad+ liposomal pure",
+  "liposomal nad+ extract",
+  "nad+ liposomal extract",
+  "nad+ liposomal for women",
+  "nad+ liposomal for men",
+  "liposomal nad+ for kids",
+  "nad+ liposomal for kids",
+  "liposomal nad+ 500mg",
+  "nad+ liposomal 500mg",
+  "liposomal nad+ 1000mg",
+  "nad+ liposomal 1000mg",
+  "liposomal nad+ unflavored",
+  "nad+ liposomal unflavored",
+  "vegan liposomal nad+",
+  "nad+ liposomal vegan",
+  "high potency liposomal nad+",
+  "nad+ liposomal high potency",
+  "best liposomal nad+",
+  "nad+ liposomal best",
+  "thinbi liposomal nad+ supplement with resveratrol & coq10, 60 count",
+  "ingreens liposomal nad",
+  "nad liposomal xkq de alta calidad",
+  "nad liposomal liquid",
+  "nad liposomal glutathione",
+  "nad liposomal supplements for women",
+  "nad liposomal con resveratrol",
+  "nad+ liposomal resveratrol",
+  "nad+ liposomal supplements for women",
+  "nad+ liposomal liquid",
+  "nad+ liposomal glutathione",
+  "nad+ liposomal, trans-resveratrol, vitamin b3 and tmg naturgizer+",
+  "nad+ liposomal nmn"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 10,594 clicks over 17 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

@@ -1,0 +1,29 @@
+{
+ "hero_name": "PQQ",
+ "hero_regex": "\\bpqq\\b|pyrroloquinoline",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "PQQ"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+ "shelf_keyword": "pqq",
+ "scored_on": "parent",
+ "parent_keyword": "pqq",
+ "demand_keyword": "pqq",
+ "cluster_keywords": [
+  "pqq"
+ ],
+ "finder_terms": [
+  "pqq"
+ ],
+ "demand_cluster": [
+  "pqq",
+  "pqq supplement",
+  "pqq supplements",
+  "pqq complex",
+  "pqq powder"
+ ]
+}

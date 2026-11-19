@@ -1,0 +1,60 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "agmatine": 957,
+  "agmatine sulfate": 1790
+ },
+ "demand_keyword": "agmatine sulfate",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (1,790)",
+ "lane_keyword": "agmatine",
+ "lane_clicks": 957,
+ "demand_cluster": {
+  "agmatine sulfate": 1790,
+  "agmatine sulfate powder": 119,
+  "agmatine supplement": 46,
+  "agmatine sulfate capsules": 40,
+  "agmatine sulfate 1000mg": 28,
+  "agmatine sulfate 500mg": 26
+ },
+ "cluster_clicks": 3006,
+ "no_data": [
+  "agmatine supplements",
+  "agmatine capsules",
+  "agmatine pills",
+  "agmatine tablets",
+  "agmatine powder",
+  "agmatine gummies",
+  "agmatine liquid",
+  "agmatine drops",
+  "agmatine extract",
+  "agmatine softgels",
+  "agmatine for women",
+  "agmatine for men",
+  "agmatine for kids",
+  "agmatine organic",
+  "agmatine 500mg",
+  "agmatine 1000mg",
+  "agmatine chewable",
+  "agmatine tea",
+  "agmatine complex",
+  "agmatine sulfate supplement",
+  "agmatine sulfate supplements",
+  "agmatine sulfate pills",
+  "agmatine sulfate tablets",
+  "agmatine sulfate gummies",
+  "agmatine sulfate liquid",
+  "agmatine sulfate drops",
+  "agmatine sulfate extract",
+  "agmatine sulfate softgels",
+  "agmatine sulfate for women",
+  "agmatine sulfate for men",
+  "agmatine sulfate for kids",
+  "agmatine sulfate organic",
+  "agmatine sulfate chewable",
+  "agmatine sulfate tea",
+  "agmatine sulfate complex"
+ ]
+}

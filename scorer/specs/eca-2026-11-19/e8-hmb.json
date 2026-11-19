@@ -1,0 +1,33 @@
+{
+ "hero_name": "HMB",
+ "hero_regex": "\\bhmb\\b|hydroxy ?methylbutyrate",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "HMB"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+ "shelf_keyword": "hmb",
+ "scored_on": "parent",
+ "parent_keyword": "hmb",
+ "demand_keyword": "hmb",
+ "cluster_keywords": [
+  "hmb",
+  "hmb supplement"
+ ],
+ "finder_terms": [
+  "hmb",
+  "hmb supplement"
+ ],
+ "demand_cluster": [
+  "hmb",
+  "hmb supplements",
+  "hmb powder",
+  "hmb capsules",
+  "hmb gummies",
+  "hmb pills",
+  "hmb tablets"
+ ]
+}

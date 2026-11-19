@@ -1,0 +1,62 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "nrakg": 0,
+  "senolyte": 0
+ },
+ "demand_keyword": "nrakg",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (0)",
+ "lane_keyword": "nrakg",
+ "lane_clicks": 0,
+ "demand_cluster": {
+  "nrakg": 0
+ },
+ "cluster_clicks": 0,
+ "no_data": [
+  "nrakg",
+  "senolyte",
+  "nrakg supplement",
+  "nrakg supplements",
+  "nrakg capsules",
+  "nrakg pills",
+  "nrakg tablets",
+  "nrakg powder",
+  "nrakg gummies",
+  "nrakg liquid",
+  "nrakg drops",
+  "nrakg extract",
+  "nrakg softgels",
+  "nrakg for women",
+  "nrakg for men",
+  "nrakg for kids",
+  "nrakg organic",
+  "nrakg 500mg",
+  "nrakg 1000mg",
+  "nrakg chewable",
+  "nrakg tea",
+  "nrakg complex",
+  "senolyte supplement",
+  "senolyte supplements",
+  "senolyte capsules",
+  "senolyte pills",
+  "senolyte tablets",
+  "senolyte powder",
+  "senolyte gummies",
+  "senolyte liquid",
+  "senolyte drops",
+  "senolyte extract",
+  "senolyte softgels",
+  "senolyte for women",
+  "senolyte for men",
+  "senolyte for kids",
+  "senolyte organic",
+  "senolyte 500mg",
+  "senolyte 1000mg",
+  "senolyte chewable",
+  "senolyte tea",
+  "senolyte complex"
+ ]
+}

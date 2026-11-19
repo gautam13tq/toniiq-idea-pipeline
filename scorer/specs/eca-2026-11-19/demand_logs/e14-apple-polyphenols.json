@@ -1,0 +1,62 @@
+{
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "parent_candidates": {
+  "apple polyphenols": 0,
+  "apple polyphenol": 0
+ },
+ "demand_keyword": "apple polyphenols",
+ "why": "highest latest-month clicks among head terms that are just the ingredient (0)",
+ "lane_keyword": "apple polyphenols",
+ "lane_clicks": 0,
+ "demand_cluster": {
+  "apple polyphenols": 0
+ },
+ "cluster_clicks": 0,
+ "no_data": [
+  "apple polyphenols",
+  "apple polyphenol",
+  "apple polyphenols supplement",
+  "apple polyphenols supplements",
+  "apple polyphenols capsules",
+  "apple polyphenols pills",
+  "apple polyphenols tablets",
+  "apple polyphenols powder",
+  "apple polyphenols gummies",
+  "apple polyphenols liquid",
+  "apple polyphenols drops",
+  "apple polyphenols extract",
+  "apple polyphenols softgels",
+  "apple polyphenols for women",
+  "apple polyphenols for men",
+  "apple polyphenols for kids",
+  "apple polyphenols organic",
+  "apple polyphenols 500mg",
+  "apple polyphenols 1000mg",
+  "apple polyphenols chewable",
+  "apple polyphenols tea",
+  "apple polyphenols complex",
+  "apple polyphenol supplement",
+  "apple polyphenol supplements",
+  "apple polyphenol capsules",
+  "apple polyphenol pills",
+  "apple polyphenol tablets",
+  "apple polyphenol powder",
+  "apple polyphenol gummies",
+  "apple polyphenol liquid",
+  "apple polyphenol drops",
+  "apple polyphenol extract",
+  "apple polyphenol softgels",
+  "apple polyphenol for women",
+  "apple polyphenol for men",
+  "apple polyphenol for kids",
+  "apple polyphenol organic",
+  "apple polyphenol 500mg",
+  "apple polyphenol 1000mg",
+  "apple polyphenol chewable",
+  "apple polyphenol tea",
+  "apple polyphenol complex"
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "hero_name": "NAD+",
+ "hero_regex": "\\bnad\\b\\+?|nicotinamide adenine dinucleotide",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "nad",
+  "nad+"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/. E11 ReaLipo NAD+.",
+ "shelf_keyword": "liposomal nad",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "liposomal"
+ ],
+ "sleeve_regex": "liposom",
+ "required_regex": "liposom",
+ "qualifier_regex": "liposom",
+ "parent_keyword": "nad supplement",
+ "demand_keyword": "nad supplement",
+ "cluster_keywords": [
+  "liposomal nad",
+  "liposomal nad+"
+ ],
+ "finder_terms": [
+  "liposomal nad",
+  "liposomal nad+"
+ ],
+ "scored_on_why": "variety sleeve: liposomal NAD+, scored against liposomal products only",
+ "sleeve_cluster": [
+  "liposomal nad",
+  "liposomal nad for women",
+  "nad liposomal",
+  "liposomal nad plus",
+  "liposomal nad+ for men",
+  "thinbi liposomal nad supplement with resveratrol & coq10",
+  "nad liposomal supplement",
+  "liposomal nad+ for women",
+  "nad+ liposomal",
+  "liposomal nad supplement",
+  "nad+ liposomal para hombres",
+  "codeage liposomal nad",
+  "liposomal nad+ capsules",
+  "nad+ liposomal supplement",
+  "nad liposomal xkq",
+  "nad liposomal resveratrol",
+  "liposomal nad+"
+ ],
+ "written_at": "2026-11-19T11:04:23+00:00"
+}

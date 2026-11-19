@@ -1,0 +1,29 @@
+{
+ "hero_name": "ceramide",
+ "hero_regex": "ceramide",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "ceramide"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+ "shelf_keyword": "ceramide supplement",
+ "scored_on": "parent",
+ "parent_keyword": "ceramide supplement",
+ "demand_keyword": "ceramide supplement",
+ "cluster_keywords": [
+  "ceramide supplement",
+  "ceramide supplements"
+ ],
+ "finder_terms": [
+  "ceramide supplement",
+  "ceramide supplements"
+ ],
+ "demand_cluster": [
+  "ceramide supplement",
+  "ceramide capsules"
+ ],
+ "form": "supplement|capsule|pill|tablet|softgel|gummies|gummy|extract|oral|\\bmg\\b|for (mood|sleep|women|men|skin)"
+}

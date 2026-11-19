@@ -1,0 +1,51 @@
+{
+ "hero_name": "vitamin D3",
+ "hero_regex": "\\bd3\\b|vitamin d\\b|cholecalciferol",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "d3",
+  "vitamin d3",
+  "vitamin d"
+ ],
+ "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/. E4 PineD3 vegan D3.",
+ "shelf_keyword": "vegan vitamin d3",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_words": [
+  "vegan"
+ ],
+ "sleeve_regex": "vegan",
+ "required_regex": "vegan",
+ "qualifier_regex": "vegan",
+ "parent_keyword": "vitamin d3",
+ "demand_keyword": "vitamin d3",
+ "cluster_keywords": [
+  "vegan vitamin d3",
+  "vegan d3",
+  "vegan vitamin d"
+ ],
+ "finder_terms": [
+  "vegan vitamin d3",
+  "vegan d3"
+ ],
+ "scored_on_why": "variety sleeve: vegan vitamin D3, scored against products that say vegan",
+ "sleeve_cluster": [
+  "vegan vitamin d3",
+  "vitamin d vegan",
+  "vegan vitamin d3 k2",
+  "vitamin d3 vegan",
+  "vegan vitamin d3 k2 supplements",
+  "sports research vegan vitamin d3 + k2",
+  "vegan vitamin d3 5000 iu",
+  "d3 vegan",
+  "vitamin d vegan gummies",
+  "vegan vitamin d3 2000 iu",
+  "vegan vitamin d3 1000 iu",
+  "vegan d3",
+  "vegan vitamin d"
+ ],
+ "written_at": "2026-11-19T11:06:17+00:00"
+}
