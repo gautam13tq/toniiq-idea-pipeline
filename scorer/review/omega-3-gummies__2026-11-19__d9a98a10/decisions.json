@@ -82,7 +82,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0BQTHGDF1": {
+  "B0CZMRT4HC": {
    "scorer": "IN",
    "rank": 10,
    "in_top12": true,
@@ -91,7 +91,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0CZMRT4HC": {
+  "B0GSRZV4BP": {
    "scorer": "IN",
    "rank": 11,
    "in_top12": true,
@@ -100,25 +100,25 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0GSRZV4BP": {
+  "B08L8DN6ST": {
    "scorer": "IN",
    "rank": 12,
    "in_top12": true,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
+   "gate_code": "JUDGE_OUT",
+   "source": "front_of_pack",
+   "fop_rule": "hero leads the front",
    "manual": null
   },
-  "B0B3F5S9FZ": {
+  "B0HCYY2LWR": {
    "scorer": "IN",
    "rank": 13,
    "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
-   "fop_rule": null,
+   "gate_code": "HERO_SECONDARY",
+   "source": "front_of_pack",
+   "fop_rule": "R3 hero shares the front equally",
    "manual": null
   },
-  "B0CC1KSWFG": {
+  "B0B3F5S9FZ": {
    "scorer": "IN",
    "rank": 14,
    "in_top12": false,
@@ -127,7 +127,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0DCNW4Z5P": {
+  "B0CC1KSWFG": {
    "scorer": "IN",
    "rank": 15,
    "in_top12": false,
@@ -136,9 +136,18 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0F6731611": {
+  "B0DCNW4Z5P": {
    "scorer": "IN",
    "rank": 16,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0F6731611": {
+   "scorer": "IN",
+   "rank": 17,
    "in_top12": false,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -147,19 +156,10 @@
   },
   "B0DHVCRRGY": {
    "scorer": "IN",
-   "rank": 17,
+   "rank": 18,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B0BNP4ZPH9": {
-   "scorer": "IN",
-   "rank": 18,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },

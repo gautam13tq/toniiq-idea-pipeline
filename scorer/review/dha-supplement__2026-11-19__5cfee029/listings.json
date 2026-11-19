@@ -79,43 +79,6 @@
    ]
   },
   {
-   "asin": "B08P7QMWTW",
-   "brand": "Amazon Basics",
-   "title": "Amazon Basics Prenatal & DHA Gummy, Raspberry & Lemon Flavor, 90 Count, Packaging May Vary",
-   "bullets": [
-    "SHIPMENT CONTAINS: 90-count bottle of raspberry and lemon flavored prenatal gummy vitamins with DHA for pregnancy support",
-    "PRENATAL NUTRITION: Provides essential vitamins and nutrients to support normal infant health and development during pregnancy",
-    "EASY TO CONSUME: Soft, easy to chew gummy texture that's gentler on the stomach than traditional prenatal pills",
-    "CONVENIENT FORMULA: Contains DHA which supports baby's brain and eye development during pregnancy",
-    "DAILY SERVING: Take two gummies daily as a dietary supplement to support pregnancy wellness",
-    "PACKAGING MAY VARY: Packaging may be different than what is shown but item and quality remain the same"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71XP1Juc9CL.jpg",
-   "monthly_sold": 10000,
-   "reviews": 7645,
-   "family_asins": [
-    "B08P7QMWTW"
-   ]
-  },
-  {
-   "asin": "B003IP8BC8",
-   "brand": "Vitafusion",
-   "title": "Vitafusion Prenatal Vitamin Gummies for Women | 90 Count | Folate & DHA",
-   "bullets": [
-    "Prenatal Folate + DHA Gummies: Each two-gummy serving delivers essential nutrients, for daily prenatal support.",
-    "Support for Mom & Baby: Helps support mom’s wellness and baby’s development while making daily prenatal nutrition easy to enjoy.*",
-    "Delicious Gummies: Two raspberry lemonade-flavored gummies per day make your daily routine convenient and enjoyable.",
-    "Gentle on the Stomach: Daily multi for mom that’s easy on the stomach.",
-    "Free Of: These flavorful gummies are made without gluten, dairy, high fructose corn syrup, artificial sweeteners, and synthetic FD&C dyes."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71mslBZ81tL.jpg",
-   "monthly_sold": 10000,
-   "reviews": 23507,
-   "family_asins": [
-    "B003IP8BC8"
-   ]
-  },
-  {
    "asin": "B0018CJ17W",
    "brand": "THORNE",
    "title": "THORNE Super EPA, Omega-3 Fish Oil Supplement with EPA & DHA, 90 Softgels",
@@ -403,7 +366,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61R2Q6xa3PL.jpg",
    "monthly_sold": 1400,
-   "reviews": 0,
+   "reviews": 3045,
    "family_asins": [
     "B002CQU4YM",
     "B002CQU55A"
@@ -422,7 +385,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71qVTiAnqkL.jpg",
    "monthly_sold": 1000,
-   "reviews": 0,
+   "reviews": 5954,
    "family_asins": [
     "B01N3JS2IG"
    ]
@@ -443,6 +406,42 @@
    "reviews": 0,
    "family_asins": [
     "B001HJYUDG"
+   ]
+  },
+  {
+   "asin": "B07P2G9HVK",
+   "brand": "Nordic Naturals",
+   "title": "Nordic Naturals Algae DHA, 500mg Vegan Omega-3 oil, Plant-Based - 60 count",
+   "bullets": [
+    "DHA BENEFITS - The important omega-3 fatty acid DHA helps support healthy brain, eye & nervous system function, in addition to optimal wellness.",
+    "WHY ALGAE DHA - Nordic Naturals Algae DHA can help vegetarians & vegans meet their daily recommended serving of omega-3 DHA with small, easy-to-swallow vegetarian soft gels.",
+    "PLANT-BASED OMEGA-3 - Derived from microalgae, our Algae DHA is certified vegan by the American Vegetarian Association. This provides a sustainable, fish-free alternative to fish oil supplements.",
+    "PURITY GUARANTEED - At Nordic Naturals, everything we make is non-GMO & third-party tested, surpassing the strictest international standards for purity & freshness. Algae DHA is gluten & dairy free, with no artificial colors or preservatives.",
+    "ETHICAL INNOVATION - Nordic Naturals is proud to be at the forefront of sustainable & ethical practices in the natural products industry. Through science & innovation, we are committed to delivering safe, effective nutrients to support foundational wellness."
+   ],
+   "image": "https://m.media-amazon.com/images/I/616iBLqGMdL.jpg",
+   "monthly_sold": 1000,
+   "reviews": 0,
+   "family_asins": [
+    "B07P2G9HVK"
+   ]
+  },
+  {
+   "asin": "B083PNCZYG",
+   "brand": "Nature's Nutrition",
+   "title": "Omega 3 Fish Oil Gummies - Triple Strength Omega 3 Gummy Supplement with High Absorption DHA & EPA - Heart, Joint & Brain Support - Delicious Orange Flavor Fish Oil Nature's Vitamin - 120 Gummies",
+   "bullets": [
+    "RICH IN OMEGA 3 FATTY ACIDS: These Omega 3 Fish Oil Gummies are densely packed with essential fatty acids, including EPA and DHA, derived from high-quality fish oil; These ingredients are crucial for supporting heart health, supporting brain health, and promoting overall wellness",
+    "CONCENTRATED DHA FOR BRAIN SUPPORT: Each gummy is infused with a high concentration of DHA, a vital ingredient known for its significant role in brain health support",
+    "EPA FOR JOINT COMFORT: Formulated with EPA, these gummies help in providing the needed nutrients to naturally support joint mobility and flexibility",
+    "SUPERIOR ABSORPTION FORMULA: Our Omega 3 Fish Oil Gummies are designed for high bioavailability, ensuring that your body effectively absorbs and utilizes the essential fatty acids",
+    "OMEGA 3 GUMMY FOR MEN AND WOMEN: acid acids adults bears best burpless capsules chews day dha epa fatty fiah fish fishoil fosh gummies health heart supports high joint support kids krill liver made men mg naturals nature natures nutrition nutritional of oil oils omaga3 omega3 omegas omga3 oul pil pills s softgels strength supplement supplements supports triglyceride triple ultra vitamin vitamins women"
+   ],
+   "image": "https://m.media-amazon.com/images/I/61T0cAtjekL.jpg",
+   "monthly_sold": 1000,
+   "reviews": 0,
+   "family_asins": [
+    "B083PNCZYG"
    ]
   }
  ]
