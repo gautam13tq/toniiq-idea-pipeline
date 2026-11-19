@@ -1,0 +1,42 @@
+{
+ "run_id": "dha-led-titles__2026-11-19__5cfee029",
+ "shelf_keyword": "dha supplement",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "DHA",
+  "hero_regex": "\\bdha\\b",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "DHA"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "shelf_keyword": "dha supplement",
+  "scored_on": "parent",
+  "parent_keyword": "dha supplement",
+  "demand_keyword": "dha",
+  "cluster_keywords": [
+   "dha supplement",
+   "high dha fish oil"
+  ],
+  "finder_terms": [
+   "dha supplement",
+   "high dha fish oil"
+  ],
+  "demand_cluster": [
+   "dha",
+   "dha supplements",
+   "dha for kids",
+   "dha omega 3",
+   "dha gummies",
+   "dha 1000mg",
+   "dha omega 3 supplement",
+   "dha drops",
+   "dha liquid"
+  ],
+  "written_at": "2026-11-19T17:39:02+00:00"
+ }
+}
