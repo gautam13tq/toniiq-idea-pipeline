@@ -91,7 +91,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71VdHMm3pyL.jpg",
    "monthly_sold": 2000,
-   "reviews": 2140,
+   "reviews": 0,
    "family_asins": [
     "B002CQU50U"
    ]
@@ -280,6 +280,26 @@
    ]
   },
   {
+   "asin": "B0BTV3QM59",
+   "brand": "Clean Nutraceuticals",
+   "title": "DIM Supplement with Evening Primrose Oil, Black Cohosh & Calcium Glucarate",
+   "bullets": [
+    "DIM Supplement 300mg with Evening Primrose Oil and Black Cohosh - Clean Nutra Sereniti Balance is an all-in-one DIM supplement for women: every 2-capsule serving lists DIM (diindolylmethane) 300mg, black cohosh root extract 10:1 at 300mg and evening primrose oil seed extract 30:1 at 300mg, plus calcium D-glucarate, in one bottle instead of three. A dim supplement women can take once a day",
+    "Hormone Balance for Women with DIM and Calcium D-Glucarate - Clean Nutra Sereniti Balance pairs DIM with calcium D-glucarate (calcium 75mg) to support healthy estrogen metabolism and hormonal balance for women. A womens hormone balance supplement and womens hormone support formula for everyday hormone support",
+    "Evening Primrose Oil for Women, 300mg per Serving - Clean Nutra Sereniti Balance includes evening primrose (Oenothera biennis) seed extract 30:1 at 300mg in a vegetarian capsule. Evening primrose oil and primrose oil support for women who want it alongside DIM and black cohosh rather than in a separate bottle",
+    "Black Cohosh Supplements for Women with Dong Quai, Red Clover and Wild Yam - Clean Nutra Sereniti Balance lists black cohosh (Actaea racemosa) root extract 300mg plus the 125mg Clean Sereniti Balance blend of chasteberry, dong quai root, red clover and wild yam root. Black cohosh supplements women choose as black cohosh capsules, with dong quai and wild yam root capsules in one",
+    "Perimenopause Supplements Women Choose for Daily Menopause Support - Clean Nutra Sereniti Balance is perimenopause hormone balance supplements and menopause supplements for women in one capsule: DIM, black cohosh, evening primrose, chasteberry and dong quai for menopause support and comfort through perimenopause and menopause",
+    "Vitex Chasteberry Supplement for Women with Flax Seed, Broccoli, K2 and D3 - Clean Nutra Sereniti Balance adds chasteberry (Vitex agnus castus) in its blend, flax seed extract 100mg, broccoli extract 20mg, vitamin K2 60mcg, vitamin D 25mcg (125% DV), zinc 11mg (100% DV) and black pepper extract 5mg (95% piperine). A vitex supplement for women and chasteberry supplement for women",
+    "60 DIM Capsules, 30 Servings, 2 Daily - adults take two (2) capsules of Clean Nutra Sereniti Balance daily with a meal and an 8 fl oz glass of water, or as directed by your healthcare professional. Vegetarian cellulose capsules, 14 label ingredients. Made in the USA with globally sourced ingredients. Read the black cohosh liver caution on the label before use"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71eZnaLrdvL.jpg",
+   "monthly_sold": 500,
+   "reviews": 607,
+   "family_asins": [
+    "B0BTV3QM59"
+   ]
+  },
+  {
    "asin": "B00XHK9YN4",
    "brand": "Nature's Truth",
    "title": "Nature's Truth Evening Primrose Oil Softgels | Cold Pressed | Non-GMO & Gluten Free Supplement",
@@ -310,7 +330,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71UxIVvj70L.jpg",
    "monthly_sold": 400,
-   "reviews": 0,
+   "reviews": 7050,
    "family_asins": [
     "B09B6R6BQG"
    ]

@@ -58,7 +58,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61abOWgigXL.jpg",
    "monthly_sold": 18000,
-   "reviews": 23518,
+   "reviews": 23519,
    "family_asins": [
     "B07BBMND7W",
     "B07BZL9748"
@@ -160,26 +160,6 @@
    "reviews": 0,
    "family_asins": [
     "B08FNG91XP"
-   ]
-  },
-  {
-   "asin": "B08L7RJWTW",
-   "brand": "Vitafusion",
-   "title": "Vitafusion Zinc and Vitamin C Gummies | 90 Gummy Vitamins",
-   "bullets": [
-    "Includes: One 90 ct bottle of vitafusion Power Zinc Gummy Vitamins, Strawberry Tangerine Flavored Immune Support Vitamins with Zinc and Vitamin C for powerful immune support (1)",
-    "Immune Support Gummies: Adult gummy vitamins that provide high-potency Zinc along with Vitamin C to help with overall immune support (1) for adults who prefer to take their vitamins as a delicious and easy-to-chew gummy supplement",
-    "High-Potency Zinc Chewable Gummies: Each two-gummy serving of these chewable Zinc supplements provides 15 mg of Zinc and 270 mg of Vitamin C to help with immune support (1)",
-    "Delicious and Convenient: Great tasting and convenient Zinc gummies make a tasty alternative to traditional hard-to-swallow pills and the natural strawberry tangerine flavor helps make taking Zinc with Vitamin C a delicious part of your daily routine",
-    "Immune Support (1): Zinc dietary supplement that contains no artificial flavors or sweeteners, no gluten, no high fructose corn syrup, no dairy and no synthetic FD&C dyes, so you only get the immune support you need"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71gNrBKcMrL.jpg",
-   "monthly_sold": 8000,
-   "reviews": 4085,
-   "family_asins": [
-    "B08L7RJWTW",
-    "B08WBN1THJ",
-    "B0DW4FRQQJ"
    ]
   },
   {
@@ -425,7 +405,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71oD4H2BGAL.jpg",
    "monthly_sold": 900,
-   "reviews": 0,
+   "reviews": 296,
    "family_asins": [
     "B0FM31XCC3",
     "B0GWFMZFCQ"
@@ -466,6 +446,26 @@
    "family_asins": [
     "B074H6KVMN",
     "B09TX5LMF7"
+   ]
+  },
+  {
+   "asin": "B097NNZM15",
+   "brand": "Emergen-C",
+   "title": "Emergen-C Kidz Vitamin C 250mg Gummies, Immune Support, Berry, 44 Gummies",
+   "bullets": [
+    "44 count bottle of Berry Bash flavored Emergen-C Kidz Daily Immune Support (1) Dietary Supplements, Flavored Gummies with Vitamin C and B Vitamins",
+    "Dietary supplements with 250 mg of high potency vitamin C for kids per gummy",
+    "Kids dietary supplements with B vitamins to enhance energy naturally (1)",
+    "Naturally flavored with other natural flavors, caffeine-free, gluten-free and vegetarian gummies",
+    "Tasty berry flavored gummies are easy to take",
+    "Give as directed under adult supervision",
+    "Medicare Advantage OTC (MAOTC) eligible. *OTC benefits and eligible products vary by plan. Check your plan for specific details."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71FAXjEYI4L.jpg",
+   "monthly_sold": 800,
+   "reviews": 0,
+   "family_asins": [
+    "B097NNZM15"
    ]
   }
  ]

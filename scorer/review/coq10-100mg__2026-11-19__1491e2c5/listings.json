@@ -344,24 +344,6 @@
    ]
   },
   {
-   "asin": "B003TZ476Q",
-   "brand": "Jarrow Formulas",
-   "title": "Jarrow Red Yeast Rice 1200 mg with CoQ10 100mg (Q10), 120 Capsules",
-   "bullets": [
-    "Heart Health Supplements: Coenzyme Q10 and Red Yeast Rice support cardiovascular health",
-    "CoQ10 for Heart Health: Each serving offers 1,200 mg of red yeast rice and 100 mg of Co-Q10",
-    "Red Yeast Rice & Co Q10 Supplement: Jarrow Formulas Red Yeast Rice functions to support cardiovascular health",
-    "Red Yeast Rice and Co Q10: This formula is is non-GMO, gluten free, wheat free, soy free, dairy free, egg free, fish/shellfish free, peanuts/tree nuts free, and sesame free",
-    "Convenient Veggie Capsules: As a dietary supplement, adults take 2 capsules per day with a meal or a glass of water, or as directed by your qualified health care consultant"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71EVaGOWHBL.jpg",
-   "monthly_sold": 4000,
-   "reviews": 2138,
-   "family_asins": [
-    "B003TZ476Q"
-   ]
-  },
-  {
    "asin": "B0CF3M3Y1M",
    "brand": "DEAL SUPPLEMENT",
    "title": "DEAL SUPPLEMENT CoQ10 100mg with Omega 3 100mg, 240 Capsules | Bioavailable Coenzyme Q10 Formula | Non-GMO",
@@ -436,7 +418,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61V69alDBFL.jpg",
    "monthly_sold": 1500,
-   "reviews": 0,
+   "reviews": 446,
    "family_asins": [
     "B00C30J31W",
     "B0143LN6JI"
@@ -476,6 +458,24 @@
    "reviews": 0,
    "family_asins": [
     "B06XPQ1ZHT"
+   ]
+  },
+  {
+   "asin": "B0C59L66VF",
+   "brand": "Bronson",
+   "title": "Bronson CoQ10 100 mg (Ubiquinone), High Potency, 60 Vegetarian Capsules",
+   "bullets": [
+    "Cellular Energy Production*: Bronson CoQ10 provides 100 MG of CoEnzyme Q-10 as Ubiquinone per vegetarian capsule. CoQ10 is a vitamin-like nutrient that plays a key role in cellular energy production.* CoQ10 is an antioxidant that is produced by the body, but its levels naturally decline over time.",
+    "Superior Quality Vegan/Vegetarian Formula: Laboratory tested Gluten-Free. Bronson products are in-house tested and carefully manufactured by trained professionals in our state-of-the-art facility that is located in Hauppauge, New York. CoQ10 100 MG is Vegan/Vegetarian friendly and contains no ingredients derived from animals.",
+    "cGMP Premium Standards: Every product manufactured by Bronson is put through a rigorous process to ensure purity, potency and integrity. Through our very own cGMP Certified New York Facility that complies with the most current regulations, we promise to deliver top-quality supplements that are consistently verified for quality and safety.",
+    "Trusted Since 1960: The pioneers of Bronson Vitamins were a group of pharmacists who witnessed the benefits of vitamins and mineral supplementation firsthand with their patients. Bronson Vitamins have been consistently mentioned by top medical professionals since our inception in 1960."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71YKbF7Qf7L.jpg",
+   "monthly_sold": 1000,
+   "reviews": 0,
+   "family_asins": [
+    "B0C59L66VF",
+    "B0C59L912X"
    ]
   }
  ]
