@@ -25,5 +25,35 @@
   "pqq supplements",
   "pqq complex",
   "pqq powder"
- ]
+ ],
+ "manual_decisions": {
+  "B00DBYI6RQ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "CoQ10 (ubiquinol) leads; PQQ is the add-on (wrong FOP rescue)"
+  },
+  "B0C2WV9FGF": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "CoQ10 200 mg leads; PQQ 200 mcg add-on (wrong FOP rescue)"
+  },
+  "B0CKN9DP6H": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Pine bark extract leads; PQQ is the add-on"
+  },
+  "B010EAND4K": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "CoQ10 (QH-Absorb) leads; PQQ is the add-on"
+  }
+ }
 }

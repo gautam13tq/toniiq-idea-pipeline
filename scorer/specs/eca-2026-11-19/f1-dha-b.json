@@ -1,0 +1,192 @@
+{
+ "hero_name": "DHA",
+ "hero_regex": "\\bdha\\b",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-19",
+ "hero_names": [
+  "DHA"
+ ],
+ "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+ "shelf_keyword": "dha supplement",
+ "scored_on": "parent",
+ "parent_keyword": "dha supplement",
+ "demand_keyword": "dha",
+ "cluster_keywords": [
+  "dha supplement",
+  "high dha fish oil"
+ ],
+ "finder_terms": [
+  "dha supplement",
+  "high dha fish oil"
+ ],
+ "demand_cluster": [
+  "dha",
+  "dha supplements",
+  "dha for kids",
+  "dha omega 3",
+  "dha gummies",
+  "dha 1000mg",
+  "dha omega 3 supplement",
+  "dha drops",
+  "dha liquid"
+ ],
+ "manual_decisions": {
+  "B003IP8BC8": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
+  },
+  "B08P7QMWTW": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on"
+  },
+  "B0CH9XQV3R": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
+  },
+  "B0CP4F55R6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
+  },
+  "B01HQPYHDC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B07BH41QJQ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B0DJMZMZDC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B07H9GL3Y8": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B0CL8BF5FR": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B009KTUGSS": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B07RH7N1MC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B00OZI7BVE": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B01N3JS2IG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B001HJYUDG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B083PNCZYG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B08MX16TYC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B0FXHZXJ4R": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B0164SLU8M": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B01JN14WQE": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B088SYNHKN": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B082RCTVQH": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Version B: omega-3 / EPA & DHA fish oil leads the title, not DHA"
+  },
+  "B08L5HBGLG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on"
+  }
+ },
+ "version_note": "Version B (tracker, 19 Nov): only titles that lead with DHA count; general omega-3 / EPA & DHA fish oils OUT. Same data as run dha-supplement__2026-11-19__5cfee029."
+}
