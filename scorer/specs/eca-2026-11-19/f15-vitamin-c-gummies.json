@@ -44,5 +44,14 @@
   "vitamin c for kids gummies",
   "vegan vitamin c gummies"
  ],
- "written_at": "2026-11-19T11:24:12+00:00"
+ "written_at": "2026-11-19T11:24:12+00:00",
+ "manual_decisions": {
+  "B01M5JQCN0": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Vitafusion Vitamin B Complex Gummies Plus Vitamin C: B complex leads"
+  }
+ }
 }

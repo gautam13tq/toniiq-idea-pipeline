@@ -43,5 +43,14 @@
   "coq10 100mg gummies",
   "coq10 100 mg"
  ],
- "written_at": "2026-11-19T11:57:17+00:00"
+ "written_at": "2026-11-19T11:57:17+00:00",
+ "manual_decisions": {
+  "B01LTHMG4A": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Nordic Naturals Ultimate Omega + CoQ10: omega-3 leads (1280 mg vs 100 mg)"
+  }
+ }
 }
