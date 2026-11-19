@@ -32,5 +32,14 @@
   "evening primrose oil softgels",
   "evening primrose oil organic",
   "evening primrose oil gummies"
- ]
+ ],
+ "manual_decisions": {
+  "B002CQU50U": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Omega-3 leads; evening primrose oil is the add-on (wrong FOP rescue)"
+  }
+ }
 }
