@@ -1,0 +1,43 @@
+{
+ "run_id": "grape-seed-extract__2026-11-19__3205e9eb",
+ "shelf_keyword": "grape seed extract",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "grape seed extract",
+  "hero_regex": "grape ?seed",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "grape seed extract"
+  ],
+  "spec_note": "ECA (Alice Wang) list mined 19 Nov 2026; Gautam: high priority, flag anything above 35. IDEAS.md in product-dev/amazon-ideas-system/eca-mining-2026-11-19/.",
+  "shelf_keyword": "grape seed extract",
+  "scored_on": "parent",
+  "parent_keyword": "grape seed extract",
+  "demand_keyword": "grape seed extract",
+  "cluster_keywords": [
+   "grape seed extract",
+   "grape seed"
+  ],
+  "finder_terms": [
+   "grape seed extract",
+   "grape seed"
+  ],
+  "demand_cluster": [
+   "grape seed extract",
+   "grape seed extract capsules",
+   "grape seed extract 500mg",
+   "grape seed extract liquid",
+   "grape seed extract powder",
+   "grape seed extract organic",
+   "grape seed extract drops",
+   "grape seed extract gummies",
+   "grape seed extract supplement",
+   "grape seed powder"
+  ],
+  "written_at": "2026-11-19T18:42:12+00:00"
+ }
+}
