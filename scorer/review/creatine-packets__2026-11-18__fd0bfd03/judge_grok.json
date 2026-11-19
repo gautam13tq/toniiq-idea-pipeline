@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "creatine-packets__2026-11-18__fd0bfd03",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "EX_FORMAT_MISMATCH under G3 and the sleeve qualifier: the title is a 500g bulk creatine monohydrate powder tub with a scoop and 100 servings."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "EX_FORMAT_MISMATCH under G3 and the sleeve qualifier: Thorne micronized creatine monohydrate powder, 90 servings, never states packets, sticks, single-serve or travel packs."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "EX_FORMAT_MISMATCH under G3 and the sleeve qualifier: Optimum Nutrition 120-serving creatine monohydrate powder is a scoop tub, and the sleeve qualifier requires packets, sticks, single-serve or travel packs."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "EX_FORMAT_MISMATCH under G3 and the sleeve qualifier: Optimum Nutrition 60-serving creatine monohydrate powder is a scoop tub, and the sleeve qualifier requires packets, sticks, single-serve or travel packs."
+  },
+  "B0DJDQCJX2": {
+   "decision": "OUT",
+   "why": "EX_FORMAT_MISMATCH under G3 and the sleeve qualifier: Clean Nutraceuticals creatine monohydrate powder is a daily scoop tub, and the title and bullets never state packets, sticks, single-serve or travel packs."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "EX_FORMAT_MISMATCH under G3 and the sleeve qualifier: Orgain 100-serving creatine monohydrate powder is one tub, and the sleeve qualifier requires packets, sticks, single-serve or travel packs."
+  },
+  "B0G454Y98N": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Terra Origin micronized creatine monohydrate powder is 30 stick packs sold as single-serve travel packets, and creatine is the only active."
+  },
+  "B0DQWLCR5J": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Jocko Fuel creatine monohydrate powder stick packs are 30 travel-size packets and creatine leads the title."
+  },
+  "B0D9D359MK": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Promix creatine monohydrate powder travel packets are 30 stick packs with 5g creatine as the hero."
+  },
+  "B0FNWVZ911": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: NAKED creatine stick packs are single-ingredient micronized creatine monohydrate powder."
+  },
+  "B0GXWZJ3GQ": {
+   "decision": "IN",
+   "why": "IN_OK under G1, R5-2 and the sleeve qualifier: Orgain 30 sticks are single-serve creatine monohydrate powder packets, a separate format from the Orgain tub."
+  },
+  "B0D7N1W4L5": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Nutricost variety stickpacks are creatine monohydrate powder packets with 5g per packet."
+  },
+  "B0FVGC7X59": {
+   "decision": "IN",
+   "why": "IN under R3 and the sleeve qualifier: NeoCell creatine collagen powder names creatine first in 20 stick packs, and no bigger collagen dose is printed."
+  },
+  "B0GJ6Z4GTG": {
+   "decision": "IN",
+   "why": "IN under G1 and the dose rule: SMNutrition creatine stick packs lead with 5000mg creatine over 2000mg collagen and 1000mg BCAAs in single-serve packs."
+  },
+  "B0GPY3CNYD": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Wellah creatine for women is 30 single-serve stick packs of creatine monohydrate, and dandelion and cranberry have no bigger printed dose."
+  },
+  "B0H6QV88LW": {
+   "decision": "IN",
+   "why": "IN under R3 and the dose rule: ZEST creatine plus electrolytes powder packets name creatine first at 5g, above the 3520mg electrolyte-mix total, in stick packs."
+  },
+  "B0H1KDMB9W": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Optimum Nutrition micronized creatine stick packs are single-serve 5g creatine monohydrate travel packets."
+  },
+  "B0FJQ6QMJ8": {
+   "decision": "IN",
+   "why": "IN under the v1.4 sold-unit format rule and the sleeve qualifier: the title sells 30 sticks of creatine monohydrate powder."
+  },
+  "B088Q6FMZB": {
+   "decision": "IN",
+   "why": "IN under G1 and the sleeve qualifier: CreGAAtine single-serve packets name creatine monohydrate before GAA, and no bigger GAA dose is printed."
+  },
+  "B0FPF73SCT": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Nature Whisper on-the-go travel stick packs are 5g creatine monohydrate powder."
+  },
+  "B0GXX97G8Z": {
+   "decision": "IN",
+   "why": "IN under R6-1 and the sleeve qualifier: OxyShred creatine fizz sticks are described as single-ingredient creatine monohydrate powder in single-serve packets."
+  },
+  "B0FLQJBMB1": {
+   "decision": "IN",
+   "why": "IN under G1 and the dose rule: Flexi creatine and collagen stick packs name creatine first at 5g versus 1g collagen."
+  },
+  "B0FQ79196G": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Jacked Factory creatine monohydrate stick packs are 30 on-the-go packets of 5g creatine powder."
+  },
+  "B0D6PNQ2T7": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the sleeve qualifier: Fluid creatine is 100% creatine monohydrate powder in 5g travel stick packs."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-654Z-5afd60b7"
+}

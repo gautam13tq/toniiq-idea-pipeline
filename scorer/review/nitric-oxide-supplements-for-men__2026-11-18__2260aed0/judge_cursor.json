@@ -1,0 +1,122 @@
+{
+ "judge": "cursor",
+ "run_id": "nitric-oxide-supplements-for-men__2026-11-18__2260aed0",
+ "verdicts": {
+  "B09B4DWNYQ": {
+   "decision": "OUT",
+   "why": "R4 (audience sleeve, unisex OUT): title and brand carry no men/male sleeve qualifier and fail required_regex, so this is a general parent-shelf product even though 'Nitric Oxide Booster' names the hero."
+  },
+  "B09QLKL61K": {
+   "decision": "OUT",
+   "why": "R4 (unisex, no men qualifier in title or brand) and R2/R14-1: 'Total Beets Blood Pressure Support' is a beets product led by a condition, with nitric oxide named after it."
+  },
+  "B0CLHHYNFN": {
+   "decision": "OUT",
+   "why": "R4: title says 'for Men & Women' (unisex) on a for-men audience sleeve."
+  },
+  "B01MS461VC": {
+   "decision": "IN",
+   "why": "G9/R7-1 source rule: title names the hero ('Nitric Oxide Support') with 'for Men', and L-arginine/L-citrulline named first are the hero's precursor source, not a different lead; bullets say 'men and women' but the title is the G9 front-of-pack proxy (flag for R4 if bullets are meant to count)."
+  },
+  "B07GQ4Z1L8": {
+   "decision": "OUT",
+   "why": "R4: title says 'Nitric Oxide Booster for Men & Women' (unisex) on a for-men shelf."
+  },
+  "B081K83ZQ1": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1): 'Nitric Oxide Supplements for Men' leads the title; '1500MG L Arginine and L Citrulline' is the precursor blend weight, which the dose rule says is not another ingredient."
+  },
+  "B0984V6YKY": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1/R5-1): 'Nitric Oxide Beet Root Gummies for Men' leads with the hero, beet root is its nitrate source and CoQ10/pomegranate/grapeseed are helpers; men sleeve met in the title."
+  },
+  "B0BRTJ9L64": {
+   "decision": "IN",
+   "why": "G9/R7-1 source rule: title names 'Nitric Oxide Pills for Men' and 'NO Supplements for Men'; 'L Arginine L Citrulline Supplement 3000mg' is the precursor blend weight, not a different lead active."
+  },
+  "B0DMPDGQMW": {
+   "decision": "IN",
+   "why": "IN_OK/G9: 'Vitalyra Nitric Oxide Supplement for Men' leads the title, arginine/citrulline are the hero's source, and 'male wellness' in bullets is not a hero_exclude_regex term."
+  },
+  "B0DJDR5DQH": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1): 'Nitric Oxide Booster for Men' leads the title with beet root/taurine/citrulline/arginine listed after it and no front dose; bullet 1 says 'for Men and Women' but the title is the G9 front-of-pack proxy (flag for R4)."
+  },
+  "B0DWD26MMF": {
+   "decision": "IN",
+   "why": "G9/R7-1 source rule: title names 'Nitric Oxide for Men'; L-arginine with L-citrulline named first are the hero's precursors, not another active leading the product."
+  },
+  "B0CWN5V9BC": {
+   "decision": "IN",
+   "why": "G9/R4-2: 'Nitric Oxide and Vitality Booster for Men' is the first-named active after the brand/product name, and no hero_exclude_regex term appears (vitality/stamina/performance only); men's-vitality borderline, flag by hand per exclude_note."
+  },
+  "B0CRK17B57": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1): 'Liquid Nitric Oxide Supplements for Men' leads the title; '5000 MG' is the arginine/citrulline blend weight; powder is a separate product from the brand's capsules under R5-2 on this plain-format shelf."
+  },
+  "B00HXGGOA4": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1/R6-1/R4-2): after the Volcano product name and 'Pre Workout' benefit words the hero 'Nitric Oxide Booster Supplement for Men' is the first-named active, with creatine and L-citrulline following as helpers and no front dose."
+  },
+  "B0F1CHSTYM": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1): 'Kraftvoll Nitric Oxide Beet Root Gummies' leads with the hero and the title carries 'Nitric Oxide Supplements for Men'; grapeseed/pomegranate/vitamins are helpers."
+  },
+  "B0FHPMRKD7": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1/G9): 'Mars Nitric Oxide Capsules ... Pre-Workout Nitric Oxide Supplement for Men' leads with the hero over arginine/citrulline source and botanical helpers; bullet 2's 'men and women' is category copy and the title is the G9 front proxy."
+  },
+  "B0CRZD7QPJ": {
+   "decision": "IN",
+   "why": "G9/R7-1 source rule: 'L Arginine 1500mg, Nitric Oxide Supplements for Men' names the hero and the men sleeve, and L-arginine is the hero's precursor so its printed dose is not 'another ingredient' under the dose rule."
+  },
+  "B0FNNC3K5T": {
+   "decision": "IN",
+   "why": "R3-1/R4-2: in 'Peak Flow 10-in-1 Nitric Oxide Supplement for Men' the benefit name and N-in-1 count do not lead and the hero is the first-named active; bullet 3 says 'men & women' but the title is the G9 front-of-pack proxy (flag for R4)."
+  },
+  "B09ZBKXL69": {
+   "decision": "IN",
+   "why": "G9/R13-6: 'Ageless Male Max Chewable Nitric Oxide Booster for Men' names the hero alone in the title with only brand/claim/format words before it and no exclude term; bullets feature KSM-66 ashwagandha heavily and the label is unseen, so R7-1 cannot be confirmed (flag)."
+  },
+  "B077R8GMSM": {
+   "decision": "IN",
+   "why": "IN_OK/G9: 'Nitric Oxide Supplement for Men - Maximum Strength - Nitric Oxide Booster' leads with the hero and men sleeve; bullet 5 says 'men and women' but the title is the G9 front-of-pack proxy (flag for R4)."
+  },
+  "B0BRQVLRXK": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1/R11-1): 'Nitric Oxide Supplement for Men with Clinically Dosed Nitrosigine and S7' leads with the hero and names branded NO ingredients; 'men's performance supplement' in bullets does not match the 'male performance' exclude term."
+  },
+  "B0D4QBVK5S": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX (G1): 'Nitric Oxide Supplement for Men - Beet Root & Botanical Phytonutrient Blend with GPLC' leads with the hero and the blend follows; bullet 3 says 'men and women' but the title is the G9 front-of-pack proxy (flag for R4)."
+  },
+  "B0GQ2LMJTT": {
+   "decision": "IN",
+   "why": "IN_OK/G9: 'KEHLUSTY Nitric Oxide Booster Supplements for Men' leads with the hero and men sleeve; citrulline/AAKG/beetroot precursors with ginseng/maca helpers in bullets and no exclude term."
+  },
+  "B0G7NRJ6QH": {
+   "decision": "IN",
+   "why": "IN_OK/G9/R3-2: 'Amp Science Advanced Nitric Oxide Supplements for Men' — 'Advanced' is a claim modifier, the hero leads with the men sleeve, and no women or exclude terms appear."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Read RULES.md (802 lines) and shelf.json, then judged all 24 ASINs in listings.json for the 'nitric oxide supplements for men' audience sleeve: 20 IN, 4 OUT (Nutricost and Force Factor Total Beets as unisex/no men qualifier under R4; Juvenon and Snap as 'Men & Women' under R4). Hero named in every title; L-arginine/L-citrulline/beet precursors treated as the hero's source material, not a different lead; sleeve qualifier and R4 judged on title+brand as the G9 front-of-pack proxy.",
+ "artifacts": [],
+ "verification": [
+  "Manually checked every title against hero_regex (all 24 contain 'Nitric Oxide').",
+  "Manually checked every title against sleeve_regex/required_regex: 2 titles lack any men/male term, 2 contain 'Men & Women', 20 carry 'for Men' (or 'Male' in brand) without women/her.",
+  "Scanned all titles and bullets for hero_exclude_regex terms (erect, male enhancement, libido, sexual, sex, bedroom, virility, ED, penis, male performance, bluechew, sildenafil, tadalafil): no matches.",
+  "Applied the front dose rule to the 5 titles printing mg values: all are precursor blend/single-precursor weights, not another ingredient.",
+  "Counted 24 verdict entries matching the 24 listing ASINs; each decision is IN or OUT and each why names a rule.",
+  "No automated JSON validation run (read-only ask mode, no shell execution); no files edited, no API/web calls, no images fetched."
+ ],
+ "unresolved": [
+  "Six IN listings say 'men & women'/'men and women' in bullets while the title says 'for Men' (B01MS461VC, B0DJDR5DQH, B0FHPMRKD7, B0FNNC3K5T, B077R8GMSM, B0D4QBVK5S); judged IN on the title as the G9 front-of-pack proxy — they flip to OUT if R4 is meant to read bullets.",
+  "Two no-audience listings (B09B4DWNYQ Nutricost, B09QLKL61K Total Beets) judged OUT as unisex under R4/required_regex; they flip to IN if unlabeled general products are meant to count on the sleeve.",
+  "B0CWN5V9BC Nugenix Perform and B09ZBKXL69 Ageless Male Max are men's-vitality products with no exclude-regex term; flagged by hand per exclude_note. Ageless Male Max label unseen; if KSM-66 ashwagandha leads the label at a higher dose, R7-1 would make it OUT.",
+  "Image URLs not inspected (no network in read-only mode)."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012519-329Z-e06a86c6"
+}

@@ -1,0 +1,121 @@
+{
+ "judge": "cursor",
+ "run_id": "astaxanthin-24mg__2026-11-18__dfdc6fd0",
+ "verdicts": {
+  "B07V574YYY": {
+   "decision": "OUT",
+   "why": "Title doses the hero at 12mg, which fails the dose-sleeve qualifier (24 mg) in 'This shelf' / Sleeve rule 11 Nov 2026; a different dose is a different product (R3-5)."
+  },
+  "B08MWZQ4S6": {
+   "decision": "OUT",
+   "why": "Title doses the hero at 12mg, which fails the dose-sleeve qualifier (24 mg) in 'This shelf' / Sleeve rule 11 Nov 2026; this is a separate product from the brand's 24mg listing (R3-5)."
+  },
+  "B09ZBL2LP2": {
+   "decision": "OUT",
+   "why": "Title doses the hero at 12mg (AstaReal is a trademark hero name per R11-1, but the dose fails the 24 mg sleeve qualifier in 'This shelf' / Sleeve rule 11 Nov 2026; R3-5)."
+  },
+  "B0GH2CPCTZ": {
+   "decision": "OUT",
+   "why": "Title doses the hero at 12mg, which fails the dose-sleeve qualifier (24 mg) in 'This shelf' / Sleeve rule 11 Nov 2026; a different dose is a different product (R3-5)."
+  },
+  "B0GS1BK638": {
+   "decision": "OUT",
+   "why": "Title doses the hero at 12mg, which fails the dose-sleeve qualifier (24 mg) in 'This shelf' / Sleeve rule 11 Nov 2026; a different dose is a different product (R3-5)."
+  },
+  "B0F4M8Y6V6": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title (G9 G-NAME) at the 24mg sleeve dose, MCT oil is a carrier not an active (R13-4), and it is a separate product from the brand's 12mg listing (R3-5)."
+  },
+  "B0G4GKMRSM": {
+   "decision": "OUT",
+   "why": "Title doses the hero at 12mg, which fails the dose-sleeve qualifier (24 mg) in 'This shelf' / Sleeve rule 11 Nov 2026; a different dose is a different product (R3-5)."
+  },
+  "B09VX787GV": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title at 24 mg with no other printed dose, and 'Liposomal' is a delivery word ignored on a shelf whose keyword names no delivery tech (R3-2)."
+  },
+  "B0HN21PW7M": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title (G9) at the 24mg sleeve dose as the sole active; the bullet's 'astaxanthin 12mg' is search copy, not the titled dose."
+  },
+  "B0GSFC2XVZ": {
+   "decision": "OUT",
+   "why": "Dose rule (front-of-pack rules 10 Nov 2026 / R7-1): the title prints Lutein 40mg, a bigger mg dose than the 24mg hero, so the hero does not lead; the 18-in-1 eye blend is also a broader base formula (v1.7 R6-1 settle)."
+  },
+  "B0H39JBQSD": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: hero named alone in the title at 24mg with MCT as carrier (R13-4); the undosed ashwagandha add-in in bullets does not lead (R13-6, R7-1 bites only when another active leads)."
+  },
+  "B0GX9ZLCFT": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title (G9) at the 24mg sleeve dose, single hero, no other printed dose."
+  },
+  "B0H9Z7GLD2": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title at 24 mg; MCT/coconut oil is a carrier, not an active (R13-4)."
+  },
+  "B0DNRKCZGT": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title (G9) at the 24mg sleeve dose, single hero, no other printed dose."
+  },
+  "B0GSVMGNQY": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title at 24mg; MCT oil is a carrier, not an active (R13-4)."
+  },
+  "B0GGMBSNTR": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: hero named alone in the title at 24mg with MCT as carrier (R13-4); the undosed ashwagandha add-in in bullets does not lead (R13-6); a different-brand clone of Biookultra counts separately (Q2)."
+  },
+  "B0HKS6R6B1": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title at 24mg, single hero; note a possible G5/R2 reseller collapse with Revella B0HMCRSK74 (title prints the Revella product name under the Rulinal brand field), which affects counting once, not shelf membership."
+  },
+  "B0H7H3SQTF": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title (G9) at the 24mg sleeve dose, single hero, softgel format is fine on a plain dose shelf (R13-4)."
+  },
+  "B0GJZYZ568": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title (G9) at the 24mg sleeve dose, single hero; the bullets' 2-capsule direction does not change the titled 24mg dose."
+  },
+  "B0HMCRSK74": {
+   "decision": "IN",
+   "why": "IN_OK: astaxanthin named in the title at 24mg, single hero; see Rulinal B0HKS6R6B1 for the G5/R2 reseller-collapse note (counting, not membership)."
+  },
+  "B0GZVYM8S3": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: hero named alone in the title at 24mg with MCT as carrier (R13-4); the undosed ashwagandha add-in in bullets does not lead (R13-6); a different-brand clone of Skiseoy counts separately (Q2)."
+  },
+  "B0GKL82NTG": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: hero named alone in the title at 24mg; krill oil is an undosed bullet add-in that does not lead (R13-6), and the H12 astaxanthin note excludes only krill oil where astaxanthin is the minor part."
+  },
+  "B0GQMFMJKG": {
+   "decision": "OUT",
+   "why": "Dose rule (front-of-pack rules 10 Nov 2026; R3 'bigger-printed-dose rule still applies'): the title prints Resveratrol 100mg and Lycopene 40mg above the 24mg hero, so the hero does not lead (R7-1 HERO_SECONDARY)."
+  },
+  "B0B518XXPG": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: hero named first in the title at 24mg; coconut MCT and grape seed oil are carriers (R13-4) and the undosed ashwagandha add-in in bullets does not lead (R13-6)."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind shelf judge for astaxanthin 24mg: read RULES.md in full plus shelf.json and all 24 listings in listings.json; returned IN/OUT per ASIN with a named rule. 16 IN, 8 OUT (six 12mg listings fail the dose-sleeve qualifier; Hovika and Puyflam fail the bigger-printed-dose rule). No files edited, no web or API calls.",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md lines 1-800 in full (shelf header, 10 Nov FOP rules, 11 Nov sleeve rule, Gautam decisions R1-R14, rulebook v1-v2.4 overrides, trademark table, reason codes, shelf specs incl. H12 astaxanthin row, changelog).",
+  "Read shelf.json (sleeve_kind dose, 24 mg sleeve regex, hero regex) and listings.json (24 ASINs).",
+  "Verdict keys checked by hand against the 24 listing ASINs; every decision is IN or OUT and every why names a RULES.md rule.",
+  "Checked that none of the six 12mg listings mentions a 24mg dose in title or bullets.",
+  "No programmatic JSON validation or script was run (read-only session, shell execution unavailable)."
+ ],
+ "unresolved": [
+  "Rulinal B0HKS6R6B1 and Revella B0HMCRSK74 look like one product line under G5/R2 (Rulinal title prints the Revella product name); both judged IN for membership, collapse-to-one is a counting call for the scorer.",
+  "Osasuna B09VX787GV prints '24 MG' in upper case; IN assumes the sleeve regex is applied case-insensitively.",
+  "Work order carried two output contracts (blind judge JSON and broker envelope); both key sets are merged into this single object and no artifact file was written.",
+  "Image URLs were not inspected; verdicts rest on title, brand and bullets only."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012228-736Z-e3ce04f6"
+}

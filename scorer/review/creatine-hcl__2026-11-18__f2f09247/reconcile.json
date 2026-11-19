@@ -1,0 +1,10 @@
+{
+ "run_id": "creatine-hcl__2026-11-18__f2f09247",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 0,
+ "check": []
+}

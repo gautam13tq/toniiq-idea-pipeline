@@ -1,0 +1,80 @@
+{
+ "judge": "grok",
+ "run_id": "astaxanthin-organic__2026-11-18__0219b8e2",
+ "verdicts": {
+  "B07FKSNS16": {
+   "decision": "IN",
+   "why": "IN_OK: Organic Astaxanthin 12 mg leads the title, and the organic olive oil is only a carrier under R13-4."
+  },
+  "B0BR8H9PMZ": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints turmeric at 1500 mg against astaxanthin 12 mg, so the hero does not lead."
+  },
+  "B08VJLWZFC": {
+   "decision": "IN",
+   "why": "IN_OK: Organic Astaxanthin 4 mg leads, and R3-5 keeps this dose as a separate product from the 12 mg."
+  },
+  "B0GQGS6LWL": {
+   "decision": "IN",
+   "why": "IN_OK on the organic variety sleeve: astaxanthin leads the title, organic is present as a modifier, and MCT oil is a carrier under R13-4."
+  },
+  "B0GWLGC8B7": {
+   "decision": "IN",
+   "why": "R13-6: Organic Astaxanthin leads the title and is listed first, so later lycopene 20 mg does not make the hero secondary, and R3-2 ignores liposomal on this variety sleeve."
+  },
+  "B0D3FQ3MBC": {
+   "decision": "IN",
+   "why": "R5-1 and R13-1: Organic Astaxanthin leads the gummy title, and acerola vitamin C is a helper rather than a lead active."
+  },
+  "B07F2KM7H7": {
+   "decision": "IN",
+   "why": "R13-5: Organic Spirulina & Astaxanthin is an equal-billed two-active pair on the organic variety sleeve, so the hero counts with spirulina named first."
+  },
+  "B0FT2Y4V7G": {
+   "decision": "IN",
+   "why": "IN_OK: Organic Astaxanthin 12 mg is the first and only dosed active, with the skin and women's wording as benefit language under R4-2."
+  },
+  "B0GHVMCVWY": {
+   "decision": "IN",
+   "why": "IN_OK: the title and bullets name natural organic astaxanthin 12 mg as the sole hero."
+  },
+  "B0F4M5FBMW": {
+   "decision": "OUT",
+   "why": "R2 and R7-1: Organic Tanning Gummies lead the front, and beta-carotene plus vitamin C 100 mg lead the formula over astaxanthin 4 mg, so the hero is HERO_SECONDARY under G1."
+  },
+  "B0F2DYZ5QK": {
+   "decision": "IN",
+   "why": "IN_OK: Premium Organic Astaxanthin 12 mg is the sole named hero and the organic claim is on that formula."
+  },
+  "B0F85W9STJ": {
+   "decision": "IN",
+   "why": "G9 and R8-1: the title names Organic Astaxanthin, and PurZanthin contains the hero alias zanthin, with 12 mg as the only active."
+  },
+  "B00DX5KT9Q": {
+   "decision": "IN",
+   "why": "IN_OK: Astaxanthin 4 mg is the hero and USDA Certified Organic is the organic-formula claim under R6-2."
+  },
+  "B08GGB6J67": {
+   "decision": "IN",
+   "why": "IN_OK: the title leads with Organic Astaxanthin 12 mg and no other active is named."
+  },
+  "B0964FZ3KC": {
+   "decision": "IN",
+   "why": "G9: Pure Astaxanthin is named on the front and Organic Antioxidant Supplement is the organic variety claim for that hero."
+  },
+  "B0BVTZX4G1": {
+   "decision": "IN",
+   "why": "IN_OK: Astaxanthin (AstaPure) leads and USDA Organic meets the variety sleeve, with no second active dosed above it."
+  },
+  "B0CTNZ537V": {
+   "decision": "IN",
+   "why": "R4-2 and R6-1: antioxidant and anti-aging are benefit words, and astaxanthin is the first named active and leads the first bullet."
+  },
+  "B0GZMCFG6F": {
+   "decision": "OUT",
+   "why": "Variety sleeve qualifier: organic modifies only the coconut-oil carrier, which R13-4 excludes as an active, so this is not organic astaxanthin."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012251-229Z-9ed117d6"
+}

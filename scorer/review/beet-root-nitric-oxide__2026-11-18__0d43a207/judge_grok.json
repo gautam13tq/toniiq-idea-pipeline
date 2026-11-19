@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "beet-root-nitric-oxide__2026-11-18__0d43a207",
+ "verdicts": {
+  "B0F161HQ6C": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier: beet root leads under G1, but the title, brand and bullets never match nitric or nitrate, so it is not the nitric-oxide pairing."
+  },
+  "B0FBSQX5T3": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier: this is the same beet-root capsule line and the title, brand and bullets never match nitric or nitrate."
+  },
+  "B0DJMK755W": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads at 1800mg and the sleeve qualifier nitric is met in the bullets, while hawthorn and grape seed are not printed at a bigger dose under the dose rule."
+  },
+  "B09QLKL61K": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Total Beets leads the title, the sleeve qualifier nitric is named, and L-citrulline, B vitamins and grape seed are helpers without a bigger printed dose."
+  },
+  "B07SLFG6JY": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier: organic beet root extract leads under G1, but the title, brand and bullets never match nitric or nitrate."
+  },
+  "B084C35HGS": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier: beet root capsules lead under G1, but the title, brand and bullets never match nitric or nitrate."
+  },
+  "B095WNBLMN": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier: Total Beets leads under G1, but the title, brand and bullets never match nitric or nitrate."
+  },
+  "B07SHZPWVY": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root is the first active under an R4-2 nitric-oxide title, the sleeve qualifier nitric is met, and 6853mg is a blend total under the dose rule."
+  },
+  "B0BTZ7QR1W": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads the nitric-oxide title and black pepper is a skipped helper under the v1.9 R7-1 helper rule, with no bigger competing dose."
+  },
+  "B0FBKR3L6P": {
+   "decision": "IN",
+   "why": "G1 IN_OK: beetroot is the sole active and is named on the title under G9, and the sleeve qualifier nitric is in the title."
+  },
+  "B0BDTRLWPS": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads at 2040mg with the sleeve qualifier nitric in the title, and black pepper at 15mg does not out-dose it under the dose rule."
+  },
+  "B0BQRTDQ6X": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads the nitric-oxide gummy title and black pepper is a skipped helper under the v1.9 R7-1 helper rule."
+  },
+  "B09K2PF3WQ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads the nitric-oxide title at 300mg versus 40mg pomegranate, so the dose rule keeps the hero in front."
+  },
+  "B0CSH7VY6S": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Beets leads the title ahead of grape seed and vitamin C, the sleeve qualifier nitric is met, and no bigger competing dose is printed."
+  },
+  "B0984V6YKY": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads the nitric-oxide title and CoQ10, pomegranate and grapeseed are with-helpers under R4-2, with no bigger printed dose."
+  },
+  "B0962QBXDZ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Total Beets leads the nitric-oxide title, beet nitrates carry the pairing, and grape seed and B vitamins are helpers under R13-1 and the dose rule."
+  },
+  "B07BVCBV6R": {
+   "decision": "IN",
+   "why": "G1 IN_OK: beet root leads the title, the sleeve qualifier nitric is met, and circulation and energy are R4-2 benefit words rather than other leading actives."
+  },
+  "B0DDR4YMTT": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads the nitric-oxide title at 1250mg, above acai 100mg and CoQ10 10mg under the dose rule."
+  },
+  "B07K413HHM": {
+   "decision": "IN",
+   "why": "G1 IN_OK: beet root is the sole active, the sleeve qualifier nitric is in the title, and 90 servings make it a dosed supplement powder under R5-4 rather than bulk."
+  },
+  "B08TF9L5BT": {
+   "decision": "OUT",
+   "why": "G1 EX_HERO_MISSING: R4-1 comparison copy (Better Than Beet Roots) does not make beet an ingredient, and the formula is L-citrulline, arginine and pine bark."
+  },
+  "B071YDN42D": {
+   "decision": "IN",
+   "why": "G1 IN_OK: beet leads the title with the sleeve qualifier nitric met, and a stated 30-serving powder is a supplement under R5-4."
+  },
+  "B0F9LNFLTK": {
+   "decision": "IN",
+   "why": "G1 IN_OK: organic beet root is the sole active under G9, the sleeve qualifier nitric is in the title, and 30 servings keep it from being bulk under R5-4."
+  },
+  "B0B7TMPXWZ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: beet root leads the nitric-oxide title, and vitamins and prebiotics are later fortifiers under R13-1 with no bigger printed dose."
+  },
+  "B0DJDR5DQH": {
+   "decision": "OUT",
+   "why": "v1.7 R6-1 HERO_SECONDARY: Nitrovia is a 17-ingredient stack whose listing is led by L-arginine, and beet root is one of four equal 500mg actives rather than the lead."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012333-337Z-8f75f466"
+}

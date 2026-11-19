@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "creatine-capsules__2026-11-18__68d6052b",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "G3 excludes it because the title is creatine monohydrate powder, and R5-2 counts only the pill format on this capsules shelf."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "G3 excludes it because the title is micronized creatine monohydrate powder, and R5-2 counts only the pill format on this capsules shelf."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "G3 excludes it because the title names powder, and Q8 lets that title format beat the stray bullet word capsule."
+  },
+  "B00DLWONF2": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "G3 excludes it because the title is creatine monohydrate powder with a scoop serving, and R5-2 counts only the pill format."
+  },
+  "B00E9M4XFI": {
+   "decision": "OUT",
+   "why": "G3 excludes it because the bullets state micronized powder and the title states no pill unit, so the v1.4 format-evidence rule reads it as powder."
+  },
+  "B01EVVQX9U": {
+   "decision": "OUT",
+   "why": "G3 excludes it because the title is creatine monohydrate micronized powder, and R5-2 counts only the pill format."
+  },
+  "B01IW245EY": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names micronized creatine monohydrate capsules, a single-hero pill."
+  },
+  "B0BKCVLYGX": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and G3 because creatine HCl capsules name the hero in pill form, and G2 does not lock this shelf to monohydrate."
+  },
+  "B00BPS3L8E": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B0DXRZ51DZ": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B0CFWCMBNG": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B0C6WCWJ9P": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B00117ZRXQ": {
+   "decision": "IN",
+   "why": "IN_OK under R3-2 and G3 because buffered is only a modifier and the title names creatine monohydrate capsules."
+  },
+  "B0CLSCPZG4": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine capsules, and the HCL wording in the bullets is still the creatine hero on a shelf G2 does not form-lock."
+  },
+  "B005DKV9SE": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because creatine pills and caplets are the pill format, and the shelf dose rule treats the creatine blend weight as the hero rather than another ingredient."
+  },
+  "B0924PFYN9": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because creatine monohydrate tablets count as the pill format on a capsules shelf."
+  },
+  "B0F6ZVCKV8": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B0GCPP4SFC": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1 because creatine monohydrate is named before GAA, and G3 is met by the bullets stating capsules."
+  },
+  "B0H6GXFVBW": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because creatine monohydrate tablets count as the pill format on a capsules shelf."
+  },
+  "B0DJTKMQ2R": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and G3 because the title leads with creatine pills and the bullets state a creatine monohydrate tablet."
+  },
+  "B0018OADEA": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because veg caps count as capsules and the title names creatine monohydrate."
+  },
+  "B0D1DP2D8D": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  },
+  "B0CT68RPXK": {
+   "decision": "IN",
+   "why": "IN_OK under G3 because the title names creatine monohydrate capsules, a single-hero pill."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-650Z-d9148b41"
+}

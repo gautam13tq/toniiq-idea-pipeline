@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "nitric-oxide__2026-11-18__11f9879b",
+ "verdicts": {
+  "B09B4DWNYQ": {
+   "decision": "IN",
+   "why": "G1: the title leads with Nitric Oxide Booster, and 2250mg is that product's blend weight under the dose rule."
+  },
+  "B07GQ4Z1L8": {
+   "decision": "IN",
+   "why": "G1: the title leads with Nitric Oxide Booster, and the 1,500mg nitric oxide complex is the hero blend under the dose rule."
+  },
+  "B09QLKL61K": {
+   "decision": "OUT",
+   "why": "R2: Total Beets blood-pressure support is condition-led, so nitric oxide is not the lead front word."
+  },
+  "B0CTJ67LK1": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints 1200mg flavanols and 600mg epicatechin, so cocoa flavanols lead and nitric oxide is only a benefit."
+  },
+  "B0CLHHYNFN": {
+   "decision": "OUT",
+   "why": "R2: BloodFlow-7 is a condition-led formula and nitric oxide is not the biggest front word."
+  },
+  "B081K83ZQ1": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide Supplements leads the title, and 1500mg is the arginine-citrulline blend weight under the dose rule."
+  },
+  "B01MS461VC": {
+   "decision": "OUT",
+   "why": "G1: L-arginine and L-citrulline are named before nitric oxide, so the hero is only support."
+  },
+  "B0F9QNTK4Z": {
+   "decision": "OUT",
+   "why": "G1: Total-T2 testosterone booster leads the title, so nitric oxide does not lead."
+  },
+  "B07SHZPWVY": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide leads this beet-root powder as a hero-led complex."
+  },
+  "B0BTZ7QR1W": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide leads these beet-root capsules as a hero-led complex."
+  },
+  "B0FBKR3L6P": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints beetroot at 1300mg, so beetroot leads and nitric oxide is only the benefit."
+  },
+  "B0CYRP3HV4": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide Supplement leads, and 3000mg is that supplement's blend weight under the dose rule."
+  },
+  "B0BQRTDQ6X": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide leads these beet-root gummies as a hero-led complex."
+  },
+  "B0BDTRLWPS": {
+   "decision": "OUT",
+   "why": "G1: beet root powder tablets lead the title, and the dose rule's printed 2040mg is beet root."
+  },
+  "B09K2PF3WQ": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide leads this beet-root gummy as a hero-led complex."
+  },
+  "B0BS4F2TND": {
+   "decision": "IN",
+   "why": "G1: the title names Nitric Oxide Lozenges as the product."
+  },
+  "B09XHG5X4Q": {
+   "decision": "IN",
+   "why": "G1: the title sells this as stim-free nitric oxide powder, so the hero leads."
+  },
+  "B08TF9L5BT": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide Booster leads the title, and better-than-beet-roots is a comparison under R4-1."
+  },
+  "B0FC2STWTW": {
+   "decision": "OUT",
+   "why": "Bundles: Prostate Health is a separate counted product named before the nitric oxide booster, so the hero does not lead."
+  },
+  "B08T4Q4C8C": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide Supplement leads, and 3000mg is the blend weight under the dose rule."
+  },
+  "B00NJ6NW3E": {
+   "decision": "IN",
+   "why": "R6-1: Neo40 is a coined name whose title and bullets lead with boosting nitric oxide."
+  },
+  "B00PCRBXKW": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide Ultra leads the title, so the hero leads."
+  },
+  "B083FF74NQ": {
+   "decision": "IN",
+   "why": "G1: the title names Redwood as a nitric oxide booster, so the hero leads."
+  },
+  "B0DDR4YMTT": {
+   "decision": "IN",
+   "why": "G1: Nitric Oxide leads these beet-root chews as a hero-led complex."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012524-567Z-623d052c"
+}

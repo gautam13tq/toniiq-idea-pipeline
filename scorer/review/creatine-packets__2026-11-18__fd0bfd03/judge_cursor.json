@@ -1,0 +1,118 @@
+{
+ "judge": "cursor",
+ "run_id": "creatine-packets__2026-11-18__fd0bfd03",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "G3 named format = that format only / R5-2: a 500g scoop tub with no packets, sticks, single-serve or travel wording fails the creatine packets sleeve qualifier (EX_FORMAT_MISMATCH)."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "G3 / R5-2 format shelf: 90-serving tub with no packet, stick or travel wording in title or bullets, so it is not the packets format (EX_FORMAT_MISMATCH)."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "G3 / R5-2 format shelf: 120-serving scoop tub, no packets or sticks named anywhere (EX_FORMAT_MISMATCH)."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "G3 / R5-2 format shelf: 60-serving scoop tub, no packets or sticks named anywhere (EX_FORMAT_MISMATCH)."
+  },
+  "B0DJDQCJX2": {
+   "decision": "OUT",
+   "why": "G3 / R5-2 format shelf: a 30-serving scoop tub ('one scoop', 'same tub'), not packets or sticks, so EX_FORMAT_MISMATCH even though creatine leads the title and its 5,000mg out-doses the 1,143mg collagen."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "G3 / R5-2 format shelf: 100-serving 17.64 oz tub with no packet, stick or travel wording (EX_FORMAT_MISMATCH)."
+  },
+  "B0G454Y98N": {
+   "decision": "IN",
+   "why": "G1 IN_OK: single-hero micronized creatine monohydrate powder sold as 30 stick packs / single-serve packets; 'Healthy' is a claim word (R3-2) and the spec sets no audience, so 'women and men' does not trigger R4."
+  },
+  "B0DQWLCR5J": {
+   "decision": "IN",
+   "why": "G1 IN_OK: pure creatine monohydrate powder in stick packs / travel packets matching the sleeve qualifier."
+  },
+  "B0D9D359MK": {
+   "decision": "IN",
+   "why": "G1 IN_OK: 5g micronized creatine monohydrate powder in 30 travel packets / stick packs."
+  },
+  "B0FNWVZ911": {
+   "decision": "IN",
+   "why": "G1 IN_OK: 100% pure micronized creatine monohydrate stick packs (one-ingredient powder), hero named in title and brand per G9."
+  },
+  "B0GXWZJ3GQ": {
+   "decision": "IN",
+   "why": "G1 IN_OK: creatine monohydrate micronized powder sold as 30 sticks / single-serve travel packets; R5-2 format split makes it a separate line from Orgain's tub, not an EX_VARIANT_DUP."
+  },
+  "B0D7N1W4L5": {
+   "decision": "IN",
+   "why": "G1 IN_OK: creatine monohydrate powder in 20 flavoured stickpacks (closed-compound spelling still names the stick format per the v2.4 misspelling clarification); the variety sleeve admits flavours."
+  },
+  "B0FVGC7X59": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R13-5: 'Creatine Collagen Powder' names creatine first in the title and first bullet (5g per serving) in 20 stick packs; no bigger printed collagen dose appears in the supplied evidence, so the shelf dose rule does not flip it."
+  },
+  "B0GJ6Z4GTG": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: creatine leads the title with collagen as a 'with' add-in and out-doses it (5,000mg vs 2,000mg collagen, 1,000mg BCAA), in unflavored stick packs; 'for women' is not excluded on a plain shelf (R4 applies only to gendered shelves)."
+  },
+  "B0GPY3CNYD": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: creatine leads the title at 3g per stick in 30 tear-and-pour stick packs, with undosed dandelion/cranberry as helpers; the variety sleeve admits the 6-flavour pack."
+  },
+  "B0H6QV88LW": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R13-5: 'Creatine + Electrolytes Powder Packets' names creatine first and its 5g (5,000mg) exceeds the 3,520mg electrolyte blend weight, which the shelf dose rule says is not another ingredient anyway; 12 stick packs of powder."
+  },
+  "B0H1KDMB9W": {
+   "decision": "IN",
+   "why": "G1 IN_OK: micronized creatine monohydrate powder in 14 single-serve stick packs; R5-2 format split keeps it separate from the OUT Optimum Nutrition tubs."
+  },
+  "B0FJQ6QMJ8": {
+   "decision": "IN",
+   "why": "G3/G8 (Q8) title format beats bullets plus the v1.4 sold-unit rule: the title sells 'Creatine Monohydrate Powder, Unflavored, 30 Sticks', so the stray 'capsules' wording in bullet 1 does not override it (G1 IN_OK)."
+  },
+  "B088Q6FMZB": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R13-5 with R8-1: 'Creatine Monohydrate + GAA' names creatine first and the coined brand CreGAAtine contains the hero word, sold as single-serve packets/sachets of micronized powder; no doses are printed in the supplied title or bullets, so the shelf dose rule cannot trigger on this evidence."
+  },
+  "B0FPF73SCT": {
+   "decision": "IN",
+   "why": "G1 IN_OK: 5g micronized creatine monohydrate powder in 10 on-the-go travel stick packs."
+  },
+  "B0GXX97G8Z": {
+   "decision": "IN",
+   "why": "R6-1 coined name + hero: OxyShred is a product-line name over a single-ingredient 100% micronized creatine monohydrate powder (sole active, so it counts), sold as single-serve fizz sticks / packets; a powder stick poured in the mouth is still the powder format (G3), not a drink."
+  },
+  "B0FLQJBMB1": {
+   "decision": "IN",
+   "why": "R6-1 / G1 HERO_LED_COMPLEX: coined name 'Flexi' precedes 'Creatine & Collagen Stick Packs' where creatine is named first and leads by printed dose (5g creatine vs 1g MoriKol collagen), satisfying the shelf dose rule; stick packs match the sleeve qualifier."
+  },
+  "B0FQ79196G": {
+   "decision": "IN",
+   "why": "G1 IN_OK: 5g micronized creatine monohydrate powder in 30 individually packaged stick packs; the 'per scoop' bullet is contents wording and the title names the stick-pack sold unit (v1.4 sold-unit rule)."
+  },
+  "B0D6PNQ2T7": {
+   "decision": "IN",
+   "why": "G1 IN_OK: 100% micronized creatine monohydrate powder in 5g travel stick packs; 'Fluid' is the brand (brand words are not ingredients, G1 additions)."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind judge (cursor) read RULES.md in full (801 lines), shelf.json and all 24 listings in listings.json and returned IN/OUT per ASIN for the creatine packets sleeve: 6 OUT (all scoop tubs failing the packets/sticks format qualifier under G3/R5-2) and 18 IN (hero-led creatine powder in packets, sticks or sachets). Verdicts are inline in this object because the run is read-only and no artifact file could be written; the domain contract keys (judge, run_id, verdicts) are merged with this envelope.",
+ "artifacts": [],
+ "verification": [
+  "Confirmed the verdict key set equals the 24 ASINs in listings.json (grep of \"asin\": returned 24 matches, all present in verdicts).",
+  "Every decision is IN or OUT; every why names at least one RULES.md rule (G1, G3, G9, R3-2, R4, R5-2, R6-1, R8-1, R13-5, Q8/G8, v1.4 sold-unit, shelf dose rule).",
+  "No files edited, no web or API calls, no image fetches; judgment used title, bullets and brand only per the work order."
+ ],
+ "unresolved": [
+  "B0FVGC7X59 (NeoCell) and B088Q6FMZB (CreGAAtine): the collagen and GAA doses are not printed in the supplied title/bullets; if the front of pack prints either at a bigger mg dose than creatine, the shelf dose rule would flip these to OUT. Flagged for the scorer reconciliation.",
+  "B0FJQ6QMJ8 (RAW): bullet 1 says 'capsules' while the title says powder / 30 sticks; judged IN on title precedence (Q8), but the listing copy conflict is noted.",
+  "No evidence hash was supplied in the work order, so none is echoed."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012057-241Z-84fb4aa9"
+}

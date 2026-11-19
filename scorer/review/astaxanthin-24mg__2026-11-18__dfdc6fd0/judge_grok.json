@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "astaxanthin-24mg__2026-11-18__dfdc6fd0",
+ "verdicts": {
+  "B07V574YYY": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier (dose): the title sells astaxanthin at 12mg, which does not match the 24mg dose sleeve."
+  },
+  "B08MWZQ4S6": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier (dose): the title and bullets sell astaxanthin at 12mg per serving, which does not match the 24mg dose sleeve."
+  },
+  "B09ZBL2LP2": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier (dose): the title sells AstaReal astaxanthin at 12mg, which does not match the 24mg dose sleeve."
+  },
+  "B0GH2CPCTZ": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier (dose): the title sells astaxanthin at 12mg, which does not match the 24mg dose sleeve."
+  },
+  "B0GS1BK638": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier (dose): the title sells astaxanthin at 12mg, which does not match the 24mg dose sleeve."
+  },
+  "B0F4M8Y6V6": {
+   "decision": "IN",
+   "why": "IN_OK under G1: the title leads with astaxanthin 24mg, and MCT oil is a carrier under R13-4 rather than a bigger-dosed active."
+  },
+  "B0G4GKMRSM": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier (dose): the title sells astaxanthin at 12mg, which does not match the 24mg dose sleeve."
+  },
+  "B09VX787GV": {
+   "decision": "IN",
+   "why": "IN_OK under the dose sleeve qualifier: the title names astaxanthin at 24 MG, and liposomal is only a delivery modifier under R3-2."
+  },
+  "B0HN21PW7M": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title leads with astaxanthin at 24mg per serving."
+  },
+  "B0GSFC2XVZ": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints lutein at 40mg, a bigger mg dose than astaxanthin 24mg, so the hero does not lead."
+  },
+  "B0H39JBQSD": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with astaxanthin 24mg, and ashwagandha is not printed on the front at a bigger mg dose."
+  },
+  "B0GX9ZLCFT": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title names astaxanthin at 24mg and no other ingredient is printed at a bigger mg dose."
+  },
+  "B0H9Z7GLD2": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title states astaxanthin 24 mg per serving, and MCT oil is a carrier under R13-4."
+  },
+  "B0DNRKCZGT": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title states astaxanthin 24mg per serving and no other active leads."
+  },
+  "B0GSVMGNQY": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title leads with astaxanthin 24mg, and MCT oil is a carrier under R13-4."
+  },
+  "B0GGMBSNTR": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with astaxanthin 24mg, and ashwagandha is not printed on the front at a bigger mg dose."
+  },
+  "B0HKS6R6B1": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title leads with astaxanthin 24mg and no other active is named."
+  },
+  "B0H7H3SQTF": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title leads with astaxanthin 24mg and no other ingredient is printed at a bigger mg dose."
+  },
+  "B0GJZYZ568": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title sells astaxanthin at 24mg and no other ingredient is printed at a bigger mg dose."
+  },
+  "B0HMCRSK74": {
+   "decision": "IN",
+   "why": "IN_OK under G1 and the dose sleeve qualifier: the title leads with astaxanthin 24mg and no other active is named."
+  },
+  "B0GZVYM8S3": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with astaxanthin 24mg and MCT oil, and ashwagandha is not printed on the front at a bigger mg dose."
+  },
+  "B0GKL82NTG": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with astaxanthin 24mg, and krill oil is not printed at a bigger mg dose than the hero."
+  },
+  "B0GQMFMJKG": {
+   "decision": "OUT",
+   "why": "Dose rule: the front prints resveratrol at 100mg and lycopene at 40mg, both bigger mg doses than astaxanthin 24mg, so the hero does not lead."
+  },
+  "B0B518XXPG": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: the title leads with astaxanthin 24mg, and coconut MCT and grape seed oil are not printed at a bigger mg dose than the hero."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012154-488Z-d17fb74d"
+}

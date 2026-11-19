@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "creatine-and-collagen-for-women__2026-11-18__f312dc81",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier: collagen is required, and the title and bullets name only creatine monohydrate."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier: collagen is required, and the title and bullets name only creatine monohydrate."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier: collagen is required, and the title and bullets name only creatine monohydrate."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier: collagen is required, and the title and bullets name only creatine monohydrate."
+  },
+  "B0DJDQCJX2": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine is named first at 5000 mg and collagen at 1143 mg is not a bigger dose than the hero."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier: collagen is required, and the bullets say this powder is just creatine and nothing else."
+  },
+  "B085Z9P87K": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier: collagen is required, and the title and bullets name only creatine monohydrate."
+  },
+  "B0BQ5S3P3P": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: the title leads with creatine for women and names the collagen pairing, and no printed dose puts another ingredient ahead of the hero."
+  },
+  "B0GZZ7CPZP": {
+   "decision": "IN",
+   "why": "R3 and the dose rule: creatine leads and the 5 g collagen pairing is not a bigger dose than the 5 g creatine."
+  },
+  "B0DMTV595P": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine leads at 5 g and collagen at 2.5 g is not a bigger dose than the hero."
+  },
+  "B0HC6MTLSV": {
+   "decision": "OUT",
+   "why": "G8 and the pairing sleeve qualifier: the formula bullets list creatine, BCAA, beta-alanine, taurine, carnitine, B6 and B12 and do not include collagen, so the title word loses."
+  },
+  "B0GY4LYBNX": {
+   "decision": "IN",
+   "why": "R3-1 HERO_LED_COMPLEX and the dose rule: creatine leads the complex at 5000 mg and collagen at 1000 mg is not bigger than the hero."
+  },
+  "B0FYPWMPZ9": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine leads at 5000 mg and collagen at 500 mg is not a bigger dose than the hero."
+  },
+  "B0CRL99K4F": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: the title leads with creatine for women and names collagen, and no printed dose puts another ingredient ahead of the hero."
+  },
+  "B0FPFN5CYK": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: creatine monohydrate gummies lead the title and collagen is the named pairing, with no bigger competing dose printed."
+  },
+  "B0GQXQDGBQ": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine leads at 4000 mg, collagen at 2000 mg is not bigger, and the 8000 mg title figure is a printed total rather than another ingredient."
+  },
+  "B0FWXGC15Y": {
+   "decision": "IN",
+   "why": "R3-1 HERO_LED_COMPLEX: the title is a creatine-led complex that names collagen, with creatine stated at 5000 mg and no bigger competing ingredient."
+  },
+  "B0GJ6Z4GTG": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine leads at 5000 mg and collagen peptides at 2000 mg do not out-dose the hero."
+  },
+  "B0GYDFRQJR": {
+   "decision": "OUT",
+   "why": "G5 EX_VARIANT_DUP: this is the same ARDORACON formula as B0FYPWMPZ9 (5000 mg creatine, 500 mg collagen, vitamin D3, calcium, iron, 120 count), which has more reviews."
+  },
+  "B0H7R8LCDG": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine leads at 6000 mg, above collagen at 2500 mg and BCAA at 3000 mg."
+  },
+  "B0FD4KCSN7": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: the title leads with 5 g creatine monohydrate plus collagen, and no label dose shows another active bigger than the hero."
+  },
+  "B0F334RS57": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: creatine leads at 5000 mg and collagen at 3000 mg is not a bigger dose than the hero."
+  },
+  "B0F4X49L8P": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX and the dose rule: the front prints 5 g creatine ahead of 2 g collagen and 1 g BCAA."
+  },
+  "B0FRSHR4CP": {
+   "decision": "IN",
+   "why": "R3-1 HERO_LED_COMPLEX: the 18-in-1 title names creatine first with collagen, and creatine at 5 g is not out-dosed by collagen at 2000 mg."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-644Z-ae8c9fa5"
+}

@@ -1,0 +1,29 @@
+{
+ "judge": "cursor",
+ "run_id": "creatine-gummies-for-men__2026-11-18__2c54fe0e",
+ "verdicts": {
+  "B0DYTK72L3": {
+   "decision": "IN",
+   "why": "IN under G1 HERO_LED_COMPLEX (R3-1/R13-6): creatine is the first-named active in a 'Creatine Monohydrate Gummies ... for Men' title, the gummy format satisfies G3, the men audience sleeve passes R4 (no women/unisex wording in title or bullets), HMB is a co-active named after the hero, and no supplied front-of-pack dose shows HMB out-dosing creatine so the R7-1/dose rule is not triggered."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind shelf judge for creatine-gummies-for-men__2026-11-18__2c54fe0e: read RULES.md in full (802 lines), shelf.json and listings.json, then judged the single listing B0DYTK72L3 (HEALOADING Creatine Monohydrate Gummies HMB for Men) as IN. The verdict object above merges the supplied blind-judge contract with this envelope as one JSON object; no files were created or edited.",
+ "artifacts": [],
+ "verification": [
+  "RULES.md read completely in three passes (lines 1-400, 401-802, tail check) before judging",
+  "listings.json contains exactly one ASIN (B0DYTK72L3); verdict key set equals the listing ASIN set",
+  "Hero check: title contains 'Creatine Monohydrate', matching hero_regex creatine|creapure (G9 G-NAME satisfied on title)",
+  "Format check: 'Gummies' in title satisfies the gummy format gate (G3)",
+  "Sleeve check: title matches sleeve_regex via 'for Men' and required_regex (no \\bwom[ae]n\\b or \\bher\\b in title); bullets contain no women/unisex, kids, or pet wording (R4, Q1, G4 not triggered)",
+  "Lead check: creatine is named before HMB in the title; added vitamin D3/B12 are skipped under R13-1; no printed doses in title or bullets, so the front-of-pack dose rule and R7-1 cannot fire on supplied evidence",
+  "No web, API, image fetch, ranking or scoring performed; read-only tools only"
+ ],
+ "unresolved": [
+  "Front-of-pack doses are not printed in the supplied title/bullets and the optional image was not fetched (no web access); if the label prints HMB at a bigger mg dose than creatine, the shelf dose rule / R7-1 would flip this ASIN to OUT",
+  "Work order and broker envelope each demanded a single top-level JSON object with different keys; both were merged into one object rather than saving a separate artifact, since file writes are prohibited for this run"
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-643Z-2ae0b1e2"
+}

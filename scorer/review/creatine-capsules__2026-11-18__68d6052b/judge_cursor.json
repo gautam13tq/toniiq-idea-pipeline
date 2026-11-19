@@ -1,0 +1,120 @@
+{
+ "judge": "cursor",
+ "run_id": "creatine-capsules__2026-11-18__68d6052b",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "G3 named format = that format only: title names Powder (scoop) on a capsules/pill shelf, EX_FORMAT_MISMATCH."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "G3 named format = that format only: Micronized Creatine Monohydrate Powder is a powder, EX_FORMAT_MISMATCH."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "G3/G8 title-named format beats bullets: title says Powder (scoop servings) so EX_FORMAT_MISMATCH despite a stray 'capsule' bullet."
+  },
+  "B00DLWONF2": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: creatine monohydrate is the whole product and Capsules satisfy the G3 pill format."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "G3 named format = that format only: Creatine Monohydrate Powder (scoop) is not a pill, EX_FORMAT_MISMATCH."
+  },
+  "B00E9M4XFI": {
+   "decision": "OUT",
+   "why": "G3/G8 format from bullets when the title names none: 500g bag described as micronized powder that mixes into water, EX_FORMAT_MISMATCH."
+  },
+  "B01EVVQX9U": {
+   "decision": "OUT",
+   "why": "G3 named format = that format only: Micronized Powder 1 KG with scoop is a powder, EX_FORMAT_MISMATCH."
+  },
+  "B01IW245EY": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: creatine monohydrate alone, 500 Capsules meets the G3 pill format."
+  },
+  "B0BKCVLYGX": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: creatine (HCl) is the sole active in capsules; the shelf names no chemical form so G2 does not bite and 'any creatine form' counts per the creatine shelf spec; R4 unisex rule applies only to for-women/for-men shelves."
+  },
+  "B00BPS3L8E": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Capsules, Creatine Monohydrate, 120 Capsules is hero-only in pill format."
+  },
+  "B0DXRZ51DZ": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate Capsules 5g, single active, G3 pill format."
+  },
+  "B0CFWCMBNG": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate Capsules 420 Count, single active, G3 pill format."
+  },
+  "B0C6WCWJ9P": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: PrimaForce Creatine Monohydrate Capsules, single active, G3 pill format."
+  },
+  "B00117ZRXQ": {
+   "decision": "IN",
+   "why": "R3-2 delivery words (buffered/Kre-Alkalyn branded ingredient) are modifiers ignored on a plain shelf; title names Creatine Monohydrate Capsules, so G1 IN_OK in G3 pill format."
+  },
+  "B0CLSCPZG4": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate Capsules 1,000mg, no other active; capsules meet G3; monohydrate-vs-HCL bullet inconsistency is irrelevant on a shelf with no named form."
+  },
+  "B005DKV9SE": {
+   "decision": "IN",
+   "why": "G1/R3-1 hero-led: title leads with Creatine Pills and the 3,031mg 'creatine blend' is a blend weight of the hero, not another ingredient (shelf Dose rule); caplets count as pill under G3."
+  },
+  "B0924PFYN9": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: creatine monohydrate 1000mg per Tab, tablets count as pill under G3 (v1.4 sold-unit format)."
+  },
+  "B0F6ZVCKV8": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate Capsules 5G, 4 Caps per Serving, single active in G3 pill format."
+  },
+  "B0GCPP4SFC": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R13-6: creatine is first in the title and the product is named after it (Creatine Reserve, R8-1), GAA, B vitamins and taurine are helpers named after it, and bullets state capsules (G3/G8 format from bullets when the title names none)."
+  },
+  "B0H6GXFVBW": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate 2500 mg, 100 Tablets; tablets count as pill under G3."
+  },
+  "B0DJTKMQ2R": {
+   "decision": "IN",
+   "why": "G1/R3-1 hero-led: title leads with Creatine Pills and ThreeAtine is a 3-type creatine blend of the hero itself; tablet form stated in bullets meets G3 pill."
+  },
+  "B0018OADEA": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate 750 mg, 120 Veg Caps, single active in G3 pill format."
+  },
+  "B0D1DP2D8D": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate 5g, 225 Capsules, single active in G3 pill format."
+  },
+  "B0CT68RPXK": {
+   "decision": "IN",
+   "why": "G1 single hero IN_OK: Creatine Monohydrate Supplement Capsules 300 Ct, single active in G3 pill format."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind IN/OUT judgment of all 24 ASINs in listings.json for the 'creatine capsules' format sleeve using only RULES.md and shelf.json: 17 IN, 7 OUT. All 7 OUTs are powders failing G3 (pill format required); all 17 INs are creatine-led capsules/tablets/caplets/veg caps passing G1 and G3. No variant duplicates among the pill listings (same-brand powder/capsule pairs split by format, R5-2).",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md in full (800 lines, 3 chunks) and shelf.json; read every listing title, brand and bullets in listings.json.",
+  "Counted 24 distinct ASINs in listings.json via grep and produced exactly one verdict per ASIN.",
+  "Checked every decision is IN or OUT and every why names at least one RULES.md rule (G1, G3, G8, R3-1, R3-2, R4, R8-1, R13-6, R5-2, Dose rule).",
+  "Cross-checked same-brand pairs (Nutricost, Optimum Nutrition, BulkSupplements) for G5 variant duplication: no two pill listings share brand+formula.",
+  "Image URLs not fetched (no web/API per scope); judgment rests on title, brand and bullets only."
+ ],
+ "unresolved": [
+  "B0GCPP4SFC (Triquetra Creatine Reserve): creatine dose is not printed in the supplied title/bullets while GAA is printed at 750 mg; judged IN because creatine leads the title and product name, but if the front of pack prints GAA at a bigger mg dose than creatine the shelf Dose rule would flip it to OUT.",
+  "B0BKCVLYGX (CON-CRET Creatine HCl): judged IN on the basis that the shelf names no chemical form and the creatine gummies spec lists HCl as a creatine form; if the scorer treats HCl as a separate shelf (R13-3 derivative reading) it would be OUT.",
+  "Final answer merges the blind verdict contract and the broker envelope into one JSON object because both were required and no file could be written in read-only mode."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-643Z-1adbd4b3"
+}

@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "creatine-electrolytes__2026-11-18__6d8bfe29",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier electrolyte|hydration is absent from the title and brand, so this plain creatine monohydrate is not the creatine electrolytes pairing."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier electrolyte|hydration is absent from the title and brand, so this plain creatine monohydrate is not the creatine electrolytes pairing."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier electrolyte|hydration is absent from the title and brand, so this plain creatine monohydrate is not the creatine electrolytes pairing."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier electrolyte|hydration is absent from the title and brand, so this plain creatine monohydrate is not the creatine electrolytes pairing."
+  },
+  "B0DJDQCJX2": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier electrolyte|hydration is absent; creatine leads the collagen formula by dose, but it is not the creatine electrolytes pairing."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier electrolyte|hydration is absent, and the bullets say the product is creatine and nothing else, so it is not the pairing."
+  },
+  "B0G4XDH2XC": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolytes, and the dose rule keeps the hero in the lead because 5g creatine is larger than 1000mg taurine."
+  },
+  "B0GWM1XWQX": {
+   "decision": "IN",
+   "why": "R3-1 hero-led complex: the 8-in-1 title leads with creatine and names electrolytes, and no other ingredient is printed above the 5g creatine dose."
+  },
+  "B0H76FTGKX": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title is creatine electrolytes, and the dose rule keeps the hero in the lead because 5g creatine is larger than 1000mg electrolytes."
+  },
+  "B0H12QTKHB": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine, hydration and electrolytes, and the dose rule keeps 5g creatine ahead of the printed collagen and electrolyte doses."
+  },
+  "B0F3FYBX5R": {
+   "decision": "IN",
+   "why": "Sleeve qualifier hydration is in the title with creatine leading, and the dose rule finds no ingredient printed above 5000mg creatine."
+  },
+  "B0FZL2CSLM": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolytes with creatine first, and the dose rule finds 5g creatine as the largest printed dose."
+  },
+  "B0H51DMSR8": {
+   "decision": "IN",
+   "why": "R3 equal front billing: electrolytes share the title with 5g creatine, and the dose rule keeps the hero ahead of the 1050mg electrolyte dose."
+  },
+  "B0G22FWJL7": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolytes with creatine first, and the dose rule finds no ingredient printed above the 3g creatine."
+  },
+  "B0GRKCQC1K": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolytes with creatine first, and the dose rule finds no other ingredient printed at a bigger dose than the hero."
+  },
+  "B0HJ744HP4": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolyte, and the dose rule keeps 5g creatine ahead of the printed sodium, potassium and magnesium."
+  },
+  "B0H6QV88LW": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolytes, and the dose rule keeps 5g creatine ahead of the 3520mg electrolyte mix."
+  },
+  "B0H8F4B179": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title names creatine and electrolyte with 5g creatine, and the dose rule finds no other ingredient printed at a bigger dose."
+  },
+  "B0F2NT9W1Z": {
+   "decision": "OUT",
+   "why": "Pairing sleeve qualifier fails the shopper test: this is creatine plus taurine, and R4-2 benefit words mean cellular hydration is not an electrolyte or hydration formula."
+  },
+  "B0D9R55QGS": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title leads with creatine and names electrolytes, and the dose rule finds no other active printed at a bigger dose than the hero."
+  },
+  "B0FD51LXFR": {
+   "decision": "OUT",
+   "why": "R7-1 hero secondary: the bullets lead with a 26g animal protein powder and only 5g creatine, so a higher-dose active leads despite electrolytes in the title."
+  },
+  "B0G517M3CQ": {
+   "decision": "IN",
+   "why": "Pairing sleeve: the title leads with creatine and names electrolytes, and the dose rule finds no ingredient printed above 750mg creatine HCl."
+  },
+  "B0GRFH8SYJ": {
+   "decision": "IN",
+   "why": "R3-1 hero-led complex: the title leads with creatine HCl and names electrolytes, and the dose rule keeps 3000mg creatine ahead of 1g turmeric."
+  },
+  "B0HBHNDWPM": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY under R5-3: creatine is only a with-add-in on an amino-acid gummy whose bullets lead with caffeine and never dose creatine."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-650Z-c5b7ab67"
+}

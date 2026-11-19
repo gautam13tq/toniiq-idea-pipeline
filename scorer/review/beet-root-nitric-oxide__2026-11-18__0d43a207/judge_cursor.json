@@ -1,0 +1,119 @@
+{
+ "judge": "cursor",
+ "run_id": "beet-root-nitric-oxide__2026-11-18__0d43a207",
+ "verdicts": {
+  "B0F161HQ6C": {
+   "decision": "OUT",
+   "why": "Hero is named in the title (G9) but the sleeve qualifier `nitric` (shelf.json required_regex nitric|nitrate) appears nowhere in title or bullets, so this is not sold as a nitric oxide product on the pairing sleeve (Sleeve rule / This shelf)."
+  },
+  "B0FBSQX5T3": {
+   "decision": "OUT",
+   "why": "Same Rosabella 1300mg formula in a 120-count, so G5 EX_VARIANT_DUP of B0F161HQ6C, and like it fails the sleeve qualifier `nitric` (no nitric/nitrate in title or bullets)."
+  },
+  "B0DJMK755W": {
+   "decision": "IN",
+   "why": "Total Beets / Beet Root leads the title with the only printed dose (1800mg) and the bullets sell it as a 'nitric oxide supplement'; 'Blood Pressure Support' is a trailing benefit word (R4-2), so G1 HERO_LED_COMPLEX with the sleeve qualifier met."
+  },
+  "B09QLKL61K": {
+   "decision": "IN",
+   "why": "'Total Beets' names and leads the hero (R8-1 coined name containing the hero word / G1) with 'Nitric Oxide Supplement' in the title; grape seed, B vitamins and L-citrulline are undosed helpers and nothing is printed at a bigger dose than the hero, so HERO_LED_COMPLEX."
+  },
+  "B07SLFG6JY": {
+   "decision": "OUT",
+   "why": "Beet root leads (5mg black pepper is a skipped helper) but neither title nor bullets mention nitric oxide or nitrate, failing the sleeve qualifier `nitric` / required_regex for this pairing sleeve."
+  },
+  "B084C35HGS": {
+   "decision": "OUT",
+   "why": "Plain beet root capsules with no nitric or nitrate wording anywhere in title or bullets, so the sleeve qualifier `nitric` (required_regex) is unmet and it is not sold as a nitric oxide product."
+  },
+  "B095WNBLMN": {
+   "decision": "OUT",
+   "why": "Beets lead the title but this Heart Health chew's title and bullets never say nitric or nitrate (only grapeseed, L-citrulline and a '650mg' blend weight), so the sleeve qualifier `nitric` is unmet; it is a different formula from B09QLKL61K, not a G5 variant."
+  },
+  "B07SHZPWVY": {
+   "decision": "IN",
+   "why": "Title names Beet Root and Nitric Oxide; the 6,853mg Nitric Oxide Complex is a blend weight not another ingredient (dose rule) and beet root is listed first ahead of pomegranate and red spinach, so HERO_LED_COMPLEX."
+  },
+  "B0BTZ7QR1W": {
+   "decision": "IN",
+   "why": "Title 'Nitric Oxide Beet Root Capsules' names hero and sleeve qualifier; black pepper extract is a skipped helper (v1.9 R7-1 helpers), so IN_OK."
+  },
+  "B0FBKR3L6P": {
+   "decision": "IN",
+   "why": "Single-ingredient organic beetroot 1300mg 'for Nitric Oxide' in the title: IN_OK."
+  },
+  "B0BDTRLWPS": {
+   "decision": "IN",
+   "why": "Beet root 2040mg leads with 'Nitric Oxide Beets' in the title; 15mg black pepper is a helper (R7-1 helper skip), so IN_OK."
+  },
+  "B0BQRTDQ6X": {
+   "decision": "IN",
+   "why": "Title 'Nitric Oxide Beet Root Gummies' names hero and qualifier; same brand as the Horbaach capsules but a different format is a separate product on a shelf with no named format (R5-2), so IN_OK."
+  },
+  "B09K2PF3WQ": {
+   "decision": "IN",
+   "why": "Title names Nitric Oxide Beet Root; 300mg beet root extract outdoses 40mg pomegranate (dose rule) and gummies are a separate Snap format (R5-2), so HERO_LED_COMPLEX."
+  },
+  "B0CSH7VY6S": {
+   "decision": "IN",
+   "why": "'Beets+ Gummies - Premium Beet Root Powder, Grape Seed Extract and Vitamin C' names beet root first with grape seed and vitamin C as undosed helpers (R5-1 / R13-1) and 'Nitric Oxide' in the title, so HERO_LED_COMPLEX."
+  },
+  "B0984V6YKY": {
+   "decision": "IN",
+   "why": "'Nitric Oxide Beet Root Gummies for Men with CoQ10 Pomegranate & Grapeseed' leads with the hero and 'with' helpers (R4-2 / R5-1); the spec sets no audience so R4 does not apply and hero_exclude_regex does not match, so HERO_LED_COMPLEX."
+  },
+  "B0962QBXDZ": {
+   "decision": "IN",
+   "why": "'Total Beets ... Nitric Oxide Supplement' tablets: the coined name containing the hero word leads (R8-1 / G1), MegaNatural-BP and B vitamins are undosed helpers, and tablets are a separate Force Factor format (R5-2), so HERO_LED_COMPLEX."
+  },
+  "B07BVCBV6R": {
+   "decision": "IN",
+   "why": "'Bountiful Beets Capsules, Wholefood Beet Extract ... Natural Nitric Oxide Booster' names hero and qualifier with no other active, so IN_OK."
+  },
+  "B0DDR4YMTT": {
+   "decision": "IN",
+   "why": "'Nitric Oxide Beet Root Chews' with 1,250mg beet root extract leading 100mg acai and 10mg CoQ10 (dose rule / R13-6), a separate Snap format (R5-2), so HERO_LED_COMPLEX."
+  },
+  "B07K413HHM": {
+   "decision": "IN",
+   "why": "'Organic Beet Root Powder ... Natural Nitric Oxide Booster ... 90 Servings' names hero and qualifier, and the stated servings make it a dosed supplement powder rather than bulk culinary (R5-4 serving-in-copy; H81 food powders with no serving), so IN_OK despite recipe copy."
+  },
+  "B08TF9L5BT": {
+   "decision": "OUT",
+   "why": "'Better Than Beet Roots' is comparison copy (R4-1 comparison copy does not count; R6-2 'better than' is not a claim) and the formula is L-citrulline, S7, arginine AKG and pine bark with no beet, so EX_HERO_MISSING."
+  },
+  "B071YDN42D": {
+   "decision": "IN",
+   "why": "'Bountiful Beets, Wholefood Beet Extract ... Nitric Oxide Boost ... 30 Servings' names hero and qualifier with servings stated (R5-4 serving-in-copy); powder is a separate Country Farms format (R5-2), so IN_OK."
+  },
+  "B0F9LNFLTK": {
+   "decision": "IN",
+   "why": "'Organic Beet Root Powder | Nitric Oxide | 30 Servings', single ingredient with a dietary-supplement serving: IN_OK."
+  },
+  "B0B7TMPXWZ": {
+   "decision": "IN",
+   "why": "'Beets+ Organic Beet Root Powder Blend Fortified with Vitamins & Prebiotics ... Nitric Oxide Production' leads with beet root and the vitamins/prebiotics trail as helpers (R13-1), powder being a separate Natrava format (R5-2), so HERO_LED_COMPLEX."
+  },
+  "B0DJDR5DQH": {
+   "decision": "OUT",
+   "why": "Coined 'Nitrovia' nitric-oxide stack with 17 label actives whose bullets lead with L-arginine/L-citrulline and list beet root fourth among four equal 500mg actives, so another active leads a broader base formula (H81 nitric-oxide-stack note; R7-1 / R13-5 longer list; v1.7 8+ dosed actives) = HERO_SECONDARY."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind IN/OUT verdicts for all 24 ASINs in listings.json on the beet root nitric oxide pairing sleeve under RULES.md and shelf.json: 17 IN, 7 OUT (four plain beet products plus one Force Factor Heart Health chew lack any nitric/nitrate wording and fail the sleeve qualifier; Rosabella 120ct is also a G5 variant dup; Nugenix is EX_HERO_MISSING; Clean Nutra Nitrovia is HERO_SECONDARY).",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md in full (all 802 lines), shelf.json and listings.json; no other sources used",
+  "Confirmed 24 unique ASINs in listings.json and exactly one verdict per ASIN with decision IN or OUT and a rule-naming why",
+  "Checked every title and bullet set against hero_regex (G9 title/brand), hero_exclude_regex (no listing matched), required_regex nitric|nitrate, the printed-dose rule and G5 variant collapse",
+  "No files edited, no APIs called, no web search, no ranking or scoring performed"
+ ],
+ "unresolved": [
+  "Interpretive: five OUT verdicts (B0F161HQ6C, B0FBSQX5T3, B07SLFG6JY, B084C35HGS, B095WNBLMN) hinge on reading the sleeve qualifier `nitric` / required_regex as a listing-level requirement on title+bullets; if the scorer requires only the hero, these flip to IN except B0FBSQX5T3, which stays OUT as a G5 variant dup",
+  "B0984V6YKY Havasu 'for Men ... peak performance' does not match hero_exclude_regex but fits the exclude_note's 'unsure ones flagged by hand' category",
+  "No label panels were supplied; label-lead calls for B09QLKL61K, B0962QBXDZ and B0DJDR5DQH rest on title and bullets only"
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012419-560Z-ad54e82a"
+}

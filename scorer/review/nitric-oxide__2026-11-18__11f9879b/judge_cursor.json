@@ -1,0 +1,120 @@
+{
+ "judge": "cursor",
+ "run_id": "nitric-oxide__2026-11-18__11f9879b",
+ "verdicts": {
+  "B09B4DWNYQ": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9: the title leads with 'Nitric Oxide Booster' (booster names the hero per shelf.json booster_names_hero) and 2250mg is a blend total, not another ingredient under the shelf dose rule."
+  },
+  "B07GQ4Z1L8": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1/G9: 'Nitric Oxide Booster' leads the title; 'for Men & Women' is irrelevant on this plain shelf (R4 applies only to audience shelves) and no hero_exclude_regex term appears in title or bullets."
+  },
+  "B09QLKL61K": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under G1 and R14-1/R2: the coined product name 'Total Beets' names beets before the hero and the headline is condition-led ('Blood Pressure Support'), with nitric oxide only a trailing descriptor and grape seed extract leading the first bullet."
+  },
+  "B0CTJ67LK1": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under G1 and the shelf dose rule: cocoa flavanols (1200mg) and epicatechin (600mg) lead the title with printed doses while 'for Nitric Oxide and Wellness Support' is a trailing benefit, matching the epicatechin-shelf cocoa-flavanol precedent."
+  },
+  "B0CLHHYNFN": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R6-1/R4-2 and the v2.0 formula-name rule: 'BloodFlow-7' is a benefit-descriptor product name, not an ingredient, and the title sells it as 'Natural Nitric Oxide Supplements' with the NO precursor Nitrosigine leading the first bullet."
+  },
+  "B081K83ZQ1": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: 'Nitric Oxide Supplements' leads the title and the 1500mg L-arginine/L-citrulline is the hero's own precursor blend weight (dose rule: a blend total is not another ingredient; R7-1 source material is not a different lead)."
+  },
+  "B01MS461VC": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under G1 (ingredient named before the hero): the title and product name lead with 'L-Arginine and L-Citrulline' and nitric oxide appears only as the trailing 'Nitric Oxide Support' descriptor, so the hero is named (G9) but does not lead."
+  },
+  "B0F9QNTK4Z": {
+   "decision": "IN",
+   "why": "IN under R13-5/R10-1 equal-billed pair: 'Testosterone Booster & Nitric Oxide Booster' bills the hero as one of exactly two co-equal claims, and no hero_exclude_regex term (erect/libido/sexual/ED...) appears in the title or bullets."
+  },
+  "B07SHZPWVY": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1: 'Nitric Oxide' leads the title and beet root is the hero's source material (v1.7 source-qualified hero); the powder is a separate format from Snap's capsules/gummies/chews under R5-2."
+  },
+  "B0BTZ7QR1W": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1/G9: 'Nitric Oxide Beet Root Capsules' leads with the hero; beet root is its source and the bullet phrase 'Precursor Blend' does not override the title."
+  },
+  "B0FBKR3L6P": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under G1 and the shelf dose rule: 'Organic Beetroot Capsules 1300mg' leads the title with its own dose and the hero appears only as the trailing purpose 'for Nitric Oxide' on a single-ingredient beetroot product."
+  },
+  "B0CYRP3HV4": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9: 'Nitric Oxide Supplement 3000mg' leads the title and 3000mg is a printed total, not another ingredient under the shelf dose rule."
+  },
+  "B0BQRTDQ6X": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1/G9: 'Nitric Oxide Beet Root Gummies' leads with the hero; a different format from the Horbäach capsules, so a separate product under R5-2 rather than EX_VARIANT_DUP."
+  },
+  "B0BDTRLWPS": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under G1 and the shelf dose rule: 'Organic Beet Root Powder Tablets - 2040mg' leads the title with a dosed ingredient and 'Nitric Oxide' appears mid-title only as a descriptor of the beets."
+  },
+  "B09K2PF3WQ": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1/G9: 'Nitric Oxide Beet Root Supplement' leads with the hero; gummies are a separate format from Snap's powder and chews under R5-2."
+  },
+  "B0BS4F2TND": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9: 'Nitric Oxide Lozenges Supplement' names and leads with the hero, and lozenges are an oral supplement format on this any-format parent shelf."
+  },
+  "B09XHG5X4Q": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R4-2/R6-1: 'GHOST Pump' is a benefit-word product name, the title sells it as 'Stim-Free Nitric Oxide Powder', and its actives (citrulline, arginine nitrate) are NO source material, not a different lead."
+  },
+  "B08TF9L5BT": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9: 'Nitric Oxide Booster Supplement' leads the title (booster names the hero per shelf.json) and 'Better Than Beet Roots' is comparison copy, not an ingredient."
+  },
+  "B0FC2STWTW": {
+   "decision": "OUT",
+   "why": "HERO_SECONDARY under the bundle rule (Gautam 28 Oct R1; v1.4 Bundles): a multi-product bundle counts only when the hero product is named first, and 'Prostate Health' is named before 'Nitric Oxide Booster'."
+  },
+  "B08T4Q4C8C": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9: 'Nitric Oxide Supplement 3000mg Blend' leads the title; the 3000mg blend total and the L-arginine/L-citrulline precursors are not another ingredient under the shelf dose rule."
+  },
+  "B00NJ6NW3E": {
+   "decision": "IN",
+   "why": "IN under R6-1: 'Neo40' is just the product name with no other ingredient named before the hero, the title names the hero ('Boost Nitric Oxide', G9) and every bullet sells it as a nitric oxide tablet, so the hero is the sole lead purpose."
+  },
+  "B00PCRBXKW": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9 and R3-2: 'Nitric Oxide Ultra' leads the title and 'Ultra' is a claim modifier, not a form or another ingredient."
+  },
+  "B083FF74NQ": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under R6-1/R4-2: 'Redwood' is a coined product name followed by 'Nitric Oxide Booster' as the product type (booster names the hero), and vitamin C is skipped when finding the lead per R13-1/v2.1."
+  },
+  "B0DDR4YMTT": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX under G1/G9: 'Nitric Oxide Beet Root Chews' leads with the hero; soft chews are a separate format from Snap's gummies under R5-2 on this any-format shelf."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind IN/OUT judgment of all 24 ASINs in listings.json for the nitric oxide shelf using only RULES.md and shelf.json: 18 IN, 6 OUT (B09QLKL61K, B0CTJ67LK1, B01MS461VC, B0FBKR3L6P, B0BDTRLWPS, B0FC2STWTW). Operating principle applied: the hero is a functional class with no aliases, so a listing is IN when 'nitric oxide' names/leads the product (or is equal-billed), and OUT when another dosed ingredient or a coined/condition headline leads and nitric oxide is only a trailing benefit.",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md in full (800 lines) and shelf.json; judged each ASIN from title, bullets and brand only (images not inspected)",
+  "Verdict keys checked against the 24 ASINs in listings.json: one entry each, no extras",
+  "Every decision is IN or OUT and every why names a RULES.md rule (G1/G9/R2/R14-1/R13-5/R10-1/R6-1/R4-2/R5-2/R3-2/R13-1/bundle rule/shelf dose rule)",
+  "hero_exclude_regex terms checked against every title and bullet: no matches",
+  "No files edited, no APIs or web calls, no ranking or scoring performed"
+ ],
+ "unresolved": [
+  "Borderline calls for reconciliation: B01MS461VC (ingredients-first title with trailing 'Nitric Oxide Support'), B0F9QNTK4Z (R13-5 equal billing over the testosterone-led coined name 'Total-T2'), B09QLKL61K ('Total Beets' coined name plus condition headline), B0BDTRLWPS ('Nitric Oxide Beets' mid-title)",
+  "Front-of-pack images and supplement-facts labels were not inspected, so dose-rule and label-lead calls rest on title/bullet text",
+  "The work order's judge contract and the appended broker envelope were merged into this single JSON object because blind runs retain their domain-specific contract"
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012537-554Z-91088693"
+}

@@ -1,0 +1,102 @@
+{
+ "run_id": "beet-root-nitric-oxide__2026-11-18__0d43a207",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 3,
+ "check": [
+  {
+   "asin": "B08TF9L5BT",
+   "title": "Nugenix Nitric Oxide Booster Supplement - Better Than Beet Roots, 100ct",
+   "brand": "Nugenix",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 14,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "'Better Than Beet Roots' is comparison copy (R4-1 comparison copy does not count; R6-2 'better than' is not a claim) and the formula is L-citrulline, S7, arginine AKG and pine bark with no beet, so EX_HERO_MISSING."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 EX_HERO_MISSING: R4-1 comparison copy (Better Than Beet Roots) does not make beet an ingredient, and the formula is L-citrulline, arginine and pine bark."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DJDR5DQH",
+   "title": "Nitric Oxide Booster for Men, Beet Root, Taurine, L-Citrulline & L-Arginine",
+   "brand": "Clean Nutraceuticals",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 18,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "Coined 'Nitrovia' nitric-oxide stack with 17 label actives whose bullets lead with L-arginine/L-citrulline and list beet root fourth among four equal 500mg actives, so another active leads a broader base formula (H81 nitric-oxide-stack note; R7-1 / R13-5 longer list; v1.7 8+ dosed actives) = HERO_SECONDARY."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "v1.7 R6-1 HERO_SECONDARY: Nitrovia is a 17-ingredient stack whose listing is led by L-arginine, and beet root is one of four equal 500mg actives rather than the lead."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DJMK755W",
+   "title": "Force Factor Total Beets 1800mg Beet Root Capsules, Blood Pressure Support",
+   "brand": "Force Factor",
+   "monthly_sold": 20000,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "EX_HERO_MISSING",
+    "source": "gate",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "Total Beets / Beet Root leads the title with the only printed dose (1800mg) and the bullets sell it as a 'nitric oxide supplement'; 'Blood Pressure Support' is a trailing benefit word (R4-2), so G1 HERO_LED_COMPLEX with the sleeve qualifier met."
+    },
+    "grok": {
+     "decision": "IN",
+     "why": "G1 HERO_LED_COMPLEX: beet root leads at 1800mg and the sleeve qualifier nitric is met in the bullets, while hawthorn and grape seed are not printed at a bigger dose under the dose rule."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  }
+ ]
+}

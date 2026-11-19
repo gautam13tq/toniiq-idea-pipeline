@@ -1,0 +1,10 @@
+{
+ "run_id": "creatine-packets__2026-11-18__fd0bfd03",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 0,
+ "check": []
+}

@@ -1,0 +1,120 @@
+{
+ "judge": "cursor",
+ "run_id": "creatine-electrolytes__2026-11-18__6d8bfe29",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "Sleeve rule / sleeve qualifier `electrolyte|hydration`: plain micronized creatine monohydrate names no electrolytes or hydration in title, brand or bullets, so it is the parent product, not a creatine+electrolytes pairing-sleeve competitor (parent is context only)."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "Sleeve rule / sleeve qualifier `electrolyte|hydration`: plain Thorne creatine monohydrate has no electrolyte or hydration pairing anywhere in title or bullets, so it belongs to the parent creatine shelf, not this pairing sleeve."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "Sleeve rule / sleeve qualifier `electrolyte|hydration`: plain Optimum Nutrition creatine monohydrate (120 servings) names no electrolytes or hydration, so it is parent-shelf product, not a pairing-sleeve competitor."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "Sleeve rule / sleeve qualifier `electrolyte|hydration`: plain Optimum Nutrition creatine monohydrate (60 servings) names no electrolytes or hydration; it is also a G5 pack-count variant of B002DYIZEO."
+  },
+  "B0DJDQCJX2": {
+   "decision": "OUT",
+   "why": "Sleeve rule / sleeve qualifier `electrolyte|hydration`: the creatine-for-women collagen/biotin/BCAA formula names no electrolytes or hydration in title or bullets, so although the hero leads (5,000mg) it is not a creatine+electrolytes pairing product."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "Sleeve rule / sleeve qualifier `electrolyte|hydration`: plain Orgain creatine monohydrate ('just creatine, and nothing else') names no electrolytes or hydration, so it is parent-shelf product, not a pairing-sleeve competitor."
+  },
+  "B0G4XDH2XC": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine + Electrolytes' leads the title with the sleeve pairing, and 5g creatine out-doses taurine 1,000mg so the hero leads (dose rule)."
+  },
+  "B0GWM1XWQX": {
+   "decision": "IN",
+   "why": "R3-1 hero-led N-in-1/Complex: 'Creatine Gummies, 8-in-1 Complex with Taurine & Electrolytes' leads with the hero and names electrolytes, 5g creatine is the only printed dose, and the shelf keyword names no format so gummies are not excluded under G3."
+  },
+  "B0H76FTGKX": {
+   "decision": "IN",
+   "why": "IN_OK / HERO_LED_COMPLEX: the title is literally 'Creatine Electrolytes' and 5g creatine exceeds the 1,000mg electrolyte total (dose rule; a printed total/blend weight is not another ingredient)."
+  },
+  "B0H12QTKHB": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX with the sleeve qualifier: 'Creatine Hydration+ Electrolytes' leads the title, 5g creatine out-doses collagen 2g and fiber 2g (dose rule), and 'for Women' is no exclusion because this spec opts into no audience (R4 not triggered)."
+  },
+  "B0F3FYBX5R": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX / R13-1: 'Creatine Monohydrate + Hydration' leads the title with the hydration qualifier and 5,000mg creatine is the only dosed active beside vitamins/minerals."
+  },
+  "B0FZL2CSLM": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: 'Creatine + Electrolytes' leads the title and 5g creatine monohydrate is the only printed dose, with electrolytes/trace minerals as the pairing helpers."
+  },
+  "B0H51DMSR8": {
+   "decision": "IN",
+   "why": "R10-1/R13-1 pairing: 'Electrolytes for Men - 5g Creatine Monohydrate' bills the sleeve pair, electrolytes are minerals (not a different lead active) and creatine 5,000mg out-doses the 1,050mg electrolyte total so the hero leads (dose rule); 'for Men' is no exclusion since the spec sets no audience."
+  },
+  "B0G22FWJL7": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: 'Creatine + Electrolytes Powder' leads the title and 3g creatine monohydrate is the only printed dose."
+  },
+  "B0GRKCQC1K": {
+   "decision": "IN",
+   "why": "R4-2 + HERO_LED_COMPLEX: brand/audience words ('FLO Women's') do not lead, 'Creatine Powder + Electrolytes' is the product with creatine as the sole lead active, and no audience is set in this spec."
+  },
+  "B0HJ744HP4": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: 'Creatine + Electrolyte Sticks' leads the title and 5g creatine exceeds 670mg sodium / 180mg potassium / 90mg magnesium (dose rule)."
+  },
+  "B0H6QV88LW": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: 'Creatine + Electrolytes Powder Packets' leads the title and 5g creatine exceeds the 3,520mg electrolyte mix (dose rule; a printed blend total is not another ingredient)."
+  },
+  "B0H8F4B179": {
+   "decision": "IN",
+   "why": "IN_OK / HERO_LED_COMPLEX: 'Creatine Electrolyte Powder Drink Mix 5g creatine' names the hero and the pairing in the title with creatine as the only printed dose."
+  },
+  "B0F2NT9W1Z": {
+   "decision": "IN",
+   "why": "Sleeve qualifier met literally ('Cellular Hydration' in the title) and the hero leads with 5,000mg creatine > 2,000mg taurine (dose rule); borderline because it contains no electrolytes, flagged for reconciliation."
+  },
+  "B0D9R55QGS": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: 'Creatine HCl with Electrolytes' leads the title; the shelf names no creatine form so any creatine form counts (creatine gummies spec row lists 'monohydrate, HCl'), and HCl is a salt form, not an R13-3 derivative."
+  },
+  "B0FD51LXFR": {
+   "decision": "OUT",
+   "why": "R7-1 label lead by dose (HERO_SECONDARY): the bullets describe an 'Animal Based Protein Powder with Creatine' delivering 26g protein vs 5g creatine, so a different higher-dose active leads despite the hero-led title; title/bullet conflict flagged."
+  },
+  "B0G517M3CQ": {
+   "decision": "IN",
+   "why": "HERO_LED_COMPLEX: 'Lean Creatine HCl Powder ... with Organic Prickly Pear Extract, Electrolytes' leads with the hero and names the pairing, and 750mg creatine HCl is the only printed dose."
+  },
+  "B0GRFH8SYJ": {
+   "decision": "IN",
+   "why": "R3-1 hero-led Complex: 'Creatine HCl Gummies Complex with 1g Turmeric & 500mg Electrolytes' leads with the hero and names electrolytes, and 3,000mg creatine HCl out-doses turmeric 1,000mg (dose rule)."
+  },
+  "B0HBHNDWPM": {
+   "decision": "OUT",
+   "why": "G1 HERO_SECONDARY / R5-3: 'Amino Acid Supplement with Creatine, HMB & BCAAs – Electrolyte Gummies' makes creatine an undosed 'with' add-in to an amino-acid base whose bullets lead with a caffeine energy-and-focus blend."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind IN/OUT judgment of all 24 ASINs in listings.json for the creatine electrolytes pairing sleeve using RULES.md and shelf.json only: 16 IN, 8 OUT (6 plain creatine lacking the sleeve qualifier, 1 R7-1 protein-led, 1 hero-secondary add-in). No files edited.",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md in full (800 lines), shelf.json and listings.json",
+  "Grep of \"asin\" keys in listings.json returned 24 ASINs; verdict keys match that set exactly",
+  "Grep for electrolyte|hydration confirms the six plain-creatine OUT listings contain neither term in title or bullets (first match is line 120, Create)",
+  "Every decision is IN or OUT and every why names a RULES.md rule"
+ ],
+ "unresolved": [
+  "B0F2NT9W1Z Jacked Factory Creatine + Taurine is borderline: it matches the literal sleeve qualifier 'hydration' in the title but contains no electrolytes",
+  "B0FD51LXFR Ancient Nutrition: title says '5g Creatine Monohydrate + Collagen + Electrolytes' but bullets describe a 26g protein powder with creatine; judged OUT under R7-1 on the bullets, reconcile against the live PDP",
+  "B0H51DMSR8 MANOLYTES names 'Electrolytes for Men' before creatine; judged IN as a pairing with creatine as the largest printed dose",
+  "Deliverable returned inline only; read-only run wrote no artifact"
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-643Z-a7c31a39"
+}

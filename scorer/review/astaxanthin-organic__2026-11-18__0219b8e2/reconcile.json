@@ -1,0 +1,101 @@
+{
+ "run_id": "astaxanthin-organic__2026-11-18__0219b8e2",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 18,
+ "to_check": 3,
+ "check": [
+  {
+   "asin": "B0BR8H9PMZ",
+   "title": "Organic Astaxanthin 12mg Plus Turmeric 1500mg, Black Pepper Extract, High Absorption, Eye, Heart, Skin, Joint, Vegan, Gluten-Free, Non-GMO, Double Antioxidant, Turmeric Curcumin Supplement, 30-Days",
+   "brand": "Mobisyn",
+   "monthly_sold": 400,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 2,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "Shelf Dose rule (R3 caveat): the front prints Turmeric 1500mg, a bigger mg dose than the 12mg hero, so the hero does not lead (HERO_SECONDARY)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front prints turmeric at 1500 mg against astaxanthin 12 mg, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0F4M5FBMW",
+   "title": "Bronze Bites Organic Tanning Gummies for Glowing Skin, Astaxanthin & Beta-Carotene Complex for Supports Hydration, Strawberry Lemonade 60 Count, Made in USA",
+   "brand": "Bronze Bites",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 10,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "R7-1 with R14-1: a benefit-led 'Tanning Gummies' formula whose listed lead active is Beta-carotene 8mg over Astaxanthin 4mg, so the hero is secondary (HERO_SECONDARY)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R2 and R7-1: Organic Tanning Gummies lead the front, and beta-carotene plus vitamin C 100 mg lead the formula over astaxanthin 4 mg, so the hero is HERO_SECONDARY under G1."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0GZMCFG6F",
+   "title": "Meli & Moor Astaxanthin 12mg Softgels – Skin, Eyes & Recovery Support – Nature's Most Powerful Antioxidant with Organic Coconut Oil – Non-GMO, Soy Free, Gluten Free – 120 Count, 4 Month Supply",
+   "brand": "Meli & Moor",
+   "monthly_sold": 0,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 18,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "Sleeve qualifier rule read with R13-4 and R6-2: 'organic' appears only on the coconut-oil carrier, which is not an active, so the astaxanthin itself is not sold as organic and the listing fails the organic variety qualifier."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "Variety sleeve qualifier: organic modifies only the coconut-oil carrier, which R13-4 excludes as an active, so this is not organic astaxanthin."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  }
+ ]
+}

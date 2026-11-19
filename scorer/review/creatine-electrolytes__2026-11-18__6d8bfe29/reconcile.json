@@ -1,0 +1,100 @@
+{
+ "run_id": "creatine-electrolytes__2026-11-18__6d8bfe29",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 3,
+ "check": [
+  {
+   "asin": "B0F2NT9W1Z",
+   "title": "Jacked Factory Creatine + Taurine - Creatine Monohydrate 5000mg with Taurine 2000mg for Increased Muscle Strength & Cellular Hydration - 60 Servings, Unflavored",
+   "brand": "Jacked Factory",
+   "monthly_sold": 600,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "Sleeve qualifier met literally ('Cellular Hydration' in the title) and the hero leads with 5,000mg creatine > 2,000mg taurine (dose rule); borderline because it contains no electrolytes, flagged for reconciliation."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "Pairing sleeve qualifier fails the shopper test: this is creatine plus taurine, and R4-2 benefit words mean cellular hydration is not an electrolyte or hydration formula."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0FD51LXFR",
+   "title": "Ancient Nutrition 5g Creatine Monohydrate + Collagen + Electrolytes, Lemon",
+   "brand": "Ancient Nutrition",
+   "monthly_sold": 500,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 15,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "R7-1 label lead by dose (HERO_SECONDARY): the bullets describe an 'Animal Based Protein Powder with Creatine' delivering 26g protein vs 5g creatine, so a different higher-dose active leads despite the hero-led title; title/bullet conflict flagged."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R7-1 hero secondary: the bullets lead with a 26g animal protein powder and only 5g creatine, so a higher-dose active leads despite electrolytes in the title."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0HBHNDWPM",
+   "title": "Amino Acid Supplement with Creatine, HMB & BCAAs – Electrolyte Gummies",
+   "brand": "Zalgon",
+   "monthly_sold": 300,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 18,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY / R5-3: 'Amino Acid Supplement with Creatine, HMB & BCAAs – Electrolyte Gummies' makes creatine an undosed 'with' add-in to an amino-acid base whose bullets lead with a caffeine energy-and-focus blend."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "G1 HERO_SECONDARY under R5-3: creatine is only a with-add-in on an amino-acid gummy whose bullets lead with caffeine and never dose creatine."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  }
+ ]
+}

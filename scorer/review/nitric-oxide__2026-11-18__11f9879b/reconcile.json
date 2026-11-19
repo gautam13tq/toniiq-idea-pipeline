@@ -1,0 +1,100 @@
+{
+ "run_id": "nitric-oxide__2026-11-18__11f9879b",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 3,
+ "check": [
+  {
+   "asin": "B0CLHHYNFN",
+   "title": "Juvenon BloodFlow-7 - Natural Nitric Oxide Supplements for Men & Women",
+   "brand": "Juvenon",
+   "monthly_sold": 9650,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 3,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "HERO_LED_COMPLEX under R6-1/R4-2 and the v2.0 formula-name rule: 'BloodFlow-7' is a benefit-descriptor product name, not an ingredient, and the title sells it as 'Natural Nitric Oxide Supplements' with the NO precursor Nitrosigine leading the first bullet."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R2: BloodFlow-7 is a condition-led formula and nitric oxide is not the biggest front word."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0FC2STWTW",
+   "title": "Snap Supplements Prostate Health + Nitric Oxide Booster Bundle, 90 Caps Ea",
+   "brand": "Snap Supplements",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "fop_unreadable",
+    "fop_rule": "front of pack unreadable",
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "HERO_SECONDARY under the bundle rule (Gautam 28 Oct R1; v1.4 Bundles): a multi-product bundle counts only when the hero product is named first, and 'Prostate Health' is named before 'Nitric Oxide Booster'."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "Bundles: Prostate Health is a separate counted product named before the nitric oxide booster, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0F9QNTK4Z",
+   "title": "Nugenix Total-T2 Testosterone Booster & Nitric Oxide Booster for Men, 90ct",
+   "brand": "Nugenix",
+   "monthly_sold": 6000,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "JUDGE_OUT",
+    "source": "gate",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "IN under R13-5/R10-1 equal-billed pair: 'Testosterone Booster & Nitric Oxide Booster' bills the hero as one of exactly two co-equal claims, and no hero_exclude_regex term (erect/libido/sexual/ED...) appears in the title or bullets."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "G1: Total-T2 testosterone booster leads the title, so nitric oxide does not lead."
+    }
+   },
+   "disagreeing": [
+    "cursor"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "judge": "grok",
+ "run_id": "creatine-gummies-for-men__2026-11-18__2c54fe0e",
+ "verdicts": {
+  "B0DYTK72L3": {
+   "decision": "IN",
+   "why": "G1, G3 and the men's audience sleeve: creatine leads a gummy titled for men, HMB is named after the hero with no bigger printed dose, and R4's unisex exclusion does not apply."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-643Z-cec3cfc3"
+}

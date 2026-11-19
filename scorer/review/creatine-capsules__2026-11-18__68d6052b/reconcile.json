@@ -1,0 +1,10 @@
+{
+ "run_id": "creatine-capsules__2026-11-18__68d6052b",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 0,
+ "check": []
+}

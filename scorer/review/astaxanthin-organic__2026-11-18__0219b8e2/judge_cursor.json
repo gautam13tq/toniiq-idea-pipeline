@@ -1,0 +1,93 @@
+{
+ "judge": "cursor",
+ "run_id": "astaxanthin-organic__2026-11-18__0219b8e2",
+ "verdicts": {
+  "B07FKSNS16": {
+   "decision": "IN",
+   "why": "IN_OK under G1/G9 and the sleeve qualifier: the title 'Dr. Mercola Organic Astaxanthin, 12 mg' names the hero with 'organic' attached to it and prints no other active."
+  },
+  "B0BR8H9PMZ": {
+   "decision": "OUT",
+   "why": "Shelf Dose rule (R3 caveat): the front prints Turmeric 1500mg, a bigger mg dose than the 12mg hero, so the hero does not lead (HERO_SECONDARY)."
+  },
+  "B08VJLWZFC": {
+   "decision": "IN",
+   "why": "IN_OK: 'Organic Astaxanthin, 4 mg' names hero and qualifier with no other active, and R3-5 makes the 4mg line a separate product from the 12mg line."
+  },
+  "B0GQGS6LWL": {
+   "decision": "IN",
+   "why": "IN_OK: the title names the hero and 'Astaxanthin Supplements Organic'; MCT oil is a carrier, not an active, under R13-4."
+  },
+  "B0GWLGC8B7": {
+   "decision": "IN",
+   "why": "R13-6: the hero is named alone in the title ('Organic Astaxanthin Liquid') and listed first in the formula, so the later higher-dose Lycopene 20mg does not make it secondary; 'Liposomal' is an ignored delivery word on this non-delivery shelf (R3-2)."
+  },
+  "B0D3FQ3MBC": {
+   "decision": "IN",
+   "why": "R13-6/R13-1: 'Organic Astaxanthin Gummies, 4 mg' names the hero alone and lists it first, acerola is a vitamin C source, and the gummy is a separate product from the 4mg capsules under R5-2 on this any-format shelf."
+  },
+  "B07F2KM7H7": {
+   "decision": "IN",
+   "why": "R13-5: 'Organic Spirulina & Astaxanthin' is an exactly-two-active 'X & hero' pair with no label on the listing, which counts as equal billing even though spirulina is named first."
+  },
+  "B0FT2Y4V7G": {
+   "decision": "IN",
+   "why": "IN_OK: 'Zions Organic Astaxanthin 12mg' names hero and qualifier with no other active; 'for Women' only applies on an audience shelf (R4 not opted in here)."
+  },
+  "B0GHVMCVWY": {
+   "decision": "IN",
+   "why": "IN_OK: 'Organic Astaxanthin 90 Softgels' names hero and qualifier, single active."
+  },
+  "B0F4M5FBMW": {
+   "decision": "OUT",
+   "why": "R7-1 with R14-1: a benefit-led 'Tanning Gummies' formula whose listed lead active is Beta-carotene 8mg over Astaxanthin 4mg, so the hero is secondary (HERO_SECONDARY)."
+  },
+  "B0F2DYZ5QK": {
+   "decision": "IN",
+   "why": "IN_OK: 'Premium Organic Astaxanthin Antioxidant Supplements' names hero and qualifier, single active."
+  },
+  "B0F85W9STJ": {
+   "decision": "IN",
+   "why": "IN_OK: the title names 'Organic Astaxanthin Supplement' outright and 'PurZanthin' also contains the hero word (R8-1), single active."
+  },
+  "B00DX5KT9Q": {
+   "decision": "IN",
+   "why": "IN_OK: 'Astaxanthin 4mg USDA Certified Organic' names hero and qualifier, single active."
+  },
+  "B08GGB6J67": {
+   "decision": "IN",
+   "why": "IN_OK: 'NAOMI Organic Astaxanthin Triple Strength 12 mg' names hero and qualifier; 'Triple Strength' is a claim modifier under R3-2."
+  },
+  "B0964FZ3KC": {
+   "decision": "IN",
+   "why": "R6-1 with G9: the coined name 'DeOxify' is followed by 'Pure Astaxanthin' as the sole active and the title says 'Organic Antioxidant Supplement', so the hero leads with the qualifier."
+  },
+  "B0BVTZX4G1": {
+   "decision": "IN",
+   "why": "IN_OK: 'Astaxanthin 12mg AstaPure® USDA Organic' names hero and qualifier, single active."
+  },
+  "B0CTNZ537V": {
+   "decision": "IN",
+   "why": "R4-2 with R6-1: benefit words 'Antioxidant and Anti-Aging Vitamin with ... Astaxanthin' do not lead, astaxanthin is the lead active in the copy (lycopene secondary and undosed), and the title says '100% Organic'."
+  },
+  "B0GZMCFG6F": {
+   "decision": "OUT",
+   "why": "Sleeve qualifier rule read with R13-4 and R6-2: 'organic' appears only on the coconut-oil carrier, which is not an active, so the astaxanthin itself is not sold as organic and the listing fails the organic variety qualifier."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind IN/OUT judgment of all 18 ASINs in listings.json for the 'astaxanthin organic' variety sleeve, using only RULES.md and shelf.json: 15 IN, 3 OUT (B0BR8H9PMZ turmeric 1500mg printed on the front; B0F4M5FBMW beta-carotene-led tanning formula; B0GZMCFG6F organic only on the carrier oil).",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md in full (800 lines, two reads), shelf.json and listings.json; no files edited, no APIs or web used.",
+  "Manually confirmed listings.json contains 18 ASINs and that the verdicts object has exactly those 18 keys, each with decision IN or OUT and a why naming a RULES.md rule.",
+  "Could not run a script to machine-check JSON/key equality because the session is read-only (ask mode); the check above is manual."
+ ],
+ "unresolved": [
+  "Lower-confidence calls for the reconciler: B0GZMCFG6F (a plain title regex for 'organic' would mark it IN; I judged the qualifier must attach to the hero, not the carrier), B07F2KM7H7 (bullets read as spirulina-led, but R13-5 says an 'X & hero' pair counts), B0GWLGC8B7 (Lycopene 20mg exceeds the 12mg hero but is not on the front and the hero is listed first, R13-6 over R7-1), B0F4M5FBMW (R10-1 equal-billed pair could argue IN; I applied R14-1/R7-1), B0CTNZ537V (benefit-led 'with Astaxanthin' title, no doses).",
+  "No image URLs were inspected; verdicts rest on title, bullets and brand only."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012324-476Z-2c2a534f"
+}

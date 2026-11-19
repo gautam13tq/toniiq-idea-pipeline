@@ -1,0 +1,119 @@
+{
+ "judge": "cursor",
+ "run_id": "creatine-and-collagen-for-women__2026-11-18__f312dc81",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "Sleeve rule: pairing sleeve qualifier `collagen` (required_regex) is not named anywhere in title, brand or bullets, so a plain creatine monohydrate powder is not on the creatine+collagen shelf."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "Sleeve rule: pairing sleeve qualifier `collagen` is absent from title, brand and bullets; single-hero creatine only."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "Sleeve rule: pairing sleeve qualifier `collagen` is absent from title, brand and bullets; plain creatine monohydrate."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "Sleeve rule: pairing sleeve qualifier `collagen` is absent (and it is a G5/Q5 pack-size variant of B002DYIZEO in any case)."
+  },
+  "B0DJDQCJX2": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R3-1: creatine leads the title with collagen named, and the printed 5,000mg creatine out-doses collagen 1,143mg and every other active, so the dose rule and R7-1 are not triggered."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "Sleeve rule: pairing sleeve qualifier `collagen` is absent from title, brand and bullets; plain creatine monohydrate."
+  },
+  "B085Z9P87K": {
+   "decision": "OUT",
+   "why": "Sleeve rule: pairing sleeve qualifier `collagen` is absent from title, brand and bullets (spec sets no `audience`, so R4 unisex is not the operative rule)."
+  },
+  "B0BQ5S3P3P": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: title leads with Creatine Monohydrate and names Collagen (with BCAA) as helpers; no other ingredient is printed at a bigger dose than the hero."
+  },
+  "B0GZZ7CPZP": {
+   "decision": "IN",
+   "why": "R3 (hero sharing the front equally) / G1 HERO_LED_COMPLEX: creatine leads the title with collagen named, and 5g creatine equals 5g collagen so no other ingredient is bigger under the dose rule."
+  },
+  "B0DMTV595P": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine for Women with Collagen & BCAA' leads with the hero and 5g creatine out-doses 2.5g collagen, 1g BCAA and 1g glutamine."
+  },
+  "B0HC6MTLSV": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / G9 front-of-pack proxy: title leads with Creatine Monohydrate 5000mg and names 'with Collagen' (sleeve qualifier met on the title even though the bullets do not dose collagen), gummies allowed since the shelf names no format."
+  },
+  "B0GY4LYBNX": {
+   "decision": "IN",
+   "why": "R3-1 N-in-1/Complex with hero first: '5000mg Complex with Collagen & BCAAs' leads with creatine, and 5000mg creatine out-doses 1000mg collagen under the dose rule."
+  },
+  "B0FYPWMPZ9": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R13-1: creatine leads the title with collagen named, 5,000mg creatine out-doses 500mg collagen, and the iron/calcium/D3 are vitamins/minerals that do not lead."
+  },
+  "B0CRL99K4F": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine for Women with Collagen and BCAA' leads with the hero and names collagen; no helper is printed at a bigger dose than creatine."
+  },
+  "B0FPFN5CYK": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine Gummies for Women ... with Collagen' leads with the hero and names collagen; no other active is printed at a dose that out-ranks creatine."
+  },
+  "B0GQXQDGBQ": {
+   "decision": "IN",
+   "why": "R3-1 (6-in-1 with hero first) and the dose rule: creatine 4,000mg exceeds collagen 2,000mg and BCAA 2,000mg, and the '8000 MG' on the front is a printed total, not another ingredient."
+  },
+  "B0FWXGC15Y": {
+   "decision": "IN",
+   "why": "R3-1 hero-first Complex: 'Creatine Gummies for Women 5000mg, Complex + Collagen + BCAAs' leads with the dosed hero and names collagen; no other active is dosed higher."
+  },
+  "B0GJ6Z4GTG": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine for Women with Collagen Peptides' leads with the hero and 5000mg creatine out-doses 2000mg collagen and 1000mg BCAA."
+  },
+  "B0GYDFRQJR": {
+   "decision": "OUT",
+   "why": "G5/Q5 EX_VARIANT_DUP: same brand (ARDORACON) and same formula as B0FYPWMPZ9 (5,000mg creatine, 500mg hydrolyzed bovine collagen, iron, calcium, D3, 120 ct, 4/day) under a different name, so the line counts once and the kept listing is B0FYPWMPZ9 with more reviews."
+  },
+  "B0H7R8LCDG": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: creatine leads the title with collagen named, and 6000mg creatine out-doses 3000mg BCAA and 2500mg collagen under the dose rule."
+  },
+  "B0FD4KCSN7": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R3: '5g Creatine Monohydrate + Collagen Powder' leads with the dosed hero and pairs it with collagen; no other ingredient is printed at a bigger dose."
+  },
+  "B0F334RS57": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine for Women with Collagen' leads with the hero and 5000mg creatine out-doses 3000mg collagen and 1000mg colostrum."
+  },
+  "B0F4X49L8P": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: title leads with 5g Creatine Monohydrate and names +2g Collagen +1g BCAA, so the hero carries the biggest printed dose."
+  },
+  "B0FRSHR4CP": {
+   "decision": "IN",
+   "why": "R3-1 bare count ('18 in 1') does not lead; creatine is the first-named active with collagen named, and 5g creatine out-doses 2000mg collagen and 255mg electrolytes."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind IN/OUT judgment of all 24 ASINs in listings.json for the 'creatine and collagen for women' pairing sleeve using only RULES.md and shelf.json: 17 IN, 7 OUT (6 plain creatine listings lacking the collagen sleeve qualifier, 1 ARDORACON same-brand same-formula variant dup).",
+ "artifacts": [],
+ "verification": [
+  "Read RULES.md in full (lines 1-800), shelf.json and listings.json; no files edited, no web or API calls.",
+  "Verdict keys checked against the 24 listing ASINs: all present, one entry each.",
+  "Every decision is IN or OUT and every why names a RULES.md rule (Sleeve rule, G1, G5/Q5, G9, R3, R3-1, R7-1, R13-1, dose rule)."
+ ],
+ "unresolved": [
+  "No supplement-facts labels were supplied; dose comparisons rely on bullet-stated doses, and listings with undosed helpers (Peach Perfect, Old School Labs, LanranBee) are IN on title order alone.",
+  "B0GYDFRQJR OUT as EX_VARIANT_DUP is inferred from matching bullets with B0FYPWMPZ9 (no shared variantAsins); if the scorer treats same-brand dedupe as a later stage, both would be IN.",
+  "ODOL B0HC6MTLSV names collagen only in the title; bullets omit it, so the sleeve qualifier rests on the G9 front-of-pack proxy.",
+  "shelf.json sets no `audience` field, so R4 (unisex OUT on a for-women shelf) was not applied; Momentous is OUT for the missing collagen qualifier instead."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-648Z-8f014795"
+}

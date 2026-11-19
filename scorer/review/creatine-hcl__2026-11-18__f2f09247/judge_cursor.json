@@ -1,0 +1,117 @@
+{
+ "judge": "cursor",
+ "run_id": "creatine-hcl__2026-11-18__f2f09247",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "G2 named form: title and bullets sell creatine monohydrate with no hcl/hydrochloride, so EX_FORM_MISMATCH on the creatine hcl variety sleeve."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "G2 named form: Thorne is micronized creatine monohydrate with no hcl/hydrochloride anywhere, EX_FORM_MISMATCH."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "G2 named form: Optimum Nutrition creatine monohydrate powder, no hcl/hydrochloride, EX_FORM_MISMATCH."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "G2 named form: same ON creatine monohydrate line in 60 servings, no hcl/hydrochloride, EX_FORM_MISMATCH (also a G5 size variant of B002DYIZEO)."
+  },
+  "B0DJDQCJX2": {
+   "decision": "OUT",
+   "why": "G2 named form: creatine monohydrate for women with collagen/biotin/BCAA, no hcl/hydrochloride in title or bullets, EX_FORM_MISMATCH."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "G2 named form: Orgain creatine monohydrate powder, no hcl/hydrochloride, EX_FORM_MISMATCH."
+  },
+  "B0BKCVLYGX": {
+   "decision": "IN",
+   "why": "G1 IN_OK: single-hero CON-CRET Creatine HCl capsules, hero and the hcl sleeve form both in the title."
+  },
+  "B0CQ8V7NXS": {
+   "decision": "IN",
+   "why": "G1 IN_OK: single-hero CON-CRET Creatine HCl powder; R5-2 makes it a separate product from the capsules on this plain-format shelf."
+  },
+  "B07RV3BQ45": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Beyond Raw Creatine HCl powder, hero and hcl form in the title, no other active."
+  },
+  "B0C8251M2P": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Kaged Creatine HCl powder, hero and hcl form lead the title; Fruit Punch/75 servings are flavour and count words only."
+  },
+  "B0FQQDL31K": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R10-1: title is 'Creatine HCl + Nitric Oxide' with the hero named first as a co-equal active and no printed dose out-ranking it, so the hero leads."
+  },
+  "B0F2594YLH": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nutricost Creatine HCl 750mg capsules, hero and hcl form in the title, sole active."
+  },
+  "B0BG9QYXLK": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine HCL Capsules with HMB' names the hero first and HMB as a 'with' helper; no label dose in the listing shows HMB leading under R7-1."
+  },
+  "B0CSZ66LTQ": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Amandean Creatine HCl pills (CON-CRET), hero and hcl form in the title, sole active."
+  },
+  "B07B12LHWL": {
+   "decision": "IN",
+   "why": "G1 IN_OK: GNC AMP Creatine HCl 189 is a single-hero creatine HCl; '189' and 'Fast Absorbing' are claim words under R3-2."
+  },
+  "B0FGCD9H2B": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Vitalibre Creatine HCl 750mg capsules, hero and hydrochloride form in the title, sole active."
+  },
+  "B0D9R55QGS": {
+   "decision": "IN",
+   "why": "R13-1 HERO_LED_COMPLEX: 'Creatine HCl with Electrolytes' leads the title with the hero and adds only minerals/vitamins (sodium, potassium, C, B6, B12)."
+  },
+  "B0G517M3CQ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Lean Creatine HCl Powder' leads with the hero (Lean is an R3-2 claim word), 750mg Con-Cret HCl dosed, prickly pear and electrolytes are 'with' helpers."
+  },
+  "B0HBR7FJHP": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX / R13-6: Creatine HCl Gummies lead the title and the 900mg CON-CRET HCl dose exceeds the 400mg turmeric helper; black pepper is a skipped helper; gummies are allowed on this format-free sleeve."
+  },
+  "B0F25BJTRY": {
+   "decision": "IN",
+   "why": "G1 IN_OK: Nutricost Creatine HCl powder is a dosed supplement (750mg per serving, 300 servings in the bullets) under the R5-4 serving-in-copy rule, not bulk; R5-2 separates it from the capsules."
+  },
+  "B0F8K7KGTP": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: Creatine HCl Gummies lead the title and the 5000mg creatine HCl dose exceeds taurine 1000mg and B12; the 6200mg figure is a printed blend total, not another ingredient."
+  },
+  "B0B7KDN42Y": {
+   "decision": "IN",
+   "why": "R4-2 / G1 HERO_LED_COMPLEX: '+ Test' and 'Boost Testosterone' are benefit words, the title then names 'Creatine HCl Capsules with Fenugreek Extract' with the hero first and Testofen as a 'with' add-in."
+  },
+  "B0G1TDCF8W": {
+   "decision": "IN",
+   "why": "G1 IN_OK: WHYZ 'HCL Creatine Powder ... Supplement' is a single-hero creatine HCl sold as a supplement with a scoop, so the R5-4/v2.2 bulk-weight exclusion does not apply; Q2 counts a different-brand clone separately."
+  },
+  "B0GS75TFT1": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX: 'Creatine HCl + Collagen + MSM' names the hero first and its 750mg dose exceeds OptiMSM 500mg and eggshell collagen 400mg, so no other ingredient out-doses the hero."
+  }
+ },
+ "schema_version": 1,
+ "summary": "Blind shelf judge for creatine hcl (variety sleeve, qualifier hcl|hydrochloride): read RULES.md in full (800 lines), shelf.json and all 24 listings; returned IN/OUT per ASIN with the governing rule. 6 OUT (all plain creatine monohydrate, G2 EX_FORM_MISMATCH), 18 IN (single-hero creatine HCl or hero-led complexes where creatine HCl leads the title and no printed dose out-ranks it).",
+ "artifacts": [],
+ "verification": [
+  "Grep count of \"asin\" in listings.json = 24; verdict object has exactly those 24 keys, each decision IN or OUT, each why names a RULES.md rule (G1/G2/G5/R3-2/R4-2/R5-2/R5-4/R7-1/R10-1/R13-1/R13-6/Q2).",
+  "No files edited, no web or API calls, image URLs not fetched; judgments use title, bullets and brand only.",
+  "Ask/read-only mode prevented running a JSON validator script; JSON was composed and checked by hand."
+ ],
+ "unresolved": [
+  "B0FQQDL31K (+ Nitric Oxide), B0BG9QYXLK (with HMB) and B0B7KDN42Y (+ Test) carry no per-ingredient doses in the supplied text; if the scorer's front-of-pack read shows citrulline, HMB or Testofen printed at a larger mg dose than creatine HCl, the dose rule / R7-1 would flip them to OUT.",
+  "B0F8K7KGTP claims 5000mg creatine HCl in two gummies; the figure is taken as printed for the IN/OUT call only and is not treated as a verified fact."
+ ],
+ "review_verdict": "pass",
+ "_model": "claude-fable-5-1-thinking-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-648Z-823b5d6b"
+}

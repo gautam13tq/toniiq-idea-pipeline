@@ -1,0 +1,104 @@
+{
+ "judge": "grok",
+ "run_id": "creatine-hcl__2026-11-18__f2f09247",
+ "verdicts": {
+  "B00GL2HMES": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: the creatine hcl sleeve requires hydrochloride, and Nutricost's title and bullets sell only micronized creatine monohydrate."
+  },
+  "B07978VPPH": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: Thorne's title is micronized creatine monohydrate powder and never names HCl or hydrochloride."
+  },
+  "B002DYIZEO": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: Optimum Nutrition's 120-serving title and bullets sell creatine monohydrate, not the HCl form named by this variety sleeve."
+  },
+  "B002DYIZEE": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: this Optimum Nutrition listing is creatine monohydrate powder, so it fails the creatine hcl sleeve qualifier."
+  },
+  "B0DJDQCJX2": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: the title leads with creatine monohydrate, and neither the title nor the bullets state creatine HCl or hydrochloride."
+  },
+  "B0DWGM5ZXQ": {
+   "decision": "OUT",
+   "why": "G2 EX_FORM_MISMATCH: Orgain's title and bullets are creatine monohydrate only, so the named HCl form is absent."
+  },
+  "B0BKCVLYGX": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: the title names CON-CRET creatine HCl capsules as the sole hero in the hydrochloride form."
+  },
+  "B0CQ8V7NXS": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: the title sells CON-CRET creatine HCl powder as the hero form, and R5-2 treats that powder as its own product."
+  },
+  "B07RV3BQ45": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: Beyond Raw's title leads with creatine HCl powder, matching the variety sleeve qualifier."
+  },
+  "B0C8251M2P": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: Kaged's title names creatine HCl and creatine hydrochloride as the product being sold."
+  },
+  "B0FQQDL31K": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and front-of-pack R3: creatine HCl is named first with nitric oxide, and no bigger mg dose of another ingredient is printed."
+  },
+  "B0F2594YLH": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: Nutricost's title and bullets state 750mg creatine HCl made with CON-CRET creatine hydrochloride."
+  },
+  "B0BG9QYXLK": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: creatine HCL leads the title, and HMB is named after it with no higher printed mg dose under R7-1."
+  },
+  "B0CSZ66LTQ": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: Amandean's title names creatine HCl pills made with CON-CRET as the hero form."
+  },
+  "B07B12LHWL": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: GNC AMP's title names Creatine HCl 189 as the product, so the hydrochloride sleeve qualifier is met."
+  },
+  "B0FGCD9H2B": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: the title leads with creatine HCl and creatine hydrochloride, and the later monohydrate wording is comparison copy under R4-1."
+  },
+  "B0D9R55QGS": {
+   "decision": "IN",
+   "why": "R13-1 and G1 HERO_LED_COMPLEX: creatine HCl leads the title of this electrolyte formula, so the added minerals do not displace the hero."
+  },
+  "B0G517M3CQ": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: creatine HCl leads the title at a stated 750mg, and prickly pear and electrolytes are not printed at a bigger mg dose."
+  },
+  "B0HBR7FJHP": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: creatine HCl leads at 900mg per serving, above 400mg turmeric, and black pepper is an R7-1 helper."
+  },
+  "B0F25BJTRY": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: Nutricost's title sells creatine HCl powder made with CON-CRET hydrochloride, which R5-2 counts separately from its capsules."
+  },
+  "B0F8K7KGTP": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: creatine hydrochloride leads at 5000mg versus 1000mg taurine, and the 6200mg figure is a printed total, not another ingredient."
+  },
+  "B0B7KDN42Y": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and R6-1: creatine HCl is the lead active, with fenugreek/Testofen named after it and no higher printed dose."
+  },
+  "B0G1TDCF8W": {
+   "decision": "IN",
+   "why": "G1 IN_OK and G2: the title names an HCL creatine powder supplement, and R14-2 does not exclude a scooped supplement powder."
+  },
+  "B0GS75TFT1": {
+   "decision": "IN",
+   "why": "G1 HERO_LED_COMPLEX and the dose rule: creatine HCl is named first at 750mg, above 500mg MSM and 400mg collagen."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T011907-655Z-89158591"
+}

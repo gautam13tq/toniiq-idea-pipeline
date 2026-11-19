@@ -1,0 +1,330 @@
+{
+ "run_id": "nitric-oxide-supplements-for-men__2026-11-18__2260aed0",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 11,
+ "check": [
+  {
+   "asin": "B0BRTJ9L64",
+   "title": "L Arginine L Citrulline Supplement 3000mg (240 Capsules) Nitric Oxide Pills for Men - Stamina, Endurance, Performance for Workouts - NO Supplements for Men - Gluten Free, Non-GMO, Vegan Capsules",
+   "brand": "DORADO NUTRITION",
+   "monthly_sold": 1100,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 2,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "G9/R7-1 source rule: title names 'Nitric Oxide Pills for Men' and 'NO Supplements for Men'; 'L Arginine L Citrulline Supplement 3000mg' is the precursor blend weight, not a different lead active."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "G1: L-arginine and L-citrulline lead the title ahead of nitric oxide, so the hero is secondary."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DJDR5DQH",
+   "title": "Nitric Oxide Booster for Men, Beet Root, Taurine, L-Citrulline & L-Arginine",
+   "brand": "Clean Nutraceuticals",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 4,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "HERO_LED_COMPLEX (G1): 'Nitric Oxide Booster for Men' leads the title with beet root/taurine/citrulline/arginine listed after it and no front dose; bullet 1 says 'for Men and Women' but the title is the G9 front-of-pack proxy (flag for R4)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R4: the bullets name this nitric oxide booster for men and women, which is unisex on a for-men shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0DWD26MMF",
+   "title": "L-Arginine with L-Citrulline, Nitric Oxide for Men, 240 Bisected Tablets",
+   "brand": "Micro Ingredients",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 5,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "G9/R7-1 source rule: title names 'Nitric Oxide for Men'; L-arginine with L-citrulline named first are the hero's precursors, not another active leading the product."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "G1: L-arginine and L-citrulline are named before nitric oxide, so the hero is secondary."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0FHPMRKD7",
+   "title": "Mars Nitric Oxide Capsules with L-Arginine & L-Citrulline, Pre-Workout Nitric Oxide Supplement for Men, Blood Flow & Circulation Support",
+   "brand": "mars by GHC",
+   "monthly_sold": 300,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 10,
+    "in_top12": true,
+    "gate_code": "JUDGE_OUT",
+    "source": "front_of_pack",
+    "fop_rule": "hero leads the front",
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "HERO_LED_COMPLEX (G1/G9): 'Mars Nitric Oxide Capsules ... Pre-Workout Nitric Oxide Supplement for Men' leads with the hero over arginine/citrulline source and botanical helpers; bullet 2's 'men and women' is category copy and the title is the G9 front proxy."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R4: the bullets place these nitric oxide supplements for men and women, which is unisex on a for-men shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0CRZD7QPJ",
+   "title": "Prime Labs L Arginine 1500mg, Nitric Oxide Supplements for Men",
+   "brand": "Prime Labs",
+   "monthly_sold": 300,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 11,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "G9/R7-1 source rule: 'L Arginine 1500mg, Nitric Oxide Supplements for Men' names the hero and the men sleeve, and L-arginine is the hero's precursor so its printed dose is not 'another ingredient' under the dose rule."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "G1: L-arginine 1500mg is named before nitric oxide, so the hero is secondary."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0FNNC3K5T",
+   "title": "Peak Flow 10-in-1 Nitric Oxide Supplement for Men, 90 Capsules",
+   "brand": "STRIVLABS",
+   "monthly_sold": 300,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 12,
+    "in_top12": true,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "R3-1/R4-2: in 'Peak Flow 10-in-1 Nitric Oxide Supplement for Men' the benefit name and N-in-1 count do not lead and the hero is the first-named active; bullet 3 says 'men & women' but the title is the G9 front-of-pack proxy (flag for R4)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R4: the bullets direct this nitric oxide supplement to men and women, which is unisex on a for-men shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B09ZBKXL69",
+   "title": "Ageless Male Max Chewable Nitric Oxide Booster for Men - 100 Count",
+   "brand": "Ageless Male",
+   "monthly_sold": 200,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 13,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "G9/R13-6: 'Ageless Male Max Chewable Nitric Oxide Booster for Men' names the hero alone in the title with only brand/claim/format words before it and no exclude term; bullets feature KSM-66 ashwagandha heavily and the label is unseen, so R7-1 cannot be confirmed (flag)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "The sexual-health exclusion: Ageless Male Max is a men's vitality chew whose bullets lead with ashwagandha and muscle, so nitric oxide is not the hero."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B077R8GMSM",
+   "title": "Nitric Oxide Supplement for Men - Maximum Strength - Nitric Oxide Booster",
+   "brand": "NutraChamps",
+   "monthly_sold": 100,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 14,
+    "in_top12": false,
+    "gate_code": "IN_OK",
+    "source": "IN_OK",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "IN_OK/G9: 'Nitric Oxide Supplement for Men - Maximum Strength - Nitric Oxide Booster' leads with the hero and men sleeve; bullet 5 says 'men and women' but the title is the G9 front-of-pack proxy (flag for R4)."
+    },
+    "grok": null
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0D4QBVK5S",
+   "title": "Nitric Oxide Supplement for Men - Beet Root & Botanical Phytonutrient Blend with GPLC - for Blood Flow, Oxygenation, and Blood Pressure, Energy - 90 Count",
+   "brand": "Energievoll",
+   "monthly_sold": 100,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 16,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "HERO_LED_COMPLEX (G1): 'Nitric Oxide Supplement for Men - Beet Root & Botanical Phytonutrient Blend with GPLC' leads with the hero and the blend follows; bullet 3 says 'men and women' but the title is the G9 front-of-pack proxy (flag for R4)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R4: the bullets call this a nitric oxide supplement for men and women, which is unisex on a for-men shelf."
+    }
+   },
+   "disagreeing": [
+    "grok"
+   ]
+  },
+  {
+   "asin": "B01MS461VC",
+   "title": "L-Arginine and L-Citrulline for Men, Nitric Oxide Support, 30 Servings",
+   "brand": "HAVASU NUTRITION",
+   "monthly_sold": 6000,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "JUDGE_OUT",
+    "source": "gate",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "G9/R7-1 source rule: title names the hero ('Nitric Oxide Support') with 'for Men', and L-arginine/L-citrulline named first are the hero's precursor source, not a different lead; bullets say 'men and women' but the title is the G9 front-of-pack proxy (flag for R4 if bullets are meant to count)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "R4: the bullets sell this L-arginine supplement for men and women, which is unisex on a for-men shelf."
+    }
+   },
+   "disagreeing": [
+    "cursor"
+   ]
+  },
+  {
+   "asin": "B081K83ZQ1",
+   "title": "Nature's Pure Blend Nitric Oxide Supplements for Men – L-Arginine L-Citrulline – Heart Support & Flow Circulation Booster – 1500MG L Arginine and L Citrulline, Preworkout, Bodybuilding",
+   "brand": "Nature's Pure Blend",
+   "monthly_sold": 6000,
+   "scorer": "OUT",
+   "scorer_detail": {
+    "scorer": "OUT",
+    "rank": null,
+    "in_top12": false,
+    "gate_code": "JUDGE_OUT",
+    "source": "gate",
+    "fop_rule": null,
+    "near_miss": true,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "IN",
+     "why": "HERO_LED_COMPLEX (G1): 'Nitric Oxide Supplements for Men' leads the title; '1500MG L Arginine and L Citrulline' is the precursor blend weight, which the dose rule says is not another ingredient."
+    },
+    "grok": {
+     "decision": "IN",
+     "why": "G1: nitric oxide supplements for men leads the title, and the 1500mg figure is the arginine-citrulline blend weight rather than a bigger rival dose."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "judge": "grok",
+ "run_id": "nitric-oxide-supplements-for-men__2026-11-18__2260aed0",
+ "verdicts": {
+  "B09B4DWNYQ": {
+   "decision": "OUT",
+   "why": "R4: the men's sleeve qualifier is absent, so this unisex nitric oxide booster is off the for-men shelf."
+  },
+  "B09QLKL61K": {
+   "decision": "OUT",
+   "why": "R2: Total Beets blood-pressure support leads the front, so nitric oxide is not the biggest claim."
+  },
+  "B0CLHHYNFN": {
+   "decision": "OUT",
+   "why": "R4: the title sells BloodFlow-7 nitric oxide supplements for men and women, which is unisex on a for-men shelf."
+  },
+  "B01MS461VC": {
+   "decision": "OUT",
+   "why": "R4: the bullets sell this L-arginine supplement for men and women, which is unisex on a for-men shelf."
+  },
+  "B07GQ4Z1L8": {
+   "decision": "OUT",
+   "why": "R4: the title is a nitric oxide booster for men and women, which is unisex on a for-men shelf."
+  },
+  "B081K83ZQ1": {
+   "decision": "IN",
+   "why": "G1: nitric oxide supplements for men leads the title, and the 1500mg figure is the arginine-citrulline blend weight rather than a bigger rival dose."
+  },
+  "B0984V6YKY": {
+   "decision": "IN",
+   "why": "G1: nitric oxide beet root gummies for men leads the title, with beet as the source and no R4 unisex or sexual-health exclusion."
+  },
+  "B0BRTJ9L64": {
+   "decision": "OUT",
+   "why": "G1: L-arginine and L-citrulline lead the title ahead of nitric oxide, so the hero is secondary."
+  },
+  "B0DMPDGQMW": {
+   "decision": "IN",
+   "why": "G1: nitric oxide supplement for men leads the title, and male wellness does not hit the sexual-health exclusion."
+  },
+  "B0DJDR5DQH": {
+   "decision": "OUT",
+   "why": "R4: the bullets name this nitric oxide booster for men and women, which is unisex on a for-men shelf."
+  },
+  "B0DWD26MMF": {
+   "decision": "OUT",
+   "why": "G1: L-arginine and L-citrulline are named before nitric oxide, so the hero is secondary."
+  },
+  "B0CWN5V9BC": {
+   "decision": "IN",
+   "why": "G1: nitric oxide booster for men is the product claim, and vitality is a benefit word under R4-2 rather than a sexual-health exclusion."
+  },
+  "B0CRK17B57": {
+   "decision": "IN",
+   "why": "G1: liquid nitric oxide supplements for men leads the title, and the 5000mg figure is the precursor blend weight under the dose rule."
+  },
+  "B00HXGGOA4": {
+   "decision": "IN",
+   "why": "G1: nitric oxide booster supplement for men is the product, and pre-workout is a use claim that leaves the hero in the lead."
+  },
+  "B0F1CHSTYM": {
+   "decision": "IN",
+   "why": "G1: nitric oxide beet root gummies for men leads the title, with no R4 unisex or sexual-health exclusion."
+  },
+  "B0FHPMRKD7": {
+   "decision": "OUT",
+   "why": "R4: the bullets place these nitric oxide supplements for men and women, which is unisex on a for-men shelf."
+  },
+  "B0CRZD7QPJ": {
+   "decision": "OUT",
+   "why": "G1: L-arginine 1500mg is named before nitric oxide, so the hero is secondary."
+  },
+  "B0FNNC3K5T": {
+   "decision": "OUT",
+   "why": "R4: the bullets direct this nitric oxide supplement to men and women, which is unisex on a for-men shelf."
+  },
+  "B09ZBKXL69": {
+   "decision": "OUT",
+   "why": "The sexual-health exclusion: Ageless Male Max is a men's vitality chew whose bullets lead with ashwagandha and muscle, so nitric oxide is not the hero."
+  },
+  "B0BRQVLRXK": {
+   "decision": "IN",
+   "why": "G1: nitric oxide supplement for men leads the title, and the men's-performance keyword does not match the male-performance sexual-health exclusion."
+  },
+  "B0D4QBVK5S": {
+   "decision": "OUT",
+   "why": "R4: the bullets call this a nitric oxide supplement for men and women, which is unisex on a for-men shelf."
+  },
+  "B0GQ2LMJTT": {
+   "decision": "IN",
+   "why": "G1: nitric oxide booster supplements for men leads the title, with no R4 unisex or sexual-health exclusion."
+  },
+  "B0G7NRJ6QH": {
+   "decision": "IN",
+   "why": "G1: nitric oxide supplements for men leads the title, with no R4 unisex or sexual-health exclusion."
+  }
+ },
+ "_model": "grok-4.7-xhigh",
+ "_broker_run": "/Users/gautam/Library/Mobile Documents/iCloud~md~obsidian/Documents/Documents/AI/ComputeRuns/compute-2026-11-19T012425-680Z-4e68b977"
+}

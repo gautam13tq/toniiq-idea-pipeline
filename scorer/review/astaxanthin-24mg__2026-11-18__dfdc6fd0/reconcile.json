@@ -1,0 +1,71 @@
+{
+ "run_id": "astaxanthin-24mg__2026-11-18__dfdc6fd0",
+ "judges": [
+  "cursor",
+  "grok"
+ ],
+ "rows": 24,
+ "to_check": 2,
+ "check": [
+  {
+   "asin": "B0GSFC2XVZ",
+   "title": "Hovika 18-in-1 Astaxanthin 24mg & Lutein 40mg with Zeaxanthin Supplements, Fresh Microalgae Source with Lycopene, Grape Seed, Vitamin E, & More Supports Eye, Skin, Antioxidant, 8 Month Supply, 240ct",
+   "brand": "Hovika",
+   "monthly_sold": 1000,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 4,
+    "in_top12": true,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "Dose rule (front-of-pack rules 10 Nov 2026 / R7-1): the title prints Lutein 40mg, a bigger mg dose than the 24mg hero, so the hero does not lead; the 18-in-1 eye blend is also a broader base formula (v1.7 R6-1 settle)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front prints lutein at 40mg, a bigger mg dose than astaxanthin 24mg, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  },
+  {
+   "asin": "B0GQMFMJKG",
+   "title": "Astaxanthin 24mg, Resveratrol 100mg & Lycopene 40mg, Liposome with MCT Oil",
+   "brand": "Puyflam",
+   "monthly_sold": 450,
+   "scorer": "IN",
+   "scorer_detail": {
+    "scorer": "IN",
+    "rank": 17,
+    "in_top12": false,
+    "gate_code": "HERO_LED_COMPLEX",
+    "source": "HERO_LED_COMPLEX",
+    "fop_rule": null,
+    "manual": null
+   },
+   "judges": {
+    "cursor": {
+     "decision": "OUT",
+     "why": "Dose rule (front-of-pack rules 10 Nov 2026; R3 'bigger-printed-dose rule still applies'): the title prints Resveratrol 100mg and Lycopene 40mg above the 24mg hero, so the hero does not lead (R7-1 HERO_SECONDARY)."
+    },
+    "grok": {
+     "decision": "OUT",
+     "why": "Dose rule: the front prints resveratrol at 100mg and lycopene at 40mg, both bigger mg doses than astaxanthin 24mg, so the hero does not lead."
+    }
+   },
+   "disagreeing": [
+    "cursor",
+    "grok"
+   ]
+  }
+ ]
+}
