@@ -1,0 +1,43 @@
+{
+ "run_id": "evening-primrose-oil__2026-11-19__14ca9d44",
+ "shelf_keyword": "evening primrose oil",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "evening primrose oil",
+  "hero_regex": "evening primrose",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "evening primrose oil"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "shelf_keyword": "evening primrose oil",
+  "scored_on": "parent",
+  "parent_keyword": "evening primrose oil",
+  "demand_keyword": "evening primrose oil",
+  "cluster_keywords": [
+   "evening primrose oil",
+   "evening primrose oil supplement"
+  ],
+  "finder_terms": [
+   "evening primrose oil",
+   "evening primrose oil supplement"
+  ],
+  "demand_cluster": [
+   "evening primrose oil",
+   "evening primrose oil for women",
+   "evening primrose oil capsules",
+   "evening primrose oil 1000mg",
+   "evening primrose oil liquid",
+   "evening primrose oil supplement capsules",
+   "evening primrose oil 500mg",
+   "evening primrose oil softgels",
+   "evening primrose oil organic",
+   "evening primrose oil gummies"
+  ],
+  "written_at": "2026-11-19T14:09:59+00:00"
+ }
+}
