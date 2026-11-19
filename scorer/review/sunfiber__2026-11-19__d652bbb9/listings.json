@@ -236,28 +236,10 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71eaKC3hsjL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 8,
    "family_asins": [
     "B09L3Q3XG6",
     "B09L4CNRX4"
-   ]
-  },
-  {
-   "asin": "B09L3Q3XG6",
-   "brand": "TOUGH-N-TONE",
-   "title": "TOUGH-N-TONE ClearFiber Powder – Soluble Fiber with SunFiber® PHGG – Tasteless, Odorless, Non-Thickening – Supports Digestive & Heart Health – Prebiotic",
-   "bullets": [
-    "PREMIUM GRADE: Clear Fiber is the same raw material as the patented SunFiber. Clear Fiber is a soluble dietary fiber made from partially hydrolyzed guar gum (PHGG).",
-    "COMPLETELY DISSOLVES: Clear Fiber dissolves clear and mixes easily into foods and drinks both hot and cold without effecting taste, texture or thickness.",
-    "TASTELSS & ORDERLESS: can be added or blended with practically any other foods",
-    "CONTAINS NO: sugar, salt, dairy, yeast wheat, gluten, corn, soy, preservatives, artificial colors or flavors.",
-    "100% NATURAL & EASY TO USE: No artificial ingredients, flavors, or preservatives. Gluten-free, non-GMO, and safe to blend into drinks, smoothies, oatmeal, soups, and more."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71TMrPcjGTL.jpg",
-   "monthly_sold": 0,
-   "reviews": 0,
-   "family_asins": [
-    "B09L3Q3XG6"
    ]
   },
   {
@@ -267,7 +249,7 @@
    "bullets": [],
    "image": "https://m.media-amazon.com/images/I/616lvDy2VjL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 22,
    "family_asins": [
     "B07VT5GSVS"
    ]
@@ -314,6 +296,18 @@
    "reviews": 0,
    "family_asins": [
     "B0GR52VW62"
+   ]
+  },
+  {
+   "asin": "B0HL4NV6KP",
+   "brand": "Sandhu's",
+   "title": "SunFiber® Prebiotic Fiber Unflavored Powder, 30 Servings",
+   "bullets": [],
+   "image": null,
+   "monthly_sold": 0,
+   "reviews": 0,
+   "family_asins": [
+    "B0HL4NV6KP"
    ]
   }
  ]

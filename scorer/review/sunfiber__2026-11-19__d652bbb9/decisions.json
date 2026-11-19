@@ -114,22 +114,13 @@
    "rank": 13,
    "in_top12": false,
    "gate_code": "HERO_LED_COMPLEX",
-   "source": "manual_fop",
+   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
-   "manual": "IN"
-  },
-  "B09L3Q3XG6": {
-   "scorer": "IN",
-   "rank": 14,
-   "in_top12": false,
-   "gate_code": "EX_VARIANT_DUP",
-   "source": "manual_fop",
-   "fop_rule": null,
-   "manual": "IN"
+   "manual": null
   },
   "B07VT5GSVS": {
    "scorer": "IN",
-   "rank": 15,
+   "rank": 14,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -138,7 +129,7 @@
   },
   "B0C6CMSBQK": {
    "scorer": "IN",
-   "rank": 16,
+   "rank": 15,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -147,7 +138,7 @@
   },
   "B0CGFC4HH9": {
    "scorer": "IN",
-   "rank": 17,
+   "rank": 16,
    "in_top12": false,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -156,10 +147,19 @@
   },
   "B0GR52VW62": {
    "scorer": "IN",
-   "rank": 18,
+   "rank": 17,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0HL4NV6KP": {
+   "scorer": "IN",
+   "rank": 18,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   }
