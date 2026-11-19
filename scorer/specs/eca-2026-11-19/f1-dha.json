@@ -31,5 +31,35 @@
   "dha omega 3 supplement",
   "dha drops",
   "dha liquid"
- ]
+ ],
+ "manual_decisions": {
+  "B003IP8BC8": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
+  },
+  "B08P7QMWTW": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on"
+  },
+  "B0CH9XQV3R": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
+  },
+  "B0CP4F55R6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Prenatal multivitamin leads; DHA is the add-on (wrong FOP rescue)"
+  }
+ }
 }

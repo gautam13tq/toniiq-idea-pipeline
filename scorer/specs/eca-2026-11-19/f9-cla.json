@@ -28,5 +28,14 @@
   "cla pills",
   "cla powder",
   "cla 1000mg"
- ]
+ ],
+ "manual_decisions": {
+  "B01E2ZOB7G": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "BCAA powder leads; CLA is the add-on"
+  }
+ }
 }

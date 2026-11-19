@@ -27,5 +27,21 @@
   "hyaluronic acid pills for women",
   "hyaluronic acid supplements liquid"
  ],
- "form": "supplement|capsule|pill|tablet|softgel|gummies|gummy|extract|oral|\\bmg\\b|for (mood|sleep|women|men|skin)"
+ "form": "supplement|capsule|pill|tablet|softgel|gummies|gummy|extract|oral|\\bmg\\b|for (mood|sleep|women|men|skin)",
+ "manual_decisions": {
+  "B0CJZ2Q1GW": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Resveratrol leads a multi-active beauty blend; HA not leading (wrong FOP rescue)"
+  },
+  "B000Z94Z3Y": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check of top 12, 18 Nov",
+   "date": "2026-11-18T19:00:00+00:00",
+   "wording": "Collagen leads (Solgar Collagen HA Complex) (wrong FOP rescue)"
+  }
+ }
 }
