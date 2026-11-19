@@ -1,0 +1,65 @@
+{
+ "run_id": "collagen-stick-packs__2026-11-19__1857f9bc",
+ "shelf_keyword": "collagen stick packs",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "collagen",
+  "hero_regex": "collagen",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "collagen",
+   "collagen peptides"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "scored_on": "sleeve",
+  "parent_keyword": "collagen",
+  "demand_keyword": "collagen",
+  "shelf_keyword": "collagen stick packs",
+  "cluster_keywords": [
+   "collagen stick packs",
+   "collagen packets"
+  ],
+  "finder_terms": [
+   "collagen stick packs",
+   "collagen packets"
+  ],
+  "scored_on_why": "variety sleeve: collagen stick packs",
+  "sleeve_kind": "variety",
+  "required_regex": "packets?|stick\\s*packs?|\\bsticks\\b|single[- ]serv|travel\\s*packs?|on[- ]the[- ]go",
+  "sleeve_regex": "packets?|sticks?|single serv|travel",
+  "sleeve_words": [
+   "packets",
+   "stick packs",
+   "single serve packets",
+   "travel packs",
+   "sticks"
+  ],
+  "gate_format": "powder",
+  "sleeve_cluster": [
+   "collagen stick packs",
+   "collagen sticks",
+   "collagen packets to go",
+   "collagen peptides packets",
+   "collagen sticks for women",
+   "vital proteins collagen peptides packets",
+   "collagen single serve packets",
+   "collagen packets for travel",
+   "bare bones collagen packets",
+   "beyond collagen stick packs",
+   "collagen travel packs",
+   "revive collagen packets",
+   "collagen peptides single serve packets",
+   "collagen peptides packets to go",
+   "collagen peptides sticks",
+   "vital collagen packets",
+   "collagen packets for women",
+   "calmerceuticals collagen packets",
+   "collagen packets"
+  ],
+  "written_at": "2026-11-19T11:33:22+00:00"
+ }
+}
