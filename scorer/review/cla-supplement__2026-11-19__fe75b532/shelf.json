@@ -1,0 +1,39 @@
+{
+ "run_id": "cla-supplement__2026-11-19__fe75b532",
+ "shelf_keyword": "cla supplement",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "CLA",
+  "hero_regex": "\\bcla\\b|conjugated linoleic",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "CLA"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "shelf_keyword": "cla supplement",
+  "scored_on": "parent",
+  "parent_keyword": "cla supplement",
+  "demand_keyword": "cla",
+  "cluster_keywords": [
+   "cla supplement",
+   "cla"
+  ],
+  "finder_terms": [
+   "cla supplement",
+   "cla"
+  ],
+  "demand_cluster": [
+   "cla",
+   "cla supplements",
+   "conjugated linoleic acid",
+   "cla pills",
+   "cla powder",
+   "cla 1000mg"
+  ],
+  "written_at": "2026-11-19T16:56:49+00:00"
+ }
+}
