@@ -1,0 +1,28 @@
+{
+ "hero_name": "L-BAIBA",
+ "hero_regex": "\\bl?-? ?baiba\\b|aminoisobutyric",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "baiba-2026-11-19",
+ "hero_names": [
+  "L-BAIBA",
+  "BAIBA"
+ ],
+ "spec_note": "L-BAIBA demand check after Batch C (tracker request, 18 Nov). Score only if it passes the gate with a clear shelf.",
+ "shelf_keyword": "baiba",
+ "scored_on": "parent",
+ "parent_keyword": "baiba",
+ "demand_keyword": "l-baiba",
+ "cluster_keywords": [
+  "baiba",
+  "l-baiba"
+ ],
+ "finder_terms": [
+  "baiba",
+  "l-baiba"
+ ],
+ "demand_cluster": [
+  "l-baiba"
+ ]
+}
