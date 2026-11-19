@@ -33,5 +33,10 @@
   "travel packs",
   "sticks"
  ],
- "gate_format": "powder"
+ "gate_format": "powder",
+ "sleeve_cluster": [
+  "probiotic powder packets",
+  "probiotic packets"
+ ],
+ "written_at": "2026-11-19T11:39:59+00:00"
 }

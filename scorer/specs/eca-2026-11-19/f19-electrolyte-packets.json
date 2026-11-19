@@ -33,5 +33,29 @@
   "travel packs",
   "sticks"
  ],
- "gate_format": "powder"
+ "gate_format": "powder",
+ "sleeve_cluster": [
+  "electrolyte packets",
+  "sea moss electrolytes packets",
+  "electrolytes packets",
+  "saltte electrolyte packets",
+  "ultima electrolytes packets",
+  "seamoss electrolyte packets",
+  "true sea moss electrolytes packets",
+  "squenchers electrolyte packets",
+  "electrolyte packets sugar free",
+  "electrolyte packets bulk",
+  "creatine and electrolytes packets",
+  "gatorade electrolyte packets",
+  "electrolyte packets lmnt",
+  "electrolyte packets no sugar",
+  "electrolyte sticks",
+  "electrolyte packets liquid iv",
+  "electrolyte packets for kids",
+  "electrolytes sticks",
+  "electrolytes packets sugar free",
+  "electrolyte packets unflavored",
+  "electrolyte packets organic"
+ ],
+ "written_at": "2026-11-19T11:28:21+00:00"
 }

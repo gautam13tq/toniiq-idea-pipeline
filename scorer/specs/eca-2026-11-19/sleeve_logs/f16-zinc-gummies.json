@@ -1,0 +1,333 @@
+{
+ "written_at": "2026-11-19T11:25:36+00:00",
+ "prereg_run": "runs_prereg/zinc-gummies-prereg__2026-11-19__5dad5012",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "zinc gummies",
+ "sleeve_kind": "format",
+ "sleeve_regex": null,
+ "autocomplete_suggestions": [
+  "calcium magnesium zinc gummies",
+  "kids zinc gummy",
+  "power zinc gummies",
+  "vitafusion zinc gummies",
+  "vitamin c and zinc gummies",
+  "vitamin c zinc gummy",
+  "zinc gummies",
+  "zinc gummies adult",
+  "zinc gummies for kids",
+  "zinc gummies for men",
+  "zinc gummies for women",
+  "zinc gummies sugar free",
+  "zinc gummy",
+  "zinc gummy bears",
+  "zinc gummy for men",
+  "zinc gummy for women",
+  "zinc gummy supplements",
+  "zinc gummy supplements for women",
+  "zinc gummy vitamins",
+  "zinc gummy vitamins for adults",
+  "zinc gummy vitamins for adults 0 sugars"
+ ],
+ "candidates_checked": 84,
+ "sleeve_cluster": {
+  "zinc gummies": {
+   "clicks": 11676,
+   "clicks_12m_ago": 10624,
+   "trend_12m_pct": 9.9
+  },
+  "zinc gummies for women": {
+   "clicks": 1311,
+   "clicks_12m_ago": 1292,
+   "trend_12m_pct": 1.5
+  },
+  "vitamin c and zinc gummies": {
+   "clicks": 741,
+   "clicks_12m_ago": 598,
+   "trend_12m_pct": 23.9
+  },
+  "zinc gummies for men": {
+   "clicks": 642,
+   "clicks_12m_ago": 744,
+   "trend_12m_pct": -13.7
+  },
+  "calcium magnesium zinc gummies": {
+   "clicks": 624,
+   "clicks_12m_ago": 632,
+   "trend_12m_pct": -1.3
+  },
+  "zinc gummies for kids": {
+   "clicks": 602,
+   "clicks_12m_ago": 540,
+   "trend_12m_pct": 11.5
+  },
+  "zinc gummy": {
+   "clicks": 400,
+   "clicks_12m_ago": 341,
+   "trend_12m_pct": 17.3
+  },
+  "vitafusion zinc gummies": {
+   "clicks": 352,
+   "clicks_12m_ago": 108,
+   "trend_12m_pct": 225.9
+  },
+  "power zinc gummies": {
+   "clicks": 327,
+   "clicks_12m_ago": 144,
+   "trend_12m_pct": 127.1
+  },
+  "kids zinc gummy": {
+   "clicks": 279,
+   "clicks_12m_ago": 250,
+   "trend_12m_pct": 11.6
+  },
+  "zinc supplements gummies": {
+   "clicks": 164,
+   "clicks_12m_ago": 145,
+   "trend_12m_pct": 13.1
+  },
+  "zinc gummies adult": {
+   "clicks": 140,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "zinc gummies sugar free": {
+   "clicks": 96,
+   "clicks_12m_ago": 101,
+   "trend_12m_pct": -5.0
+  },
+  "vitamin c zinc gummy": {
+   "clicks": 87,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "zinc gummy vitamins for adults": {
+   "clicks": 37,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "zinc supplement gummies": {
+   "clicks": 28,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "zinc gummies supplements": {
+   "clicks": 28,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "organic zinc gummies": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "zinc gummy supplements": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 17586,
+ "cluster_rows": 19,
+ "cluster_clicks_12m_ago": 15519,
+ "cluster_trend_12m_pct": 10.9,
+ "cluster_trend_basis": "12 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "zinc",
+  "clicks": 156798,
+  "trend_12m_pct": 19.5
+ },
+ "no_data": [
+  "zinc gummies supplement",
+  "pure zinc gummies",
+  "zinc extract gummies",
+  "zinc gummies extract",
+  "zinc for women gummies",
+  "zinc for men gummies",
+  "zinc for kids gummies",
+  "zinc 500mg gummies",
+  "zinc gummies 500mg",
+  "zinc 1000mg gummies",
+  "zinc gummies 1000mg",
+  "zinc unflavored gummies",
+  "zinc gummies unflavored",
+  "vegan zinc gummies",
+  "high potency zinc gummies",
+  "best zinc gummies",
+  "zinc supplement gummy",
+  "zinc gummy supplement",
+  "zinc supplements gummy",
+  "organic zinc gummy",
+  "pure zinc gummy",
+  "zinc extract gummy",
+  "zinc gummy extract",
+  "zinc for women gummy",
+  "zinc gummy for women",
+  "zinc for men gummy",
+  "zinc gummy for men",
+  "zinc for kids gummy",
+  "zinc gummy for kids",
+  "zinc 500mg gummy",
+  "zinc gummy 500mg",
+  "zinc 1000mg gummy",
+  "zinc gummy 1000mg",
+  "zinc unflavored gummy",
+  "zinc gummy unflavored",
+  "vegan zinc gummy",
+  "high potency zinc gummy",
+  "best zinc gummy",
+  "zinc gummy bears",
+  "zinc supplement gummy bears",
+  "zinc gummy bears supplement",
+  "zinc supplements gummy bears",
+  "zinc gummy bears supplements",
+  "organic zinc gummy bears",
+  "pure zinc gummy bears",
+  "zinc extract gummy bears",
+  "zinc gummy bears extract",
+  "zinc for women gummy bears",
+  "zinc gummy bears for women",
+  "zinc for men gummy bears",
+  "zinc gummy bears for men",
+  "zinc for kids gummy bears",
+  "zinc gummy bears for kids",
+  "zinc 500mg gummy bears",
+  "zinc gummy bears 500mg",
+  "zinc 1000mg gummy bears",
+  "zinc gummy bears 1000mg",
+  "zinc unflavored gummy bears",
+  "zinc gummy bears unflavored",
+  "vegan zinc gummy bears",
+  "high potency zinc gummy bears",
+  "best zinc gummy bears",
+  "zinc gummy vitamins",
+  "zinc gummy supplements for women",
+  "zinc gummy vitamins for adults 0 sugars"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 17,586 clicks over 19 rows"
+ },
+ "default_format": {
+  "parent": "zinc",
+  "share": 0.167,
+  "threshold": 0.75,
+  "is_default": false,
+  "parent_top12": [
+   {
+    "asin": "B001F71XAI",
+    "title": "One A Day Multivitamin for Men - Daily Mens Multivitamins with Vitamin D, Zinc, Folic Acid, and B Vitamins, Physical Energy Support, 200 Count",
+    "brand": "ONE A DAY",
+    "monthly_sold": 60000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09KCD4D7F",
+    "title": "Centrum Silver Men's 50+ Multivitamin with Vitamin D3, B-Vitamins, Zinc for Memory and Cognition - 200 Tablets",
+    "brand": "Centrum",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B08YLTCDTN",
+    "title": "Nature\u2019s Bounty Zinc 50mg Caplets, Immune Support, 250 ct",
+    "brand": "Nature's Bounty",
+    "monthly_sold": 40000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09QBKGDLS",
+    "title": "One A Day Multivitamin for Women- Daily Vitamins for Woman with Biotin, Calcium, Folic Acid, Iron & Zinc, Complete Women\u2019s Vitamins, 200 Ct (Packaging May Vary)",
+    "brand": "ONE A DAY",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B000WZI4WY",
+    "title": "Airborne Immune Support Effervescent Tablets, Zesty Orange Flavor - 30ct with 1000mg Vitamin C + Vitamins A, D, E, Zinc, Selenium, Manganese & Herbal Blend - Sugar\u2011Free, Gluten\u2011Free",
+    "brand": "Airborne",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B08VK4ZF87",
+    "title": "Airborne Elderberry + Zinc & Vitamin C Gummies For Adults, Immune Support Vitamin D & Zinc Gummies With Powerful Antioxidant Vitamins C D & E - 50 Gummies, Elderberry Flavor",
+    "brand": "Airborne",
+    "monthly_sold": 20000,
+    "format": "gummy",
+    "in_format": true,
+    "counted": true
+   },
+   {
+    "asin": "B00083B1DY",
+    "title": "Pure Encapsulations Zinc 30 mg, 60 Capsules",
+    "brand": "Pure Encapsulations",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0DL6JVD1Z",
+    "title": "Dr. Berg Magnesium Glycinate 150ct \u2013 4-in-1 Chelated for Muscle, Nerve, Sleep & Stress Support*\u2013 w/ D3, B6 & Zinc \u2013 4X Lab-Tested \u2013 No Fillers \u2013 Formulated in USA, GMP-Certified",
+    "brand": "Dr. Berg Nutritionals",
+    "monthly_sold": 20000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B00ND99HY0",
+    "title": "Emergen-C Immune+ 1000mg Vitamin C Powder, with Vitamin D, Zinc, Antioxidants and Electrolytes for Immunity, Immune Support Dietary Supplement, Raspberry Flavor - 30 Count/1 Month Supply",
+    "brand": "Emergen-C",
+    "monthly_sold": 10000,
+    "format": "powder",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0DPB8TWF7",
+    "title": "SmartyPants Kids Multivitamin Gummies, Vitamin D & C, Omega 3, Zinc, 80 Ct",
+    "brand": "SmartyPants",
+    "monthly_sold": 9000,
+    "format": "gummy",
+    "in_format": true,
+    "counted": true
+   },
+   {
+    "asin": "B0854W9ND4",
+    "title": "Pure Protein Strawberry Protein Shake, 30g Complete Protein, Ready to Drink and Keto-Friendly, Vitamins A, C, D, and E plus Zinc to Support Immune Health, 11oz Bottles, 12 Pack",
+    "brand": "Pure Protein",
+    "monthly_sold": 4000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B07L499P37",
+    "title": "Zicam Cold Remedy Zinc RapidMelts, Cherry Flavor, Homeopathic, Cold Shortening Medicine, Shortens Cold Duration, 25 Count (Pack of 2)",
+    "brand": "Zicam",
+    "monthly_sold": 0,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   }
+  ],
+  "parent_top12_badges": 283000
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 71
+}

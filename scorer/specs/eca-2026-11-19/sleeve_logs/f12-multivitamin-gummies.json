@@ -1,0 +1,513 @@
+{
+ "written_at": "2026-11-19T11:21:30+00:00",
+ "prereg_run": "runs_prereg/multivitamin-gummies-prereg__2026-11-19__9cfa61fa",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "multivitamin gummies",
+ "sleeve_kind": "format",
+ "sleeve_regex": null,
+ "autocomplete_suggestions": [
+  "adult multivitamin gummy",
+  "kid multivitamin gummy",
+  "kids multi vitamin gummy",
+  "kids multivitamin gummies",
+  "men multivitamin gummy",
+  "multi vitamin gummies",
+  "multi vitamin gummies for adults",
+  "multi vitamin gummies for kids",
+  "multi vitamin gummies for men over 50",
+  "multi vitamin gummies for senior women",
+  "multi vitamin gummies for women",
+  "multi vitamin gummies for women 50 plus",
+  "multi vitamin gummies for women over 60",
+  "multi vitamin gummies men",
+  "multi vitamin gummy bears",
+  "multi vitamin gummy for elderly women",
+  "multi vitamin gummy for teens",
+  "multi vitamin gummy for women 50 and over",
+  "multi vitamin gummy men",
+  "multi vitamin gummy with iron",
+  "multi vitamin gummy women",
+  "multivitamin gummies",
+  "multivitamin gummies for adults",
+  "multivitamin gummies for men",
+  "multivitamin gummies for women",
+  "multivitamin gummies for women 50 and over",
+  "multivitamin gummies with iron",
+  "multivitamin gummy",
+  "multivitamin gummy bears",
+  "multivitamin gummy bears for kids",
+  "multivitamin gummy for men 50 and over",
+  "multivitamin gummy for women 50 and over",
+  "multivitamin gummy organic",
+  "multivitamin gummy teen",
+  "multivitamin gummy with iron",
+  "vegan multi vitamin gummies",
+  "vitafusion men's multivitamin gummies",
+  "vitafusion multivitamin gummies",
+  "vitafusion womens multivitamin gummies",
+  "women's multi vitamin gummies",
+  "women's multi vitamin gummy",
+  "womens multivitamin gummy"
+ ],
+ "candidates_checked": 175,
+ "sleeve_cluster": {
+  "multivitamin gummies": {
+   "clicks": 6413,
+   "clicks_12m_ago": 6922,
+   "trend_12m_pct": -7.4
+  },
+  "kids multivitamin gummies": {
+   "clicks": 9158,
+   "clicks_12m_ago": 9135,
+   "trend_12m_pct": 0.3
+  },
+  "vitafusion womens multivitamin gummies": {
+   "clicks": 7651,
+   "clicks_12m_ago": 7325,
+   "trend_12m_pct": 4.5
+  },
+  "womens multivitamin gummy": {
+   "clicks": 7330,
+   "clicks_12m_ago": 9150,
+   "trend_12m_pct": -19.9
+  },
+  "vitafusion men's multivitamin gummies": {
+   "clicks": 2619,
+   "clicks_12m_ago": 2208,
+   "trend_12m_pct": 18.6
+  },
+  "multivitamin for women gummies": {
+   "clicks": 2589,
+   "clicks_12m_ago": 2524,
+   "trend_12m_pct": 2.6
+  },
+  "multivitamin for men gummies": {
+   "clicks": 1627,
+   "clicks_12m_ago": 2075,
+   "trend_12m_pct": -21.6
+  },
+  "vitafusion multivitamin gummies": {
+   "clicks": 1163,
+   "clicks_12m_ago": 2203,
+   "trend_12m_pct": -47.2
+  },
+  "men multivitamin gummy": {
+   "clicks": 1068,
+   "clicks_12m_ago": 1195,
+   "trend_12m_pct": -10.6
+  },
+  "adult multivitamin gummy": {
+   "clicks": 1032,
+   "clicks_12m_ago": 1002,
+   "trend_12m_pct": 3.0
+  },
+  "multivitamin gummies for women": {
+   "clicks": 1005,
+   "clicks_12m_ago": 770,
+   "trend_12m_pct": 30.5
+  },
+  "multivitamin gummy": {
+   "clicks": 992,
+   "clicks_12m_ago": 809,
+   "trend_12m_pct": 22.6
+  },
+  "multi vitamin gummies": {
+   "clicks": 596,
+   "clicks_12m_ago": 462,
+   "trend_12m_pct": 29.0
+  },
+  "multivitamin gummies for men": {
+   "clicks": 593,
+   "clicks_12m_ago": 785,
+   "trend_12m_pct": -24.5
+  },
+  "kid multivitamin gummy": {
+   "clicks": 421,
+   "clicks_12m_ago": 409,
+   "trend_12m_pct": 2.9
+  },
+  "multi vitamin gummies for women": {
+   "clicks": 416,
+   "clicks_12m_ago": 586,
+   "trend_12m_pct": -29.0
+  },
+  "multivitamin for women gummy": {
+   "clicks": 348,
+   "clicks_12m_ago": 342,
+   "trend_12m_pct": 1.8
+  },
+  "multivitamin for men gummy": {
+   "clicks": 231,
+   "clicks_12m_ago": 156,
+   "trend_12m_pct": 48.1
+  },
+  "multivitamin gummies for kids": {
+   "clicks": 213,
+   "clicks_12m_ago": 259,
+   "trend_12m_pct": -17.8
+  },
+  "multivitamin gummies for women 50 and over": {
+   "clicks": 198,
+   "clicks_12m_ago": 63,
+   "trend_12m_pct": 214.3
+  },
+  "multivitamin for kids gummies": {
+   "clicks": 193,
+   "clicks_12m_ago": 140,
+   "trend_12m_pct": 37.9
+  },
+  "multivitamin gummies with iron": {
+   "clicks": 189,
+   "clicks_12m_ago": 149,
+   "trend_12m_pct": 26.8
+  },
+  "women's multi vitamin gummies": {
+   "clicks": 189,
+   "clicks_12m_ago": 147,
+   "trend_12m_pct": 28.6
+  },
+  "multi vitamin gummy": {
+   "clicks": 185,
+   "clicks_12m_ago": 158,
+   "trend_12m_pct": 17.1
+  },
+  "multivitamin gummy for women": {
+   "clicks": 160,
+   "clicks_12m_ago": 337,
+   "trend_12m_pct": -52.5
+  },
+  "multi vitamin gummies for men": {
+   "clicks": 123,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "multivitamin gummy for men": {
+   "clicks": 104,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "multi vitamin gummies men": {
+   "clicks": 94,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "kids multi vitamin gummy": {
+   "clicks": 88,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "multivitamin gummy with iron": {
+   "clicks": 86,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vegan multivitamin gummy": {
+   "clicks": 83,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "women's multi vitamin gummy": {
+   "clicks": 53,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "multi vitamin gummies for kids": {
+   "clicks": 31,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "multi vitamin gummies for adults": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "organic multivitamin gummies": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "multivitamin gummies for adults": {
+   "clicks": 172,
+   "clicks_12m_ago": 72,
+   "trend_12m_pct": 138.9
+  }
+ },
+ "cluster_clicks": 47464,
+ "cluster_rows": 36,
+ "cluster_clicks_12m_ago": 49383,
+ "cluster_trend_12m_pct": -5.3,
+ "cluster_trend_basis": "26 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "multivitamin",
+  "clicks": 40824,
+  "trend_12m_pct": -21.3
+ },
+ "no_data": [
+  "multivitamin supplement gummies",
+  "multivitamin gummies supplement",
+  "multivitamin supplements gummies",
+  "multivitamin gummies supplements",
+  "pure multivitamin gummies",
+  "multivitamin extract gummies",
+  "multivitamin gummies extract",
+  "multivitamin 500mg gummies",
+  "multivitamin gummies 500mg",
+  "multivitamin 1000mg gummies",
+  "multivitamin gummies 1000mg",
+  "multivitamin unflavored gummies",
+  "multivitamin gummies unflavored",
+  "vegan multivitamin gummies",
+  "high potency multivitamin gummies",
+  "best multivitamin gummies",
+  "multivitamin supplement gummy",
+  "multivitamin gummy supplement",
+  "multivitamin supplements gummy",
+  "multivitamin gummy supplements",
+  "organic multivitamin gummy",
+  "pure multivitamin gummy",
+  "multivitamin extract gummy",
+  "multivitamin gummy extract",
+  "multivitamin for kids gummy",
+  "multivitamin gummy for kids",
+  "multivitamin 500mg gummy",
+  "multivitamin gummy 500mg",
+  "multivitamin 1000mg gummy",
+  "multivitamin gummy 1000mg",
+  "multivitamin unflavored gummy",
+  "multivitamin gummy unflavored",
+  "high potency multivitamin gummy",
+  "best multivitamin gummy",
+  "multivitamin gummy bears",
+  "multivitamin supplement gummy bears",
+  "multivitamin gummy bears supplement",
+  "multivitamin supplements gummy bears",
+  "multivitamin gummy bears supplements",
+  "organic multivitamin gummy bears",
+  "pure multivitamin gummy bears",
+  "multivitamin extract gummy bears",
+  "multivitamin gummy bears extract",
+  "multivitamin for women gummy bears",
+  "multivitamin gummy bears for women",
+  "multivitamin for men gummy bears",
+  "multivitamin gummy bears for men",
+  "multivitamin for kids gummy bears",
+  "multivitamin gummy bears for kids",
+  "multivitamin 500mg gummy bears",
+  "multivitamin gummy bears 500mg",
+  "multivitamin 1000mg gummy bears",
+  "multivitamin gummy bears 1000mg",
+  "multivitamin unflavored gummy bears",
+  "multivitamin gummy bears unflavored",
+  "vegan multivitamin gummy bears",
+  "high potency multivitamin gummy bears",
+  "best multivitamin gummy bears",
+  "multi vitamin supplement gummies",
+  "multi vitamin gummies supplement",
+  "multi vitamin supplements gummies",
+  "multi vitamin gummies supplements",
+  "organic multi vitamin gummies",
+  "pure multi vitamin gummies",
+  "multi vitamin extract gummies",
+  "multi vitamin gummies extract",
+  "multi vitamin for women gummies",
+  "multi vitamin for men gummies",
+  "multi vitamin for kids gummies",
+  "multi vitamin 500mg gummies",
+  "multi vitamin gummies 500mg",
+  "multi vitamin 1000mg gummies",
+  "multi vitamin gummies 1000mg",
+  "multi vitamin unflavored gummies",
+  "multi vitamin gummies unflavored",
+  "vegan multi vitamin gummies",
+  "high potency multi vitamin gummies",
+  "best multi vitamin gummies",
+  "multi vitamin supplement gummy",
+  "multi vitamin gummy supplement",
+  "multi vitamin supplements gummy",
+  "multi vitamin gummy supplements",
+  "organic multi vitamin gummy",
+  "pure multi vitamin gummy",
+  "multi vitamin extract gummy",
+  "multi vitamin gummy extract",
+  "multi vitamin for women gummy",
+  "multi vitamin gummy for women",
+  "multi vitamin for men gummy",
+  "multi vitamin gummy for men",
+  "multi vitamin for kids gummy",
+  "multi vitamin gummy for kids",
+  "multi vitamin 500mg gummy",
+  "multi vitamin gummy 500mg",
+  "multi vitamin 1000mg gummy",
+  "multi vitamin gummy 1000mg",
+  "multi vitamin unflavored gummy",
+  "multi vitamin gummy unflavored",
+  "vegan multi vitamin gummy",
+  "high potency multi vitamin gummy",
+  "best multi vitamin gummy",
+  "multi vitamin gummy bears",
+  "multi vitamin supplement gummy bears",
+  "multi vitamin gummy bears supplement",
+  "multi vitamin supplements gummy bears",
+  "multi vitamin gummy bears supplements",
+  "organic multi vitamin gummy bears",
+  "pure multi vitamin gummy bears",
+  "multi vitamin extract gummy bears",
+  "multi vitamin gummy bears extract",
+  "multi vitamin for women gummy bears",
+  "multi vitamin gummy bears for women",
+  "multi vitamin for men gummy bears",
+  "multi vitamin gummy bears for men",
+  "multi vitamin for kids gummy bears",
+  "multi vitamin gummy bears for kids",
+  "multi vitamin 500mg gummy bears",
+  "multi vitamin gummy bears 500mg",
+  "multi vitamin 1000mg gummy bears",
+  "multi vitamin gummy bears 1000mg",
+  "multi vitamin unflavored gummy bears",
+  "multi vitamin gummy bears unflavored",
+  "vegan multi vitamin gummy bears",
+  "high potency multi vitamin gummy bears",
+  "best multi vitamin gummy bears",
+  "multivitamin gummy for women 50 and over",
+  "multivitamin gummy for men 50 and over",
+  "multivitamin gummy organic",
+  "multivitamin gummy teen",
+  "multi vitamin gummies for women over 60",
+  "multi vitamin gummies for women 50 plus",
+  "multi vitamin gummies for men over 50",
+  "multi vitamin gummies for senior women",
+  "multi vitamin gummy for women 50 and over",
+  "multi vitamin gummy women",
+  "multi vitamin gummy men",
+  "multi vitamin gummy with iron",
+  "multi vitamin gummy for elderly women",
+  "multi vitamin gummy for teens"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 47,464 clicks over 36 rows"
+ },
+ "default_format": {
+  "parent": "multivitamin",
+  "share": 0.167,
+  "threshold": 0.75,
+  "is_default": false,
+  "parent_top12": [
+   {
+    "asin": "B001F71XAI",
+    "title": "One A Day Multivitamin for Men - Daily Mens Multivitamins with Vitamin D, Zinc, Folic Acid, and B Vitamins, Physical Energy Support, 200 Count",
+    "brand": "ONE A DAY",
+    "monthly_sold": 60000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09KCD4D7F",
+    "title": "Centrum Silver Men's 50+ Multivitamin with Vitamin D3, B-Vitamins, Zinc for Memory and Cognition - 200 Tablets",
+    "brand": "Centrum",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09KCCVL9V",
+    "title": "Centrum Silver Women's Multivitamin for Women 50 and Over, 200 Tablets",
+    "brand": "Centrum",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0CWS5QP8F",
+    "title": "MARYRUTH'S Liquid Multivitamin + Hair Growth, Clinically Thicker Hair, 15oz",
+    "brand": "MARYRUTH'S",
+    "monthly_sold": 30000,
+    "format": "liquid",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B01KE592JU",
+    "title": "Multivitamin for Men \u2013 Methylated Multivitamin \u2013 Daily Wellness \u2013 60 Caps",
+    "brand": "Vimerson Health",
+    "monthly_sold": 30000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B07H8LBDTG",
+    "title": "OLLY Women's Multivitamin, Supports Overall Wellness,* Biotin - 130 Count",
+    "brand": "OLLY",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0DR8KDZDS",
+    "title": "Vitafusion Women's Multivitamin Gummy | Yummy Berry Flavor | 120 Gummies",
+    "brand": "Vitafusion",
+    "monthly_sold": 30000,
+    "format": "gummy",
+    "in_format": true,
+    "counted": true
+   },
+   {
+    "asin": "B09QBKGDLS",
+    "title": "One A Day Multivitamin for Women- Daily Vitamins for Woman with Biotin, Calcium, Folic Acid, Iron & Zinc, Complete Women\u2019s Vitamins, 200 Ct (Packaging May Vary)",
+    "brand": "ONE A DAY",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B08CP6F42J",
+    "title": "Amazon Basics Kids' Multivitamin Gummies, Cherry, Strawberry & Orange Flavors, 190 Count (Previously Solimo)",
+    "brand": "Amazon Basics",
+    "monthly_sold": 20000,
+    "format": "gummy",
+    "in_format": true,
+    "counted": true
+   },
+   {
+    "asin": "B00CBYG1L0",
+    "title": "Pure Encapsulations O.N.E. Multivitamin, 60 Capsules",
+    "brand": "Pure Encapsulations",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09KF8MKB8",
+    "title": "One A Day Men\u2019s 50+ Healthy Advantage Multivitamin, Multivitamin for Men with Vitamins A, C, E, B6, B12, Calcium and Vitamin D, Tablet, 200 Count (Pack of 1)",
+    "brand": "ONE A DAY",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09W35DHLH",
+    "title": "Ritual Multivitamin for Women 18+ - D3, Iron, Omega-3 DHA - USP Verified",
+    "brand": "Ritual",
+    "monthly_sold": 20000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   }
+  ],
+  "parent_top12_badges": 390000
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 71
+}

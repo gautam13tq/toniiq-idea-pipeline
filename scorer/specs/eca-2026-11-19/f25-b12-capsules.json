@@ -25,5 +25,19 @@
  "scored_on_why": "format sleeve: b12 capsules",
  "sleeve_kind": "format",
  "gate_format": "pill",
- "qualifier_regex": "caps|pill|tablet|softgel|soft gel"
+ "qualifier_regex": "caps|pill|tablet|softgel|soft gel",
+ "sleeve_cluster": [
+  "b12 capsules",
+  "b12 tablets",
+  "b12 softgels",
+  "b12 pills",
+  "vitamin b12 capsules 1000 mcg",
+  "vitamin b12 tablets",
+  "vitamin b12 softgels",
+  "vitamin b12 pills",
+  "b12 capsules 1000 mcg",
+  "b12 capsules for women",
+  "vitamin b12 capsules"
+ ],
+ "written_at": "2026-11-19T11:45:22+00:00"
 }

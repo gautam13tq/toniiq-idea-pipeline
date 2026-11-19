@@ -10,20 +10,21 @@
   "vitamin d3 k2"
  ],
  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
- "scored_on": "sleeve",
+ "scored_on": "parent_default_format",
  "parent_keyword": "d3 k2",
  "demand_keyword": "d3 k2",
- "shelf_keyword": "d3 k2 capsules",
+ "shelf_keyword": "d3 k2",
  "cluster_keywords": [
-  "d3 k2 capsules",
-  "vitamin d3 k2 capsules"
+  "d3 k2"
  ],
  "finder_terms": [
-  "d3 k2 capsules",
-  "vitamin d3 k2 capsules"
+  "d3 k2"
  ],
  "scored_on_why": "format sleeve: d3 k2 capsules",
- "sleeve_kind": "format",
- "gate_format": "pill",
- "qualifier_regex": "caps|pill|tablet|softgel|soft gel"
+ "demand_cluster": [
+  "d3 k2"
+ ],
+ "sleeve_shelf_keyword": "d3 k2 capsules",
+ "default_format_share": 0.75,
+ "written_at": "2026-11-19T11:49:33+00:00"
 }

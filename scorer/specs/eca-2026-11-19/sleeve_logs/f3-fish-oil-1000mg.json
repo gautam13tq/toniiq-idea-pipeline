@@ -1,0 +1,181 @@
+{
+ "written_at": "2026-11-19T11:49:53+00:00",
+ "prereg_run": "runs_prereg/fish-oil-1000mg-prereg__2026-11-19__4f7f102e",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "fish oil 1000mg",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "1,?000 ?mg",
+ "autocomplete_suggestions": [
+  "fish oil 1000 mg",
+  "fish oil 1000 mg 300 omega 3 soft gels",
+  "fish oil 1000 mg 400 count",
+  "fish oil 1000 mg 90 softgels",
+  "fish oil 1000 mg omega 3",
+  "fish oil 1000 mg softgels",
+  "fish oil 1000 mg softgels burpless",
+  "fish oil 1000mg",
+  "fish oil 1000mg burpless",
+  "fish oil 1000mg kirkland",
+  "fish oil 1000mg mini",
+  "fish oil 1000mg mini softgels",
+  "fish oil 1000mg softgels",
+  "kirkland fish oil 1000mg 400 softgels",
+  "metagenics 5 in 1 fish oil 1000 mg",
+  "nature made fish oil 1000 mg",
+  "omega 3 fish oil 1000mg",
+  "omegagenics 5-in-1 fish oil 1000 mg epa-dha",
+  "qunol fish oil 1000mg",
+  "qunol omega 3 fish oil 1000mg"
+ ],
+ "candidates_checked": 78,
+ "sleeve_cluster": {
+  "fish oil 1000mg": {
+   "clicks": 3367,
+   "clicks_12m_ago": 2326,
+   "trend_12m_pct": 44.8
+  },
+  "omega 3 fish oil 1000mg": {
+   "clicks": 755,
+   "clicks_12m_ago": 649,
+   "trend_12m_pct": 16.3
+  },
+  "nature made fish oil 1000 mg": {
+   "clicks": 699,
+   "clicks_12m_ago": 128,
+   "trend_12m_pct": 446.1
+  },
+  "kirkland fish oil 1000mg 400 softgels": {
+   "clicks": 361,
+   "clicks_12m_ago": 317,
+   "trend_12m_pct": 13.9
+  },
+  "fish oil 1000 mg softgels": {
+   "clicks": 346,
+   "clicks_12m_ago": 130,
+   "trend_12m_pct": 166.2
+  },
+  "omegagenics 5-in-1 fish oil 1000 mg epa-dha": {
+   "clicks": 324,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "1000 mg fish oil": {
+   "clicks": 218,
+   "clicks_12m_ago": 264,
+   "trend_12m_pct": -17.4
+  },
+  "qunol omega 3 fish oil 1000mg": {
+   "clicks": 154,
+   "clicks_12m_ago": 107,
+   "trend_12m_pct": 43.9
+  },
+  "1000mg fish oil": {
+   "clicks": 92,
+   "clicks_12m_ago": 55,
+   "trend_12m_pct": 67.3
+  },
+  "metagenics 5 in 1 fish oil 1000 mg": {
+   "clicks": 42,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "fish oil 1000mg softgels": {
+   "clicks": 30,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "fish oil 1000 mg": {
+   "clicks": 211,
+   "clicks_12m_ago": 153,
+   "trend_12m_pct": 37.9
+  }
+ },
+ "cluster_clicks": 6599,
+ "cluster_rows": 12,
+ "cluster_clicks_12m_ago": 4129,
+ "cluster_trend_12m_pct": 50.2,
+ "cluster_trend_basis": "9 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "fish oil",
+  "clicks": 161946,
+  "trend_12m_pct": 9.1
+ },
+ "no_data": [
+  "1000mg fish oil supplement",
+  "fish oil 1000mg supplement",
+  "1000mg fish oil supplements",
+  "fish oil 1000mg supplements",
+  "organic 1000mg fish oil",
+  "fish oil 1000mg organic",
+  "pure 1000mg fish oil",
+  "fish oil 1000mg pure",
+  "1000mg fish oil extract",
+  "fish oil 1000mg extract",
+  "1000mg fish oil for women",
+  "fish oil 1000mg for women",
+  "1000mg fish oil for men",
+  "fish oil 1000mg for men",
+  "1000mg fish oil for kids",
+  "fish oil 1000mg for kids",
+  "1000mg fish oil 500mg",
+  "fish oil 1000mg 500mg",
+  "1000mg fish oil 1000mg",
+  "fish oil 1000mg 1000mg",
+  "1000mg fish oil unflavored",
+  "fish oil 1000mg unflavored",
+  "vegan 1000mg fish oil",
+  "fish oil 1000mg vegan",
+  "high potency 1000mg fish oil",
+  "fish oil 1000mg high potency",
+  "best 1000mg fish oil",
+  "fish oil 1000mg best",
+  "1000 mg fish oil supplement",
+  "fish oil 1000 mg supplement",
+  "1000 mg fish oil supplements",
+  "fish oil 1000 mg supplements",
+  "organic 1000 mg fish oil",
+  "fish oil 1000 mg organic",
+  "pure 1000 mg fish oil",
+  "fish oil 1000 mg pure",
+  "1000 mg fish oil extract",
+  "fish oil 1000 mg extract",
+  "1000 mg fish oil for women",
+  "fish oil 1000 mg for women",
+  "1000 mg fish oil for men",
+  "fish oil 1000 mg for men",
+  "1000 mg fish oil for kids",
+  "fish oil 1000 mg for kids",
+  "1000 mg fish oil 500mg",
+  "fish oil 1000 mg 500mg",
+  "1000 mg fish oil 1000mg",
+  "fish oil 1000 mg 1000mg",
+  "1000 mg fish oil unflavored",
+  "fish oil 1000 mg unflavored",
+  "vegan 1000 mg fish oil",
+  "fish oil 1000 mg vegan",
+  "high potency 1000 mg fish oil",
+  "fish oil 1000 mg high potency",
+  "best 1000 mg fish oil",
+  "fish oil 1000 mg best",
+  "qunol fish oil 1000mg",
+  "fish oil 1000mg burpless",
+  "fish oil 1000mg mini softgels",
+  "fish oil 1000mg kirkland",
+  "fish oil 1000mg mini",
+  "fish oil 1000 mg 300 omega 3 soft gels",
+  "fish oil 1000 mg softgels burpless",
+  "fish oil 1000 mg omega 3",
+  "fish oil 1000 mg 90 softgels",
+  "fish oil 1000 mg 400 count"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 6,599 clicks over 12 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

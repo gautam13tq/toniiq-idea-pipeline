@@ -1,0 +1,466 @@
+{
+ "written_at": "2026-11-19T11:23:41+00:00",
+ "prereg_run": "runs_prereg/vitamin-d3-gummies-prereg__2026-11-19__b9a8b031",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "vitamin d3 gummies",
+ "sleeve_kind": "format",
+ "sleeve_regex": null,
+ "autocomplete_suggestions": [
+  "2000 iu vitamin d3 gummy",
+  "calcium 1200 mg with vitamin d3 gummies",
+  "calcium and vitamin d gummies",
+  "nature made vitamin d3 gummies",
+  "nordic naturals vitamin d3 gummies",
+  "vitafusion vitamin d3 gummies",
+  "vitamin d gummies",
+  "vitamin d gummies 1000 iu",
+  "vitamin d gummies 2000 iu",
+  "vitamin d gummies 5000 iu",
+  "vitamin d gummies for adults",
+  "vitamin d gummies for kids",
+  "vitamin d gummies for men",
+  "vitamin d gummies for women",
+  "vitamin d gummies sugar free",
+  "vitamin d gummy",
+  "vitamin d gummy 1000",
+  "vitamin d gummy 1000 iu",
+  "vitamin d gummy 5000",
+  "vitamin d gummy 5000 iu",
+  "vitamin d gummy bears",
+  "vitamin d gummy for adults",
+  "vitamin d gummy for women",
+  "vitamin d gummy kids",
+  "vitamin d gummy s",
+  "vitamin d gummy sugar free",
+  "vitamin d3 gummies",
+  "vitamin d3 gummies 1000 iu",
+  "vitamin d3 gummies 5000 iu",
+  "vitamin d3 gummies for kids",
+  "vitamin d3 gummies for men",
+  "vitamin d3 gummies for women",
+  "vitamin d3 gummy",
+  "vitamin d3 gummy 1000 iu",
+  "vitamin d3 gummy 2000iu",
+  "vitamin d3 gummy 5000 iu",
+  "vitamin d3 gummy bears",
+  "vitamin d3 gummy for adults",
+  "vitamin d3 gummy for women",
+  "vitamin d3 gummy kids",
+  "vitamin d3 gummy s",
+  "vitamin d3 gummy sugar free"
+ ],
+ "candidates_checked": 172,
+ "sleeve_cluster": {
+  "vitamin d3 gummies": {
+   "clicks": 3372,
+   "clicks_12m_ago": 3990,
+   "trend_12m_pct": -15.5
+  },
+  "vitamin d gummies for women": {
+   "clicks": 2656,
+   "clicks_12m_ago": 2492,
+   "trend_12m_pct": 6.6
+  },
+  "vitamin d gummy": {
+   "clicks": 1554,
+   "clicks_12m_ago": 1250,
+   "trend_12m_pct": 24.3
+  },
+  "vitamin d gummies for kids": {
+   "clicks": 720,
+   "clicks_12m_ago": 766,
+   "trend_12m_pct": -6.0
+  },
+  "vitamin d3 gummies for women": {
+   "clicks": 656,
+   "clicks_12m_ago": 550,
+   "trend_12m_pct": 19.3
+  },
+  "vitamin d gummies for men": {
+   "clicks": 514,
+   "clicks_12m_ago": 462,
+   "trend_12m_pct": 11.3
+  },
+  "vitamin d gummies for adults": {
+   "clicks": 424,
+   "clicks_12m_ago": 649,
+   "trend_12m_pct": -34.7
+  },
+  "calcium 1200 mg with vitamin d3 gummies": {
+   "clicks": 342,
+   "clicks_12m_ago": 336,
+   "trend_12m_pct": 1.8
+  },
+  "vitamin d3 gummy": {
+   "clicks": 325,
+   "clicks_12m_ago": 321,
+   "trend_12m_pct": 1.2
+  },
+  "vitamin d gummies 5000 iu": {
+   "clicks": 295,
+   "clicks_12m_ago": 331,
+   "trend_12m_pct": -10.9
+  },
+  "calcium and vitamin d gummies": {
+   "clicks": 289,
+   "clicks_12m_ago": 135,
+   "trend_12m_pct": 114.1
+  },
+  "nature made vitamin d3 gummies": {
+   "clicks": 265,
+   "clicks_12m_ago": 300,
+   "trend_12m_pct": -11.7
+  },
+  "vitamin d gummy for women": {
+   "clicks": 179,
+   "clicks_12m_ago": 101,
+   "trend_12m_pct": 77.2
+  },
+  "vitafusion vitamin d3 gummies": {
+   "clicks": 175,
+   "clicks_12m_ago": 88,
+   "trend_12m_pct": 98.9
+  },
+  "vitamin d gummies 1000 iu": {
+   "clicks": 170,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin d3 gummies 5000 iu": {
+   "clicks": 154,
+   "clicks_12m_ago": 183,
+   "trend_12m_pct": -15.8
+  },
+  "vitamin d gummies sugar free": {
+   "clicks": 130,
+   "clicks_12m_ago": 125,
+   "trend_12m_pct": 4.0
+  },
+  "nordic naturals vitamin d3 gummies": {
+   "clicks": 129,
+   "clicks_12m_ago": 104,
+   "trend_12m_pct": 24.0
+  },
+  "vitamin d3 gummies for men": {
+   "clicks": 127,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vegan vitamin d gummies": {
+   "clicks": 58,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "high potency vitamin d gummies": {
+   "clicks": 32,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin d gummies 2000 iu": {
+   "clicks": 32,
+   "clicks_12m_ago": 101,
+   "trend_12m_pct": -68.3
+  },
+  "vitamin d3 gummies 1000 iu": {
+   "clicks": 31,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin d gummy kids": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin d gummies": {
+   "clicks": 13365,
+   "clicks_12m_ago": 17555,
+   "trend_12m_pct": -23.9
+  }
+ },
+ "cluster_clicks": 26019,
+ "cluster_rows": 25,
+ "cluster_clicks_12m_ago": 29839,
+ "cluster_trend_12m_pct": -14.3,
+ "cluster_trend_basis": "19 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "vitamin d3",
+  "clicks": 113539,
+  "trend_12m_pct": -12.2
+ },
+ "no_data": [
+  "vitamin d3 supplement gummies",
+  "vitamin d3 gummies supplement",
+  "vitamin d3 supplements gummies",
+  "vitamin d3 gummies supplements",
+  "organic vitamin d3 gummies",
+  "pure vitamin d3 gummies",
+  "vitamin d3 extract gummies",
+  "vitamin d3 gummies extract",
+  "vitamin d3 for women gummies",
+  "vitamin d3 for men gummies",
+  "vitamin d3 for kids gummies",
+  "vitamin d3 gummies for kids",
+  "vitamin d3 500mg gummies",
+  "vitamin d3 gummies 500mg",
+  "vitamin d3 1000mg gummies",
+  "vitamin d3 gummies 1000mg",
+  "vitamin d3 unflavored gummies",
+  "vitamin d3 gummies unflavored",
+  "vegan vitamin d3 gummies",
+  "high potency vitamin d3 gummies",
+  "best vitamin d3 gummies",
+  "vitamin d3 supplement gummy",
+  "vitamin d3 gummy supplement",
+  "vitamin d3 supplements gummy",
+  "vitamin d3 gummy supplements",
+  "organic vitamin d3 gummy",
+  "pure vitamin d3 gummy",
+  "vitamin d3 extract gummy",
+  "vitamin d3 gummy extract",
+  "vitamin d3 for women gummy",
+  "vitamin d3 gummy for women",
+  "vitamin d3 for men gummy",
+  "vitamin d3 gummy for men",
+  "vitamin d3 for kids gummy",
+  "vitamin d3 gummy for kids",
+  "vitamin d3 500mg gummy",
+  "vitamin d3 gummy 500mg",
+  "vitamin d3 1000mg gummy",
+  "vitamin d3 gummy 1000mg",
+  "vitamin d3 unflavored gummy",
+  "vitamin d3 gummy unflavored",
+  "vegan vitamin d3 gummy",
+  "high potency vitamin d3 gummy",
+  "best vitamin d3 gummy",
+  "vitamin d3 gummy bears",
+  "vitamin d3 supplement gummy bears",
+  "vitamin d3 gummy bears supplement",
+  "vitamin d3 supplements gummy bears",
+  "vitamin d3 gummy bears supplements",
+  "organic vitamin d3 gummy bears",
+  "pure vitamin d3 gummy bears",
+  "vitamin d3 extract gummy bears",
+  "vitamin d3 gummy bears extract",
+  "vitamin d3 for women gummy bears",
+  "vitamin d3 gummy bears for women",
+  "vitamin d3 for men gummy bears",
+  "vitamin d3 gummy bears for men",
+  "vitamin d3 for kids gummy bears",
+  "vitamin d3 gummy bears for kids",
+  "vitamin d3 500mg gummy bears",
+  "vitamin d3 gummy bears 500mg",
+  "vitamin d3 1000mg gummy bears",
+  "vitamin d3 gummy bears 1000mg",
+  "vitamin d3 unflavored gummy bears",
+  "vitamin d3 gummy bears unflavored",
+  "vegan vitamin d3 gummy bears",
+  "high potency vitamin d3 gummy bears",
+  "best vitamin d3 gummy bears",
+  "vitamin d supplement gummies",
+  "vitamin d gummies supplement",
+  "vitamin d supplements gummies",
+  "vitamin d gummies supplements",
+  "organic vitamin d gummies",
+  "pure vitamin d gummies",
+  "vitamin d extract gummies",
+  "vitamin d gummies extract",
+  "vitamin d for women gummies",
+  "vitamin d for men gummies",
+  "vitamin d for kids gummies",
+  "vitamin d 500mg gummies",
+  "vitamin d gummies 500mg",
+  "vitamin d 1000mg gummies",
+  "vitamin d gummies 1000mg",
+  "vitamin d unflavored gummies",
+  "vitamin d gummies unflavored",
+  "best vitamin d gummies",
+  "vitamin d supplement gummy",
+  "vitamin d gummy supplement",
+  "vitamin d supplements gummy",
+  "vitamin d gummy supplements",
+  "organic vitamin d gummy",
+  "pure vitamin d gummy",
+  "vitamin d extract gummy",
+  "vitamin d gummy extract",
+  "vitamin d for women gummy",
+  "vitamin d for men gummy",
+  "vitamin d gummy for men",
+  "vitamin d for kids gummy",
+  "vitamin d gummy for kids",
+  "vitamin d 500mg gummy",
+  "vitamin d gummy 500mg",
+  "vitamin d 1000mg gummy",
+  "vitamin d gummy 1000mg",
+  "vitamin d unflavored gummy",
+  "vitamin d gummy unflavored",
+  "vegan vitamin d gummy",
+  "high potency vitamin d gummy",
+  "best vitamin d gummy",
+  "vitamin d gummy bears",
+  "vitamin d supplement gummy bears",
+  "vitamin d gummy bears supplement",
+  "vitamin d supplements gummy bears",
+  "vitamin d gummy bears supplements",
+  "organic vitamin d gummy bears",
+  "pure vitamin d gummy bears",
+  "vitamin d extract gummy bears",
+  "vitamin d gummy bears extract",
+  "vitamin d for women gummy bears",
+  "vitamin d gummy bears for women",
+  "vitamin d for men gummy bears",
+  "vitamin d gummy bears for men",
+  "vitamin d for kids gummy bears",
+  "vitamin d gummy bears for kids",
+  "vitamin d 500mg gummy bears",
+  "vitamin d gummy bears 500mg",
+  "vitamin d 1000mg gummy bears",
+  "vitamin d gummy bears 1000mg",
+  "vitamin d unflavored gummy bears",
+  "vitamin d gummy bears unflavored",
+  "vegan vitamin d gummy bears",
+  "high potency vitamin d gummy bears",
+  "best vitamin d gummy bears",
+  "2000 iu vitamin d3 gummy",
+  "vitamin d3 gummy for adults",
+  "vitamin d3 gummy 1000 iu",
+  "vitamin d3 gummy 5000 iu",
+  "vitamin d3 gummy 2000iu",
+  "vitamin d3 gummy sugar free",
+  "vitamin d3 gummy kids",
+  "vitamin d3 gummy s",
+  "vitamin d gummy for adults",
+  "vitamin d gummy 5000 iu",
+  "vitamin d gummy sugar free",
+  "vitamin d gummy 1000 iu",
+  "vitamin d gummy s",
+  "vitamin d gummy 5000",
+  "vitamin d gummy 1000"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 26,019 clicks over 25 rows"
+ },
+ "default_format": {
+  "parent": "vitamin d3",
+  "share": 0.0,
+  "threshold": 0.75,
+  "is_default": false,
+  "parent_top12": [
+   {
+    "asin": "B07255MPRN",
+    "title": "Sports Research\u00ae Vegan Vitamin D3 + K2 w/Coconut Oil, 60 Count Plantgels\u2122",
+    "brand": "Sports Research",
+    "monthly_sold": 100000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B004U3Y8OM",
+    "title": "Nature Made Vitamin D3 1000 IU (25 mcg), 300 Vitamin D Softgels",
+    "brand": "Nature Made",
+    "monthly_sold": 80000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09SR2KX9D",
+    "title": "Nature Made Vitamin D3 K2 Supplement, 5000 IU (125 mcg), One Per Day, 30 Ct",
+    "brand": "Nature Made",
+    "monthly_sold": 60000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B00GB85JR4",
+    "title": "NatureWise Vitamin D3 5000IU Supplement, Immune Support, 360 Mini Softgels",
+    "brand": "NatureWise",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B09KCD4D7F",
+    "title": "Centrum Silver Men's 50+ Multivitamin with Vitamin D3, B-Vitamins, Zinc for Memory and Cognition - 200 Tablets",
+    "brand": "Centrum",
+    "monthly_sold": 50000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0BZ8TMDQ5",
+    "title": "Pure Encapsulations Vitamin D3 & K2, 120 Capsules",
+    "brand": "Pure Encapsulations",
+    "monthly_sold": 40000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0B4BG1WDM",
+    "title": "Dr. Berg 7-in-1 Vitamin D3 K2 5000 IU | Naturally Derived D3 | 4X Lab-Tested & Verified | High Absorption Formula | K2 D3 Vitamin Supplement | 60 Capsules",
+    "brand": "Dr. Berg Nutritionals",
+    "monthly_sold": 30000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0016KITZ6",
+    "title": "Nature's Bounty Calcium 1200mg with 1000 IU Vitamin D3, 120 Count",
+    "brand": "Nature's Bounty",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0779M341X",
+    "title": "Bronson Vitamin K2 D3 (MK7) Supplement 2-in-1 D3 & K2 Complex, 60 Capsules",
+    "brand": "Bronson",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B07YMJLTR6",
+    "title": "Micro Ingredients Vitamin D3 K2 MK-7 10,000 IU Per Serving, 300 Softgels",
+    "brand": "Micro Ingredients",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B00ECH40MQ",
+    "title": "Metagenics Vitamin D3 10,000 + K, MK-7 Bone Support, 60 Softgels",
+    "brand": "Metagenics",
+    "monthly_sold": 10000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0828JGTXB",
+    "title": "Nature Made Vitamin D3 5000 IU (125 mcg), 360 Vitamin D Softgels",
+    "brand": "Nature Made",
+    "monthly_sold": 5000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   }
+  ],
+  "parent_top12_badges": 495000
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 71
+}

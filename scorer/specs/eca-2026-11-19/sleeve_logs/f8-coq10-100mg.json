@@ -1,0 +1,180 @@
+{
+ "written_at": "2026-11-19T11:57:17+00:00",
+ "prereg_run": "runs_prereg/coq10-100mg-prereg__2026-11-19__ac998771",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "coq10 100mg",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "100 ?mg",
+ "autocomplete_suggestions": [
+  "coq10 100 mg",
+  "coq10 100 mg capsules",
+  "coq10 100 mg gummies",
+  "coq10 100 mg organic",
+  "coq10 100 mg soft gels",
+  "coq10 100 mg softgels",
+  "coq10 100 mg thorne",
+  "coq10 100 mg ubiquinol",
+  "coq10 100 mgs",
+  "coq10 100mg",
+  "coq10 100mg gummies",
+  "coq10 100mg nature made",
+  "coq10 100mg softgels",
+  "coq10 100mg softgels qunol",
+  "coq10 100mg ubiquinol",
+  "life extension coq10 100 mg",
+  "now coq10 100mg",
+  "qunol coq10 100mg",
+  "qunol ultra coq10 100mg",
+  "thorne coq10 100mg"
+ ],
+ "candidates_checked": 77,
+ "sleeve_cluster": {
+  "coq10 100mg": {
+   "clicks": 14774,
+   "clicks_12m_ago": 13900,
+   "trend_12m_pct": 6.3
+  },
+  "qunol ultra coq10 100mg": {
+   "clicks": 9046,
+   "clicks_12m_ago": 2869,
+   "trend_12m_pct": 215.3
+  },
+  "qunol coq10 100mg": {
+   "clicks": 457,
+   "clicks_12m_ago": 461,
+   "trend_12m_pct": -0.9
+  },
+  "coq10 100mg softgels": {
+   "clicks": 377,
+   "clicks_12m_ago": 463,
+   "trend_12m_pct": -18.6
+  },
+  "thorne coq10 100mg": {
+   "clicks": 287,
+   "clicks_12m_ago": 137,
+   "trend_12m_pct": 109.5
+  },
+  "now coq10 100mg": {
+   "clicks": 276,
+   "clicks_12m_ago": 147,
+   "trend_12m_pct": 87.8
+  },
+  "coq10 100mg nature made": {
+   "clicks": 113,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "life extension coq10 100 mg": {
+   "clicks": 92,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "coq10 100mg ubiquinol": {
+   "clicks": 30,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "coq10 100 mg softgels": {
+   "clicks": 30,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "coq10 100mg gummies": {
+   "clicks": 28,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "coq10 100 mg": {
+   "clicks": 359,
+   "clicks_12m_ago": 349,
+   "trend_12m_pct": 2.9
+  }
+ },
+ "cluster_clicks": 25869,
+ "cluster_rows": 12,
+ "cluster_clicks_12m_ago": 18326,
+ "cluster_trend_12m_pct": 39.6,
+ "cluster_trend_basis": "7 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "coq10",
+  "clicks": 107713,
+  "trend_12m_pct": 5.6
+ },
+ "no_data": [
+  "100mg coq10",
+  "100mg coq10 supplement",
+  "coq10 100mg supplement",
+  "100mg coq10 supplements",
+  "coq10 100mg supplements",
+  "organic 100mg coq10",
+  "coq10 100mg organic",
+  "pure 100mg coq10",
+  "coq10 100mg pure",
+  "100mg coq10 extract",
+  "coq10 100mg extract",
+  "100mg coq10 for women",
+  "coq10 100mg for women",
+  "100mg coq10 for men",
+  "coq10 100mg for men",
+  "100mg coq10 for kids",
+  "coq10 100mg for kids",
+  "100mg coq10 500mg",
+  "coq10 100mg 500mg",
+  "100mg coq10 1000mg",
+  "coq10 100mg 1000mg",
+  "100mg coq10 unflavored",
+  "coq10 100mg unflavored",
+  "vegan 100mg coq10",
+  "coq10 100mg vegan",
+  "high potency 100mg coq10",
+  "coq10 100mg high potency",
+  "best 100mg coq10",
+  "coq10 100mg best",
+  "100 mg coq10",
+  "100 mg coq10 supplement",
+  "coq10 100 mg supplement",
+  "100 mg coq10 supplements",
+  "coq10 100 mg supplements",
+  "organic 100 mg coq10",
+  "coq10 100 mg organic",
+  "pure 100 mg coq10",
+  "coq10 100 mg pure",
+  "100 mg coq10 extract",
+  "coq10 100 mg extract",
+  "100 mg coq10 for women",
+  "coq10 100 mg for women",
+  "100 mg coq10 for men",
+  "coq10 100 mg for men",
+  "100 mg coq10 for kids",
+  "coq10 100 mg for kids",
+  "100 mg coq10 500mg",
+  "coq10 100 mg 500mg",
+  "100 mg coq10 1000mg",
+  "coq10 100 mg 1000mg",
+  "100 mg coq10 unflavored",
+  "coq10 100 mg unflavored",
+  "vegan 100 mg coq10",
+  "coq10 100 mg vegan",
+  "high potency 100 mg coq10",
+  "coq10 100 mg high potency",
+  "best 100 mg coq10",
+  "coq10 100 mg best",
+  "coq10 100mg softgels qunol",
+  "coq10 100 mg ubiquinol",
+  "coq10 100 mg soft gels",
+  "coq10 100 mg capsules",
+  "coq10 100 mg thorne",
+  "coq10 100 mg gummies",
+  "coq10 100 mgs"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 25,869 clicks over 12 rows"
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 0
+}

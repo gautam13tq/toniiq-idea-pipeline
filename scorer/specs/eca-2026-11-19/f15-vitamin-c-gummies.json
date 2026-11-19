@@ -22,5 +22,27 @@
  "scored_on_why": "format sleeve: vitamin c gummies",
  "sleeve_kind": "format",
  "gate_format": "gummy",
- "qualifier_regex": "gumm"
+ "qualifier_regex": "gumm",
+ "sleeve_cluster": [
+  "vitamin c gummies",
+  "vitamin c gummies for adults",
+  "vitamin c gummy",
+  "vitamin c gummies 1000mg",
+  "vitamin c gummies for kids",
+  "vitamin c gummies sugar free",
+  "vitafusion vitamin c gummies",
+  "vitamin c 1000mg gummies",
+  "liposomal vitamin c gummies",
+  "vitamin c gummy for adults",
+  "vitamin c gummies 500 mg",
+  "vitamin c 500mg gummies",
+  "vitamin c gummies for women",
+  "organic vitamin c gummies",
+  "nordic vitamin c gummies",
+  "vitamin c gummies 500mg",
+  "vitamin c gummy 1000 mg",
+  "vitamin c for kids gummies",
+  "vegan vitamin c gummies"
+ ],
+ "written_at": "2026-11-19T11:24:12+00:00"
 }

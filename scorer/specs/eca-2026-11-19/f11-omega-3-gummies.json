@@ -25,5 +25,28 @@
  "scored_on_why": "format sleeve: omega 3 gummies",
  "sleeve_kind": "format",
  "gate_format": "gummy",
- "qualifier_regex": "gumm"
+ "qualifier_regex": "gumm",
+ "sleeve_cluster": [
+  "omega 3 gummies",
+  "omega 3 gummies for kids",
+  "omega 3 gummies for women",
+  "omega 3 fish oil gummies",
+  "fish oil gummies for adults",
+  "vitafusion omega 3 gummies",
+  "omega 3 gummy",
+  "omega 3 gummies for men",
+  "fish oil gummies for women",
+  "fish oil gummy",
+  "nordic naturals omega 3 gummies",
+  "multi omega 3 gummies for her",
+  "fish oil gummies for kids",
+  "vegan omega 3 gummies",
+  "omega 3 for kids gummies",
+  "omega 3 gummies 1000mg",
+  "omega 3 gummies for adults",
+  "omega 3 supplement gummies",
+  "omega 3 supplements gummies",
+  "fish oil gummies"
+ ],
+ "written_at": "2026-11-19T11:19:22+00:00"
 }

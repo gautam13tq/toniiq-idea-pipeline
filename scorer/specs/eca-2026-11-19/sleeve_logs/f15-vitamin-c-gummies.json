@@ -1,0 +1,329 @@
+{
+ "written_at": "2026-11-19T11:24:08+00:00",
+ "prereg_run": "runs_prereg/vitamin-c-gummies-prereg__2026-11-19__02ff94dc",
+ "window": [
+  "2025-10-01",
+  "2026-10-01"
+ ],
+ "shelf_keyword": "vitamin c gummies",
+ "sleeve_kind": "format",
+ "sleeve_regex": null,
+ "autocomplete_suggestions": [
+  "iron vitamin c gummy",
+  "liposomal vitamin c gummies",
+  "nordic vitamin c gummies",
+  "organic vitamin c gummy",
+  "toddler vitamin c gummy",
+  "vitafusion vitamin c gummies",
+  "vitamin c gummies",
+  "vitamin c gummies 1000mg",
+  "vitamin c gummies 500 mg",
+  "vitamin c gummies bears kids",
+  "vitamin c gummies for adults",
+  "vitamin c gummies for kids",
+  "vitamin c gummies for women",
+  "vitamin c gummies sugar free",
+  "vitamin c gummy",
+  "vitamin c gummy 1000 mg",
+  "vitamin c gummy 500mg",
+  "vitamin c gummy bears",
+  "vitamin c gummy bears kids",
+  "vitamin c gummy for adults",
+  "vitamin c gummy kids",
+  "vitamin c gummy s",
+  "vitamin c gummy sugar free"
+ ],
+ "candidates_checked": 87,
+ "sleeve_cluster": {
+  "vitamin c gummies": {
+   "clicks": 24615,
+   "clicks_12m_ago": 25942,
+   "trend_12m_pct": -5.1
+  },
+  "vitamin c gummies for adults": {
+   "clicks": 8898,
+   "clicks_12m_ago": 6727,
+   "trend_12m_pct": 32.3
+  },
+  "vitamin c gummy": {
+   "clicks": 1365,
+   "clicks_12m_ago": 1064,
+   "trend_12m_pct": 28.3
+  },
+  "vitamin c gummies 1000mg": {
+   "clicks": 1129,
+   "clicks_12m_ago": 1260,
+   "trend_12m_pct": -10.4
+  },
+  "vitamin c gummies for kids": {
+   "clicks": 1046,
+   "clicks_12m_ago": 1031,
+   "trend_12m_pct": 1.5
+  },
+  "vitamin c gummies sugar free": {
+   "clicks": 644,
+   "clicks_12m_ago": 580,
+   "trend_12m_pct": 11.0
+  },
+  "vitafusion vitamin c gummies": {
+   "clicks": 627,
+   "clicks_12m_ago": 425,
+   "trend_12m_pct": 47.5
+  },
+  "vitamin c 1000mg gummies": {
+   "clicks": 437,
+   "clicks_12m_ago": 461,
+   "trend_12m_pct": -5.2
+  },
+  "liposomal vitamin c gummies": {
+   "clicks": 268,
+   "clicks_12m_ago": 169,
+   "trend_12m_pct": 58.6
+  },
+  "vitamin c gummy for adults": {
+   "clicks": 267,
+   "clicks_12m_ago": 279,
+   "trend_12m_pct": -4.3
+  },
+  "vitamin c gummies 500 mg": {
+   "clicks": 251,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c 500mg gummies": {
+   "clicks": 175,
+   "clicks_12m_ago": 130,
+   "trend_12m_pct": 34.6
+  },
+  "vitamin c gummies for women": {
+   "clicks": 164,
+   "clicks_12m_ago": 269,
+   "trend_12m_pct": -39.0
+  },
+  "organic vitamin c gummies": {
+   "clicks": 128,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "nordic vitamin c gummies": {
+   "clicks": 98,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c gummies 500mg": {
+   "clicks": 70,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c gummy 1000 mg": {
+   "clicks": 27,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vitamin c for kids gummies": {
+   "clicks": 26,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  },
+  "vegan vitamin c gummies": {
+   "clicks": 25,
+   "clicks_12m_ago": null,
+   "trend_12m_pct": null
+  }
+ },
+ "cluster_clicks": 40260,
+ "cluster_rows": 19,
+ "cluster_clicks_12m_ago": 38337,
+ "cluster_trend_12m_pct": 3.4,
+ "cluster_trend_basis": "12 phrasings with data in both months",
+ "parent_context": {
+  "keyword": "vitamin c",
+  "clicks": 260806,
+  "trend_12m_pct": 14.3
+ },
+ "no_data": [
+  "vitamin c supplement gummies",
+  "vitamin c gummies supplement",
+  "vitamin c supplements gummies",
+  "vitamin c gummies supplements",
+  "pure vitamin c gummies",
+  "vitamin c extract gummies",
+  "vitamin c gummies extract",
+  "vitamin c for women gummies",
+  "vitamin c for men gummies",
+  "vitamin c gummies for men",
+  "vitamin c unflavored gummies",
+  "vitamin c gummies unflavored",
+  "high potency vitamin c gummies",
+  "best vitamin c gummies",
+  "vitamin c supplement gummy",
+  "vitamin c gummy supplement",
+  "vitamin c supplements gummy",
+  "vitamin c gummy supplements",
+  "organic vitamin c gummy",
+  "pure vitamin c gummy",
+  "vitamin c extract gummy",
+  "vitamin c gummy extract",
+  "vitamin c for women gummy",
+  "vitamin c gummy for women",
+  "vitamin c for men gummy",
+  "vitamin c gummy for men",
+  "vitamin c for kids gummy",
+  "vitamin c gummy for kids",
+  "vitamin c 500mg gummy",
+  "vitamin c gummy 500mg",
+  "vitamin c 1000mg gummy",
+  "vitamin c gummy 1000mg",
+  "vitamin c unflavored gummy",
+  "vitamin c gummy unflavored",
+  "vegan vitamin c gummy",
+  "high potency vitamin c gummy",
+  "best vitamin c gummy",
+  "vitamin c gummy bears",
+  "vitamin c supplement gummy bears",
+  "vitamin c gummy bears supplement",
+  "vitamin c supplements gummy bears",
+  "vitamin c gummy bears supplements",
+  "organic vitamin c gummy bears",
+  "pure vitamin c gummy bears",
+  "vitamin c extract gummy bears",
+  "vitamin c gummy bears extract",
+  "vitamin c for women gummy bears",
+  "vitamin c gummy bears for women",
+  "vitamin c for men gummy bears",
+  "vitamin c gummy bears for men",
+  "vitamin c for kids gummy bears",
+  "vitamin c gummy bears for kids",
+  "vitamin c 500mg gummy bears",
+  "vitamin c gummy bears 500mg",
+  "vitamin c 1000mg gummy bears",
+  "vitamin c gummy bears 1000mg",
+  "vitamin c unflavored gummy bears",
+  "vitamin c gummy bears unflavored",
+  "vegan vitamin c gummy bears",
+  "high potency vitamin c gummy bears",
+  "best vitamin c gummy bears",
+  "vitamin c gummy kids",
+  "iron vitamin c gummy",
+  "vitamin c gummy s",
+  "toddler vitamin c gummy",
+  "vitamin c gummy sugar free",
+  "vitamin c gummy bears kids",
+  "vitamin c gummies bears kids"
+ ],
+ "sleeve_gate_part1": {
+  "pass": true,
+  "why": "sleeve cluster 40,260 clicks over 19 rows"
+ },
+ "default_format": {
+  "parent": "vitamin c",
+  "share": 0.091,
+  "threshold": 0.75,
+  "is_default": false,
+  "parent_top12": [
+   {
+    "asin": "B00016RL9G",
+    "title": "Emergen-C Vitamin C 1000mg Immune Support Powder, Orange, 30 Packets",
+    "brand": "Emergen-C",
+    "monthly_sold": 50000,
+    "format": "powder",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B005D0DTS2",
+    "title": "Nature Made Super B Complex with Vitamin C & Folic Acid, 140 Tablets",
+    "brand": "Nature Made",
+    "monthly_sold": 30000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0014D2GEK",
+    "title": "Nature's Bounty Super B Complex Vitamins with Vitamin C & Folic Acid",
+    "brand": "Nature's Bounty",
+    "monthly_sold": 30000,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B07122C9VC",
+    "title": "Amazon Basics Vitamin C 1000mg, Supports Healthy Immune System, Vegan, 300 Tablets, 10 Month Supply (Previously Amazon Elements)",
+    "brand": "Amazon Basics",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B000WZI4WY",
+    "title": "Airborne Immune Support Effervescent Tablets, Zesty Orange Flavor - 30ct with 1000mg Vitamin C + Vitamins A, D, E, Zinc, Selenium, Manganese & Herbal Blend - Sugar\u2011Free, Gluten\u2011Free",
+    "brand": "Airborne",
+    "monthly_sold": 20000,
+    "format": "pill",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B08VK4ZF87",
+    "title": "Airborne Elderberry + Zinc & Vitamin C Gummies For Adults, Immune Support Vitamin D & Zinc Gummies With Powerful Antioxidant Vitamins C D & E - 50 Gummies, Elderberry Flavor",
+    "brand": "Airborne",
+    "monthly_sold": 20000,
+    "format": "gummy",
+    "in_format": true,
+    "counted": true
+   },
+   {
+    "asin": "B0B9T3PQND",
+    "title": "Live Conscious Beyond Collagen Multi Collagen Powder for Women w/Types I, II, III, V & X - Keto Friendly, Hydrolyzed Collagen Peptides Powder Blend w/Biotin & Vitamin C 41 Servings",
+    "brand": "Live Conscious",
+    "monthly_sold": 10000,
+    "format": "powder",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B00ND99HY0",
+    "title": "Emergen-C Immune+ 1000mg Vitamin C Powder, with Vitamin D, Zinc, Antioxidants and Electrolytes for Immunity, Immune Support Dietary Supplement, Raspberry Flavor - 30 Count/1 Month Supply",
+    "brand": "Emergen-C",
+    "monthly_sold": 10000,
+    "format": "powder",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0D68JXS1L",
+    "title": "Micro Ingredients Multi Collagen Peptides Powder, 2lb | Type I, II, III, V, X + Biotin, Vitamin C & Hyaluronic Acid | Chocolate Flavor | Supports Hair, Skin & Joint Health | Keto, Non-GMO",
+    "brand": "Micro Ingredients",
+    "monthly_sold": 1000,
+    "format": "powder",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0H93PK684",
+    "title": "Vital Proteins Collagen Peptides Advanced, Hydrolyzed Peptides with Hyaluronic Acid and Vitamin C - Strawberry Lemon Flavor Powder, 10.5oz (Pack of 12)",
+    "brand": "Vital Proteins",
+    "monthly_sold": 0,
+    "format": "powder",
+    "in_format": false,
+    "counted": true
+   },
+   {
+    "asin": "B0GSS2DCXN",
+    "title": "Beekeeper's Naturals Kids Vitamin C Lollipops, Sour Variety Pack, 15 Ct",
+    "brand": "Beekeeper's Naturals",
+    "monthly_sold": 0,
+    "format": null,
+    "in_format": false,
+    "counted": true
+   }
+  ],
+  "parent_top12_badges": 191000
+ },
+ "scored_on": "sleeve",
+ "cost_usd": 0.0,
+ "keepa_tokens": 71
+}

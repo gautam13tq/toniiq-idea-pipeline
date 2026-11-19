@@ -28,5 +28,20 @@
  "sleeve_words": [
   "1000mg",
   "1000 mg"
- ]
+ ],
+ "sleeve_cluster": [
+  "fish oil 1000mg",
+  "omega 3 fish oil 1000mg",
+  "nature made fish oil 1000 mg",
+  "kirkland fish oil 1000mg 400 softgels",
+  "fish oil 1000 mg softgels",
+  "omegagenics 5-in-1 fish oil 1000 mg epa-dha",
+  "1000 mg fish oil",
+  "qunol omega 3 fish oil 1000mg",
+  "1000mg fish oil",
+  "metagenics 5 in 1 fish oil 1000 mg",
+  "fish oil 1000mg softgels",
+  "fish oil 1000 mg"
+ ],
+ "written_at": "2026-11-19T11:49:53+00:00"
 }

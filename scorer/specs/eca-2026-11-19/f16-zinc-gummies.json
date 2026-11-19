@@ -22,5 +22,27 @@
  "scored_on_why": "format sleeve: zinc gummies",
  "sleeve_kind": "format",
  "gate_format": "gummy",
- "qualifier_regex": "gumm"
+ "qualifier_regex": "gumm",
+ "sleeve_cluster": [
+  "zinc gummies",
+  "zinc gummies for women",
+  "vitamin c and zinc gummies",
+  "zinc gummies for men",
+  "calcium magnesium zinc gummies",
+  "zinc gummies for kids",
+  "zinc gummy",
+  "vitafusion zinc gummies",
+  "power zinc gummies",
+  "kids zinc gummy",
+  "zinc supplements gummies",
+  "zinc gummies adult",
+  "zinc gummies sugar free",
+  "vitamin c zinc gummy",
+  "zinc gummy vitamins for adults",
+  "zinc supplement gummies",
+  "zinc gummies supplements",
+  "organic zinc gummies",
+  "zinc gummy supplements"
+ ],
+ "written_at": "2026-11-19T11:25:41+00:00"
 }
