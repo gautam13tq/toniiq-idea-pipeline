@@ -1,0 +1,67 @@
+{
+ "run_id": "electrolyte-packets__2026-11-19__f5fb781b",
+ "shelf_keyword": "electrolyte packets",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "electrolytes",
+  "hero_regex": "electrolyte",
+  "microbial": false,
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-19",
+  "hero_names": [
+   "electrolyte",
+   "electrolytes"
+  ],
+  "spec_note": "ECA (Alice Wang) finished-product list, 19 Nov 2026 (Gautam: 'has to be done too'); flag anything above 35. IDEAS.md section D.",
+  "scored_on": "sleeve",
+  "parent_keyword": "electrolytes",
+  "demand_keyword": "electrolytes",
+  "shelf_keyword": "electrolyte packets",
+  "cluster_keywords": [
+   "electrolyte packets",
+   "electrolyte stick packs"
+  ],
+  "finder_terms": [
+   "electrolyte packets",
+   "electrolyte stick packs"
+  ],
+  "scored_on_why": "variety sleeve: electrolyte packets",
+  "sleeve_kind": "variety",
+  "required_regex": "packets?|stick\\s*packs?|\\bsticks\\b|single[- ]serv|travel\\s*packs?|on[- ]the[- ]go",
+  "sleeve_regex": "packets?|sticks?|single serv|travel",
+  "sleeve_words": [
+   "packets",
+   "stick packs",
+   "single serve packets",
+   "travel packs",
+   "sticks"
+  ],
+  "gate_format": "powder",
+  "sleeve_cluster": [
+   "electrolyte packets",
+   "sea moss electrolytes packets",
+   "electrolytes packets",
+   "saltte electrolyte packets",
+   "ultima electrolytes packets",
+   "seamoss electrolyte packets",
+   "true sea moss electrolytes packets",
+   "squenchers electrolyte packets",
+   "electrolyte packets sugar free",
+   "electrolyte packets bulk",
+   "creatine and electrolytes packets",
+   "gatorade electrolyte packets",
+   "electrolyte packets lmnt",
+   "electrolyte packets no sugar",
+   "electrolyte sticks",
+   "electrolyte packets liquid iv",
+   "electrolyte packets for kids",
+   "electrolytes sticks",
+   "electrolytes packets sugar free",
+   "electrolyte packets unflavored",
+   "electrolyte packets organic"
+  ],
+  "written_at": "2026-11-19T11:28:21+00:00"
+ }
+}
