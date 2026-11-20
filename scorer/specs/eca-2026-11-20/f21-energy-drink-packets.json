@@ -80,5 +80,28 @@
  "candidate_subniches": [],
  "seed_asins": [],
  "spec_round": "eca-2026-11-20",
- "spec_note": "ECA keyword audit, 20 Nov 2026: Datarova Keyword Spy (Related, Oct 2026) on Gautam's Mac; rows in eca-mining-2026-11-19/keyword-audit-2026-11-20.md. Tracker asked for this rescore; nothing published until confirmed."
+ "spec_note": "ECA keyword audit, 20 Nov 2026: Datarova Keyword Spy (Related, Oct 2026) on Gautam's Mac; rows in eca-mining-2026-11-19/keyword-audit-2026-11-20.md. Tracker asked for this rescore; nothing published until confirmed.",
+ "manual_decisions": {
+  "B0GZVSMWPF": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Tradesman Shred: title says Energy Drink Packets; sachets on the front (same call as on pre-workout packets, 19 Nov)."
+  },
+  "B0H3MH5PLZ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "MRDR Pre-Workout Pouches: oral pouches in a can, not drink packets."
+  },
+  "B08919VYKR": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "FOCUSAID GO Hydration + Clean Energy: 14 powder packets, clean energy leads with hydration."
+  }
+ }
 }

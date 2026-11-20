@@ -33,5 +33,42 @@
  "candidate_subniches": [],
  "seed_asins": [],
  "spec_round": "eca-2026-11-20",
- "spec_note": "ECA keyword audit, 20 Nov 2026: Datarova Keyword Spy (Related, Oct 2026) on Gautam's Mac; rows in eca-mining-2026-11-19/keyword-audit-2026-11-20.md. Tracker asked for this rescore; nothing published until confirmed."
+ "spec_note": "ECA keyword audit, 20 Nov 2026: Datarova Keyword Spy (Related, Oct 2026) on Gautam's Mac; rows in eca-mining-2026-11-19/keyword-audit-2026-11-20.md. Tracker asked for this rescore; nothing published until confirmed.",
+ "manual_decisions": {
+  "B019TUCOF0": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Orgain Organic Greens Powder: greens lead, probiotics an add-in."
+  },
+  "B0CZS7BNR2": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Orgain 20 g Collagen Peptides + Prebiotic & Probiotics: collagen leads and is the biggest dose."
+  },
+  "B0DNTZ1Y35": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Huel Daily Greens: greens lead, probiotics an add-in."
+  },
+  "B0H5TT57N5": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "AG1 Greens Powder: greens lead, probiotic an add-in."
+  },
+  "B0GSX3TJYT": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Culturelle Mini-Chews: chews, not a powder."
+  }
+ }
 }
