@@ -1,0 +1,44 @@
+{
+ "run_id": "probiotic-powder__2026-11-20__f45f0127",
+ "shelf_keyword": "probiotic powder",
+ "gate_version": "v11.3",
+ "scorer_version": "shelf-v1",
+ "spec": {
+  "hero_name": "probiotic",
+  "hero_regex": "probiotic|synbiotic",
+  "microbial": true,
+  "hero_names": [
+   "probiotic"
+  ],
+  "scored_on": "sleeve",
+  "parent_keyword": "probiotic",
+  "demand_keyword": "probiotic",
+  "shelf_keyword": "probiotic powder",
+  "cluster_keywords": [
+   "probiotic powder",
+   "probiotics powder"
+  ],
+  "finder_terms": [
+   "probiotic powder",
+   "probiotic powder packets",
+   "probiotics powder"
+  ],
+  "scored_on_why": "format sleeve: probiotic powder (F22 prebiotic + probiotic stick). Reach term 'prebiotics and probiotics' (12.1K clicks) not in the cluster.",
+  "sleeve_kind": "format",
+  "gate_format": "powder",
+  "qualifier_regex": "powder|packets?|sticks?|sachets?",
+  "sleeve_cluster": [
+   "probiotic powder",
+   "kids probiotic powder",
+   "probiotic powder for women",
+   "probiotics powder",
+   "powder probiotic",
+   "probiotic packets"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "spec_round": "eca-2026-11-20",
+  "spec_note": "ECA keyword audit, 20 Nov 2026: Datarova Keyword Spy (Related, Oct 2026) on Gautam's Mac; rows in eca-mining-2026-11-19/keyword-audit-2026-11-20.md. Tracker asked for this rescore; nothing published until confirmed.",
+  "written_at": "2026-11-20T05:15:05+00:00"
+ }
+}
