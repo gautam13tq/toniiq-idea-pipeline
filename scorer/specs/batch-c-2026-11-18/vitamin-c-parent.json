@@ -61,6 +61,20 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "Nature's Bounty Super B Complex with Vitamin C: B complex leads; vitamin C is secondary."
+  },
+  "B00NNR38JC": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Emergen-C Immune+: BetaVia named before vitamin C in a condition-led title (Grok batch C)."
+  },
+  "B071F1F9DW": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Airborne: condition-led (Immune Support) and AIRBORNE, not vitamin C, is the biggest word. Grok IN not applied; scorer OUT stands."
   }
  }
 }

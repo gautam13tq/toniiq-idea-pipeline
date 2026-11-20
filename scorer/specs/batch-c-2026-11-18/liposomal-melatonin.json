@@ -44,6 +44,13 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "Aurora Ultra-Liposomal Sleep Support: sleep-led blend, melatonin not the biggest word"
+  },
+  "B0C4G3LYKM": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "GABA, 5-HTP, apigenin and glutathione all outweigh melatonin 1 mg (dose rule; Grok batch C)."
   }
  }
 }

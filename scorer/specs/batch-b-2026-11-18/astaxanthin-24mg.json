@@ -41,5 +41,14 @@
   "astaxanthin 24 mg",
   "astaxanthin 24mg softgels"
  ],
- "written_at": "2026-11-18T14:14:33+00:00"
+ "written_at": "2026-11-18T14:14:33+00:00",
+ "manual_decisions": {
+  "B0GSFC2XVZ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Hovika 18-in-1: lutein 40 mg outweighs astaxanthin 24 mg (Gautam call 5, 19 Nov)."
+  }
+ }
 }

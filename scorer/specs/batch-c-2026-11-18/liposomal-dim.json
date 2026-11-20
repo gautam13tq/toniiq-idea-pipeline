@@ -49,6 +49,13 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "DIM + probiotic + liposomal vitamin C bundle; the liposomal ingredient is vitamin C, not DIM"
+  },
+  "B0F3CHXD46": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Maca 600 mg outweighs DIM 200 mg (dose rule; Grok batch C)."
   }
  }
 }

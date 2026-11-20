@@ -78,6 +78,20 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T15:45:00+00:00",
    "wording": "\"Organic\" refers only to the coconut-oil carrier, not the astaxanthin; not an organic astaxanthin product."
+  },
+  "B0BR8H9PMZ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Turmeric 1500 mg outweighs astaxanthin 12 mg (Gautam call 5, 19 Nov)."
+  },
+  "B0F4M5FBMW": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Bronze Bites tanning gummies: condition-led tanning formula (Gautam call 5, 19 Nov)."
   }
  }
 }

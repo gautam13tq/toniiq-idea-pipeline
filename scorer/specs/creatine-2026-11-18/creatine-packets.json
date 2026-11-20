@@ -57,5 +57,21 @@
   "creatine single serve packets",
   "creatine travel packs"
  ],
- "written_at": "2026-11-18T12:12:14+00:00"
+ "written_at": "2026-11-18T12:12:14+00:00",
+ "manual_decisions": {
+  "B0DVWKPJ32": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Thorne Creatine stick packs: plainly a packets product though the title lacks the word (Gautam call 1, 19 Nov)."
+  },
+  "B0G4XDH2XC": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Create Creatine + Electrolytes travel packs: plainly a packets product (Gautam call 1, 19 Nov)."
+  }
+ }
 }

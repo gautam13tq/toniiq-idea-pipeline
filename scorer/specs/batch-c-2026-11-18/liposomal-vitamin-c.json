@@ -55,5 +55,17 @@
   "vitamin c liposomal",
   "dr mercola liposomal vitamin c"
  ],
- "written_at": "2026-11-18T16:55:07+00:00"
+ "written_at": "2026-11-18T16:55:07+00:00",
+ "manual_decisions": {
+  "B0089EYWEE": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "LivOn 2-pack, variant duplicate of B000CD9XGC (Grok batch C)."
+  }
+ },
+ "hand_notes": {
+  "B0D4QTN6DB": "Liposomal Vitamin C Gummies for Women and Men: Grok said condition-led OUT, kept IN by hand. \"for Women and Men\" is an audience, not a condition (19 Nov)."
+ }
 }

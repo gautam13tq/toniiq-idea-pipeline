@@ -36,5 +36,21 @@
   "dim supplement for women",
   "dim powder",
   "dim capsules"
- ]
+ ],
+ "manual_decisions": {
+  "B07RR9JF9B": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "THORNE Hormone Advantage: condition-led headline, DIM not the biggest word (Grok batch C)."
+  },
+  "B00BFD09LG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Jarrow DIM Plus: calcium D-glucarate 250 mg outweighs DIM 100 mg (dose rule; Grok batch C)."
+  }
+ }
 }

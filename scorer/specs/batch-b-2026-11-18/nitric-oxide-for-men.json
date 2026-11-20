@@ -95,6 +95,13 @@
    "by": "hand check of NO for men top 12, 18 Nov",
    "date": "2026-11-18T17:30:00+00:00",
    "wording": "Tongkat Ali Fadogia: tongkat ali leads the title and formula; nitric oxide is a secondary add-on."
+  },
+  "B081K83ZQ1": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Nature's Pure Blend Nitric Oxide Supplements for Men: Gautam call 2, 19 Nov (\"call 2 yes include\")."
   }
  },
  "booster_names_hero": true,

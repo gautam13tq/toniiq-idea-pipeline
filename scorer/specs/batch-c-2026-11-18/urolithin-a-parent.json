@@ -42,6 +42,34 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "Thinbi NMN & NAD Supplement with Urolithin A (NMN and NAD lead, urolithin A secondary)"
+  },
+  "B0CC438LCK": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Urolithin A diacetate is out on the parent shelf (Grok batch C)."
+  },
+  "B0FCY4XRP1": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Precursor complex, free of isolated urolithin A (Grok batch C)."
+  },
+  "B0HCVC2T7M": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Precursor formula; no urolithin A in the formula bullet (Grok batch C)."
+  },
+  "B0GMF7QBZQ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "GulpGrove: shelf-wise it would pass (Urolithin A is the biggest word on the front and leads the title), but its Keepa data stayed older than 7 days after a forced refresh, so the 600/month figure cannot be trusted. Stays OUT on data, not on the shelf rule. Hand check 19 Nov."
   }
  }
 }

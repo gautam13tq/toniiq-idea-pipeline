@@ -47,6 +47,41 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "Liposomal Urolithin A Liquid Drops 1000mg, 10-in-1 Longevity Blend with NMN (urolithin A leads, 1000 mg)"
+  },
+  "B0HDC2PQJQ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Liposomal attached to NAD+, not urolithin A (Grok batch C)."
+  },
+  "B0HMW88VCS": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Liposomal attached to NMN, not urolithin A (Grok batch C)."
+  },
+  "B0HLLC4561": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Liposomal attached to NAD+, not urolithin A (Grok batch C)."
+  },
+  "B0HJYSDK1X": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Liposomal attached to NAD+, not urolithin A (Grok batch C)."
+  },
+  "B0FG25DJZD": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "NAD+ 1000 mg leads; urolithin A 100 mg secondary (Grok batch C)."
   }
  }
 }

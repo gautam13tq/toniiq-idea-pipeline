@@ -39,5 +39,35 @@
   "orvia labs liposomal nac 1200mg",
   "liposomal nac 1200 mg"
  ],
- "written_at": "2026-11-18T16:57:38+00:00"
+ "written_at": "2026-11-18T16:57:38+00:00",
+ "manual_decisions": {
+  "B0H869XVSB": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Variant duplicate of ORVIA B0H3NW3BHV (Grok batch C)."
+  },
+  "B0GZGVGFVV": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Reseller copy of ORVIA B0H3NW3BHV (Grok batch C)."
+  },
+  "B0HCC4HY59": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Liposomal attached to NMN, not NAC (Grok batch C)."
+  },
+  "B0BLQ6GY55": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Liposomal attached to glutathione, not NAC (Grok batch C)."
+  }
+ }
 }

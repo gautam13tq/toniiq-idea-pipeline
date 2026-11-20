@@ -38,5 +38,42 @@
   "quercetin organic",
   "quercetin extract",
   "quercetin capsules"
- ]
+ ],
+ "manual_decisions": {
+  "B087YLTR4G": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Zinc named before quercetin (Grok batch C)."
+  },
+  "B097Z5387H": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Thorne ResveraCel: NR leads (Grok batch C)."
+  },
+  "B095XC4VZG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Zinc named before quercetin (Grok batch C)."
+  },
+  "B087Z8PSW6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Zinc named before quercetin (Grok batch C)."
+  },
+  "B0HKTCZL9Z": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Bromelain 500 mg outweighs quercetin 250 mg (dose rule; Grok batch C)."
+  }
+ }
 }

@@ -38,5 +38,49 @@
   "liposomal astaxanthin 24mg",
   "astaxanthin liposomal"
  ],
- "written_at": "2026-11-18T17:04:35+00:00"
+ "written_at": "2026-11-18T17:04:35+00:00",
+ "manual_decisions": {
+  "B0GQMFMJKG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Resveratrol 100 mg outweighs astaxanthin 24 mg (dose rule; Grok batch C)."
+  },
+  "B0HN4PKZP5": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Tanning gummies: condition-led self-tan formula (Grok batch C)."
+  },
+  "B0H14PBL72": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Resveratrol 100 mg outweighs astaxanthin 24 mg (dose rule; Grok batch C)."
+  },
+  "B0DR3T3CL4": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Krill oil 500 mg outweighs astaxanthin 24 mg (dose rule; Grok batch C)."
+  },
+  "B0DHVCYL57": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Vitamin C 1000 mg outweighs astaxanthin 6 mg (dose rule; Grok batch C)."
+  },
+  "B0BFXNFDM6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Artemisinin 600 mg outweighs astaxanthin 24 mg (dose rule; Grok batch C)."
+  }
+ }
 }

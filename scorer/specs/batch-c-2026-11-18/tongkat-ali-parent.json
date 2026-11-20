@@ -58,6 +58,34 @@
    "by": "hand check of top 12, 18 Nov",
    "date": "2026-11-18T19:00:00+00:00",
    "wording": "Boron Supplement For Men with Tongkat Ali: boron leads the title, tongkat ali secondary"
+  },
+  "B0BRTKXV95": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Turkesterone 500 mg leads over tongkat ali 250 mg (Grok batch C)."
+  },
+  "B09HR7VJB1": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Fadogia 600 mg outweighs tongkat ali 500 mg (dose rule; Grok batch C)."
+  },
+  "B0G1T7QQJF": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "Skin patches, not an oral supplement (Grok batch C)."
+  },
+  "B0DFR883P7": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-19T23:40:00+00:00",
+   "wording": "MARS MEN: front reads Natural Testosterone Support; tongkat ali is one small line in an ingredient list, so the hero is not the biggest word (condition-led rule). Grok IN rejected by hand, 19 Nov."
   }
  }
 }
