@@ -1,0 +1,40 @@
+{
+ "hero_name": "lecithin",
+ "hero_regex": "lecithin",
+ "microbial": false,
+ "hero_names": [
+  "lecithin",
+  "sunflower lecithin",
+  "soy lecithin"
+ ],
+ "scored_on": "sleeve",
+ "parent_keyword": "lecithin",
+ "demand_keyword": "lecithin",
+ "shelf_keyword": "lecithin 1200mg",
+ "cluster_keywords": [
+  "lecithin 1200mg",
+  "lecithin capsules"
+ ],
+ "finder_terms": [
+  "lecithin 1200mg",
+  "lecithin capsules",
+  "sunflower lecithin capsules",
+  "soy lecithin softgels"
+ ],
+ "scored_on_why": "format sleeve: lecithin pills, primary 'lecithin 1200mg' (F4 soy lecithin 1200 mg softgel)",
+ "sleeve_kind": "format",
+ "gate_format": "pill",
+ "qualifier_regex": "caps|pill|tablet|softgel|soft gel|\\d+\\s*mg",
+ "sleeve_cluster": [
+  "lecithin 1200mg",
+  "sunflower lecithin capsules",
+  "lecithin supplement",
+  "soy lecithin capsules",
+  "lecithin capsules",
+  "sunflower lecithin 1200mg"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "eca-2026-11-20",
+ "spec_note": "ECA keyword audit, 20 Nov 2026: Datarova Keyword Spy (Related, Oct 2026) on Gautam's Mac; rows in eca-mining-2026-11-19/keyword-audit-2026-11-20.md. Tracker asked for this rescore; nothing published until confirmed."
+}
