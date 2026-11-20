@@ -1,0 +1,227 @@
+{
+ "run_id": "energy-drink-packets__2026-11-20__79cc85ec",
+ "decisions": {
+  "B0GZVSMWPF": {
+   "scorer": "IN",
+   "rank": 1,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "fop_unreadable",
+   "fop_rule": "front of pack unreadable",
+   "manual": null
+  },
+  "B0GCJ3VJM9": {
+   "scorer": "IN",
+   "rank": 2,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0GKC5BVT2": {
+   "scorer": "IN",
+   "rank": 3,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0CQ9R5X3T": {
+   "scorer": "IN",
+   "rank": 4,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0CXY1Z4Y8": {
+   "scorer": "IN",
+   "rank": 5,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B06XCSVHZC": {
+   "scorer": "IN",
+   "rank": 6,
+   "in_top12": false,
+   "gate_code": "HERO_SECONDARY",
+   "source": "front_of_pack",
+   "fop_rule": "hero leads the front",
+   "manual": null
+  },
+  "B0CLXHYC97": {
+   "scorer": "IN",
+   "rank": 7,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0H2G5Y55G": {
+   "scorer": "IN",
+   "rank": 8,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0H3MH5PLZ": {
+   "scorer": "IN",
+   "rank": 9,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "fop_unreadable",
+   "fop_rule": "front of pack unreadable",
+   "manual": null
+  },
+  "B0DSGNCQKL": {
+   "scorer": "IN",
+   "rank": 10,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0C9R2PCVN": {
+   "scorer": "IN",
+   "rank": 11,
+   "in_top12": false,
+   "gate_code": "HERO_SECONDARY",
+   "source": "front_of_pack",
+   "fop_rule": "hero leads the front",
+   "manual": null
+  },
+  "B0891DLMP5": {
+   "scorer": "IN",
+   "rank": 12,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "fop_unreadable",
+   "fop_rule": "front of pack unreadable",
+   "manual": null
+  },
+  "B0BN2N55NP": {
+   "scorer": "IN",
+   "rank": 13,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0195Y2GV2": {
+   "scorer": "IN",
+   "rank": 14,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0BZ9W5163": {
+   "scorer": "IN",
+   "rank": 15,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0DP3MVD7B": {
+   "scorer": "IN",
+   "rank": 16,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0DKLTHLJ6": {
+   "scorer": "IN",
+   "rank": 17,
+   "in_top12": false,
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0GNF73NV4": {
+   "scorer": "IN",
+   "rank": 18,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B086ZL794C": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "gate",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": null
+  },
+  "B0FZDXX6WJ": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "gate",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": null
+  },
+  "B06X6J5266": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "gate",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": null
+  },
+  "B00AATAHY0": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "gate",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": null
+  },
+  "B0GT6VRQRH": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "gate",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": null
+  },
+  "B004F1LNDI": {
+   "scorer": "OUT",
+   "rank": null,
+   "in_top12": false,
+   "gate_code": "EX_FORMAT_UNSTATED",
+   "source": "gate",
+   "fop_rule": null,
+   "near_miss": true,
+   "manual": null
+  }
+ }
+}
