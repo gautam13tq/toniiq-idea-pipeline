@@ -102,6 +102,62 @@
    "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
    "date": "2026-11-19T23:40:00+00:00",
    "wording": "FOCUSAID GO Hydration + Clean Energy: 14 powder packets, clean energy leads with hydration."
+  },
+  "B002RSRURY": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B07XB745PC": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam audit calls + Grok batch C check, applied by hand 19 Nov",
+   "date": "2026-11-20T06:35:00+00:00",
+   "wording": "CELSIUS On-The-Go powder sticks: Gautam 20 Nov \"Count celsius\" - powder energy sticks listed under Grocery/beverage still count when the format matches. Flavours share one parent and review pool, so they fold into one family."
+  },
+  "B097NLLWDZ": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B0083ZX29U": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B07D14JQLG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B0CJW7BRX4": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B0CWJMCV11": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B0CWJQTH2Z": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "hand check 20 Nov",
+   "date": "2026-11-20T06:50:00+00:00",
+   "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
   }
  }
 }
