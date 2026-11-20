@@ -1,25 +1,25 @@
 {
  "run_id": "creatine-packets__2026-11-18__fd0bfd03",
  "decisions": {
-  "B0G454Y98N": {
+  "B0DVWKPJ32": {
    "scorer": "IN",
    "rank": 1,
    "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "EX_HERO_MISSING",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B0DQWLCR5J": {
+  "B0G4XDH2XC": {
    "scorer": "IN",
    "rank": 2,
    "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "EX_HERO_MISSING",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B0D9D359MK": {
+  "B0G454Y98N": {
    "scorer": "IN",
    "rank": 3,
    "in_top12": true,
@@ -28,7 +28,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0FNWVZ911": {
+  "B0DQWLCR5J": {
    "scorer": "IN",
    "rank": 4,
    "in_top12": true,
@@ -37,7 +37,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0GXWZJ3GQ": {
+  "B0D9D359MK": {
    "scorer": "IN",
    "rank": 5,
    "in_top12": true,
@@ -46,7 +46,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0D7N1W4L5": {
+  "B0FNWVZ911": {
    "scorer": "IN",
    "rank": 6,
    "in_top12": true,
@@ -55,9 +55,27 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0FVGC7X59": {
+  "B0GXWZJ3GQ": {
    "scorer": "IN",
    "rank": 7,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0D7N1W4L5": {
+   "scorer": "IN",
+   "rank": 8,
+   "in_top12": true,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0FVGC7X59": {
+   "scorer": "IN",
+   "rank": 9,
    "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -66,7 +84,7 @@
   },
   "B0GJ6Z4GTG": {
    "scorer": "IN",
-   "rank": 8,
+   "rank": 10,
    "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -75,7 +93,7 @@
   },
   "B0GPY3CNYD": {
    "scorer": "IN",
-   "rank": 9,
+   "rank": 11,
    "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -84,28 +102,10 @@
   },
   "B0H6QV88LW": {
    "scorer": "IN",
-   "rank": 10,
+   "rank": 12,
    "in_top12": true,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B0H1KDMB9W": {
-   "scorer": "IN",
-   "rank": 11,
-   "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B0FJQ6QMJ8": {
-   "scorer": "IN",
-   "rank": 12,
-   "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
@@ -118,7 +118,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0FPF73SCT": {
+  "B0H1KDMB9W": {
    "scorer": "IN",
    "rank": 14,
    "in_top12": false,
@@ -127,7 +127,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0GXX97G8Z": {
+  "B0FJQ6QMJ8": {
    "scorer": "IN",
    "rank": 15,
    "in_top12": false,
@@ -136,16 +136,16 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0FLQJBMB1": {
+  "B0FPF73SCT": {
    "scorer": "IN",
    "rank": 16,
    "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B0FQ79196G": {
+  "B0GXX97G8Z": {
    "scorer": "IN",
    "rank": 17,
    "in_top12": false,
@@ -154,12 +154,12 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0D6PNQ2T7": {
+  "B0FLQJBMB1": {
    "scorer": "IN",
    "rank": 18,
    "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },

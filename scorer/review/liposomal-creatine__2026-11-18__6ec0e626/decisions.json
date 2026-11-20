@@ -109,27 +109,9 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0DQXV55K4": {
-   "scorer": "IN",
-   "rank": 13,
-   "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B0CWN6HQZQ": {
-   "scorer": "IN",
-   "rank": 14,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
-   "manual": null
-  },
   "B0FRG38K8B": {
    "scorer": "IN",
-   "rank": 15,
+   "rank": 13,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",

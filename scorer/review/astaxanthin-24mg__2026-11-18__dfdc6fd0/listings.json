@@ -109,7 +109,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/614a+yPraPL.jpg",
    "monthly_sold": 7500,
-   "reviews": 1172,
+   "reviews": 1175,
    "family_asins": [
     "B0F4M8Y6V6",
     "B0GJTWR8M5",
@@ -147,7 +147,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61hSw4NCouL.jpg",
    "monthly_sold": 1250,
-   "reviews": 1928,
+   "reviews": 1929,
    "family_asins": [
     "B09VWVZHXM",
     "B09VX5GRJB",
@@ -187,24 +187,6 @@
    ]
   },
   {
-   "asin": "B0GSFC2XVZ",
-   "brand": "Hovika",
-   "title": "Hovika 18-in-1 Astaxanthin 24mg & Lutein 40mg with Zeaxanthin Supplements, Fresh Microalgae Source with Lycopene, Grape Seed, Vitamin E, & More Supports Eye, Skin, Antioxidant, 8 Month Supply, 240ct",
-   "bullets": [
-    "18-in-1 Complete Eye Support for Daily Screen Life: Whether you're working long hours on a computer, scrolling on your phone, or gaming late at night, this advanced 18-in-1 formula with astaxanthin 24mg, lutein 40mg, and zeaxanthin helps support visual clarity, eye comfort, and blue light defense. Ideal for adults and seniors looking to maintain clear vision and reduce eye fatigue in today’s screen-heavy lifestyle",
-    "High-Potency Blue Light Defense for Digital Lifestyles: From office work to late-night streaming, constant screen exposure can strain your eyes. This high-strength formula delivers 24mg astaxanthin and 40mg lutein—2–4× more than standard formulas—to help reduce visual fatigue, support macular health, and maintain comfortable vision throughout long hours of digital use",
-    "Antioxidant Protection for Outdoor & Travel: Whether you're driving, traveling, or spending time outdoors, this antioxidant-rich blend with lycopene, grape seed extract, and beta-carotene helps defend against oxidative stress caused by UV exposure and environmental factors, while supporting both eye health and skin vitality from within",
-    "Focus, Energy & Performance for Work & Study: Perfect for busy professionals, students, and anyone with demanding schedules, this formula with B vitamins, L-tyrosine, omega-3, and saffron helps support mental clarity, focus, and sustained energy—so you can stay productive during meetings, study sessions, and long days without feeling drained",
-    "All-in-One Daily Support with 8-Month Supply Value: Instead of taking multiple supplements, this convenient once-daily supports eyes, skin, and overall wellness in one formula. With 240 counts per bag, it provides a full 8-month supply—ideal for consistent daily use whether at home, at work, or on the go"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71Dr-292AEL.jpg",
-   "monthly_sold": 1000,
-   "reviews": 146,
-   "family_asins": [
-    "B0GSFC2XVZ"
-   ]
-  },
-  {
    "asin": "B0H39JBQSD",
    "brand": "BudLive",
    "title": "BudLive Astaxanthin 24mg with MCT Oil - Max Strength Astaxanthin Supplement",
@@ -217,7 +199,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71PJ-rXSrOL.jpg",
    "monthly_sold": 1000,
-   "reviews": 77,
+   "reviews": 79,
    "family_asins": [
     "B0H39JBQSD"
    ]
@@ -236,11 +218,30 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61KCZbqtJeL.jpg",
    "monthly_sold": 950,
-   "reviews": 220,
+   "reviews": 221,
    "family_asins": [
     "B0GX9ZLCFT",
     "B0H4L2PTC8",
     "B0HBWKBSW6"
+   ]
+  },
+  {
+   "asin": "B0GGMBSNTR",
+   "brand": "Skiseoy",
+   "title": "Astaxanthin 24mg with MCT Oil, Triple Strength Astaxanthin Supplements 24mg",
+   "bullets": [
+    "Potent Astaxanthin Antioxidant 24mg Per Serving: Each Astaxanthin 24mg softgels delivers all-natural astaxanthin, a triple-strength dose compared to standard 12mg supplements. This superior potency provides powerful antioxidant protection, fighting free radicals 6000x more effectively than Vitamin C and 550x more than Vitamin E, 800x CoQ10",
+    "Enhanced Astaxanthin 24mg with MCT Oil: Astaxanthin is a fat-soluble nutrient that requires healthy fats for proper uptake. We have infused our softgels with premium MCT Oil to maximize bioavailability. This ensures your body absorbs every milligram of this King of Carotenoids, delivering faster and more efficient results for your heart and internal circulation",
+    "Infused with Ashwagandha for Total Vitality: Our unique formula features Ashwagandha Extract. This powerful adaptogen works synergistically with Astaxanthin to help your body manage stress, boost immunity, and improve energy levels designed for both physical performance and mental clarity",
+    "Fresh Microalgae Source & Triple Strength: Derived from premium Haematococcus pluvialis, our astaxanthin 24mg with MCT Oil is extracted using advanced technology to ensure maximum purity and stability. With a potent 24mg per serving, triple the strength of standard 8mg, it provides superior antioxidant support for your eyes, skin, and immune system in just 1 softgel daily",
+    "Eye, Skin & Immune System Support: Rejuvenate from the inside out, our microalgae-sourced Astaxanthin promotes eye health by reducing occasional eye fatigue, supports skin elasticity and moisture levels for a youthful glow, and strengthens the immune system to keep you feeling your best in every season",
+    "300 Softgels Incredible Value & Quality: Get a massive 300-softgel supply, offering months of premium health support. Proudly sourced from natural microalgae, our formula is Non-GMO, Gluten-Free, and manufactured in a GMP-certified facility. No artificial colors or fillers, just clean, potent nutrition you can trust"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71IfCQ3I7WL.jpg",
+   "monthly_sold": 900,
+   "reviews": 155,
+   "family_asins": [
+    "B0GGMBSNTR"
    ]
   },
   {
@@ -294,29 +295,10 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71SOjDOnnOL.jpg",
    "monthly_sold": 800,
-   "reviews": 317,
+   "reviews": 319,
    "family_asins": [
     "B0GSVMGNQY",
     "B0GSVT3GPJ"
-   ]
-  },
-  {
-   "asin": "B0GGMBSNTR",
-   "brand": "Skiseoy",
-   "title": "Astaxanthin 24mg with MCT Oil, Triple Strength Astaxanthin Supplements 24mg",
-   "bullets": [
-    "Potent Astaxanthin Antioxidant 24mg Per Serving: Each Astaxanthin 24mg softgels delivers all-natural astaxanthin, a triple-strength dose compared to standard 12mg supplements. This superior potency provides powerful antioxidant protection, fighting free radicals 6000x more effectively than Vitamin C and 550x more than Vitamin E, 800x CoQ10",
-    "Enhanced Astaxanthin 24mg with MCT Oil: Astaxanthin is a fat-soluble nutrient that requires healthy fats for proper uptake. We have infused our softgels with premium MCT Oil to maximize bioavailability. This ensures your body absorbs every milligram of this King of Carotenoids, delivering faster and more efficient results for your heart and internal circulation",
-    "Infused with Ashwagandha for Total Vitality: Our unique formula features Ashwagandha Extract. This powerful adaptogen works synergistically with Astaxanthin to help your body manage stress, boost immunity, and improve energy levels designed for both physical performance and mental clarity",
-    "Fresh Microalgae Source & Triple Strength: Derived from premium Haematococcus pluvialis, our astaxanthin 24mg with MCT Oil is extracted using advanced technology to ensure maximum purity and stability. With a potent 24mg per serving, triple the strength of standard 8mg, it provides superior antioxidant support for your eyes, skin, and immune system in just 1 softgel daily",
-    "Eye, Skin & Immune System Support: Rejuvenate from the inside out, our microalgae-sourced Astaxanthin promotes eye health by reducing occasional eye fatigue, supports skin elasticity and moisture levels for a youthful glow, and strengthens the immune system to keep you feeling your best in every season",
-    "300 Softgels Incredible Value & Quality: Get a massive 300-softgel supply, offering months of premium health support. Proudly sourced from natural microalgae, our formula is Non-GMO, Gluten-Free, and manufactured in a GMP-certified facility. No artificial colors or fillers, just clean, potent nutrition you can trust"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71IfCQ3I7WL.jpg",
-   "monthly_sold": 800,
-   "reviews": 154,
-   "family_asins": [
-    "B0GGMBSNTR"
    ]
   },
   {
@@ -350,7 +332,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/710lGXhExoL.jpg",
    "monthly_sold": 700,
-   "reviews": 304,
+   "reviews": 306,
    "family_asins": [
     "B0H7H3SQTF",
     "B0HCZBH6KW"
@@ -375,32 +357,6 @@
    ]
   },
   {
-   "asin": "B0HMCRSK74",
-   "brand": "Revella",
-   "title": "Revella Astaxanthin 24mg Softgel Supplements, Supports Mobility & Flexibility, Antioxidant for Immune Health, Daily Eye and Skin Support",
-   "bullets": [
-    "【Astaxanthin 24mg】Revella astaxanthin, each softgel contains 24 mg of premium astaxanthin derived from haematococcus pluvialis enhances the body's immunity.",
-    "【Improves skin, eye, and joint health】Revella astaxanthin 24mg softgel supplements Specially formulated to promote radiant skin, support clear vision and eye comfort",
-    "【Mobility & Flexibility Support: Our 24mg formula delivers superior for optimal absorption. Astaxanthin revella helps support body comfort and recovery after exercise or daily activity, making it suitable for active lifestyles, fitness routines, and daily wellness support",
-    "【Natural Formula】With carefully selected ingredients and a non-gmo formula. free from unnecessary additives, it is designed for daily use and long-term health support.",
-    "【Long-lasting Supply】Easy-to-take softgels for comfortable daily use. one bottle provides a long supply, so your routine stays simple day after day."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71RFSm85kdL.jpg",
-   "monthly_sold": 650,
-   "reviews": 10,
-   "family_asins": [
-    "B0HMCRSK74",
-    "B0HMHKNDND",
-    "B0HMW8KLNT",
-    "B0HN3NX5MX",
-    "B0HN69NZMQ",
-    "B0HN77F18K",
-    "B0HN8268R4",
-    "B0HP9LMVQY",
-    "B0HPZSRVM6"
-   ]
-  },
-  {
    "asin": "B0GZVYM8S3",
    "brand": "Biookultra",
    "title": "Astaxanthin Antioxidant Supplements 24mg with MCT Oil, Triple Strength",
@@ -413,9 +369,35 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71YadFz2bXL.jpg",
    "monthly_sold": 600,
-   "reviews": 103,
+   "reviews": 106,
    "family_asins": [
     "B0GZVYM8S3"
+   ]
+  },
+  {
+   "asin": "B0HMCRSK74",
+   "brand": "Revella",
+   "title": "Revella Astaxanthin 24mg Softgel Supplements, Supports Mobility & Flexibility, Antioxidant for Immune Health, Daily Eye and Skin Support",
+   "bullets": [
+    "【Astaxanthin 24mg】Revella astaxanthin, each softgel contains 24 mg of premium astaxanthin derived from haematococcus pluvialis enhances the body's immunity.",
+    "【Improves skin, eye, and joint health】Revella astaxanthin 24mg softgel supplements Specially formulated to promote radiant skin, support clear vision and eye comfort",
+    "【Mobility & Flexibility Support: Our 24mg formula delivers superior for optimal absorption. Astaxanthin revella helps support body comfort and recovery after exercise or daily activity, making it suitable for active lifestyles, fitness routines, and daily wellness support",
+    "【Natural Formula】With carefully selected ingredients and a non-gmo formula. free from unnecessary additives, it is designed for daily use and long-term health support.",
+    "【Long-lasting Supply】Easy-to-take softgels for comfortable daily use. one bottle provides a long supply, so your routine stays simple day after day."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71RFSm85kdL.jpg",
+   "monthly_sold": 550,
+   "reviews": 10,
+   "family_asins": [
+    "B0HMCRSK74",
+    "B0HMHKNDND",
+    "B0HMW8KLNT",
+    "B0HN3NX5MX",
+    "B0HN69NZMQ",
+    "B0HN77F18K",
+    "B0HN8268R4",
+    "B0HP9LMVQY",
+    "B0HPZSRVM6"
    ]
   },
   {
@@ -432,7 +414,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71xy5tsbgHL.jpg",
    "monthly_sold": 500,
-   "reviews": 0,
+   "reviews": 227,
    "family_asins": [
     "B0GKL82NTG"
    ]
@@ -474,6 +456,25 @@
    "family_asins": [
     "B0B518XXPG",
     "B0C68ZM98F"
+   ]
+  },
+  {
+   "asin": "B0HMHK1X4H",
+   "brand": "Revella",
+   "title": "Revella Astaxanthin 24 mg Softgels, Natural Astaxanthin from Microalgae with Coconut Oil, Antioxidant Support for Skin & Healthy Aging, 200 Softgels",
+   "bullets": [
+    "**HIGH POTENCY 24 MG ASTAXANTHIN** Revella Astaxanthin provides 24 mg per 2-softgel serving, sourced from microalgae. This natural antioxidant helps support the body’s antioxidant defenses against everyday oxidative stress associated with environmental exposure and normal aging. A focused addition to an adult wellness routine.",
+    "**SKIN RADIANCE & HEALTHY AGING SUPPORT** Support healthy-looking skin from within. Astaxanthin helps maintain skin hydration and elasticity while providing antioxidant support for healthy aging. Ideal for adults looking to complement their topical skin care with nutritional support for a healthy-looking, radiant appearance.",
+    "**EYE COMFORT FOR SCREEN-HEAVY ROUTINES** From computer work and extended reading to everyday phone use, modern routines place ongoing demands on your eyes. Astaxanthin supports eye comfort and visual wellness, making it a practical addition for office professionals, students, and adults with busy digital lifestyles.",
+    "**ACTIVE LIVING & EVERYDAY WELLNESS** Add antioxidant support to a lifestyle built around walking, exercise, and everyday activity. Designed for active adults and fitness enthusiasts who want to support cellular health as part of their wellness routine, alongside balanced nutrition, regular movement, and adequate rest.",
+    "**200 SOFTGELS, 100 COMPLETE SERVINGS** Each bottle contains 200 softgels, providing 100 servings with 24 mg of astaxanthin per serving. Take 2 softgels per use according to the label directions. The convenient softgel format makes it easy to maintain your supplement routine without powders to mix or liquids to measure."
+   ],
+   "image": "https://m.media-amazon.com/images/I/81cVFIPQsBL.jpg",
+   "monthly_sold": 400,
+   "reviews": 0,
+   "family_asins": [
+    "B0HMHK1X4H",
+    "B0HND884F7"
    ]
   }
  ]

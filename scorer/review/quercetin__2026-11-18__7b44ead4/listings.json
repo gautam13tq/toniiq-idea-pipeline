@@ -15,7 +15,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71ThJTWxzML.jpg",
    "monthly_sold": 16950,
-   "reviews": 21841,
+   "reviews": 21845,
    "family_asins": [
     "B0013OSQ5I",
     "B002JNK8EY",
@@ -75,7 +75,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61OiXZQMFRL.jpg",
    "monthly_sold": 8300,
-   "reviews": 7486,
+   "reviews": 7488,
    "family_asins": [
     "B09GWCQGD6",
     "B0DP1M2VD6",
@@ -97,7 +97,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71lkWp7hLJL.jpg",
    "monthly_sold": 7000,
-   "reviews": 3255,
+   "reviews": 3256,
    "family_asins": [
     "B0016J2K16",
     "B00GZRK124"
@@ -116,7 +116,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71VXOzdcfqL.jpg",
    "monthly_sold": 5600,
-   "reviews": 8689,
+   "reviews": 8692,
    "family_asins": [
     "B07RN1BMLQ",
     "B094K2S4BN"
@@ -140,7 +140,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71-IUFForbL.jpg",
    "monthly_sold": 5000,
-   "reviews": 17760,
+   "reviews": 0,
    "family_asins": [
     "B087YLTR4G"
    ]
@@ -160,28 +160,10 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71eaTpa18aL.jpg",
    "monthly_sold": 4200,
-   "reviews": 5047,
+   "reviews": 5048,
    "family_asins": [
     "B0899C4YBK",
     "B0HDQWT9H1"
-   ]
-  },
-  {
-   "asin": "B097Z5387H",
-   "brand": "THORNE",
-   "title": "THORNE ResveraCel, NR, Quercetin, Resveratrol & Betaine, 60 Capsules",
-   "bullets": [
-    "Healthy Aging: Supports cellular repair, up-regulates sirtuin proteins for detoxification benefits, boosts NAD+ production, and enhances cellular energy production in the mitochondria to support the aging process*",
-    "Unique Ingredients: Formulated with a unique form of nicotinamide riboside (NR) to protect against DNA damage, resveratrol for stress resistance, and quercetin to help reduce cellular senescence*",
-    "NAD+ Support: Stimulates the production of NAD+, an important coenzyme that declines significantly with age but plays an integral role in every cell throughout the body, including for cellular repair and normal circadian rhythm function*",
-    "Third-Party Certified: This product has been third-party tested and certified to verify what's in the package matches what's on the label and to confirm it contains no unsafe levels of contaminants",
-    "Trusted: Thorne is trusted by 100+ professional sports teams and the #1 most recommended clinical brand by consumers and health-care practitioners (Based on a 2026 independent survey of US supplement consumers and health-care practitioners)"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71Ol9-6jXtL.jpg",
-   "monthly_sold": 4000,
-   "reviews": 1311,
-   "family_asins": [
-    "B097Z5387H"
    ]
   },
   {
@@ -197,28 +179,9 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71aVcjDhxaL.jpg",
    "monthly_sold": 4000,
-   "reviews": 2423,
+   "reviews": 2425,
    "family_asins": [
     "B0797DQTVZ"
-   ]
-  },
-  {
-   "asin": "B07H9LGDPM",
-   "brand": "NatureBell",
-   "title": "NatureBell Quercetin 1,000mg, 240 Capsules",
-   "bullets": [
-    "High Count & Potency: NatureBell Quercetin 1,000mg provides 240 capsules sourced from soy-free Sophora japonica for year-round immune support and antioxidant defense*",
-    "Ultra-Strength Herbal Ingredient: Each serving delivers a 1,000mg dose of biologically active quercetin in easily absorbed capsules for maximum antioxidant support*",
-    "Bioflavonoid Immune Support: This quercetin supplement provides plant-based phytonutrients to support year-round immune health and overall wellness for men and women*",
-    "Third-Party Tested: These capsules are third-party tested for quality and potency; they are also soy-free, non-GMO, gluten-free, dairy-free, and egg-free",
-    "Pure, High-Quality Ingredients: At NatureBell, we use only the finest ingredients to help support you on your health and wellness journey"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71T1GCCOHKL.jpg",
-   "monthly_sold": 3100,
-   "reviews": 10749,
-   "family_asins": [
-    "B07H9LGDPM",
-    "B0GS7L4SVT"
    ]
   },
   {
@@ -290,7 +253,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61o7GnsgTnL.jpg",
    "monthly_sold": 2850,
-   "reviews": 28290,
+   "reviews": 28291,
    "family_asins": [
     "B00S59NYT2",
     "B0796KRR52",
@@ -319,11 +282,55 @@
    ],
    "image": "https://m.media-amazon.com/images/I/715urTCHJXL.jpg",
    "monthly_sold": 2250,
-   "reviews": 8795,
+   "reviews": 8796,
    "family_asins": [
     "B087WR6JBQ",
     "B0CPC74RZX",
     "B0G4WY54D2"
+   ]
+  },
+  {
+   "asin": "B07H9LGDPM",
+   "brand": "NatureBell",
+   "title": "NatureBell Quercetin 1,000mg, 240 Capsules",
+   "bullets": [
+    "High Count & Potency: NatureBell Quercetin 1,000mg provides 240 capsules sourced from soy-free Sophora japonica for year-round immune support and antioxidant defense*",
+    "Ultra-Strength Herbal Ingredient: Each serving delivers a 1,000mg dose of biologically active quercetin in easily absorbed capsules for maximum antioxidant support*",
+    "Bioflavonoid Immune Support: This quercetin supplement provides plant-based phytonutrients to support year-round immune health and overall wellness for men and women*",
+    "Third-Party Tested: These capsules are third-party tested for quality and potency; they are also soy-free, non-GMO, gluten-free, dairy-free, and egg-free",
+    "Pure, High-Quality Ingredients: At NatureBell, we use only the finest ingredients to help support you on your health and wellness journey"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71T1GCCOHKL.jpg",
+   "monthly_sold": 2100,
+   "reviews": 10750,
+   "family_asins": [
+    "B07H9LGDPM",
+    "B0GS7L4SVT"
+   ]
+  },
+  {
+   "asin": "B08WM2FS9S",
+   "brand": "GADE NUTRITION BOOST YOUR HEALTH",
+   "title": "Gade Nutrition Quercetin with Bromelain Vitamin C and Zinc Vitamin D",
+   "bullets": [
+    "5-IN-1 IMMUNE FORMULA: Quercetin is a plant flavonoid naturally found in fruits and vegetables and known for its antioxidant properties. Each serving delivers Quercetin 500mg + Bromelain 200mg + Vitamin C 120mg + Vitamin D3 25mcg + Zinc 22mg - a synergistic bioflavonoid complex designed to fuel your immune system and support respiratory health year-round. No hidden amounts, just the research-backed ingredients and doses your body needs, in fast-dissolving veggie capsules.",
+    "A POTENT COMBINATION TO BOOST THE IMMUNE SYSTEM: Quercetin with bromelain supports healthy aging, helps to reduce the damage and irritation caused by free radicals, helps promote a normal respiratory function, helps to fuel the immune system, and helps enhance the absorption of zinc. Our immunity complex quercetin with vitamin c and zinc is offered in rapid absorption vegetarian capsules",
+    "ANTIOXIDANT POWER + CARDIOVASCULAR & CELLULAR HEALTH: Quercetin supplements help to lower the release of histamines. This is one of the most abundant antioxidants, playing an important role in helping your body combat free radicals. It supports not just immune health, but also cardiovascular wellness and healthy aging, protecting you from seasonal changes. Vitamin C amplifies the antioxidant effect, while Zinc acts as a natural zinc ionophore, working together to keep your body's defenses strong.",
+    "SIMPLE DAILY ROUTINE - IDEAL FOR MEN & WOMEN: Take 2 capsules daily with a meal for best absorption. A 2-month supply in every bottle means fewer reorders and consistent coverage for whenever your immune system needs extra support. Suitable for vegans, vegetarians, and anyone seeking a clean supplement free from stimulants, binders, and artificial fillers. Keep you and your family strong and healthy with bromelain quercetin supplement.",
+    "MANUFACTURED IN THE USA - FAMILY-OWNED, QUALITY-OBSESSED: Made in an FDA-registered, GMP-certified facility and independently third-party tested for purity, potency, and heavy metal safety. Gluten-free, vegan, no stimulants, no binders, no fillers, no artificial ingredients. We stand behind every bottle we'd give our own family."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71lnNpopGtL.jpg",
+   "monthly_sold": 2100,
+   "reviews": 1990,
+   "family_asins": [
+    "B08WM2FS9S",
+    "B09KZ1M9VW",
+    "B09MSTND6T",
+    "B09QH9JXT9",
+    "B09RQ2VT21",
+    "B09RX5FCST",
+    "B09S8FF4M3",
+    "B0CKTSQXPL"
    ]
   },
   {
@@ -345,21 +352,21 @@
    ]
   },
   {
-   "asin": "B095XC4VZG",
-   "brand": "SPARTIS",
-   "title": "Zinc Quercetin 500mg with Vitamin C Vitamin D3 Bromelain Immune Support High Potency Quercetin Zinc Supplement ZQV by SPARTIS (Pack of 1 Bottle at 120-Caps)",
+   "asin": "B07KVX6B5N",
+   "brand": "Life Extension",
+   "title": "Life Extension Vitamin C and Bio-Quercetin, Immune Support, 250 Tablets",
    "bullets": [
-    "Zinc Picolinate is known to be of the best absorbed forms of zinc",
-    "Our high purity Quercetin Dihydrate is a powerful flavonoid that helps zinc shuttle into cells. It is known to be a Zinc Ionophore",
-    "Vitamin C and Bromelain help increase Quercetin absorption",
-    "Vitamin D3 supports bones, muscle and overall functions of the body",
-    "All ingredients combined encourage synergetic effects. Our ingredients go through multiple rounds of lab testing to ensure the highest quality possible. MADE IN THE USA"
+    "Immune support supplement – Quercetin complements vitamin C’s immune-friendly benefits. So, we’ve combined our highly absorbable quercetin with vitamin C to help encourage healthy immune system function.",
+    "Quercetin and vitamin C for a healthy ticker – Vitamin C can help support certain aspects of heart health. And we added quercetin to help protect from oxidative stress.",
+    "Highly absorbable quercetin – We combined quercetin with fibers from fenugreek seeds to help increase bioavailability. In a clinical study, quercetin formulated with fenugreek fibers was up to 62x more available than traditional quercetin.",
+    "Science matters – Expert formulators design our supplement formulas, and a Certificate of Analysis is available for every Life Extension product.",
+    "Quality ingredients – The majority of our products are non-GMO, gluten-free and manufactured in the USA with internationally sourced ingredients."
    ],
-   "image": "https://m.media-amazon.com/images/I/71KNdGqs0FS.jpg",
+   "image": "https://m.media-amazon.com/images/I/7149LKnKu4L.jpg",
    "monthly_sold": 2000,
-   "reviews": 2232,
+   "reviews": 2879,
    "family_asins": [
-    "B095XC4VZG"
+    "B07KVX6B5N"
    ]
   },
   {
@@ -375,72 +382,109 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61me6EUrq8L.jpg",
    "monthly_sold": 2000,
-   "reviews": 1734,
+   "reviews": 0,
    "family_asins": [
     "B087Z8PSW6"
    ]
   },
   {
-   "asin": "B07KVX6B5N",
-   "brand": "Life Extension",
-   "title": "Life Extension Vitamin C and Bio-Quercetin, Immune Support, 250 Tablets",
+   "asin": "B07PVJ4V7B",
+   "brand": "Vimerson Health",
+   "title": "Quercetin with Bromelain Turmeric Curcumin Allergy Supplement - 60 Capsules",
    "bullets": [
-    "Immune support supplement – Quercetin complements vitamin C’s immune-friendly benefits. So, we’ve combined our highly absorbable quercetin with vitamin C to help encourage healthy immune system function.",
-    "Quercetin and vitamin C for a healthy ticker – Vitamin C can help support certain aspects of heart health. And we added quercetin to help protect from oxidative stress.",
-    "Highly absorbable quercetin – We combined quercetin with fibers from fenugreek seeds to help increase bioavailability. In a clinical study, quercetin formulated with fenugreek fibers was up to 62x more available than traditional quercetin.",
+    "HIGH POTENCY FORMULA – Powerful blend with Quercetin 500mg, Organic Turmeric 700mg, and Bromelain. A strong immune support supplement designed to promote year-round wellness and resilience. 30-day supply.*",
+    "SEASONAL ALLERGY RELIEF – Quercetin with Bromelain helps balance histamine levels, supporting the body's natural response to allergens. Promotes comfortable breathing during seasonal changes.*",
+    "INFLAMMATION BALANCE – Turmeric with Black pepper and Quercitin work together to support immune function and promote a healthy inflammatory response for whole-body comfort.*",
+    "JOINT HEALTH – Enhance mobility and joint comfort with the inflammation-balancing benefits of Turmeric Curcumin Supplement. Promotes joint support for an active lifestyle.*",
+    "ENHANCED ABSORPTION – This formula includes BioPerine (Black Pepper Extract) to boost nutrient uptake – especially quercetin – by blocking enzymes that break it down and supporting digestion. This helps your body absorb and use key ingredients more effectively for joint, brain, and overall wellness.*",
+    "HOW TO USE – Take 2 capsules daily with food. Best results seen with consistent use over 30–60 days. Designed to support long-term joint and immune health.*",
+    "PREMIUM TURMERIC SUPPLEMENT - Made in the USA with high-quality global ingredients, in a cGMP & NSF-certified facility. Third-party tested. Our Quercetin 500mg capsules are Non-GMO, Vegan, Gluten-free, Dairy-free, Soy-free, and Sugar-free."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71JpKkJKmTL.jpg",
+   "monthly_sold": 1300,
+   "reviews": 5319,
+   "family_asins": [
+    "B07PVJ4V7B",
+    "B0CD2S2YYK",
+    "B0CD2SPWLQ",
+    "B0D2Y62LHJ"
+   ]
+  },
+  {
+   "asin": "B082P67KTX",
+   "brand": "SOLARAY",
+   "title": "SOLARAY Quercetin Bromelain & Vitamin C, 150 VegCaps",
+   "bullets": [
+    "Year-Round Immune Defense – This hardworking formula contains 500 mg of quercetin, 50 mg of bromelain and 1,235 mg of vitamin C for powerful immune support and is designed to help your body cope during seasonal changes.*",
+    "Quercetin Power – Quercetin is a potent flavonoid; these compounds, found in fruits and vegetables, are known for their antioxidant content. Quercetin also helps support heart health.*",
+    "Added Support – Bromelain, an enzyme derived from pineapples, is believed to have many health benefits throughout the body.* We’ve also included Vitamin C for powerful immune support. One of the most well-known antioxidants, Vit C also supports healthy heart function.*",
+    "Eco-Friendly – To reduce our carbon footprint, Solaray bottles are made from post-consumer recycled resin, helping keep plastic out of our landfills and oceans. We’ve also begun installing solar panels as an alternative energy source at our Ogden, Utah, facility—to power the processes and products that help you Live Brighter.",
+    "Trusted Brand: Vegan, made in our GMP-certified facility and tested in our own state-of-the-art lab in Utah to ensure purity and potency. Because we believe in the quality and efficacy of our products, each bottle comes with a 60-day money-back guarantee."
+   ],
+   "image": "https://m.media-amazon.com/images/I/61Lhjl5hM3L.jpg",
+   "monthly_sold": 1300,
+   "reviews": 2488,
+   "family_asins": [
+    "B00013Z1PA",
+    "B082P67KTX"
+   ]
+  },
+  {
+   "asin": "B08M5L372P",
+   "brand": "VitaMedica",
+   "title": "VitaMedica Bromelain & Quercetin Supplement - 500mg Bromelain 250mg Quercetin - 2400 GDU for Immunity, Joint Support, Inflammation and Muscle Recovery - 60 Vegan Capsules - 30 Servings",
+   "bullets": [
+    "Natural Allergy Relief: Bromelain with quercetin works better: We use pure bromelain and the best quercetin. Together, they provide effective support against seasonal allergies, helping to alleviate sinus congestion and reduce respiratory discomfort.",
+    "Inflammatory Response: Our science-backed, concentrated bromelain supplement delivers a balanced inflammatory response, assisting the body in managing occasional inflammation associated with daily activities, exercise, or aging.",
+    "Bromelain For Bruising And Swelling: Bromelain and quercetin are botanicals with a long history of use for help with sore muscles, joints, bruising, and swelling. Ideal quercetin with bromelain supplements for recovery support from soft-tissue injury.",
+    "Promotes Joint & Muscle Health: Get quercetin 250 mg with bromelain 500 mg in one easy solution. Sourced from pineapple stems, these capsules help support joint comfort and muscle recovery, making it ideal for those with active lifestyles.",
+    "About VitaMedica: VitaMedica's line of recovery, beauty, and everyday wellness supplements are physician formulated and independently lab tested & certified, and trusted by thousands of medical offices and millions of patients for over 25 years."
+   ],
+   "image": "https://m.media-amazon.com/images/I/61djEh0ZN5L.jpg",
+   "monthly_sold": 1300,
+   "reviews": 0,
+   "family_asins": [
+    "B08M5L372P",
+    "B0BSLPR4QJ"
+   ]
+  },
+  {
+   "asin": "B0020XW68O",
+   "brand": "Life Extension",
+   "title": "Life Extension Optimized Quercetin, 250 mg, 60 Capsules",
+   "bullets": [
+    "Healthy immune response – Quercetin is a bioflavonoid that supports a healthy seasonal and overall immune response.",
+    "Extra immune support -While quercetin is known for immune health benefits, it comes with a supporting cast in our formula. Our Optimized Quercetin is augmented with vitamin C and camu-camu extract for additional immune support.",
+    "Quercetin + vitamin C – This formula delivers 250 mg of quercetin in a superfood supplement blend, plus vitamin C and camu-camu berry extract for complementary immune support.",
     "Science matters – Expert formulators design our supplement formulas, and a Certificate of Analysis is available for every Life Extension product.",
     "Quality ingredients – The majority of our products are non-GMO, gluten-free and manufactured in the USA with internationally sourced ingredients."
    ],
-   "image": "https://m.media-amazon.com/images/I/7149LKnKu4L.jpg",
-   "monthly_sold": 2000,
+   "image": "https://m.media-amazon.com/images/I/71NsT7x9m6L.jpg",
+   "monthly_sold": 1150,
    "reviews": 0,
    "family_asins": [
-    "B07KVX6B5N"
+    "B0020XW68O",
+    "B008BOTJAE",
+    "B00UW0GQ56"
    ]
   },
   {
-   "asin": "B0HKTCZL9Z",
-   "brand": "ClarityMD",
-   "title": "ClarityMD Bromelain 500mg & Quercetin 250mg Softgels, 30 Servings",
+   "asin": "B07V7CGYXX",
+   "brand": "Toniiq",
+   "title": "Ultra High Purity Quercetin Capsules 95%+ Highly Purified and Bioavailable",
    "bullets": [
-    "Daily Immune & Wellness Support: Add ClarityMD bromelain with quercetin to your daily wellness routine. Each 2-softgel serving provides 500mg of bromelain and 250mg of quercetin to support immune health and everyday wellness.",
-    "Pineapple Stem Source: Made with bromelain pineapple extract sourced from pineapple stem (Ananas comosus). Each serving provides 300 GDU of bromelain activity in a convenient bromelain extract supplement.",
-    "Flexibility Support: This quercetin bromelain combination brings two well-known ingredients together in one convenient formula. Quercetin and bromelain help support overall physical wellness.",
-    "1-Month Daily Supply: Take 2 bromelain supplements daily with food as directed. Each 60-count bottle provides 30 servings, giving you a convenient 30-day supply for your daily routine.",
-    "Clean, Dietary-Friendly Formula: Our quercetin + bromelain softgels are made without gluten, dairy, or soy. The formula includes coconut-derived MCT oil and a gelatin softgel shell for convenient daily use."
+    "The Highly Purified Form of Quercetin - Toniiq Quercetin Capsules contain 1000mg of the highest quality quercetin powder in each serving– ethically sourced, grown and cultivated using an extraction process to ensure 95% standardized purity (other quercetin 500mg and quercetin 1000mg extracts contain 70% or less).",
+    "A Key Active Ingredient - Quercetin has amazing health benefits, but purity has always been a major challenge for this flavonoid; something most other quercetin supplements don’t provide as it requires an extra step (and expense) in the manufacturing process. At 95% purity levels, Toniiq Quercetin provides one of the purest and most potent quercetin extracts available.",
+    "Setting a New Standard for Purity - To ensure that you are getting the highest-quality product, each batch is tested for quality and purity both during and after manufacturing.",
+    "Quality, First, and Foremost - Toniiq products are produced in a GMP-certified, state-of-the-art manufacturing facility right here in the USA.",
+    "Each Batch is Individually Tested - We test each batch both ourselves and through a third-party independent laboratory to ensure our ingredients contain the correct standardized level of purity and active ingredients. We also test each batch for any possible additives, contaminants, and impurities to ensure the highest level of quality."
    ],
-   "image": "https://m.media-amazon.com/images/I/71LNpT4rQxL.jpg",
-   "monthly_sold": 2000,
+   "image": "https://m.media-amazon.com/images/I/81Pb-ldL7zL.jpg",
+   "monthly_sold": 1100,
    "reviews": 0,
    "family_asins": [
-    "B0HKTCZL9Z",
-    "B0HP8DJXG9",
-    "B0HP8LHYYL"
-   ]
-  },
-  {
-   "asin": "B08WM2FS9S",
-   "brand": "GADE NUTRITION BOOST YOUR HEALTH",
-   "title": "Gade Nutrition Quercetin with Bromelain Vitamin C and Zinc Vitamin D",
-   "bullets": [
-    "5-IN-1 IMMUNE FORMULA: Quercetin is a plant flavonoid naturally found in fruits and vegetables and known for its antioxidant properties. Each serving delivers Quercetin 500mg + Bromelain 200mg + Vitamin C 120mg + Vitamin D3 25mcg + Zinc 22mg - a synergistic bioflavonoid complex designed to fuel your immune system and support respiratory health year-round. No hidden amounts, just the research-backed ingredients and doses your body needs, in fast-dissolving veggie capsules.",
-    "A POTENT COMBINATION TO BOOST THE IMMUNE SYSTEM: Quercetin with bromelain supports healthy aging, helps to reduce the damage and irritation caused by free radicals, helps promote a normal respiratory function, helps to fuel the immune system, and helps enhance the absorption of zinc. Our immunity complex quercetin with vitamin c and zinc is offered in rapid absorption vegetarian capsules",
-    "ANTIOXIDANT POWER + CARDIOVASCULAR & CELLULAR HEALTH: Quercetin supplements help to lower the release of histamines. This is one of the most abundant antioxidants, playing an important role in helping your body combat free radicals. It supports not just immune health, but also cardiovascular wellness and healthy aging, protecting you from seasonal changes. Vitamin C amplifies the antioxidant effect, while Zinc acts as a natural zinc ionophore, working together to keep your body's defenses strong.",
-    "SIMPLE DAILY ROUTINE - IDEAL FOR MEN & WOMEN: Take 2 capsules daily with a meal for best absorption. A 2-month supply in every bottle means fewer reorders and consistent coverage for whenever your immune system needs extra support. Suitable for vegans, vegetarians, and anyone seeking a clean supplement free from stimulants, binders, and artificial fillers. Keep you and your family strong and healthy with bromelain quercetin supplement.",
-    "MANUFACTURED IN THE USA - FAMILY-OWNED, QUALITY-OBSESSED: Made in an FDA-registered, GMP-certified facility and independently third-party tested for purity, potency, and heavy metal safety. Gluten-free, vegan, no stimulants, no binders, no fillers, no artificial ingredients. We stand behind every bottle we'd give our own family."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71lnNpopGtL.jpg",
-   "monthly_sold": 2000,
-   "reviews": 0,
-   "family_asins": [
-    "B08WM2FS9S",
-    "B09KZ1M9VW",
-    "B09MSTND6T",
-    "B09QH9JXT9",
-    "B09RQ2VT21",
-    "B09RX5FCST",
-    "B09S8FF4M3",
-    "B0CKTSQXPL"
+    "B07V7CGYXX",
+    "B0B8HYS772"
    ]
   }
  ]

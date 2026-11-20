@@ -13,7 +13,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71m6CdGeU8L.jpg",
    "monthly_sold": 11000,
-   "reviews": 1720,
+   "reviews": 1723,
    "family_asins": [
     "B0BQW7H8VV",
     "B0BR344R5K"
@@ -32,9 +32,29 @@
    ],
    "image": "https://m.media-amazon.com/images/I/719iYY0UyOL.jpg",
    "monthly_sold": 10000,
-   "reviews": 16644,
+   "reviews": 16642,
    "family_asins": [
     "B000CD9XGC"
+   ]
+  },
+  {
+   "asin": "B00JFF48I6",
+   "brand": "Dr. Mercola",
+   "title": "Dr. Mercola Liposomal Vitamin C, 1,000 mg, 180 Capsules (90 Servings)",
+   "bullets": [
+    "PER SERVING: Serving size is 2 capsules. Each serving provides 1,000 mg of Vitamin C as ascorbic acid (1,111% Daily Value).",
+    "PACKAGE CONTENTS: 180 capsules per bottle; 90 servings per container.",
+    "SUGGESTED USE: Adults, as a dietary supplement, take two (2) capsules daily with water.",
+    "OTHER INGREDIENTS: Sunflower Lecithin, Medium Chain Triglycerides, Capsule (Hydroxypropyl Methylcellulose), Beeswax, Paprika Oleoresin (Color), Sunflower Oil.",
+    "LABEL WARNINGS: Keep out of reach of children. Do not use if safety seal is broken. If you are nursing, pregnant, taking medication or have a medical condition, consult your physician before taking this product."
+   ],
+   "image": "https://m.media-amazon.com/images/I/613-ko7VZyL.jpg",
+   "monthly_sold": 10000,
+   "reviews": 8050,
+   "family_asins": [
+    "B00JFF48I6",
+    "B010OVU0YK",
+    "B0HNRF6JFZ"
    ]
   },
   {
@@ -124,30 +144,10 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81h6OpUe-XL.jpg",
    "monthly_sold": 9000,
-   "reviews": 23327,
+   "reviews": 23330,
    "family_asins": [
     "B07DH1ZJZ9",
     "B082J4WGLS"
-   ]
-  },
-  {
-   "asin": "B00JFF48I6",
-   "brand": "Dr. Mercola",
-   "title": "Dr. Mercola Liposomal Vitamin C, 1,000 mg, 180 Capsules (90 Servings)",
-   "bullets": [
-    "PER SERVING: Serving size is 2 capsules. Each serving provides 1,000 mg of Vitamin C as ascorbic acid (1,111% Daily Value).",
-    "PACKAGE CONTENTS: 180 capsules per bottle; 90 servings per container.",
-    "SUGGESTED USE: Adults, as a dietary supplement, take two (2) capsules daily with water.",
-    "OTHER INGREDIENTS: Sunflower Lecithin, Medium Chain Triglycerides, Capsule (Hydroxypropyl Methylcellulose), Beeswax, Paprika Oleoresin (Color), Sunflower Oil.",
-    "LABEL WARNINGS: Keep out of reach of children. Do not use if safety seal is broken. If you are nursing, pregnant, taking medication or have a medical condition, consult your physician before taking this product."
-   ],
-   "image": "https://m.media-amazon.com/images/I/613-ko7VZyL.jpg",
-   "monthly_sold": 9000,
-   "reviews": 8044,
-   "family_asins": [
-    "B00JFF48I6",
-    "B010OVU0YK",
-    "B0HNRF6JFZ"
    ]
   },
   {
@@ -166,6 +166,24 @@
    "reviews": 0,
    "family_asins": [
     "B09FYHTSNW"
+   ]
+  },
+  {
+   "asin": "B07K8QLGHN",
+   "brand": "Nutrivein",
+   "title": "Nutrivein Premium Liposomal Vitamin C Supplement 1650mg - 180 Caps",
+   "bullets": [
+    "Highest Natural Vitamin C Formulation: Finally, a supplement to top Vitamin C 1000mg options, boasting the highest available concentration of fat-soluble Vitamin C for peak absorption & digestibility!",
+    "Fat-Soluble Support for Your Defenses: Fat-soluble Vitamin C pills and capsules maximize bioavailability and absorption, giving the body what it needs for protection throughout the seasons.",
+    "Comprehensive Mind-Body Wellness: Liposomal Vitamin C supplements, with their powerful antioxidant properties, can play a role in defenses, cognition, circulation, mood, recovery, and beyond!",
+    "Your Partner in Healthy Living: With over 1000 mg Vitamin C, and free of soy, gluten, and dairy, our high dose Vitamin C is your everyday ally in a consistent and effective wellness routine!",
+    "Made in the USA with Premium Clean & Vegan Ingredients: Every Nutrivein product, including our vegan Vitamin C, is manufactured in a cGMP-certified facility, free from toxic additives"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81f-fAyuZiL.jpg",
+   "monthly_sold": 6000,
+   "reviews": 22729,
+   "family_asins": [
+    "B07K8QLGHN"
    ]
   },
   {
@@ -199,7 +217,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71tqHiZDkYL.jpg",
    "monthly_sold": 6000,
-   "reviews": 1364,
+   "reviews": 1368,
    "family_asins": [
     "B0BV8BM7LX"
    ]
@@ -217,27 +235,9 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61fMEMLXNAL.jpg",
    "monthly_sold": 5000,
-   "reviews": 445,
+   "reviews": 447,
    "family_asins": [
     "B0FC9HR9G9"
-   ]
-  },
-  {
-   "asin": "B07K8QLGHN",
-   "brand": "Nutrivein",
-   "title": "Nutrivein Premium Liposomal Vitamin C Supplement 1650mg - 180 Caps",
-   "bullets": [
-    "Highest Natural Vitamin C Formulation: Finally, a supplement to top Vitamin C 1000mg options, boasting the highest available concentration of fat-soluble Vitamin C for peak absorption & digestibility!",
-    "Fat-Soluble Support for Your Defenses: Fat-soluble Vitamin C pills and capsules maximize bioavailability and absorption, giving the body what it needs for protection throughout the seasons.",
-    "Comprehensive Mind-Body Wellness: Liposomal Vitamin C supplements, with their powerful antioxidant properties, can play a role in defenses, cognition, circulation, mood, recovery, and beyond!",
-    "Your Partner in Healthy Living: With over 1000 mg Vitamin C, and free of soy, gluten, and dairy, our high dose Vitamin C is your everyday ally in a consistent and effective wellness routine!",
-    "Made in the USA with Premium Clean & Vegan Ingredients: Every Nutrivein product, including our vegan Vitamin C, is manufactured in a cGMP-certified facility, free from toxic additives"
-   ],
-   "image": "https://m.media-amazon.com/images/I/81f-fAyuZiL.jpg",
-   "monthly_sold": 5000,
-   "reviews": 22727,
-   "family_asins": [
-    "B07K8QLGHN"
    ]
   },
   {
@@ -253,7 +253,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81D4UPy7Q2L.jpg",
    "monthly_sold": 5000,
-   "reviews": 5330,
+   "reviews": 5332,
    "family_asins": [
     "B086GK9SWD"
    ]
@@ -289,7 +289,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61OxkvytC6L.jpg",
    "monthly_sold": 4000,
-   "reviews": 139,
+   "reviews": 150,
    "family_asins": [
     "B0GJYVVHWG"
    ]
@@ -325,7 +325,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71DTTAbB3YL.jpg",
    "monthly_sold": 3000,
-   "reviews": 1442,
+   "reviews": 1443,
    "family_asins": [
     "B0BTFHH8G6"
    ]
@@ -343,7 +343,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71Ri3XxeJCL.jpg",
    "monthly_sold": 2950,
-   "reviews": 2106,
+   "reviews": 2108,
    "family_asins": [
     "B09YCYKFWX",
     "B09YD1PXYV",
@@ -367,7 +367,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81SmQ5khcHL.jpg",
    "monthly_sold": 2000,
-   "reviews": 1198,
+   "reviews": 1201,
    "family_asins": [
     "B086D3TN83"
    ]
@@ -386,24 +386,9 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81FlAJ0vnfL.jpg",
    "monthly_sold": 2000,
-   "reviews": 3069,
+   "reviews": 3070,
    "family_asins": [
     "B08FXY6542"
-   ]
-  },
-  {
-   "asin": "B0089EYWEE",
-   "brand": "LivOn Laboratories",
-   "title": "LivOn Laboratories - Lypo–Spheric Vitamin C – 1,000 mg Vitamin C & 1,000 mg Essential Phospholipids Per Packet – Liposome Encapsulated for Improved Absorption – Non–GMO - 2 Pack (60 Count)",
-   "bullets": [
-    "Utilizes a revolutionary method of enhanced Vitamin C delivery – Liposomal Encapsulation Technology - designed to help your body absorb more Vitamin C."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71agA2wkcZL.jpg",
-   "monthly_sold": 1900,
-   "reviews": 0,
-   "family_asins": [
-    "B0089EYWEE",
-    "B00DH30638"
    ]
   },
   {
@@ -444,6 +429,25 @@
    "family_asins": [
     "B0D4QTN6DB",
     "B0DR2WCVVT"
+   ]
+  },
+  {
+   "asin": "B09LBFRTWD",
+   "brand": "Dr. Mercola",
+   "title": "Dr. Mercola Liquid Liposomal Vitamin C, Citrus Vanilla, 450 mL",
+   "bullets": [
+    "Premium Health Supplement: Dr. Mercola Liquid Liposomal Vitamin C provides 1,000 mg vitamin C per serving support your health*",
+    "Immune Support: Vitamin C acts as a powerful antioxidant supplement, helping to support your immune system*",
+    "Advanced Technology: Our immune supplement utilizes liposomal technology for better bioavailability and nutrient absorption",
+    "Delicious Flavor: Liquid Liposomal Vitamin C has a smooth, citrus vanilla flavor that can be taken orally by itself or easily mixed with your beverage of choice",
+    "Empowering You: We give you the resources to take control of your health with regenerative practices and informed consent principles"
+   ],
+   "image": "https://m.media-amazon.com/images/I/61epv2Q15zL.jpg",
+   "monthly_sold": 1300,
+   "reviews": 0,
+   "family_asins": [
+    "B09LBFRTWD",
+    "B0CFPJBXC8"
    ]
   }
  ]

@@ -19,7 +19,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71-Cqjr9ZHL.jpg",
    "monthly_sold": 104000,
-   "reviews": 54592,
+   "reviews": 54598,
    "family_asins": [
     "B00016RL9G",
     "B0009RF8KG",
@@ -43,12 +43,33 @@
     "These statements have not been evaluated by the Food & Drug Administration; this product is not intended to diagnose, treat, cure, or prevent any disease"
    ],
    "image": "https://m.media-amazon.com/images/I/71CDW33q0AL.jpg",
-   "monthly_sold": 57000,
-   "reviews": 41806,
+   "monthly_sold": 67000,
+   "reviews": 41821,
    "family_asins": [
     "B00008I8NJ",
     "B0000DJASY",
     "B08FNG91XM"
+   ]
+  },
+  {
+   "asin": "B0CBVWPPR9",
+   "brand": "Nature Made",
+   "title": "​​Nature Made Vitamin C Gummies, Maximum Strength Dosage, 80 Count",
+   "bullets": [
+    "Immune System Support: Contains one 80 count bottle of Nature Made Maximum Strength Dosage (1) Vitamin C 1000mg per 4-gummy serving for immune support—a 20-day Vitamin C supply",
+    "Max Strength(1) Daily Immune Support Gummies: ​​Verified by USP, these Vitamin C supplements support immune health and provide antioxidant support; Vitamin C supports collagen synthesis​",
+    "Convenient Gummies for Adults: A chewable Vitamin C supplement that offers 1000 mg Vitamin C per 4 gummies for an easy wellness vitamins routine, anytime at home or on-the-go",
+    "​​Citrus-Flavored Chewable Supplement: Adults chew four tart tangerine-flavored Nature Made Vitamin C gummies daily; also explore Nature Made's Kids First Vitamin C options ​",
+    "High-Quality Ingredients: ​​These gluten free vitamins have no artificial flavors, no synthetic dyes, no high fructose corn syrup, and no artificial sweeteners",
+    "Over 50 Years of Dietary Supplements Expertise, United States Pharmacopeia (USP) Verified, Number 1 Pharmacist Recommended Vitamin & Supplement Brand*",
+    "These statements have not been evaluated by the Food & Drug Administration; this product is not intended to diagnose, treat, cure, or prevent any disease"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81+oi3czxxL.jpg",
+   "monthly_sold": 30000,
+   "reviews": 8864,
+   "family_asins": [
+    "B00IOBAK02",
+    "B0CBVWPPR9"
    ]
   },
   {
@@ -105,31 +126,10 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61QCBZVArlL.jpg",
    "monthly_sold": 20000,
-   "reviews": 22886,
+   "reviews": 22891,
    "family_asins": [
     "B07122C9VC",
     "B0HLYV4MTW"
-   ]
-  },
-  {
-   "asin": "B0CBVWPPR9",
-   "brand": "Nature Made",
-   "title": "​​Nature Made Vitamin C Gummies, Maximum Strength Dosage, 80 Count",
-   "bullets": [
-    "Immune System Support: Contains one 80 count bottle of Nature Made Maximum Strength Dosage (1) Vitamin C 1000mg per 4-gummy serving for immune support—a 20-day Vitamin C supply",
-    "Max Strength(1) Daily Immune Support Gummies: ​​Verified by USP, these Vitamin C supplements support immune health and provide antioxidant support; Vitamin C supports collagen synthesis​",
-    "Convenient Gummies for Adults: A chewable Vitamin C supplement that offers 1000 mg Vitamin C per 4 gummies for an easy wellness vitamins routine, anytime at home or on-the-go",
-    "​​Citrus-Flavored Chewable Supplement: Adults chew four tart tangerine-flavored Nature Made Vitamin C gummies daily; also explore Nature Made's Kids First Vitamin C options ​",
-    "High-Quality Ingredients: ​​These gluten free vitamins have no artificial flavors, no synthetic dyes, no high fructose corn syrup, and no artificial sweeteners",
-    "Over 50 Years of Dietary Supplements Expertise, United States Pharmacopeia (USP) Verified, Number 1 Pharmacist Recommended Vitamin & Supplement Brand*",
-    "These statements have not been evaluated by the Food & Drug Administration; this product is not intended to diagnose, treat, cure, or prevent any disease"
-   ],
-   "image": "https://m.media-amazon.com/images/I/81+oi3czxxL.jpg",
-   "monthly_sold": 20000,
-   "reviews": 8862,
-   "family_asins": [
-    "B00IOBAK02",
-    "B0CBVWPPR9"
    ]
   },
   {
@@ -145,7 +145,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61-aU1swfkL.jpg",
    "monthly_sold": 20000,
-   "reviews": 58766,
+   "reviews": 58771,
    "family_asins": [
     "B000GG87V2",
     "B0019GE9HE"
@@ -222,7 +222,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61abOWgigXL.jpg",
    "monthly_sold": 18000,
-   "reviews": 23516,
+   "reviews": 23520,
    "family_asins": [
     "B07BBMND7W",
     "B07BZL9748"
@@ -258,9 +258,9 @@
     "GMO-Free, Gluten Free, 3rd Party Tested",
     "Made in a NSF Certified, GMP Compliant, FDA Registered Facility"
    ],
-   "image": "https://m.media-amazon.com/images/I/6196u29s3IL.jpg",
+   "image": "https://m.media-amazon.com/images/I/61C5NUIys9L.jpg",
    "monthly_sold": 11100,
-   "reviews": 24571,
+   "reviews": 24574,
    "family_asins": [
     "B074GCB1ND",
     "B074GD9P8V",
@@ -285,7 +285,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/718q2lhNDrL.jpg",
    "monthly_sold": 10000,
-   "reviews": 16375,
+   "reviews": 16378,
    "family_asins": [
     "B00ND99HY0"
    ]
@@ -323,10 +323,28 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81fFpReozlL.jpg",
    "monthly_sold": 10000,
-   "reviews": 7676,
+   "reviews": 7681,
    "family_asins": [
     "B08FNSB7YN",
     "B0DB6H81PV"
+   ]
+  },
+  {
+   "asin": "B086PL2D5R",
+   "brand": "Sports Research",
+   "title": "Sports Research® High Potency Vitamin C 1000mg, 240 Count Veggie Capsules",
+   "bullets": [
+    "HIGH POTENCY VITAMIN C: Our 1000 mg Vitamin C capsules deliver a high concentration of this essential nutrient in a convenient one-a-day veggie capsule",
+    "ENHANCED SUPPORT: Help keep your body functioning at its best with this immune support supplement. Rich with powerful antioxidants, our Vitamin C capsules play a role in helping healthy cells and promote antioxidant activity*",
+    "VEGAN CERTIFIED: We hold our supplements to a higher standard. That’s why you can rest assured that our vegan Vitamin C is non-GMO verified, gluten-free and soy-free",
+    "PREMIUM EXPERIENCE: Our Vitamin C supplement is delivered in a convenient once-daily veggie capsule, without the binders, extra ingredients, or other unnecessary stuff. Manufactured in a cGMP-compliant facility in the USA.",
+    "THE SPORTS RESEARCH DIFFERENCE: Founded in Southern California in 1980, Sports Research is a family-owned business born from a passion for fitness and wellness. Our goal is to embrace the sport of life through research-backed products created for every body—inside and out"
+   ],
+   "image": "https://m.media-amazon.com/images/I/61Qx8GHWcCL.jpg",
+   "monthly_sold": 10000,
+   "reviews": 10076,
+   "family_asins": [
+    "B086PL2D5R"
    ]
   },
   {
@@ -342,29 +360,28 @@
    ],
    "image": "https://m.media-amazon.com/images/I/719iYY0UyOL.jpg",
    "monthly_sold": 10000,
-   "reviews": 16644,
+   "reviews": 16642,
    "family_asins": [
     "B000CD9XGC"
    ]
   },
   {
-   "asin": "B00NNR38JC",
-   "brand": "Emergen-C",
-   "title": "Emergen-C Immune+ Triple Action Immune Support Powder, BetaVia (R), 1000 mg Vitamin C, B Vitamins, Vitamin D and Antioxidants, Super Orange – 30 Count",
+   "asin": "B005P0MK1M",
+   "brand": "SOLARAY",
+   "title": "SOLARAY Vitamin C 1000 mg, Time Release Capsules, 100 VegCaps",
    "bullets": [
-    "30ct of Emergen-C Immune+ Triple Action Immune Support* Powder, with 200 mg of BetaVia (R)▵, 1000 mg Vitamin C per serving, B Vitamins, Vitamin D, Zinc and Manganese",
-    "Support your immune system in three ways with Immune+ Triple Action – our advanced immune support formula*",
-    "This immune support supplement contains B Vitamins to help with natural energy support*",
-    "This flavored fizzy drink mix is caffeine free, gluten free and vegetarian",
-    "Affordable immune support all year*",
-    "This portable, convenient powder supplement comes in individual packets – perfect for your daily wellness routine at home, work, or travel",
-    "Antioxidant supplement packed with the key nutrients your body needs"
+    "Your Vitamin C Support – While you can find Vitamin C in many fruits and vegetables, the content of this essential antioxidant vitamin can become depleted through cooking or storage methods. Solaray Time Release Vitamin C supplement can help you achieve optimal levels.",
+    "Immune Defense & More – Our hardworking immune support supplement provides 1000 mg of Vitamin C with rose hips and acerola to help support absorption.* Vitamin C also helps with blood vessel health, antioxidant activity and heart health support.*",
+    "Time Release Vitamin C – Two-stage, sustained-release technology is designed to release half the Vitamin C rapidly for fast-acting support and the other half gradually to help extend the availability of the vitamin over a longer period for ongoing support.**",
+    "Eco-Friendly – To reduce our carbon footprint, Solaray bottles are made from post-consumer recycled resin, helping keep plastic out of our landfills and oceans. We’ve also begun installing solar panels as an alternative energy source at our Ogden, Utah, facility—to power the processes and products that help you Live Brighter.",
+    "Trusted Brand – Our Vitamin C capsules are vegan, made in our GMP-certified facility and tested in our own state-of-the-art lab in Utah to ensure purity and potency. Because we believe in the quality and efficacy of our products, each bottle comes with a 60-day money-back guarantee. **Based on in-vitro dissolution tests designed to simulate the digestive process. Individual results may vary."
    ],
-   "image": "https://m.media-amazon.com/images/I/71jIUbS89PL.jpg",
+   "image": "https://m.media-amazon.com/images/I/61PdleoqccL.jpg",
    "monthly_sold": 10000,
-   "reviews": 25030,
+   "reviews": 12016,
    "family_asins": [
-    "B00NNR38JC"
+    "B005P0MK1M",
+    "B07JH4R881"
    ]
   },
   {
@@ -380,7 +397,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/618EiiNmkaL.jpg",
    "monthly_sold": 10000,
-   "reviews": 15434,
+   "reviews": 15895,
    "family_asins": [
     "B0013FYHSW"
    ]
@@ -403,43 +420,6 @@
    "reviews": 0,
    "family_asins": [
     "B071F1F9DW"
-   ]
-  },
-  {
-   "asin": "B086PL2D5R",
-   "brand": "Sports Research",
-   "title": "Sports Research® High Potency Vitamin C 1000mg, 240 Count Veggie Capsules",
-   "bullets": [
-    "HIGH POTENCY VITAMIN C: Our 1000 mg Vitamin C capsules deliver a high concentration of this essential nutrient in a convenient one-a-day veggie capsule",
-    "ENHANCED SUPPORT: Help keep your body functioning at its best with this immune support supplement. Rich with powerful antioxidants, our Vitamin C capsules play a role in helping healthy cells and promote antioxidant activity*",
-    "VEGAN CERTIFIED: We hold our supplements to a higher standard. That’s why you can rest assured that our vegan Vitamin C is non-GMO verified, gluten-free and soy-free",
-    "PREMIUM EXPERIENCE: Our Vitamin C supplement is delivered in a convenient once-daily veggie capsule, without the binders, extra ingredients, or other unnecessary stuff. Manufactured in a cGMP-compliant facility in the USA.",
-    "THE SPORTS RESEARCH DIFFERENCE: Founded in Southern California in 1980, Sports Research is a family-owned business born from a passion for fitness and wellness. Our goal is to embrace the sport of life through research-backed products created for every body—inside and out"
-   ],
-   "image": "https://m.media-amazon.com/images/I/61Qx8GHWcCL.jpg",
-   "monthly_sold": 9000,
-   "reviews": 10074,
-   "family_asins": [
-    "B086PL2D5R"
-   ]
-  },
-  {
-   "asin": "B005P0MK1M",
-   "brand": "SOLARAY",
-   "title": "SOLARAY Vitamin C 1000 mg, Time Release Capsules, 100 VegCaps",
-   "bullets": [
-    "Your Vitamin C Support – While you can find Vitamin C in many fruits and vegetables, the content of this essential antioxidant vitamin can become depleted through cooking or storage methods. Solaray Time Release Vitamin C supplement can help you achieve optimal levels.",
-    "Immune Defense & More – Our hardworking immune support supplement provides 1000 mg of Vitamin C with rose hips and acerola to help support absorption.* Vitamin C also helps with blood vessel health, antioxidant activity and heart health support.*",
-    "Time Release Vitamin C – Two-stage, sustained-release technology is designed to release half the Vitamin C rapidly for fast-acting support and the other half gradually to help extend the availability of the vitamin over a longer period for ongoing support.**",
-    "Eco-Friendly – To reduce our carbon footprint, Solaray bottles are made from post-consumer recycled resin, helping keep plastic out of our landfills and oceans. We’ve also begun installing solar panels as an alternative energy source at our Ogden, Utah, facility—to power the processes and products that help you Live Brighter.",
-    "Trusted Brand – Our Vitamin C capsules are vegan, made in our GMP-certified facility and tested in our own state-of-the-art lab in Utah to ensure purity and potency. Because we believe in the quality and efficacy of our products, each bottle comes with a 60-day money-back guarantee. **Based on in-vitro dissolution tests designed to simulate the digestive process. Individual results may vary."
-   ],
-   "image": "https://m.media-amazon.com/images/I/61PdleoqccL.jpg",
-   "monthly_sold": 9000,
-   "reviews": 0,
-   "family_asins": [
-    "B005P0MK1M",
-    "B07JH4R881"
    ]
   },
   {
@@ -479,6 +459,24 @@
     "B000GX7E8W",
     "B0017Q55CY",
     "B07FYVWLXC"
+   ]
+  },
+  {
+   "asin": "B09FYHTSNW",
+   "brand": "THORNE",
+   "title": "THORNE Vitamin C 1,000 mg, Ascorbic Acid Supplement, 60 Capsules",
+   "bullets": [
+    "Vitamin C: Each capsule provides 1,000 mg of this essential vitamin to promote optimal immune function and overall health year-round*",
+    "Healthy Skin: Promotes collagen production, which enhances skin, nail, and hair health, and supports healthy tissue and cartilage formation to benefit cellular skin repair*",
+    "Detox Benefits: Helps increase glutathione to support liver detoxification and provides antioxidant properties that promote the body's natural ability to eliminate toxins*",
+    "Third-Party Certified: This product has been third-party tested and certified to verify what's in the package matches what's on the label and to confirm it contains no unsafe levels of contaminants",
+    "Trusted: Thorne is trusted by 100+ professional sports teams and the #1 most recommended clinical brand by consumers and health-care practitioners (Based on a 2026 independent survey of US supplement consumers and health-care practitioners)"
+   ],
+   "image": "https://m.media-amazon.com/images/I/61zabBpa8hL.jpg",
+   "monthly_sold": 9000,
+   "reviews": 0,
+   "family_asins": [
+    "B09FYHTSNW"
    ]
   }
  ]

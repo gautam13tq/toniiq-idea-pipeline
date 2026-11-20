@@ -19,7 +19,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B07122C9VC": {
+  "B0CBVWPPR9": {
    "scorer": "IN",
    "rank": 3,
    "in_top12": true,
@@ -28,7 +28,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0CBVWPPR9": {
+  "B07122C9VC": {
    "scorer": "IN",
    "rank": 4,
    "in_top12": true,
@@ -100,7 +100,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B000CD9XGC": {
+  "B086PL2D5R": {
    "scorer": "IN",
    "rank": 12,
    "in_top12": true,
@@ -109,27 +109,9 @@
    "fop_rule": null,
    "manual": null
   },
-  "B00NNR38JC": {
+  "B000CD9XGC": {
    "scorer": "IN",
    "rank": 13,
-   "in_top12": false,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B0013FYHSW": {
-   "scorer": "IN",
-   "rank": 14,
-   "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
-   "fop_rule": null,
-   "manual": null
-  },
-  "B086PL2D5R": {
-   "scorer": "IN",
-   "rank": 15,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -138,7 +120,16 @@
   },
   "B005P0MK1M": {
    "scorer": "IN",
-   "rank": 16,
+   "rank": 14,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B0013FYHSW": {
+   "scorer": "IN",
+   "rank": 15,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
@@ -147,7 +138,7 @@
   },
   "B07DH1ZJZ9": {
    "scorer": "IN",
-   "rank": 17,
+   "rank": 16,
    "in_top12": false,
    "gate_code": "HERO_LED_COMPLEX",
    "source": "HERO_LED_COMPLEX",
@@ -155,6 +146,15 @@
    "manual": null
   },
   "B000GX7E8W": {
+   "scorer": "IN",
+   "rank": 17,
+   "in_top12": false,
+   "gate_code": "IN_OK",
+   "source": "IN_OK",
+   "fop_rule": null,
+   "manual": null
+  },
+  "B09FYHTSNW": {
    "scorer": "IN",
    "rank": 18,
    "in_top12": false,
@@ -218,10 +218,10 @@
    "rank": null,
    "in_top12": false,
    "gate_code": "HERO_SECONDARY",
-   "source": "gate",
+   "source": "manual_fop",
    "fop_rule": null,
    "near_miss": true,
-   "manual": null
+   "manual": "OUT"
   }
  }
 }

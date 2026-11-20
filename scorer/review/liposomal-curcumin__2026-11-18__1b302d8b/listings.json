@@ -125,7 +125,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61OpoErKpPL.jpg",
    "monthly_sold": 4100,
-   "reviews": 870,
+   "reviews": 872,
    "family_asins": [
     "B0BQ4QGDKC",
     "B0CX9V7JXN"
@@ -186,24 +186,6 @@
    ]
   },
   {
-   "asin": "B0CQVJ81SJ",
-   "brand": "Svaiketa",
-   "title": "Liposomal Turmeric Curcumin Supplement 2000mg, 95% Standardized Curcuminoid Extract & Organic Root Powder with Piperine Black Pepper Fruit (15mg), 60 softgels",
-   "bullets": [
-    "Source and Ingredients: Infused with the potent combination of curcumin and black pepper, our advanced formulation carefully extracts curcumin from the rhizome of the turmeric plant. Sourced from this perennial herb, the turmeric rhizome is celebrated for its abundance in curcumin, delivering a natural and potent source of these key ingredients. Our commitment to quality ensures that you receive the full benefits of this dynamic duo in each serving",
-    "Effortless Consumption: Our thoughtfully crafted curcumin formulation is seamlessly delivered through soft gel capsules, ensuring convenience and a pleasant experience for those seamlessly integrating it into their daily routine. The easy-to-swallow soft gels guarantee a smooth and uncomplicated method of intake, catering to the preferences of individuals who value simplicity in their supplement regimen",
-    "Potential Modulatory Effects: Curcumin exhibits antioxidant properties, contributing significantly to the well-being of your body's cells. Our formulas are meticulously optimized to ensure maximum absorption",
-    "Recommended Dose for Optimal Benefits: Our Liposomal Turmeric Curcumin Supplement is carefully crafted to deliver the best results for you. We suggest a daily intake of 2 soft gels with meals. This well-balanced dosage is tailored to ensure you experience the full advantages of our premium formula. Easily incorporate our supplement into your daily routine",
-    "Seamless Integration into Daily Life: Our turmeric curcumin supplement effortlessly becomes part of your daily routine. It is vegan and crafted for the all-encompassing enhancement of your well-being. Whether it's a busy workday or a relaxing weekend, the benefits of turmeric curcumin are easily accessible"
-   ],
-   "image": "https://m.media-amazon.com/images/I/61jJeu79Z9L.jpg",
-   "monthly_sold": 200,
-   "reviews": 350,
-   "family_asins": [
-    "B0CQVJ81SJ"
-   ]
-  },
-  {
    "asin": "B0CQVG7KF5",
    "brand": "Svaiketa",
    "title": "Svaiketa Liposomal Turmeric Curcumin Supplement - 2000mg, 95% Curcuminoid Extract with Piperine - 60 Softgels (2 Bottle)",
@@ -216,7 +198,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/717LYlZP7QL.jpg",
    "monthly_sold": 200,
-   "reviews": 354,
+   "reviews": 353,
    "family_asins": [
     "B0CQVG7KF5"
    ]
@@ -354,7 +336,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71cPvqDKO+L.jpg",
    "monthly_sold": 100,
-   "reviews": 47,
+   "reviews": 48,
    "family_asins": [
     "B0G3YQT5JX"
    ]
@@ -408,7 +390,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61OEiiqiypL.jpg",
    "monthly_sold": 50,
-   "reviews": 0,
+   "reviews": 258,
    "family_asins": [
     "B019E846AI",
     "B019HPD7EE"
@@ -449,6 +431,24 @@
    "family_asins": [
     "B0F26GZGWN",
     "B0GCZGRJH4"
+   ]
+  },
+  {
+   "asin": "B08F65MB4N",
+   "brand": "Core Med Science",
+   "title": "Core Med Science Liposomal Curcumin 500mg - Turmeric Curcumin Supplement",
+   "bullets": [
+    "ADVANCED LIPOSOMAL TURMERIC: Each serving of Core Med Science's Liposomal Curcumin capsules contains all three naturally occurring curcuminoids from turmeric, traditionally used for centuries in wellness practices. Liposomal technology enhances absorption and bioavailability to support nutrient stability and delivery for maximum nutrition benefits. 60 capsules / 30 servings per bottle.",
+    "DAILY SUPPORT FOR JOINT, COGNITIVE, HEART HEALTH & HEALTHY AGING: Curcumin helps support everyday joint comfort and flexibility, cardiovascular wellness, mental clarity and focus, and the body's natural antioxidant and immune systems. Supports healthy inflammatory response and the body's defense against oxidative stress associated with everyday aging as part of a balanced wellness routine.",
+    "LIPOSOMAL TECHNOLOGY FOR ENHANCED ABSORPTION: Traditional supplements may break down in the digestive system before reaching the bloodstream. Our proprietary liposomal method surrounds each nutrient in phospholipid layers to support better absorption, increased stability, and gentle digestion.",
+    "CLEAN LABEL, PREMIUM SOURCING: Made in the USA, our supplements are formulated with non-GMO ingredients with no dairy, egg, shellfish, wheat, tree nuts, and fish.",
+    "PHYSICIAN-DEVELOPED, BUILT FOR MODERN WELLNESS: Created by Dr. Bogdan Popa, founder of IV for Life in Orange County, California. Inspired by clinical IV therapy, Core Med Science formulates high-bioavailability supplements to support your daily wellness routine through science-driven innovation."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71Os2NVdiIL.jpg",
+   "monthly_sold": 50,
+   "reviews": 0,
+   "family_asins": [
+    "B08F65MB4N"
    ]
   }
  ]

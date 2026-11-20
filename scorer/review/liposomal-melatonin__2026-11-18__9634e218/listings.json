@@ -15,7 +15,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/51mn2RizhSL.jpg",
    "monthly_sold": 700,
-   "reviews": 434,
+   "reviews": 435,
    "family_asins": [
     "B07FWFJXJ4"
    ]
@@ -33,7 +33,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/81gjkvZDlrL.jpg",
    "monthly_sold": 500,
-   "reviews": 429,
+   "reviews": 430,
    "family_asins": [
     "B0CY44D2HX",
     "B0DBZ9FTDG"
@@ -129,24 +129,6 @@
    "reviews": 73,
    "family_asins": [
     "B0GQSKM6TX"
-   ]
-  },
-  {
-   "asin": "B0C4G3LYKM",
-   "brand": "Renue By Science",
-   "title": "Renue By Science Restore PM | Liposomal Melatonin GABA Supplements | 60 Capsules with Melatonin (1mg) 5HTP (100mg) Glutathione (65mg) Apigenin (75mg) GABA (150mg) - Non-GMO | Made in the USA",
-   "bullets": [
-    "OPTIMAL SLEEP SUPPORT - Restore PM Sleep capsules provide a concentrated blend of ingredients tailored to promote optimal sleep and restorative rest, supporting cognitive function, mood, and overall health.*",
-    "YOUTHFUL SLEEP MAINTENANCE - Expertly formulated to maintain the integrity of youthful sleep as we age, Restore PM helps address changes in sleep duration, stages, and architecture that occur with aging.*",
-    "POWERFUL INGREDIENT COMBINATION - Each capsule contains 150 mg Liposomal GABA, 100 mg Liposomal 5-HTP, 75 mg Liposomal Apigenin, 65 mg Liposomal Glutathione, and 3.5 mg Liposomal Melatonin, working synergistically to promote restful sleep.*",
-    "ENHANCED BIOAVAILABILITY - Our all-natural, patented liposomal manufacturing process encapsulates and protects the active ingredients, significantly enhancing their bioavailability for optimal uptake and efficacy.*",
-    "QUALITY AND SAFETY ASSURED - Restore PM is manufactured in a GMP compliant, U.S. registered facility, and undergoes rigorous third-party testing to ensure the highest quality standards for your well-being."
-   ],
-   "image": "https://m.media-amazon.com/images/I/613e-mt+3fL.jpg",
-   "monthly_sold": 0,
-   "reviews": 27,
-   "family_asins": [
-    "B0C4G3LYKM"
    ]
   },
   {
@@ -289,7 +271,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/61M+HYeomCL.jpg",
    "monthly_sold": 0,
-   "reviews": 0,
+   "reviews": 5,
    "family_asins": [
     "B08NYZKYYN"
    ]
@@ -318,6 +300,22 @@
    "reviews": 0,
    "family_asins": [
     "B07YG32X4C"
+   ]
+  },
+  {
+   "asin": "B081PC5KGR",
+   "brand": "EarthTurns",
+   "title": "EarthTurns Liposomal Melatonin Spray, 1 oz Bottle (75 Servings)",
+   "bullets": [
+    "Each serving contains 3 mg of Melatonin in a liposomal delivery system.",
+    "One ounce bottle contains 75 servings.",
+    "Vegetarian, Gluten-Free, Soy-Free, Non-GMO Ingredients"
+   ],
+   "image": "https://m.media-amazon.com/images/I/51Vsh3WS9+L.jpg",
+   "monthly_sold": 0,
+   "reviews": 0,
+   "family_asins": [
+    "B081PC5KGR"
    ]
   }
  ]
