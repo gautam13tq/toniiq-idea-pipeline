@@ -1,0 +1,49 @@
+{
+ "shelf_keyword": "panax ginseng",
+ "hero_name": "Panax ginseng",
+ "hero_regex": "ginseng",
+ "cluster_keywords": [
+  "panax ginseng",
+  "korean ginseng",
+  "red ginseng",
+  "ginseng supplement"
+ ],
+ "parent_keyword": "ginseng",
+ "microbial": false,
+ "finder_terms": [
+  "panax ginseng",
+  "ginseng supplement"
+ ],
+ "hero_exclude_regex": "siberian|eleuthero|tea bags?|candy|soda|energy drink|shampoo|serum|cream|face|hair|seeds?|plant",
+ "scored_on": "parent",
+ "old_toniiq": "B082YD4BSH (SKU Ginseng7506; type unknown)",
+ "related": "korean red ginseng capsules 52.83",
+ "written_at": "2026-11-25T17:00:00+00:00",
+ "spec_round": "relaunch-2026-11-25 (Udae's old Toniiq ASINs; Gautam via planning thread 25 Nov). Clusters from Keyword Spy rows in fable-advisor-2026-11-25/KEYWORD-ROWS.md (US, Related, Oct 2026).",
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "demand_keyword": "ginseng",
+ "demand_cluster": [
+  "ginseng",
+  "panax ginseng",
+  "ginseng supplement",
+  "korean red ginseng",
+  "red ginseng",
+  "panax ginseng for men",
+  "korean ginseng",
+  "asian ginseng",
+  "red ginseng korean",
+  "korean red ginseng extract",
+  "red panax ginseng",
+  "korean panax ginseng",
+  "panax ginseng extract",
+  "red korean ginseng",
+  "ginseng panax",
+  "panax ginseng powder",
+  "ginseng capsules",
+  "korean ginseng supplement",
+  "red ginseng supplement",
+  "panax ginseng for women",
+  "red ginseng extract"
+ ]
+}
