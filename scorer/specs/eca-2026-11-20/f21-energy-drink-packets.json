@@ -158,6 +158,405 @@
    "by": "hand check 20 Nov",
    "date": "2026-11-20T06:50:00+00:00",
    "wording": "CELSIUS On-The-Go flavour variant of B07XB745PC (same formula, same parent B0FGK7YBN9); a flavour variant counts once and the listing with the most reviews is kept (variant duplicate rule)."
+  },
+  "B0DXR69T3X": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0DXQYKC4Z": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0DXRDZ79S": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0DXRJXFW8": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0GVH3KZZV": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0F2FYGRDJ": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0F2FYPXQY": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0FC8885KK": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0FC89FSNG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0FC8GQRJV": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0GR93ZDH2": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0BP3YTWGQ": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B083F4TMD9": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0C5JZJJ8G": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0C8W7VW8P": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0C8ZCNY5S": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0CY3GNGKK": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0CY3H479D": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B07STLSYXL": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B084C4VDBL": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B006J2TTPU": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B075SJVB5P": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B075SL59PB": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0CRFNYRB9": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0CCK5VDYL": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0CCK7GDDX": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0CRFCW49P": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B00KAWSJYC": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B093RVGSKB": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B07X1KK359": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B01ETMQO8Q": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "AdvoCare Spark sticks: front says Helps boost energy; energy is the job (Gautam 20 Nov rule)"
+  },
+  "B0DK6491TM": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0DK61L8BP": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0H26XCTG3": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0DK6116J5": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0CHK53K3H": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0BHF9SC51": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0BHFDXZ66": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0H26N4J3Y": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0HDPWMPZ5": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0GX75GX55": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B0GVG8YXKY": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0H1GBFYNV": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0GVGF33VD": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0GYGLSHD1": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0HJT4RXL9": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B09MSTYYPM": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Caffeinated drink-mix packets (same type as Happy Belly caffeine singles); counted once (Gautam 20 Nov rule)"
+  },
+  "B007AAX0UU": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B00FY42LUY": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B007LK5DDG": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B00P6SC8GU": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B01LZ7IT5F": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B077FFV72N": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B08KGTP5T6": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B07GCWLWTM": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
+  },
+  "B09NXH96W7": {
+   "decision": "OUT",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Flavour variant of a line already counted once"
+  },
+  "B0DZLQVT8R": {
+   "decision": "IN",
+   "source": "manual_fop",
+   "by": "Gautam rule 20 Nov (Count celsius: Grocery powder energy sticks count, flavours once); tracker 25 Nov",
+   "date": "2026-11-25T15:30:00+00:00",
+   "wording": "Grocery powder energy stick, energy leads; counted once per line (Gautam 20 Nov rule)"
   }
  }
 }
