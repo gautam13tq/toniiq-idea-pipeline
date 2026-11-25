@@ -548,7 +548,7 @@ def step_diff(run):
     results = [one(i) for i in range(1, K.DIFF_CALLS + 1)]
     agg = P.diff_aggregate([r["score"] for r in results])
     final, unstable = agg["score"], agg["unstable"]
-    run.save("diff.json", {"score": final, "spread": agg["spread"], "scores": agg["scores"], "method": "mean",
+    run.save("diff.json", {"score": final, "spread": agg["spread"], "scores": agg["scores"], "method": agg["method"],
                            "unstable": unstable, "calls": len(results), "microbial": s["microbial"],
                            "vectors_available": sum(1 for v in results[0]["vectors"].values() if v >= 6)})
     run.step_done("diff", "V-DIFF", len(results) == K.DIFF_CALLS, f"Diff={final:.2f} spread={agg['spread']:.2f}")
@@ -610,8 +610,14 @@ def step_score(run):
     if m.get("no_apify_page1"):
         info.append("no_apify_page1")
     sales_ok, sales_why = SL.sleeve_sales_gate(s, run.read("top12.json"))
-    r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
-                    n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], info=info, sales_ok=sales_ok)
+    ne = new_entrants_of(run, d)
+    kw = dict(demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"], n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"],
+              sales_ok=sales_ok, n_new_entrants=len(ne))
+    r = P.composite(dg["D"], dg["G"], c["C"], d["score"], info=info, **kw)
+    r["new_entrants"] = ne
+    if d.get("scores"):   # score band (Gautam, 25 Nov 2026): the score at the lowest and the highest Diff run
+        r["band"] = [P.composite(dg["D"], dg["G"], c["C"], min(d["scores"]), info=[], **kw)["score"],
+                     P.composite(dg["D"], dg["G"], c["C"], max(d["scores"]), info=[], **kw)["score"]]
     r["sleeve_sales_gate"] = {"pass": sales_ok, "why": sales_why}
     if s.get("below_gate_check") and not dg["demand_gate"]["pass"]:   # shelf built for counting only: no score
         r.update(score=None, tier="ineligible", below_gate_check=True)
@@ -623,6 +629,20 @@ def step_score(run):
              top12_units=units)
     run.save("score.json", r)
     run.step_done("score", "V-SCORE", True, f"{r['score']} {r['tier']}")
+
+
+def new_entrants_of(run, d):
+    """New-entrant proof for the cap lift (v1.1). Runs whose Diff is the legacy mean of 3 keep the v1 rules: none."""
+    if d.get("method", "mean") == "mean":
+        return []
+    listed = {}
+    for p in sorted((run.dir / "keepa").glob("product_*.json")):
+        for x in (json.loads(p.read_text()).get("products") or []):
+            if x.get("asin") and (x.get("listedSince") or 0) > 0:
+                listed[x["asin"]] = min(listed.get(x["asin"], x["listedSince"]), x["listedSince"])
+    steps = run.manifest()["steps"]
+    at = (steps.get("keepa_pass2") or steps.get("keepa2") or {}).get("done_at") or run.manifest()["started_at"]
+    return P.new_entrants(run.read("top12.json"), listed, dt.datetime.fromisoformat(at).timestamp())
 
 
 def _monthly_index(run):

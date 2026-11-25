@@ -16,7 +16,17 @@ C_CAP = 6.0
 MIN_CANDIDATES = 30
 MAX_DATA_AGE_DAYS = 7
 DIFF_UNSTABLE_DELTA = 1.0
-DIFF_CALLS = 3               # Diff = mean of 3 judge runs at temp 0, spread recorded (Gautam, 17 Nov 2026)
+DIFF_CALLS = 5               # Diff = median of 5 judge runs at temp 0, spread and band recorded (Gautam, 25 Nov 2026;
+                             # mean of 3 from 17 Nov 2026 is kept for runs whose diff.json says method "mean")
+DIFF_METHOD = "median"
+# New-entrant cap lift (Gautam, 25 Nov 2026, Fable refinement 1): the "moat < 8" and "C < 6" caps stop holding the score
+# at 59.9 when at least NE_MIN_COUNT of the top 12 were first listed in the last NE_MONTHS months (Keepa listedSince,
+# earliest ASIN in the family), have under NE_MAX_REVIEWS reviews and sell NE_MIN_MONTHLY or more a month.
+NE_MIN_COUNT = 2
+NE_MONTHS = 24
+NE_MAX_REVIEWS = 1000
+NE_MIN_MONTHLY = 1000
+LIFTABLE_CAPS = ("moat < 8", "C < 6")
 SMALL_MARKET_UNITS = 3000    # info flag: top 12 sells under ~3,000 units a month in total; no score effect (17 Nov 2026)
 
 # Demand gate (scoring_core.ts L626-663)
@@ -68,4 +78,6 @@ def tier(score):
 
 def frozen():
     return dict(version=VERSION, weights=WEIGHTS, T=T_STRONG, cap_score=CAP_SCORE, shelf_size=SHELF_SIZE,
-                model=MODEL, c8_anchors=C8_ANCHORS, c_old_weights=C_OLD_WEIGHTS)
+                model=MODEL, c8_anchors=C8_ANCHORS, c_old_weights=C_OLD_WEIGHTS, diff_calls=DIFF_CALLS,
+                diff_method=DIFF_METHOD, new_entrant=dict(min_count=NE_MIN_COUNT, months=NE_MONTHS,
+                max_reviews=NE_MAX_REVIEWS, min_monthly=NE_MIN_MONTHLY))

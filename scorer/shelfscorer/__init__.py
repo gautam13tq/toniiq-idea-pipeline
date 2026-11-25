@@ -3,4 +3,4 @@
 Spec: product-dev/amazon-ideas-system/final-scoring-proposal-2026-11-08/FINAL_SCORING_SYSTEM_PROPOSAL.md
 (the "DECISIONS LOCKED" block at the top of that file overrides the body).
 """
-VERSION = "shelf-v1"
+VERSION = "shelf-v1.1"   # 25 Nov 2026 (Gautam): new-entrant cap lift + median-of-5 Diff with a score band

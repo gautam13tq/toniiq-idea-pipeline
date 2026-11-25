@@ -264,11 +264,13 @@ def diff_from_vectors(vectors, microbial):
 
 
 # ---------------- Composite (3.7) ----------------
-def diff_aggregate(scores):
-    """Diff = mean of the judge runs (3 at temp 0 since 17 Nov 2026); spread = max - min, kept for the record."""
+def diff_aggregate(scores, method=None):
+    """Diff = median of the judge runs (5 at temp 0 since 25 Nov 2026; runs scored 17-25 Nov used the mean of 3,
+    method "mean"); spread = max - min, kept for the record."""
     scores = [float(x) for x in scores]
-    mean = sum(scores) / len(scores)
-    return {"score": mean, "spread": round(max(scores) - min(scores), 4), "scores": scores,
+    method = method or K.DIFF_METHOD
+    mid = statistics.median(scores) if method == "median" else sum(scores) / len(scores)
+    return {"score": mid, "method": method, "spread": round(max(scores) - min(scores), 4), "scores": scores,
             "unstable": max(scores) - min(scores) > K.DIFF_UNSTABLE_DELTA}
 
 
@@ -278,7 +280,27 @@ def small_market(top):
     return total < K.SMALL_MARKET_UNITS, total
 
 
-def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_ok=True):
+KEEPA_EPOCH_MIN = 21564000   # Keepa time = minutes since 2011-01-01
+
+
+def new_entrants(top, listed, at_ts):
+    """Top-12 families that prove a newcomer can win (Gautam, 25 Nov 2026): first listed within K.NE_MONTHS months of
+    at_ts (earliest Keepa listedSince across the family's ASINs), under K.NE_MAX_REVIEWS reviews, and selling
+    K.NE_MIN_MONTHLY or more a month. listed: asin -> Keepa listedSince (Keepa minutes)."""
+    cut = at_ts - K.NE_MONTHS * 30.4375 * 86400
+    out = []
+    for f in top:
+        ts = [(listed[a] + KEEPA_EPOCH_MIN) * 60 for a in (f.get("asins") or [f.get("family_id")]) if listed.get(a)]
+        if not ts:
+            continue
+        first = min(ts)
+        if first >= cut and (f.get("reviews") or 0) < K.NE_MAX_REVIEWS and (f.get("monthly_sold") or 0) >= K.NE_MIN_MONTHLY:
+            out.append({"family_id": f.get("family_id"), "brand": f.get("brand"), "listed_since": int(first),
+                        "reviews": f.get("reviews"), "monthly_sold": f.get("monthly_sold")})
+    return out
+
+
+def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_ok=True, n_new_entrants=0):
     w = K.WEIGHTS
     raw = 10 * (w["D"] * D + w["G"] * G + w["C"] * C + w["Diff"] * Diff)
     hard, soft = [], []
@@ -303,6 +325,9 @@ def composite(D, G, C, Diff, *, demand_ok, n_kept, n_sig, moat, info=(), sales_o
         soft.append("thin_shelf < 8")
     if n_kept < K.SHELF_SIZE:
         info.append(f"thin_shelf ({n_kept} kept)")
+    if n_new_entrants >= K.NE_MIN_COUNT and any(x in K.LIFTABLE_CAPS for x in soft):
+        info.append(f"cap lifted: {n_new_entrants} new entrants in the top 12")
+        soft = [x for x in soft if x not in K.LIFTABLE_CAPS]
     score = round(min(raw, K.CAP_SCORE) if soft else raw, 2)
     t = "ineligible" if hard else K.tier(score)
     # Open gap (Gautam, 12 Nov 2026): the sleeve has real demand but fewer than 3 specialised products serve it. That

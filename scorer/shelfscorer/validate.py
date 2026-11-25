@@ -5,6 +5,7 @@ import json
 
 from . import config as K, pillars as P, sleeves as SL
 from .runlog import sha
+from . import steps as ST
 
 REQ_ARTIFACTS = ["spec.json", "datarova/merged_keywords.json", "demand_growth.json", "candidates.json",
                  "keepa/pass1_index.json", "gate/decisions.json", "families.json", "ranking.json", "top12.json",
@@ -90,14 +91,17 @@ def validate(run):
         c2 = P.competition(fams, fams[:K.SHELF_SIZE])
         chk("V-COMP", abs(c2["C"] - c["C"]) < 0.001 and abs(c2["moat"] - c["moat"]) < 0.001, f"stored C {c['C']} recomputed {c2['C']}")
         d = run.read("diff.json")
-        dcalls = [run.read(f"diff/call_{i}.json") for i in (1, 2, 3) if run.exists(f"diff/call_{i}.json")]
-        chk("V-DIFF", len(dcalls) == K.DIFF_CALLS and all(x.get("prompt_sha") for x in dcalls), f"{len(dcalls)} diff calls")
-        agg = P.diff_aggregate([x["score"] for x in dcalls]) if dcalls else {"score": None, "spread": None}
+        method = d.get("method", "mean")   # v1 runs: mean of 3; v1.1 (25 Nov 2026): median of 5
+        n_want = 3 if method == "mean" else K.DIFF_CALLS
+        dcalls = [run.read(f"diff/call_{i}.json") for i in range(1, n_want + 1) if run.exists(f"diff/call_{i}.json")]
+        chk("V-DIFF", len(dcalls) == n_want and all(x.get("prompt_sha") for x in dcalls), f"{len(dcalls)} diff calls")
+        agg = P.diff_aggregate([x["score"] for x in dcalls], method) if dcalls else {"score": None, "spread": None}
         chk("V-DIFF-AGG", agg["score"] is not None and abs(agg["score"] - d["score"]) < 1e-6
             and abs((d.get("spread") or 0) - agg["spread"]) < 1e-6, f"diff {d['score']} expected mean {agg['score']}")
         sales_ok, _ = SL.sleeve_sales_gate(s, top)
         r = P.composite(dg["D"], dg["G"], c["C"], d["score"], demand_ok=dg["demand_gate"]["pass"], n_kept=c["n_kept"],
-                        n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], sales_ok=sales_ok)
+                        n_sig=m.get("n_sig", c["n_sig"]), moat=c["moat"], sales_ok=sales_ok,
+                        n_new_entrants=len(ST.new_entrants_of(run, d)))
         if s.get("below_gate_check") and not dg["demand_gate"]["pass"]:
             r["score"] = None
         chk("V-SCORE", abs(r["raw"] - sc["raw"]) < 0.01 and r["score"] == sc["score"] and set(r["soft"]) <= set(sc["soft"]),
