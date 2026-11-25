@@ -108,7 +108,7 @@
    ],
    "image": "https://m.media-amazon.com/images/I/71bZnMKyZaL.jpg",
    "monthly_sold": 20000,
-   "reviews": 9863,
+   "reviews": 9882,
    "family_asins": [
     "B07XB745PC"
    ]
@@ -132,19 +132,299 @@
    ]
   },
   {
+   "asin": "B00KAWSJYC",
+   "brand": "Zipfizz",
+   "title": "Zipfizz Energy Drink Powder, 20 Pack Electrolyte Mix with B12 - Fruit Punch",
+   "bullets": [
+    "3-in-1 Daily Functional Beverage – Zipfizz Energy Drink Powder combines natural ingredients to deliver sustained energy, liquid electrolytes, & immunity support in 1 sugar-free, low-carb, & low-calorie daily bubbly beverage.",
+    "Delicious Fruit Punch Flavor – Enjoy a light & refreshing blend of juicy berries & tropical fruits for a perfectly sweet. Simply add Zipfizz powder to 16-20 ounces of water or other non-carbonated beverage, shake, & enjoy!",
+    "Packed with Vitamins and Natural Electrolytes – Our comprehensive formula contains 100% of recommended daily vitamins in two tubes, including 500mg of Vitamin C, 950mg of Potassium, 2500mcg of B12, and 105mg of Magnesium.",
+    "Convenient and Portable for On-The-Go – From replacing your morning coffee to providing essential post-workout hydration and nutrients, Zipfizz’s single-serving hydration sticks are great for traveling and busy schedules.",
+    "100% Happiness Guarantee – We pride ourselves on using healthy, natural ingredients to deliver high-quality taste, nutrition, energy, and hydration. Whether you're an athlete pushing the boundaries of physical performance."
+   ],
+   "image": "https://m.media-amazon.com/images/I/81xzVGJG3hL.jpg",
+   "monthly_sold": 10000,
+   "reviews": 11014,
+   "family_asins": [
+    "B00KAWSJYC"
+   ]
+  },
+  {
+   "asin": "B09MSTYYPM",
+   "brand": "Crystal Light",
+   "title": "Crystal Light Caffeine Drink Mix Variety Pack, 44 Packets, 4.18 oz",
+   "bullets": [
+    "DRINK PACKETS: One 4.18 oz variety pack of Crystal Light Energizing On-the-Go Powdered Drink Mix with Caffeine that contains 11 packets of each flavor: Peach Mango, Wild Strawberry, Citrus and Grape",
+    "ZERO SUGAR: Choose drink powder packets as a great alternative to juice or soda",
+    "CONVENIENT DRINK PACKETS: Each single-serve drink mix makes it simple to prepare a tasty drink anywhere",
+    "GREAT REFRESHING TASTE: Our zero sugar drink mix packets offer a variety of refreshing fruit flavors with 60mg caffeine per serving",
+    "QUICK & EASY: Our singles to go are easy to pour and mix with water",
+    "LOW CALORIE: Crystal Light drink mix has 90% fewer calories than leading beverages (per 16 fl oz, this product 5-10 calories; leading beverages 130 calories)",
+    "LOW SODIUM DRINK POWDER PACKETS: Crystal Light packets are low in sodium",
+    "SNAP EBT eligible in many states – check locally"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81kD1QDEX8L.jpg",
+   "monthly_sold": 10000,
+   "reviews": 0,
+   "family_asins": [
+    "B09MSTYYPM"
+   ]
+  },
+  {
+   "asin": "B0GX75GX55",
+   "brand": "The Loaded Tea Shop",
+   "title": "The Loaded Tea Shop Energy Drink Mix Sticks, Founder’s Favorites 5 Pack, Sugar-Free, Zero Calories, 200mg Natural Caffeine, No Artificial Colors/Flavors, Powder Packets w/ B Vitamins - Energy Drink Alternative",
+   "bullets": [
+    "Clean Energy Boost: Provides 200mg of natural green tea caffeine per serving to deliver smooth, sustained energy throughout the day without the crash, jitters, or sugar spikes.",
+    "Founder Favorites Variety Pack Flavors: Includes a curated mix of founder-favorite loaded tea flavors with Candy Crush, Bahama Mama, Mermaid, Cindy, and Frog Spit.",
+    "Includes Essential Vitamins: Formulated with a B vitamin complex along with vitamins D3 and K2 to support focus, metabolism, and daily energy as part of a balanced lifestyle.",
+    "No Artificial Colors or Flavors: Made in the USA with clean ingredients and free from artificial colors or flavors, with no sugar or unnecessary additives for a more transparent formulation.",
+    "Convenient and Easy to Use: Individual stick packs are intentionally very flavorful and mix quickly with water to create 32+ oz of loaded tea in seconds. You’re in control of the sweetness and flavor intensity — simply add more water for a lighter taste experience while enjoying a flavorful, on-the-go energy drink at home instead of typical $7 tea shop drinks.",
+    "FORMULA UPDATE: Select flavors are transitioning to an updated formulation. Packs may contain a mix of original and updated formula sticks, so stick weight and ingredients may vary by flavor. The updated formula has reduced sodium content; caffeine and key vitamin levels are unchanged. Servings per stick are the same. Refer to each individual stick for its net weight, ingredients, and nutrition facts."
+   ],
+   "image": "https://m.media-amazon.com/images/I/81jpANzPdpL.jpg",
+   "monthly_sold": 10000,
+   "reviews": 0,
+   "family_asins": [
+    "B0GX75GX55"
+   ]
+  },
+  {
+   "asin": "B07X1KK359",
+   "brand": "Happy Belly",
+   "title": "Amazon Brand - Happy Belly Drink Mix Singles, Strawberry with Caffeine, 1.1 ounce (Pack of 1) (Previously Solimo)",
+   "bullets": [
+    "This product was previously a Solimo product. Now it’s part of the Happy Belly brand, the product is exactly the same size and quality",
+    "One 1.1-ounce box of Happy Belly Strawberry Drink Mix",
+    "Low calorie",
+    "Ten 0.11 oz single packets",
+    "An Amazon brand"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71v2Sd+8vlL.jpg",
+   "monthly_sold": 9000,
+   "reviews": 3864,
+   "family_asins": [
+    "B07X1KK359"
+   ]
+  },
+  {
+   "asin": "B07STLSYXL",
+   "brand": "4C",
+   "title": "4C Energy Rush Stix, Variety 1 Pack, 40 Count, Single Serve Water Flavoring Packets, Sugar Free with Taurine, On the Go Bundle (20 Berry, 10 Orange, 10 Citrus)",
+   "bullets": [
+    "ENERGY TO GO - 4C's Premium Energy Rush Stix are perfect for those that are always on the move. Ideal for traveling, keeping one in the purse/backpack, one on the desk, or one in your car. Never go bland with your water again and keep the energy levels up!",
+    "PERFECT PICK ME UP - Whether you're headed to the gym, waking up early, traveling or fighting off that 2:30pm slump, 4C's Energy Rush Stix are the quick and easy option to gain some energy while drinking deliciously flavored water!",
+    "DELICIOUS FLAVORS - 4C has mastered each and every flavor! With an assortment of premium berries, sun packed citrus, and other delicious fruit sweetness, 4C has all the flavors you're looking for!",
+    "VALUE & CONVENIENT - These 40ct packets are perfect for trying out 4C's Energy Rush Flavors. If you love them, search for our bulk offerings of 350ct-500ct packet bundles",
+    "EXPERTS IN ENHANCERS - 4C have been experts in quality foods and water flavorings, dating back to 1935! As a family owned business, we take pride in the premium quality offerings we create and share with the world"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81SIH+H2akL.jpg",
+   "monthly_sold": 9000,
+   "reviews": 8754,
+   "family_asins": [
+    "B07STLSYXL"
+   ]
+  },
+  {
+   "asin": "B0DK6491TM",
+   "brand": "Alani Nu",
+   "title": "Alani Nu PINK SLUSH Energy Sticks, Energy Drink Powder, 200mg Caffeine, Pre Workout Performance with Antioxidants, On-The-Go Drink Mix, Biotin, B Vitamins, Zero Sugar, 5-10 Calories, 10 Pack",
+   "bullets": [
+    "ON-THE-GO ENERGY: Need energy in a pinch? Refresh and reset with our best-selling Alani Energy Stick Packets, no can required – available in our most popular energy drink flavors. Each stick serves up 200mg of caffeine and bold flavor – all for 10 calories or less and 0g of sugar!",
+    "B VITAMINS: Rethink your energy powder. Alani Nu packs each stick packet with 200mg of caffeine with vitamins B5, B6 and B12 to support functional systems in our bodies and provide natural energy. Biotin is added to provide a natural glow and steady boost of energy all day long. Alani Nu Energy is packed with nutrients you need and none of the fillers you don't",
+    "CRAVABLE FLAVORS: Don't wait for cheat day! Our energy drink powder sticks feature your favorite flavors, all without the hefty calories or guilt – Each stick is 10 Calories or less and can easily transform water into a more refreshing drinking experience to give you the boost you need without any sugar!",
+    "VEGAN, GLUTEN FREE AND NO ARTIFICAL COLORS: Good energy is a good choice. Our Better-for-you beverages are made vegan, gluten free and without artificial colors to ensure that Alani Nu Energy Sticks support your beauty and wellness goals from the inside out",
+    "ALANI ENERGY STICKS: Here for your taste buds – Alani Nu was founded in 2018 by entrepreneur and influencer, Katy Hearn, Alani Nu is a health and wellness brand focused on providing low-calorie products with unique flavors. Check out everything else from Alani Nu and follow us through our brand store to stay up to date on all things Alani! Alani Energy is not recommended for Children, People Sensitive to Caffeine, Pregnant Women or Women Nursing."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71tncjeC97L.jpg",
+   "monthly_sold": 7000,
+   "reviews": 0,
+   "family_asins": [
+    "B0DK6491TM"
+   ]
+  },
+  {
+   "asin": "B0CRFNYRB9",
+   "brand": "4C",
+   "title": "4C Energy Rush Electrolyte Drink Mix Variety Pack, 40 Sticks, 3 Flavors",
+   "bullets": [
+    "ENERGY TO GO - 4C's Premium Energy Rush Electrolyte Stix are perfect for those that are always on the move. Ideal for traveling, keeping one in the purse/backpack, one on the desk, or one in your car. Never go bland with your water again and keep the energy levels up",
+    "PERFECT PICK ME UP - Whether you're headed to the gym, waking up early, traveling or fighting off that 2:30pm slump, 4C's Energy Rush Stix with Electrolytes are the quick and easy option to gain some energy and hydration while drinking deliciously flavored water",
+    "DELICIOUS FLAVORS - 4C has mastered each and every flavor! With an assortment of premium berries, sun packed citrus, and other delicious fruit sweetness, 4C has all the flavors you're looking for",
+    "VALUE & CONVENIENT - These 40ct packets are perfect for trying out 4C's Energy Rush Flavors. If you love them, search for our bulk offerings of 350ct-500ct packet bundles",
+    "EXPERTS IN ENHANCERS - 4C have been experts in quality foods and water flavorings, dating back to 1935! As a family owned business, we take pride in the premium quality offerings we create and share with the world"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81lzmW-Al6L.jpg",
+   "monthly_sold": 7000,
+   "reviews": 2883,
+   "family_asins": [
+    "B0CRFNYRB9"
+   ]
+  },
+  {
+   "asin": "B0CY3GNGKK",
+   "brand": "PURE KICK",
+   "title": "PURE KICK Energy and Hydrate Singles To Go Drink Mix, 30 Packets",
+   "bullets": [
+    "SIMPLIFIED HYDRATION: An easy, affordable energy drink mix to deliciously increase hydration and energy and enliven your routine; These energy drink packets include sugar free electrolytes so you can enjoy guilt-free",
+    "REFRESHING FLAVORS: Enjoy 4 flavors in this variety pack of hydration packets - Black Cherry Pomegranate, Orange Passion Fruit, Strawberry Watermelon, and Concord Grape",
+    "ENERGY PACKED: These energy drink mix packets are action packed with 80mg of caffeine and 100% daily value of Vitamins B3, B5, B6, B7, and B12 in every stick",
+    "QUICK AND CONVENIENT: Pure Kick drink mix hydration powder packets are perfect for the average water bottle – just shake and enjoy",
+    "EXCELLENT SOURCE OF: PK hydrate drink packets are an excellent source of Zinc, Manganese, Chromium & Selenium"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81Sd9Eg7v7L.jpg",
+   "monthly_sold": 5000,
+   "reviews": 2159,
+   "family_asins": [
+    "B0CY3GNGKK"
+   ]
+  },
+  {
+   "asin": "B0DXR69T3X",
+   "brand": "Bloom Nutrition",
+   "title": "Bloom Nutrition Energy Drink Powder Packets, Strawberry Watermelon, 10 Ct",
+   "bullets": [
+    "ON-THE-GO ENERGY SUPPORT: Your favorite energy drink, now in convenient stick packs. Bloom Energy Drink Powder is made to move with you — just mix with water for a refreshing burst of fruity flavor, perfect for your morning routine, afternoon slump, or travel days when you're looking for a little boost.",
+    "POWERED BY 180MG OF NATURAL CAFFEINE: Each serving is crafted with natural caffeine from green tea, offering a gentle pick-me-up that can help you feel more awake, without the jitters. With only 10 calories and zero sugar, this caffeine powder is a light and flavorful way to support your energy needs throughout the day.",
+    "B VITAMINS & L-THEANINE BLEND: Formulated with B vitamins and L-theanine, this energy drink mix features ingredients often associated with focus and clarity. Enjoy in 4 different flavors: Raspberry Lemon, Peach Mango, Strawberry Watermelon, and Cherry Lime.",
+    "TWO WAYS TO ENJOY: Whether you’re home or on the move, Bloom’s energy drink mix packets are easy to enjoy. Add a full stick to your water bottle for a bold energy drink or mix half a stick for a lighter, everyday refresh. Hydration and energy come together with convenience in every pack.",
+    "FEMALE-FOUNDED: Like many other women, co-founder Mari Llewellyn struggled to find dietary supplements that were made with quality ingredients and tasted delicious. That’s why she created Bloom — approachable and delicious health supplements designed to support your wellness journey and give your body what it needs to bloom."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71S8YubAm7L.jpg",
+   "monthly_sold": 4000,
+   "reviews": 1267,
+   "family_asins": [
+    "B0DXR69T3X"
+   ]
+  },
+  {
+   "asin": "B06XGL55ND",
+   "brand": "AdvoCare",
+   "title": "AdvoCare Spark Energy & Focus Drink Mix, Sugar-Free, Fruit Punch, 14 Sticks",
+   "bullets": [
+    "FUNCTIONAL ENERGY: AdvoCare Spark Stick Packs deliver 120 mg caffeine for smooth, sustained energy without the crash to fuel your brightest days*",
+    "CLEAN ENERGY, LASER FOCUS*: This supplement for energy and mental focus is built on a science-backed formula designed to charge your mind and body without the jitters*",
+    "IMMUNE SUPPORT AND ZERO SUGAR*: Each clean energy powder mix delivers a nutritional drink with 200% DV Vitamin C for immune support, 0g sugar, and craveable flavors*",
+    "PORTABLE ENERGY SUPPORT: Each hydration powder stick contains 0.25 ounces, packed with essential vitamins, amino acids, and caffeine to work against fatigue felt from GLP-1 programs*",
+    "ABOUT ADVOCARE: We are dedicated to providing world-class products and education to help you perform and feel your best"
+   ],
+   "image": "https://m.media-amazon.com/images/I/71zyXl7JeKL.jpg",
+   "monthly_sold": 3800,
+   "reviews": 2073,
+   "family_asins": [
+    "B01ETMQO8Q",
+    "B01JZY42LE",
+    "B06XGL55ND",
+    "B07Y8RPV7C",
+    "B0BW4PVR3H",
+    "B0C7RTZL4G",
+    "B0FWV2YCK8"
+   ]
+  },
+  {
+   "asin": "B0DZLQVT8R",
+   "brand": "V8",
+   "title": "V8 Energy Strawberry Lemonade Energy Drink Powder, 0.1 oz (10 Pack)",
+   "bullets": [
+    "Ten (10) .10 oz packets of Strawberry Lemonade Energy Drink Powder",
+    "A strawberry lemonade flavored energy drink powder, high in antioxidant vitamins A, C, and E; an excellent source of B Vitamins",
+    "Supports focus and Steady Energy; contains 80 milligrams of caffeine – comparable to a cup of coffee",
+    "A refreshing beverage with 10 calories and 1 gram of carbs per serving",
+    "Non-GMO and gluten-free with no artificial colors"
+   ],
+   "image": "https://m.media-amazon.com/images/I/81BTnZDb07L.jpg",
+   "monthly_sold": 3000,
+   "reviews": 0,
+   "family_asins": [
+    "B0DZLQVT8R"
+   ]
+  },
+  {
+   "asin": "B0F2FYGRDJ",
+   "brand": "Juicy Mixes",
+   "title": "C4 Performance Energy Strawberry Watermelon Ice Drink Mix Packets, 8 Count",
+   "bullets": [
+    "ZERO SUGAR ENERGY: Get 200 mg caffeine per packet in a zero-sugar energy drink mix with no synthetic dyes. Each packet has 5 calories for a bright-tasting energy drink mix.",
+    "STRAWBERRY WATERMELON ICE FLAVOR: Enjoy a refreshing, icy-cool taste in a zero-sugar drink mix. Eight individual sticks make it easy to bring your flavor and caffeine along for gym sessions, travel, or work.",
+    "ENERGY AND ENDURANCE: Each packet delivers caffeine with CarnoSyn beta-alanine and BetaPower betaine anhydrous. Clinically studied ingredients fight fatigue and power muscular endurance.",
+    "MIX, SHAKE, GO: Add one 5.8 g stick to 12-16.9 fl oz water, then shake or stir. Keep the 8 single-serve packets handy for the gym, travel, or work.",
+    "NSF CERTIFIED FOR SPORT: Choose C4 Performance Energy for a sport-certified option used by professional and collegiate athletes. The Frozen Bombsicle formula has zero sugar and no synthetic dyes."
+   ],
+   "image": "https://m.media-amazon.com/images/I/71k7Uii6+nL.jpg",
+   "monthly_sold": 3000,
+   "reviews": 123,
+   "family_asins": [
+    "B0F2FYGRDJ"
+   ]
+  },
+  {
+   "asin": "B0FC8885KK",
+   "brand": "GHOST",
+   "title": "GHOST Sugar-Free Energy Drink Packets, Orange Cream, 24 Sticks",
+   "bullets": [
+    "Energy Anywhere: GHOST Energy Sticks deliver the formula you know and love from our ready-to-drink cans, minus the fizz. Authentic Flavors. Zero Sugars.* No BS. Orange Cream flavor. 24 on-the-go sticks. Only intended for persons 18 years or older. *GHOST Energy is low in calories.",
+    "Legendary Energy: Each stick contains 200mg of Natural Caffeine from coffee beans, which has been found anecdotally to deliver a smooth, feel-good energy with less jitters and no crash when compared to other forms of caffeine.*",
+    "Epic Focus*: GHOST Energy combines the nootropics of Carnipure L-Carnitine, Alpha-GPC, NeuroFactor, and AstraGin.",
+    "Total Transparency: All GHOST products feature a transparent label that fully discloses the dose of each active ingredient. Zero proprietary blends means you know what you’re getting in each and every stick. GHOST Energy Sticks are vegan friendly, gluten free, and contains zero sugars.* *GHOST Energy is low in calories.",
+    "Be Seen: As a premium active lifestyle brand, GHOST is powering and empowering users to Be Seen beyond the walls of the gym. The name GHOST and mantra “Be Seen” come from that feeling of being behind the scenes and wanting to be heard, waiting to make an impact. We’re all Ghosts. This is our time."
+   ],
+   "image": "https://m.media-amazon.com/images/I/81Ux7bTVDPL.jpg",
+   "monthly_sold": 2000,
+   "reviews": 300,
+   "family_asins": [
+    "B0FC8885KK"
+   ]
+  },
+  {
+   "asin": "B07GCWLWTM",
+   "brand": "Pureboost",
+   "title": "Pureboost Sugar-Free Clean Energy Booster Drink Mix, Combo Pack 30ct",
+   "bullets": [
+    "365-DAY GUARANTEE, HASSLE-FREE: Not satisfied? We’ve got you covered! Because we’re a grocery item, you can’t return directly to Amazon (because…rules.) Contact us directly and we’ll take care of you.",
+    "POWERED BY B12 & GREEN TEA: 100 mg of natural green tea caffeine combined with B12 for a sustained, powerful energy boost.* Skip the jitters and crashes—Pureboost is designed to keep you going and feeling good.",
+    "CLEANER ENERGY, HEALTHIER YOU: Our sugar-free, sucralose-free mix delivers a delicious healthy boost—no artificial flavors, colors, or GMOs. Naturally sweetened.",
+    "SUPERCHARGED FORMULA: Each packet is a powerhouse of 25 vitamins, minerals and herbs like Turmeric, Ginger, Vitamin C and Zinc plus electrolytes. Stay hydrated and energized while supporting your immune system.",
+    "CONVENIENT & COMPATIBLE: Includes 30 easy-to-use powder packets. Mix with 16-20 oz of water for a refreshing, energizing boost. Perfect for keto, low-carb, paleo, gluten-free and vegan lifestyles. Non-GMO, soy-free, and dairy-free."
+   ],
+   "image": "https://m.media-amazon.com/images/I/811AuxYhlDL.jpg",
+   "monthly_sold": 2000,
+   "reviews": 0,
+   "family_asins": [
+    "B07GCWLWTM"
+   ]
+  },
+  {
+   "asin": "B077FFV72N",
+   "brand": "True Citrus",
+   "title": "True Lemon Energy Variety Pack, 6 ct - 4 pack",
+   "bullets": [
+    "Includes: 4 boxes in set; 2 boxes ENERGY Wild Cherry Cranberry & 2 boxes ENERGY Blackberry Pomegranate (6 packets in each box;24 packets total)",
+    "0 Calories per packet | 0g Sugar",
+    "120mg Caffeine per packet",
+    "Real Flavor from Real Fruit | Simple & Clean Ingredients",
+    "No Artificial Flavors, Colors, Sweeteners or Preservatives | Gluten Free & Non GMO"
+   ],
+   "image": "https://m.media-amazon.com/images/I/91UQkOcsOLL.jpg",
+   "monthly_sold": 2000,
+   "reviews": 0,
+   "family_asins": [
+    "B077FFV72N"
+   ]
+  },
+  {
    "asin": "B0GZVSMWPF",
    "brand": "LifeFuel",
-   "title": "Tradesman Nutrition Shred, Energy Drink Packets Pre-Workout",
+   "title": "Nutrition Shred, Energy Drink Packets Pre-Workout",
    "bullets": [
     "There are two packaging options, which will be randomly distributed, with the upgraded version being sent first.",
-    "【DAILY THERMOGENIC SUPPORT】 Tradesman Nutrition Shred is designed to complement an active daily routine with thermogenic support, helping support normal everyday energy use.",
-    "【ENERGY & FOCUS SUPPORT】 The tradesman nutrition energy drink formula is designed to support alertness, focus, and natural energy levels, making it a convenient addition to busy workdays, workouts, and active lifestyles.",
-    "【CONVENIENT SINGLE-SERVE SACHETS】 Each box tradesman nutrition bundle contains 30 individually portioned stick packs for simple daily use. The portable sachet format is easy to keep at home, at work, in a gym bag, or while traveling.",
+    "【DAILY THERMOGENIC SUPPORT】 Nutrition Shred is designed to complement an active daily routine with thermogenic support, helping support normal everyday energy use.",
+    "【ENERGY & FOCUS SUPPORT】 The nutrition energy drink formula is designed to support alertness, focus, and natural energy levels, making it a convenient addition to busy workdays, workouts, and active lifestyles.",
+    "【CONVENIENT SINGLE-SERVE SACHETS】 Each box nutrition bundle contains 30 individually portioned stick packs for simple daily use. The portable sachet format is easy to keep at home, at work, in a gym bag, or while traveling.",
     "【SIMPLE DAILY MIXING ROUTINE】 Mix 1 stick with 10–12 fl oz of cold water and shake or stir thoroughly until evenly blended. Use earlier in the day and do not exceed 1 stick per day.Refreshing orange-flavored powder mixes easily with water, offering a simple alternative to bulky tubs and measuring scoops while fitting conveniently into your everyday supplement routine."
    ],
-   "image": "https://m.media-amazon.com/images/I/71UTjCQ9c9L.jpg",
-   "monthly_sold": 1800,
-   "reviews": 103,
+   "image": "https://m.media-amazon.com/images/I/71rnS57xNOL.jpg",
+   "monthly_sold": 2000,
+   "reviews": 109,
    "family_asins": [
     "B0GZVSMWPF",
     "B0H4LRF2BQ",
@@ -152,315 +432,21 @@
    ]
   },
   {
-   "asin": "B0GCJ3VJM9",
-   "brand": "Venture Pal",
-   "title": "Venture Pal Sugar Free Hydration Packets + Energy Drink Electrolytes Powder",
+   "asin": "B0GR93ZDH2",
+   "brand": "PLANSOL",
+   "title": "PLANSOL Energy Drink Powder Variety Pack with 18 Sticks, Powdered Drink Mix with 150mg Caffeine for Clean Focus, Sugar Free, Rich in Essential Vitamins and Minerals, On-The-Go Energy Boost",
    "bullets": [
-    "OUR BRAND PROMISE: Made with scientifically selected ingredients and third-party tested for quality. Trusted by hundreds of clinicians and verified by FrontrowMD, our sugar-free electrolyte packets fit keto, paleo, vegan, and fasting-friendly lifestyles. Naturally sweetened and free from artificial sweeteners, gluten, dairy, soy, and GMOs. Not satisfied? Contact us for a full refund—no return required",
-    "2-IN-1 HYDRATION + CLEAN ENERGY: More than just hydration, Venture Pal combines 1,470mg of electrolytes with 100mg of natural caffeine to support hydration and clean energy at the same time. Stay refreshed, productive, and energized throughout the day without relying on sugary energy drinks, coffee shop beverages, or high-calorie stimulants. It was designed to enhance both hydration and energy levels, making it essential for those who demand peak performance",
-    "7 ELECTROLYTES + 6 ENERGY-SUPPORTING VITAMINS: Formulated with 7 essential electrolytes (Sodium, Potassium, Magnesium, Calcium, Zinc, Chloride, and Phosphorus) plus 6 vitamins (B1, B3, B5, B6, B12, and Vitamin C), this comprehensive formula helps support hydration, electrolyte replenishment, and natural energy metabolism. Designed to go beyond basic hydration, it provides complete daily hydration and nutritional support for active lifestyles",
-    "ENERGY WITH FOCUS & RECOVERY: Unlike ordinary energy drinks that rely on caffeine alone, Venture Pal combines 100mg of natural caffeine from guarana extract with L-Theanine, Panax Ginseng, L-Tyrosine, and L-Glutamine to support sustained energy, mental clarity, focus, performance, and post-workout recovery. Designed to help you stay productive and alert without the nervousness, crashes, or afternoon burnout commonly associated with traditional energy beverages",
-    "ANYTIME ENERGY FOR ACTIVE LIFESTYLES: Simply mix one stick with 16–32 oz of water and enjoy whenever you need hydration and energy support. Perfect for work, study, travel, workouts, hiking, long shifts, busy mornings, or replacing your daily coffee routine. Venture Pal makes it easy to stay hydrated, focused, and energized wherever the day takes you"
+    "【ON-THE-GO ENERGY SUPPORT】Stay energized anywhere with our energy drink powder in convenient energy packets designed for busy lifestyles. Each serving contains just 10 calories and mixes instantly with water to create a refreshing energy drink mix. Perfect for work, workouts, travel, or daily routines, these portable energy pouches deliver a quick, clean boost anytime. Simply mix one stick with water for an easy, flavorful drink that supports focus, alertness, and sustained energy.",
+    "【18 PACKS & 3 FRUIT FLAVORS | DELICIOUS & REFRESHING】Enjoy variety and convenience with this energy drink variety pack featuring 18 water packets for easy on-the-go use. Includes three refreshing flavors — Dragonfruit Lime, Pomegranate Blueberry, and Cherry Pomegranate — with 6 sticks of each. Every packet delivers a smooth and consistent energy boost, making it a flavorful way to power through your busy week.",
+    "【7 ESSENTIAL VITAMINS & MINERALS】Fuel your body with a nutrient-rich energy powder enriched with 7 essential vitamins and minerals, including Vitamin C, B-Complex (B2, B3, B5, B6, B12), and Biotin, plus Calcium and Chromium. This healthy energy drink formula is designed to support metabolism and mental clarity. Whether you need a morning boost or pre-workout support, this convenient powdered drink mix delivers clean, balanced energy in every serving.",
+    "【150MG NATURAL CAFFEINE & SUGAR-FREE】Powered by 150mg of natural caffeine from green tea and guarana, this clean caffeine powder formula helps enhance focus and mental performance. Unlike traditional energy drinks sugar free options, this formula delivers steady energy without added sugars or crashes. Vegan, gluten-free, and made without artificial colors, it’s a smarter choice for those seeking healthy energy drinks to support an active lifestyle.",
+    "【EASY MIXING & TRUSTED QUALITY】Take control of your daily energy with this versatile energy drink mix. Simply mix one stick with 12–16 oz of water for a customizable boost anytime, anywhere. Whether for work, study, or fitness, these energy packets fit seamlessly into your routine. We are committed to your satisfaction—please contact us with any questions. WARNING: Not recommended for caffeine-sensitive individuals, children under 18, pregnant or nursing women."
    ],
-   "image": "https://m.media-amazon.com/images/I/81HG2XDGDHL.jpg",
+   "image": "https://m.media-amazon.com/images/I/71U3s67PFIL.jpg",
    "monthly_sold": 1000,
-   "reviews": 134,
+   "reviews": 126,
    "family_asins": [
-    "B0GCJ3VJM9",
-    "B0GYDL8F27",
-    "B0GYDLK8W6",
-    "B0GYDMNF8G"
-   ]
-  },
-  {
-   "asin": "B0GKC5BVT2",
-   "brand": "MTN OPS",
-   "title": "MTN OPS Ignite Energy Powder, Zero Sugar, Backcountry Flavor Variety Pack",
-   "bullets": [
-    "CLEAN ENERGY POWDER FOR ON-THE-GO PERFORMANCE – MTN OPS Ignite delivers clean, sustained energy and sharp mental focus wherever the day takes you. This portable energy drink powder is perfect for travel, gym bags, backpacks, work desks, road trips, hunting trips, and outdoor adventures.",
-    "VARIETY PACK ENERGY SINGLES FOR TRAVEL & DISCOVERY – Try multiple Ignite flavors in one convenient variety pack. These single-serve energy drink packets are ideal for travel, camping, hiking, commuting, or keeping portable energy sticks in your bag, truck, or carry-on for instant fuel anywhere.",
-    "200MG CAFFEINE + PERFORMANCE AMINO ACIDS – Each serving delivers 200mg caffeine with L-Citrulline and L-Arginine to support energy, endurance, and blood flow. A powerful pre-workout drink mix or morning coffee alternative designed for athletes, outdoorsmen, and high-performance lifestyles.",
-    "NOOTROPIC BRAIN BLEND FOR FOCUS & CLARITY – Ignite features MTN OPS’ exclusive nootropic Brain Blend to help support mental clarity, alertness, and concentration. Perfect for long workdays, early hunts, tough workouts, road trips, and demanding outdoor pursuits.",
-    "QUICK MIX ENERGY DRINK MIX ANYWHERE – Just mix one packet with 10–16oz of water for a fast, smooth energy boost. These portable energy drink sticks dissolve easily in shaker bottles or water bottles, making them a convenient grab-and-go energy supplement for travel or everyday performance."
-   ],
-   "image": "https://m.media-amazon.com/images/I/81vQXx+mdiL.jpg",
-   "monthly_sold": 550,
-   "reviews": 56,
-   "family_asins": [
-    "B0GKC5BVT2",
-    "B0GKCD4416"
-   ]
-  },
-  {
-   "asin": "B0CQ9R5X3T",
-   "brand": "Alpha Caffeine",
-   "title": "Drink Energizer I 200mg Unflavored Pure Caffeine Powder I 15 Sticks",
-   "bullets": [
-    "💥 Uniquely formulated Unflavored Drink Energizer. 200mg pure caffeine. 15 sticks per pouch.",
-    "🔋 ENERGY: Caffeine Anhydrous is clean and pure, delivering energy in just 30 minutes that lasts up to 6 hours.",
-    "🧠 FOCUS: ALPHA Caffeine boosts brain production leading to increased focus and concentration.",
-    "💪 IMMUNITY: Inulin is a powerful prebiotic that lowers inflammation and strengthen immunity.",
-    "🏃‍➡️ ENDURANCE: Caffeine has been proven to improve performance while boosting overall endurance.",
-    "😁 METABOLISM: ALPHA is designed to increase your metabolism up to 11%, burn more calories, break down fat up to 29% faster, and suppress appetite.",
-    "🚀 ENERGY BOOST ANY DRINK: Sports Drinks, Juices, Smoothies, Coconut Water, Soda, Vitamin-Enhanced drinks, Protein drinks, Tea, Coffee, Alcoholic Beverages (Please mix and drink responsibly). Water & Non-Flavored Beverages. Always great for Energy on the Go. Caffeine is slightly bitter, so you may notice a taste when mixed with water. That is just the pure caffeine working to deliver you fast energy.",
-    "⚡ACTIVE INGREDIENTS: Caffeine Anhydrous. 200mg unflavored pure caffeine powder. Caffeine = ENERGY. This is caffeine in near pure form so you can get the cleanest energy possible. Inulin is a powerful prebiotic and used in some of the most popular beverages on the market. Prebiotics boost metabolism, lower inflammation, and strengthen immunity.",
-    "👊 FOUNDER STORY: One day, we found ourselves eight hours into a long day of running around with kids at a theme park. We were exhausted and desperately needed an energy boost to make it through the evening. We thought about getting coffee or an energy drink, but neither sounded good to us and the lines were so long. We had our AHA moment! There needs to be a way to just get energy in all the types of drinks we like. Alpha Caffeine was born. Simple, Pure, and Powerful ingredients that energy boost any drink. We love it and think you will too.",
-    "Gluten Free, Non-GMO, Vegan, Keto. Manufactured in the USA."
-   ],
-   "image": "https://m.media-amazon.com/images/I/817cemuJPyL.jpg",
-   "monthly_sold": 300,
-   "reviews": 162,
-   "family_asins": [
-    "B0CQ9R5X3T"
-   ]
-  },
-  {
-   "asin": "B0CXY1Z4Y8",
-   "brand": "Gainful",
-   "title": "Gainful Hydration + Caffeine, Electrolytes Powder Packets, Lemon Lime, 21pk",
-   "bullets": [
-    "ELECTROLYTES POWDER: Gainful's hydration powder is formulated with higher levels of two key electrolytes - sodium and magnesium - to support more intense or frequent activity. Perfect to take as a pre workout, post workout, or on rest days to help with recovery.",
-    "BALANCED WITH LESS THAN 2G OF SUGAR: Our hydration packets are balanced with just enough sugar to help activate sodium-glucose cotransport, which works to rush hydration to your body faster than water alone.",
-    "SUSTAINED ENERGY: Our caffeinated hydration option pairs 150mg of caffeine with 250mg of L-Theanine to help provide you with energy and focus, without the jitters or crash. Ideal to kickstart your morning or to fuel your workouts.",
-    "HOW TO USE: Our lemon lime electrolytes powder packets mix well, taste delicious, and make it easy to stay hydrated on the go! Simply mix 1 packet of Gainful Hydration into 8 - 16oz of water and shake for 30 seconds. If you like your drinks on the sweeter side, aim for less water.",
-    "EFFECTIVE AND CLEAN ELECTROLYTE POWDER: Gainful is committed to providing you with clean and effective supplements with no hidden ingredients. This electrolyte drink mix is plant based, and made with no preservatives, artificial flavors, sweeteners, dyes or GMO ingredients."
-   ],
-   "image": "https://m.media-amazon.com/images/I/61oMLta2jCL.jpg",
-   "monthly_sold": 200,
-   "reviews": 182,
-   "family_asins": [
-    "B0CXY1Z4Y8"
-   ]
-  },
-  {
-   "asin": "B06XCSVHZC",
-   "brand": "Youngevity",
-   "title": "Youngevity ElectroFuel Raspberry Electrolyte Energy Drink Mix, 30 Sticks",
-   "bullets": [
-    "Smooth Energy, No Jitters",
-    "Sugar Free",
-    "Electrolyte Enhanced",
-    "All-Natural Raspberry Flavoring",
-    "Makes 30, 20 oz Servings"
-   ],
-   "image": "https://m.media-amazon.com/images/I/61GZ6XAP-ML.jpg",
-   "monthly_sold": 200,
-   "reviews": 186,
-   "family_asins": [
-    "B06XCSVHZC"
-   ]
-  },
-  {
-   "asin": "B0CLXHYC97",
-   "brand": "Let'z Go!",
-   "title": "Let'z Go! Clean Energy Drink Mix – Natural Caffeine Packets, Vitamins C + D, Electrolytes, Sugar-Free, Zero Calories | Anytime Energy | 15 Count (Mixed Berry)",
-   "bullets": [
-    "ENERGY + HYDRATION - Letz Go Boost is a delicious, refreshing natural energy drink mix designed to give you a boost of energy, nutrition, and hydration. Start your day with natural caffeine, high Vitamin C and D, antioxidants, and electrolytes with no sugar or calories. Made with premium, natural ingredients.",
-    "ALL NATURAL - Made with 100mg of natural, organic caffeine (same as a cup of coffee) sourced from pure green tea. 100% Vitamin C and D, plus antioxidants and electrolytes for a boost of immune support and natural hydration. Naturally sweetened with pure Stevia leaf with no aftertaste. Absolutely No artificial ingredients, colors, dyes, or preservatives. Letz Go Boost is your go-to performance drink, perfect for any diet or fitness routine whether you're looking to lose weight, cut back on sugar,",
-    "NO SUGAR, NO CALORIES, DELICIOUS FLAVOR - Available in three great-tasting natural fruit flavors: Orange Citrus ,Mixed Berry & Watermelon. Letz Go Boost is a natural, refreshing way to get a boost of energy and essential daily nutrition without the sugar, calories or added junk. Forget the sugary energy drinks, coffees, or sports beverages.....get your daily energy and hydration with the natural, delicious taste of Letz Go Boost.",
-    "ANYTIME ENERGY - Perfect for a Morning wake up boost, an Afternoon pick-me-up, a Workout boost, or a Travel or Jet Lag boost. Great for On-the-Go, at the gym, for study fuel, or whenever you need a boost!",
-    "EASY & CONVENIENT - Each single serving packet is super easy for you to enjoy, whether you're On-the-Go, at work, at home, at school, at the gym, or travelling. Just add one stick pack to 16oz of water, stir or shake, and enjoy! Tastes great in smoothies, juice, sparkling or bottled water, or even in cocktails. Now Letz Go!"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71haYA9isAL.jpg",
-   "monthly_sold": 150,
-   "reviews": 203,
-   "family_asins": [
-    "B0CLXG3M9G",
-    "B0CLXHYC97",
-    "B0D8XPZ5FX",
-    "B0FRT5G53Y",
-    "B0GYSTMXGX"
-   ]
-  },
-  {
-   "asin": "B0H2G5Y55G",
-   "brand": "BUZZ BOMB",
-   "title": "Buzz Bomb Energy Packets, Under the Tongue Caffeine, 20 Count, Variety Pack",
-   "bullets": [
-    "ENERGY WITHOUT THE DRINK: Skip the coffee runs, bulky cans, and sugary energy drinks. Buzz Bomb delivers clean, convenient energy in a pocket-sized caffeine powder packet you sprinkle under the tongue, hold for 1-2 minutes, experience the flavor, and then swallow. Making it easy to stay energized through work, workouts, travel, and busy days.*",
-    "FAST ENERGY WHEN YOU NEED IT: Whether you're heading into a workout, powering through the afternoon slump, tackling a long shift, or preparing for a run, Buzz Bomb helps you feel ready fast. Just pour the powder under your tongue and get back to what matters.*",
-    "STACKABLE, CUSTOMIZABLE ENERGY: One packet. Two packets. You decide. Each sugar-free packet delivers 50mg of natural caffeine, letting you personalize your energy while enjoying a great-tasting, fast-dissolving, convenient alternative to coffee, energy drinks, and bulky energy gels.",
-    "EASY ON THE STOMACH: A convenient alternative to large coffees, energy drinks, or endurance fuel products such as running gels. Buzz Bomb provides drink-free energy without excess liquid or sugar, making it an easy addition to your daily routine, workouts, training sessions, and active lifestyle.",
-    "EASY TO CARRY, EASY TO USE: Keep Buzz Bomb in your pocket, gym bag, backpack, desk, purse, or car. No water, mixing, refrigeration, or preparation required. These portable energy packets are always within reach whenever you need a quick energy boost.",
-    "FIND YOUR FAVORITE FLAVOR: Includes Peach Mango, Mixed Berry, Tropical, and Coffee Mocha caffeine powder packets. This variety pack is the perfect way to discover your favorite Buzz Bomb flavor and experience a new way to energize."
-   ],
-   "image": "https://m.media-amazon.com/images/I/61ONNrj86GL.jpg",
-   "monthly_sold": 150,
-   "reviews": 80,
-   "family_asins": [
-    "B0H2FSF5HG",
-    "B0H2G5Y55G",
-    "B0H2GCG8NY",
-    "B0HF8MS8L6",
-    "B0HL1XVXWD"
-   ]
-  },
-  {
-   "asin": "B0DSGNCQKL",
-   "brand": "LIFEAID",
-   "title": "FITAID Energy GO Pre-Workout Powder, Zero Sugar, Mango Sorbet (30 Packets)",
-   "bullets": [
-    "200MG CLEAN NATURAL CAFFEINE: Powered by Green Tea Extract to deliver a smooth, high-potency boost of energy, focus, and stamina without jittery crashes or shakes.",
-    "BCAAS & MUSCLE RECOVERY: Infused with essential Branched-Chain Amino Acids to resupply what muscles burn during intense workouts and support daily endurance.",
-    "ZERO SUGAR & KETO FRIENDLY: Contains zero sugar and only 20 calories per packet. Naturally sweetened with Monk Fruit and Stevia for clean, guilt-free pre-workout energy.",
-    "COQ10 & B-COMPLEX FUEL: Packed with CoQ10 and essential B vitamins to support cellular energy production, reduce fatigue, and keep your body fueled all day long.",
-    "PORTABLE 30 STICK PACKS: Includes 30 individual single-serve powder packets. Easily mix into 16–32 oz of cold water in your shaker bottle for tropical Mango Sorbet energy anywhere."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71CctAraBfL.jpg",
-   "monthly_sold": 100,
-   "reviews": 38,
-   "family_asins": [
-    "B0DSGNCQKL"
-   ]
-  },
-  {
-   "asin": "B0C9R2PCVN",
-   "brand": "IV FLUID MAX",
-   "title": "IV FLUID MAX Electrolyte Powder Packets with 300mg Caffeine, 16 Sticks",
-   "bullets": [
-    "BOOST ENERGY & HYDRATION – Fuel your endurance and recovery with 300 mg caffeine, B & C vitamins, and electrolytes powder packets for fast hydration that keeps you energized during workouts or busy days.",
-    "CONVENIENT ON-THE-GO PACKETS – 16 single-serve sticks, 6 Orange, 5 Pineapple, 5 Raspberry. These hydration packets sugar free are easy to mix anywhere for a quick, refreshing 16 fl oz drink.",
-    "SUGAR-FREE & LOW-CALORIE – Only 10 calories per serving, zero sugar, zero fat, and no artificial colors. Enjoy instant hydration packets that fuel your day without the crash.",
-    "ENHANCED FOCUS & ENDURANCE – Reduce fatigue, improve concentration, and stay alert with electrolytes sugar free hydration packets designed to keep you performing at your best.",
-    "SIMPLE TO USE & VERSATILE – Just add water. This electrolyte drink mix is perfect for pre-workout, post-workout, or anytime hydration, keeping you fueled, focused, and unstoppable."
-   ],
-   "image": "https://m.media-amazon.com/images/I/811hXwsbbcL.jpg",
-   "monthly_sold": 100,
-   "reviews": 143,
-   "family_asins": [
-    "B0C9R2PCVN"
-   ]
-  },
-  {
-   "asin": "B0891DLMP5",
-   "brand": "LIFEAID",
-   "title": "FOCUSAID GO Nootropic Energy Powder, Zero Sugar (14 Packets)",
-   "bullets": [
-    "CLEAN BRAIN FUEL: Powered by Alpha-GPC and GABA to enhance mental focus, support cognitive clarity, and keep your mind in the zone without brain fog.",
-    "100MG NATURAL CAFFEINE: Sourced from organic Green Tea and Yerba Mate to deliver smooth, sustained energy and alertness with zero jittery crashes or shakes.",
-    "ZERO SUGAR & KETO FRIENDLY: Contains zero sugar and only 20 calories per packet. Naturally sweetened with Monk Fruit and Stevia for guilt-free brain nourishment.",
-    "ESSENTIAL B-COMPLEX: Infused with vital B vitamins to support cellular energy production, help combat mental fatigue, and promote stress balance at work or school.",
-    "PORTABLE 14 STICK PACKS: Includes 14 individual single-serve powder packets. Easily mix into 16–32 oz of cold water in your shaker bottle or glass for instant focus on the go."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71czuLcLh-L.jpg",
-   "monthly_sold": 50,
-   "reviews": 417,
-   "family_asins": [
-    "B08919VYKR",
-    "B0891DLMP5"
-   ]
-  },
-  {
-   "asin": "B0BN2N55NP",
-   "brand": "5% Nutrition",
-   "title": "5% Nutrition 5150 High Stim Pre-Workout Powder Packets (Citrus Mango)",
-   "bullets": [
-    "MEGA-DOSED ENERGY, FOCUS & PUMP! 5150's one-of-a-kind preworkout blend will give you insane energy, extreme pumps and vascularity, razor-sharp focus, intense motivation, and extended endurance.",
-    "JITTER-FREE INTENSITY & DRIVE: The Stim-Crazy Caffeine Complex delivers 400 mg of caffeine derived from 7 sources, including time-released Dicaffeine Malate and extracts from coffee, green tea, yerba mate, guarana, and green coffee. Destroy every session!",
-    "EVERLASTING ENDURANCE & RAPID RECOVERY: Defeat muscle fatigue and power through the gnarliest of workouts with 2.5 grams of Beta Alanine that helps block lactic acid buildup before it can start.",
-    "SUPERIOR N.O. BOOSTER: While other products use L-Citrulline Malate, 5150 uses 4 grams of 100% pure L-Citrulline, ensuring massive blood flow that delivers nutrients where they're needed most. As a precursor to nitric oxide, it converts to Arginine in the liver for the most insane, long-lasting pumps.",
-    "7 INCREDIBLE FLAVORS: Available in Pink Lemonade, Rocket Pop, Green Apple, Wildberry, Tropical Rage, Blue Ice, and Fruit Punch. 5% Nutrition delivers the industry's most comprehensive formulations, made for elite level performance. Join the 5% Nation, proud to be the most hardcore muscle-building community on the planet."
-   ],
-   "image": "https://m.media-amazon.com/images/I/71Zpde5icWL.jpg",
-   "monthly_sold": 50,
-   "reviews": 22,
-   "family_asins": [
-    "B0BN2N55NP"
-   ]
-  },
-  {
-   "asin": "B0195Y2GV2",
-   "brand": "EBOOST",
-   "title": "EBOOST POW Natural Pre Workout Powder - 15 Packets, Berry Melon Fizz - Preworkout Energy Booster Gym Supplement Drink Mix for Men and Women - Performance, Joint Mobility Support - Gluten-Free",
-   "bullets": [
-    "Supercharge Your Performance: POW is a natural pre workout that enhances your mind and muscles to help you maximize your workouts. Work out hard and recover smoothly with ingredients in doses that deliver. Flavor: Peach Nectar. 15 Packets",
-    "On-the-Go Energy Hack: Five to ten minutes before your workout, empty one convenient, on-the-go stick into a glass or bottle. Add 6-8 fluid ounces of water and allow the mixture to fizz. Mix gently to avoid excess foaming.",
-    "Organically Improve: Natural amino acids, nutraceuticals, & plant-based power help fuel your circulation & flexibility for the best workout possible. Features an effervescent blend of caffeine, beta-alanine, L-tyrosine, L-theanine, and beetroot powder.",
-    "Boost any Workout: Perfect for weight training, HIIT, cross training, cycling, and enduring more miles and reps.",
-    "We Are Proudly: Gluten- and soy-free, non-GMO, vegetarian, and free from artificial flavors, colors or sweeteners.",
-    "Clean Fuel for The Bold: In 2007 Josh Taekman and John McDonald set out to find a cleaner way to fuel their busy days, and today EBOOST is changing the way people energize, replenish, and feed their well-being."
-   ],
-   "image": "https://m.media-amazon.com/images/I/81oxKH60NwL.jpg",
-   "monthly_sold": 50,
-   "reviews": 468,
-   "family_asins": [
-    "B0195Y2GV2",
-    "B0195Y2H3Y",
-    "B095FDCWYS"
-   ]
-  },
-  {
-   "asin": "B0DP3MVD7B",
-   "brand": "10X Health System",
-   "title": "10X Health Energy Drink Mix - 200mg Caffeine, 15 Sticks",
-   "bullets": [
-    "Powerful, Clean Energy: Get a steady boost with 200 mg liquid caffeine in every packet. These sugar-free energy drinks deliver focus and stamina without the crash, making them a clean alternative to heavy or artificial caffeine drinks",
-    "Essential Vitamins & BCAAs: Formulated with Vitamin B3, B6, B12, and BCAAs, this vitamin supplement supports energy, muscle strength, and endurance, fueling both workouts and busy days",
-    "Fast-Acting & Convenient Packets: With accelerated absorption technology, this calorie-free formula works quickly. Each pack provides 15 pre-workout packets, portable sugar-free drink mix packets that dissolve smoothly into water for clean energy packets",
-    "Naturally Flavored & Stevia-Sweetened: The Wave Crusher tropical fruit punch drink mix is naturally flavored, sweetened with stevia, and completely sugar-free. A refreshing option for those who want healthy energy drinks without artificial ingredients",
-    "Quality and Safety Focused: The 10X Energy Wave Crusher from 10X Health System is proudly made in the USA using premium, carefully sourced ingredients. Each batch undergoes rigorous quality and purity testing, ensuring your wellness"
-   ],
-   "image": "https://m.media-amazon.com/images/I/71WuGWw8elL.jpg",
-   "monthly_sold": 50,
-   "reviews": 55,
-   "family_asins": [
-    "B0DP3MVD7B"
-   ]
-  },
-  {
-   "asin": "B0DKLTHLJ6",
-   "brand": "KLASS VIDA",
-   "title": "KLASS VIDA Energy + Hydration | Variety Pack Electrolyte Packets | 15 Ct",
-   "bullets": [
-    "[ ENERGY + HYDRATION PERFORMANCE ] – These electrolytes powder packets deliver hydration with sustained energy support. Designed as energy hydration packets, this electrolyte drink mix helps maintain endurance, performance and daily vitality while supporting hydration balance.",
-    "[ CAFFEINE + L-THEANINE FOCUS BLEND ] – This caffeine electrolyte drink pairs caffeine with L-theanine for smooth energy. The formula works as a focus electrolyte drink, supporting mental clarity while maintaining steady performance without harsh spikes.",
-    "[ THREE AGUA FRESCA FLAVORS ] – This variety includes hibiscus electrolyte, horchata electrolyte, and strawberry watermelon electrolyte. These agua fresca electrolytes deliver authentic flavor with hydration and clean energy.",
-    "[ RAPID ELECTROLYTE REPLENISHMENT ] – This energy electrolyte powder includes coconut water, sodium, potassium and magnesium. The electrolyte drink mix helps replenish fluids quickly, while these hydration packets support active lifestyles.",
-    "[ PORTABLE ENERGY SUPPORT ] – Each pouch includes 15 electrolyte packets (5 Hibiscus, 5 Coffee Horchata, 5 Strawberry Watermelon). These portable hydration packets are easy to carry for gym, travel or daily hydration and energy needs."
-   ],
-   "image": "https://m.media-amazon.com/images/I/81X9wCjGL1L.jpg",
-   "monthly_sold": 50,
-   "reviews": 0,
-   "family_asins": [
-    "B0DKLTHLJ6"
-   ]
-  },
-  {
-   "asin": "B0GNF73NV4",
-   "brand": "Nature Made",
-   "title": "Nature Made Zero Sugar EnergyWell Drink Mix Packets, 12 Count",
-   "bullets": [
-    "Energy & Hydration Support Supplement: One 12 count box of Nature Made Zero Sugar(1) EnergyWell drink mix stick packs for a 12-day supply",
-    "No Sugar Energy(1): Clinically studied caffeine 100 mg quickly increases energy and focus for when you need it most",
-    "With Taurine: Includes 200 mg taurine per serving",
-    "Multiple Benefits: Includes B complex vitamins to support cellular energy, electrolytes (potassium chloride & sodium) to support hydration and other nutrients to support everyday wellness",
-    "Zero Sugar Supplement(1): Sugar Free(1) Tropical Fruit flavor; Adults, enjoy 1 stick pack daily—empty contents into glass, add 16 oz water and stir",
-    "High Quality Ingredients: Gluten free caffeine and electrolytes powder packets that have no artificial flavors, no synthetic FD&C dyes and no high fructose corn syrup",
-    "Number 1 Pharmacist Recommended Vitamin and Supplement Brand*",
-    "These statements have not been evaluated by the Food & Drug Administration; this product is not intended to diagnose, treat, cure, or prevent any disease"
-   ],
-   "image": "https://m.media-amazon.com/images/I/81ixLRBKo2L.jpg",
-   "monthly_sold": 50,
-   "reviews": 0,
-   "family_asins": [
-    "B0GNF73NV4"
-   ]
-  },
-  {
-   "asin": "B0B39GJM7R",
-   "brand": "ZEST",
-   "title": "ZEST Hydration & Preworkout Energy Drink Packets – Clean Electrolyte Powder with 225mg Caffeine - 14 Energy Powder Sticks for Running & Endurance, BlackBerry Lemonade Flavor",
-   "bullets": [
-    "Powerful Energy That Lasts: Each packet delivers 225mg of caffeine for serious, sustained energy — ideal for workouts, long days, and endurance training. Designed to fuel both body and mind without the crash of typical energy drinks.",
-    "Rehydrate and Replenish Fast: Formulated with 2,080mg of electrolytes to support optimal hydration and muscle recovery. These hydration packets help replace what’s lost in sweat, keeping you performing at your best during runs, workouts, or travel.",
-    "Clean Boost with L-Theanine: Includes 50mg of L-Theanine, clinically shown to smooth out caffeine’s edge — giving you steady, clean energy instead of spikes or jitters. The ideal energy drink powder for consistent power and alertness.",
-    "Zero Sugar, High Performance: Now with 0g of sugar per serving, this hydration powder fuels energy and endurance without the sugar. Sweetened with stevia leaf extract and sucralose, it delivers electrolytes, caffeine and L-theanine in every packet. Clean fuel for your day, not empty calories."
-   ],
-   "image": "https://m.media-amazon.com/images/I/81vd2cHP7HL.jpg",
-   "monthly_sold": 50,
-   "reviews": 0,
-   "family_asins": [
-    "B0B39GJM7R"
+    "B0GR93ZDH2"
    ]
   }
  ]
