@@ -1,0 +1,40 @@
+{
+ "shelf_keyword": "monolaurin",
+ "hero_name": "monolaurin",
+ "hero_regex": "monolaur|lauric",
+ "cluster_keywords": [
+  "monolaurin",
+  "monolaurin supplement",
+  "monolaurin and lysine supplement",
+  "lysine monolaurin"
+ ],
+ "parent_keyword": "monolaurin",
+ "microbial": false,
+ "finder_terms": [
+  "monolaurin",
+  "monolaurin supplement",
+  "monolaurin and lysine supplement"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "scored_on": "parent",
+ "demand_keyword": "monolaurin",
+ "demand_cluster": [
+  "monolaurin",
+  "monolaurin and lysine supplement",
+  "lysine monolaurin",
+  "monolaurin supplement",
+  "l lysine monolaurin",
+  "l-lysine monolaurin",
+  "lysine and monolaurin",
+  "monolaurin and lysine",
+  "lysine monolaurin 1000mg capsules",
+  "lauric acid",
+  "monolaurin lysine",
+  "monolauren",
+  "monolaurin 1000mg"
+ ]
+}

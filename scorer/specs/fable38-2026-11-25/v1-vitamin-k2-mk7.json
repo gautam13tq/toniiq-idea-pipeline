@@ -1,0 +1,49 @@
+{
+ "shelf_keyword": "vitamin k2 mk7",
+ "hero_name": "vitamin k2 mk7",
+ "hero_regex": "\\bk2\\b|k-2|mk[- ]?7|menaquinone|\\bmk7",
+ "cluster_keywords": [
+  "vitamin k2 mk7",
+  "k2 mk7",
+  "mk7 vitamin k2",
+  "vitamin k2 mk-7"
+ ],
+ "parent_keyword": "vitamin k2",
+ "microbial": false,
+ "finder_terms": [
+  "vitamin k2 mk7",
+  "k2 mk7",
+  "mk7 vitamin k2"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "\\bd3\\b|\\bd-3\\b|vitamin d|\\bdk3?\\b",
+ "scored_on": "parent",
+ "demand_keyword": "vitamin k2 mk7",
+ "demand_cluster": [
+  "vitamin k2 mk7",
+  "k2 mk7",
+  "mk7 vitamin k2",
+  "k2 mk7 vitamin supplement",
+  "mk7",
+  "vitamin k2 mk-7",
+  "vit k2 mk7",
+  "vitamin k2 mk-7 supplements",
+  "mk-7",
+  "mk-7 vitamin k-2 100 mcg",
+  "vitamin k2 mk7 supplements",
+  "mk 7",
+  "k2 mk-7",
+  "k2mk7",
+  "mk 7 vitamin k2",
+  "k2mk7 vitamin supplement",
+  "mk-7 vitamin k-2",
+  "vitamin mk7",
+  "mk7 k2",
+  "vitamin k2 mk7 100 mcg",
+  "vitamin k mk7"
+ ]
+}

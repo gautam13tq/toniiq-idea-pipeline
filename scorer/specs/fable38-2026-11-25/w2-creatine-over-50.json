@@ -1,0 +1,43 @@
+{
+ "shelf_keyword": "creatine for women over 50",
+ "hero_name": "creatine for women over 50",
+ "hero_regex": "creatine|creapure",
+ "cluster_keywords": [
+  "creatine for women over 50",
+  "creatine for men over 50",
+  "creatine for women over 40",
+  "creatine for men over 60"
+ ],
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "finder_terms": [
+  "creatine for women over 50",
+  "creatine for men over 50",
+  "creatine for women over 40"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "over\\s*(?:40|50|60)|\\b(?:40|50|60)\\s*\\+|\\b(?:40|50|60)s\\b|senior|menopaus|mature|older adults|aging",
+ "qualifier_regex": "over\\s*(?:40|50|60)",
+ "scored_on": "sleeve",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "over\\s*(?:40|50|60)",
+ "demand_keyword": "creatine",
+ "sleeve_cluster": [
+  "creatine for women over 50",
+  "best creatine for women over 50",
+  "best creatine for men over 50",
+  "creatine for men over 50",
+  "best creatine for women over 40",
+  "creatine for men over 60",
+  "creatine for men over 40",
+  "creatine for women over 40",
+  "best creatine for men over 40",
+  "creatine for women over 60",
+  "best creatine for women over 60",
+  "best creatine for men over 60"
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "shelf_keyword": "lemon balm tincture",
+ "hero_name": "lemon balm tincture",
+ "hero_regex": "lemon ?balm",
+ "cluster_keywords": [
+  "lemon balm tincture",
+  "lemon balm drops",
+  "lemon balm extract",
+  "organic lemon balm tincture"
+ ],
+ "parent_keyword": "lemon balm",
+ "microbial": false,
+ "finder_terms": [
+  "lemon balm tincture",
+  "lemon balm drops",
+  "lemon balm extract"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "\\btea\\b|seeds?|plant|essential oil|lip balm|salve|ointment|cream",
+ "qualifier_regex": "tincture|drops|extract",
+ "gate_format": "liquid",
+ "scored_on": "sleeve",
+ "sleeve_kind": "format",
+ "sleeve_regex": "tincture|drops|extract|liquid",
+ "demand_keyword": "lemon balm",
+ "sleeve_cluster": [
+  "lemon balm tincture",
+  "lemon balm extract",
+  "lemon balm drops",
+  "lemon balm tincture organic",
+  "organic lemon balm tincture"
+ ]
+}

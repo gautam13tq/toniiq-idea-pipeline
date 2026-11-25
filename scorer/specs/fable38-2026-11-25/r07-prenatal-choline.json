@@ -1,0 +1,44 @@
+{
+ "shelf_keyword": "choline prenatal",
+ "hero_name": "choline prenatal",
+ "hero_regex": "choline",
+ "cluster_keywords": [
+  "choline prenatal",
+  "prenatal choline",
+  "choline supplements pregnancy",
+  "prenatal with choline"
+ ],
+ "parent_keyword": "choline",
+ "microbial": false,
+ "finder_terms": [
+  "choline prenatal",
+  "prenatal choline",
+  "choline supplements pregnancy"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "prenatal|pregnan|maternal|pre-natal",
+ "qualifier_regex": "prenatal|pregnan",
+ "scored_on": "parent",
+ "demand_keyword": "choline prenatal",
+ "demand_cluster": [
+  "choline prenatal",
+  "prenatal choline",
+  "choline supplements pregnancy",
+  "prenatal with choline",
+  "prenatal vitamins with choline",
+  "prenatal vitamins for women with choline",
+  "prenatal and choline",
+  "prenatal with choline dha and folic acid",
+  "prenatals with choline",
+  "choline for pregnancy",
+  "prenatal multivitamins softgels + choline capsules",
+  "choline gummies for pregnancy",
+  "choline prenatal 900 mg",
+  "choline pregnancy supplement",
+  "choline pregnancy"
+ ]
+}

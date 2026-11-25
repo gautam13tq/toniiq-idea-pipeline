@@ -1,0 +1,48 @@
+{
+ "shelf_keyword": "lutein and zeaxanthin supplements",
+ "hero_name": "lutein and zeaxanthin supplements",
+ "hero_regex": "lutein|luteina",
+ "cluster_keywords": [
+  "lutein and zeaxanthin supplements",
+  "lutein and zeaxanthin",
+  "lutein zeaxanthin",
+  "zeaxanthin and lutein for eyes"
+ ],
+ "parent_keyword": "lutein",
+ "microbial": false,
+ "finder_terms": [
+  "lutein and zeaxanthin supplements",
+  "lutein and zeaxanthin",
+  "lutein zeaxanthin"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "spray|eye ?drops",
+ "required_regex": "zeaxanthin|zeaxantina",
+ "qualifier_regex": "zeaxan",
+ "scored_on": "parent",
+ "demand_keyword": "lutein and zeaxanthin supplements",
+ "demand_cluster": [
+  "lutein and zeaxanthin supplements",
+  "lutein and zeaxanthin",
+  "eye vitamins lutein and zeaxanthin",
+  "zeaxanthin and lutein for eyes",
+  "luteina y zeaxantina para los ojos",
+  "lutein 40 mg with zeaxanthin",
+  "lutein & zeaxanthin",
+  "lutein zeaxanthin",
+  "bilberry lutein zeaxanthin lycopene omega 3",
+  "pure lutein/zeaxanthin 120 capsules",
+  "lutein zeaxanthin meso-zeaxanthin",
+  "lutein zeaxanthin supplement",
+  "billberry, lutein, zeaxanthin",
+  "lutein zeaxanthin astaxanthin",
+  "lutein + zeaxanthin",
+  "lutein 20 mg with zeaxanthin",
+  "lutein and zeaxanthin gummies",
+  "eye supplements lutein astaxanthin zeaxanthin bilberry organic"
+ ]
+}

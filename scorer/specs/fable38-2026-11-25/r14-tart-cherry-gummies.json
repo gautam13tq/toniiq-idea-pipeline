@@ -1,0 +1,41 @@
+{
+ "shelf_keyword": "tart cherry gummies",
+ "hero_name": "tart cherry gummies",
+ "hero_regex": "cherr",
+ "cluster_keywords": [
+  "tart cherry gummies",
+  "cherry tart gummies",
+  "tart cherry gummy",
+  "tart cherry extract gummies"
+ ],
+ "parent_keyword": "tart cherry",
+ "microbial": false,
+ "finder_terms": [
+  "tart cherry gummies",
+  "cherry tart gummies",
+  "tart cherry gummy"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "qualifier_regex": "gumm",
+ "gate_format": "gummy",
+ "scored_on": "sleeve",
+ "sleeve_kind": "format",
+ "sleeve_regex": "gumm(?:y|ies)",
+ "demand_keyword": "tart cherry",
+ "sleeve_cluster": [
+  "tart cherry gummies",
+  "cherry gummies",
+  "cherry tart gummies",
+  "tart cherry gummies for sleep",
+  "sour cherry gummies",
+  "tart cherry gummies for gout",
+  "tart cherry extract gummies",
+  "tart cherry gummy",
+  "sugar free tart cherry gummies",
+  "tart cherries gummies"
+ ]
+}

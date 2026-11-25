@@ -1,0 +1,42 @@
+{
+ "shelf_keyword": "creatine gummies for women",
+ "hero_name": "creatine gummies for women",
+ "hero_regex": "creatine|creapure",
+ "cluster_keywords": [
+  "creatine gummies for women",
+  "creatine for women gummies",
+  "womens creatine gummies",
+  "women creatine gummies"
+ ],
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "finder_terms": [
+  "creatine gummies for women",
+  "creatine for women gummies",
+  "womens creatine gummies"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "^(?!.*\\bmen\\s*(?:&|and|/|\\+)\\s*wom[ae]n\\b)(?!.*\\bwom[ae]n\\s*(?:&|and|/|\\+)\\s*men\\b).*(?:\\bwom[ae]n\\b|\\bwomen'?s\\b|\\bfemale\\b|\\bher\\b)",
+ "qualifier_regex": "wom[ae]n",
+ "gate_format": "gummy",
+ "scored_on": "sleeve",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "wom[ae]n|female",
+ "demand_keyword": "creatine",
+ "sleeve_cluster": [
+  "creatine gummies for women",
+  "creatine for women gummies",
+  "womens creatine gummies",
+  "creatine gummies women",
+  "best creatine gummies for women",
+  "women creatine gummies",
+  "women's creatine gummies",
+  "gummy creatine for women",
+  "creatine and collagen gummies for women",
+  "creatine women gummies"
+ ]
+}

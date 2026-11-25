@@ -1,0 +1,39 @@
+{
+ "shelf_keyword": "sugar free creatine gummies",
+ "hero_name": "sugar free creatine gummies",
+ "hero_regex": "creatine|creapure",
+ "cluster_keywords": [
+  "sugar free creatine gummies",
+  "creatine gummies sugar free",
+  "creatine gummies no sugar",
+  "creatine gummies zero sugar"
+ ],
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "finder_terms": [
+  "sugar free creatine gummies",
+  "creatine gummies sugar free",
+  "creatine gummies no sugar"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "sugar[- ]?free|no sugar|zero sugar|0g sugar|0 g sugar",
+ "qualifier_regex": "sugar",
+ "gate_format": "gummy",
+ "scored_on": "sleeve",
+ "sleeve_kind": "variety",
+ "sleeve_regex": "sugar[- ]?free|no sugar|zero sugar",
+ "demand_keyword": "creatine",
+ "sleeve_cluster": [
+  "sugar free creatine gummies",
+  "creatine gummies sugar free",
+  "creatine gummies no sugar",
+  "creatine gummies for women sugar free",
+  "creatine gummies zero sugar",
+  "creatine sugar free gummies",
+  "creatine monohydrate gummies sugar free"
+ ]
+}

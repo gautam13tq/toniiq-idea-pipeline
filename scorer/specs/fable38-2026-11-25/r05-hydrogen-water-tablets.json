@@ -1,0 +1,51 @@
+{
+ "shelf_keyword": "hydrogen water tablets",
+ "hero_name": "hydrogen water tablets",
+ "hero_regex": "hydrogen|\\bh2\\b",
+ "cluster_keywords": [
+  "hydrogen water tablets",
+  "hydrogen tablets",
+  "molecular hydrogen tablets",
+  "hydrogen tablets for drinking water"
+ ],
+ "parent_keyword": "hydrogen",
+ "microbial": false,
+ "finder_terms": [
+  "hydrogen water tablets",
+  "hydrogen tablets",
+  "molecular hydrogen tablets"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "peroxide",
+ "scored_on": "parent",
+ "demand_keyword": "hydrogen water tablets",
+ "demand_cluster": [
+  "hydrogen water tablets",
+  "hydrogen tablets",
+  "molecular hydrogen tablets",
+  "hydrogen tablets for drinking water",
+  "hydro molecular hydrogen tablets",
+  "h2 tablets",
+  "hydrogen tabs",
+  "hydrogen water tablets with magnesium",
+  "molecular hydrogen water tablets",
+  "hydrogen tablets for water",
+  "hydrogenated water tablets",
+  "hydrogen tablet",
+  "h2 molecular hydrogen tablets",
+  "hydrogen water tablets high concentration",
+  "hydrogen tablets for inflammation",
+  "best hydrogen tablets",
+  "h2 tablets hydrogen tablets",
+  "hydrogen water tablet",
+  "best hydrogen water tablets",
+  "h2 hydrogen tablets",
+  "hydrogen tablets 12ppm",
+  "portable hydrogen water tablets travel",
+  "highest rated hydrogen tablets"
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "shelf_keyword": "kids electrolytes",
+ "hero_name": "kids electrolytes",
+ "hero_regex": "electrolyt|hydration|electrolito",
+ "cluster_keywords": [
+  "kids electrolytes",
+  "electrolytes for kids",
+  "electrolytes kids",
+  "kids hydration packets"
+ ],
+ "parent_keyword": "electrolytes",
+ "microbial": false,
+ "finder_terms": [
+  "kids electrolytes",
+  "electrolytes for kids",
+  "electrolytes kids"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "qualifier_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "scored_on": "sleeve",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "demand_keyword": "electrolytes",
+ "sleeve_cluster": [
+  "kids electrolytes",
+  "electrolytes for kids",
+  "electrolytes kids",
+  "toddler electrolytes",
+  "kids electrolytes powder packets",
+  "kids hydration packets",
+  "kids hydration",
+  "kids hydration pack",
+  "baby electrolytes",
+  "kid electrolytes",
+  "electrolyte for kids",
+  "electrolitos para ni\u00f1os"
+ ]
+}

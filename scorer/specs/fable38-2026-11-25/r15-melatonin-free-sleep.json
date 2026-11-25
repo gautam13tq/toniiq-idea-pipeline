@@ -1,0 +1,37 @@
+{
+ "shelf_keyword": "melatonin free sleep aid",
+ "hero_name": "melatonin free sleep aid",
+ "hero_regex": "melatonin[- ]free|sleep",
+ "cluster_keywords": [
+  "melatonin free sleep aid",
+  "melatonin free sleep gummies",
+  "melatonin free sleep aid for adults",
+  "melatonin free sleep aid gummies"
+ ],
+ "parent_keyword": "sleep aid",
+ "microbial": false,
+ "finder_terms": [
+  "melatonin free sleep aid",
+  "melatonin free sleep gummies",
+  "melatonin free sleep aid for adults"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "patch",
+ "required_regex": "melatonin[- ]free|non[- ]melatonin|no melatonin|without melatonin|0 ?mg melatonin",
+ "qualifier_regex": "melatonin free",
+ "scored_on": "parent",
+ "demand_keyword": "melatonin free sleep aid",
+ "demand_cluster": [
+  "melatonin free sleep aid",
+  "melatonin free sleep aid kids",
+  "melatonin free sleep gummies",
+  "kids melatonin free sleep gummies",
+  "melatonin free sleep aid for adults",
+  "melatonin free sleep aid gummies"
+ ],
+ "benefit_led": true
+}

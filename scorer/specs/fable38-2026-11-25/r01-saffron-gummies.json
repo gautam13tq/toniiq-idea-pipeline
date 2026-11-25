@@ -1,0 +1,40 @@
+{
+ "shelf_keyword": "saffron gummies",
+ "hero_name": "saffron gummies",
+ "hero_regex": "saffron|safron|affron|satiereal",
+ "cluster_keywords": [
+  "saffron gummies",
+  "saffron gummy",
+  "saffron gummies for adults",
+  "saffron supplements gummies"
+ ],
+ "parent_keyword": "saffron",
+ "microbial": false,
+ "finder_terms": [
+  "saffron gummies",
+  "saffron gummy",
+  "saffron gummies for adults"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "qualifier_regex": "gumm",
+ "gate_format": "gummy",
+ "scored_on": "sleeve",
+ "sleeve_kind": "format",
+ "sleeve_regex": "gumm(?:y|ies)",
+ "demand_keyword": "saffron",
+ "sleeve_cluster": [
+  "saffron gummies",
+  "saffron gummies for adults",
+  "saffron gummy",
+  "mood balance saffron gummies",
+  "saffron supplements gummies",
+  "saffron gummies for adhd",
+  "safron gummies",
+  "saffron adhd gummies"
+ ]
+}

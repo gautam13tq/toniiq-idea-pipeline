@@ -1,0 +1,31 @@
+{
+ "shelf_keyword": "ttfd",
+ "hero_name": "ttfd",
+ "hero_regex": "ttfd|thiamine tetrahydrofurfuryl|allithiamine",
+ "cluster_keywords": [
+  "ttfd",
+  "ttfd thiamine",
+  "ttfd thiamine b1 supplement",
+  "thiamine ttfd"
+ ],
+ "parent_keyword": "thiamine",
+ "microbial": false,
+ "finder_terms": [
+  "ttfd",
+  "ttfd thiamine",
+  "ttfd thiamine b1 supplement"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "scored_on": "parent",
+ "demand_keyword": "ttfd",
+ "demand_cluster": [
+  "ttfd",
+  "ttfd thiamine b1 supplement",
+  "ttfd thiamine",
+  "thiamine ttfd"
+ ]
+}

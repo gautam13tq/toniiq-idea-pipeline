@@ -1,0 +1,37 @@
+{
+ "shelf_keyword": "vitamin d gummies for kids",
+ "hero_name": "vitamin d gummies for kids",
+ "hero_regex": "vitamin d|\\bd3\\b",
+ "cluster_keywords": [
+  "vitamin d gummies for kids",
+  "vitamin d3 for kids",
+  "vitamin d kids gummies",
+  "kid vitamin d"
+ ],
+ "parent_keyword": "vitamin d",
+ "microbial": false,
+ "finder_terms": [
+  "vitamin d gummies for kids",
+  "vitamin d3 for kids",
+  "vitamin d kids gummies"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "qualifier_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "scored_on": "sleeve",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "demand_keyword": "vitamin d",
+ "sleeve_cluster": [
+  "vitamin d gummies for kids",
+  "vitamin d for kids 6-12 years",
+  "vitamin d3 for kids",
+  "vitamin d kids gummies",
+  "kid vitamin d",
+  "kids calcium and vitamin d"
+ ]
+}

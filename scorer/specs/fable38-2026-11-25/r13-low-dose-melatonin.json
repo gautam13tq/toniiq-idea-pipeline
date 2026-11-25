@@ -1,0 +1,55 @@
+{
+ "shelf_keyword": "low dose melatonin",
+ "hero_name": "low dose melatonin",
+ "hero_regex": "melatonin",
+ "cluster_keywords": [
+  "low dose melatonin",
+  "melatonin 0.5mg",
+  "melatonin 300 mcg",
+  "melatonin low dose"
+ ],
+ "parent_keyword": "melatonin",
+ "microbial": false,
+ "finder_terms": [
+  "low dose melatonin",
+  "melatonin 0.5mg",
+  "melatonin 300 mcg"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "low[- ]dose|micro[- ]?dose|0?\\.\\s?[35]\\s*mg|\\b(?:300|500)\\s*mcg",
+ "scored_on": "sleeve",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "low dose|micro|0?\\.\\s?[35]\\s*mg|0?\\.\\s?[35]\\b|\\b(?:300|500)\\s*mcg",
+ "demand_keyword": "melatonin",
+ "sleeve_cluster": [
+  "low dose melatonin",
+  "melatonin 0.5mg",
+  "melatonin .5 mg",
+  "melatonin low dose",
+  "melatonin 300 mcg",
+  "0.5 mg melatonin",
+  ".5 mg melatonin",
+  "melatonin 0.3mg",
+  "low dose melatonin 0.5mg",
+  "300 mcg melatonin",
+  "micro melatonin",
+  "0.5mg melatonin",
+  "melatonin 0.5",
+  "melatonin 0.5 mg",
+  "melatonin .5",
+  "0.5 melatonin",
+  "melatonin 300mcg",
+  "melatonin 500 mcg",
+  "melatonin .3 mg",
+  "low dose melatonin gummies"
+ ],
+ "sleeve_words": [
+  "0.5mg",
+  "300 mcg",
+  "low dose"
+ ]
+}

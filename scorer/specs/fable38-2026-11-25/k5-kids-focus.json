@@ -1,0 +1,41 @@
+{
+ "shelf_keyword": "focus gummies for kids",
+ "hero_name": "focus gummies for kids",
+ "hero_regex": "focus|brain|attention",
+ "cluster_keywords": [
+  "focus gummies for kids",
+  "focus supplements for kids",
+  "focus vitamins for kids",
+  "kids brain vitamins"
+ ],
+ "parent_keyword": "focus",
+ "microbial": false,
+ "finder_terms": [
+  "focus gummies for kids",
+  "focus supplements for kids",
+  "focus vitamins for kids"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "qualifier_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "scored_on": "sleeve",
+ "sleeve_kind": "audience",
+ "sleeve_regex": "\\bkids?\\b|\\bkid'?s\\b|\\bchild(?:ren)?'?s?\\b|\\btoddlers?\\b|\\bbab(?:y|ies)\\b|\\binfants?\\b|ni\u00f1os|\\bteens?\\b",
+ "demand_keyword": "focus",
+ "sleeve_cluster": [
+  "focus gummies for kids",
+  "focus supplements for kids",
+  "focus vitamins for kids",
+  "kids brain vitamins",
+  "mood focus gummies for kids",
+  "brain vitamins for kids",
+  "brain gummies for kids",
+  "focus kids supplement",
+  "kids brain supplement"
+ ],
+ "benefit_led": true
+}

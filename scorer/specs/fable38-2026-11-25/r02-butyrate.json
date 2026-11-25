@@ -1,0 +1,41 @@
+{
+ "shelf_keyword": "butyrate",
+ "hero_name": "butyrate",
+ "hero_regex": "butyr|butyric",
+ "cluster_keywords": [
+  "butyrate",
+  "sodium butyrate",
+  "butyrate supplement",
+  "butyrate gut health supplement"
+ ],
+ "parent_keyword": "butyrate",
+ "microbial": false,
+ "finder_terms": [
+  "butyrate",
+  "sodium butyrate",
+  "butyrate supplement"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "hero_exclude_regex": "tributyr",
+ "scored_on": "parent",
+ "demand_keyword": "butyrate",
+ "demand_cluster": [
+  "butyrate",
+  "sodium butyrate",
+  "butyrate gut health supplement",
+  "butyrate supplement",
+  "sodium butyrate supplement",
+  "butyric acid",
+  "clostridium butyricum",
+  "butyrate probiotics prebiotics",
+  "butyric acid supplement",
+  "calcium magnesium butyrate",
+  "microencapsulated sodium butyrate",
+  "sodium butyrate microencapsulated"
+ ],
+ "scored_on_why": "parent; tributyrin rows excluded (tributyrin is IN DEV)"
+}

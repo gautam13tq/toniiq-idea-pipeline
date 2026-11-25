@@ -1,0 +1,39 @@
+{
+ "shelf_keyword": "lutein 20mg",
+ "hero_name": "lutein 20mg",
+ "hero_regex": "lutein|luteina",
+ "cluster_keywords": [
+  "lutein 20mg",
+  "lutein 20 mg",
+  "lutein 20mg softgels",
+  "lutein 20 mg with zeaxanthin"
+ ],
+ "parent_keyword": "lutein",
+ "microbial": false,
+ "finder_terms": [
+  "lutein 20mg",
+  "lutein 20 mg",
+  "lutein 20mg softgels"
+ ],
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "written_at": "2026-11-25T17:20:00+00:00",
+ "spec_round": "fable38-2026-11-25",
+ "spec_note": "Fable-38 (fable-advisor-2026-11-25): Keyword Spy own rows, FULL-ROWS.md (US, Related, Oct 2026). Planning thread relay 25 Nov; Gautam 'do the whole plan today'. Not published until confirmed.",
+ "required_regex": "\\b20\\s*mg\\b",
+ "qualifier_regex": "20\\s*mg",
+ "scored_on": "sleeve",
+ "sleeve_kind": "dose",
+ "sleeve_regex": "\\b20\\s*mg\\b",
+ "demand_keyword": "lutein",
+ "sleeve_cluster": [
+  "lutein 20mg",
+  "lutein 20 mg",
+  "lutein 20mg softgels",
+  "lutein 20 mg with zeaxanthin"
+ ],
+ "sleeve_words": [
+  "20mg",
+  "20 mg"
+ ]
+}
