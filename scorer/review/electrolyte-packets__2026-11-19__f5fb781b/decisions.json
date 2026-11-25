@@ -19,25 +19,25 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0DN6T1QGD": {
+  "B01IT9NLHW": {
    "scorer": "IN",
    "rank": 3,
-   "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "in_top12": false,
+   "gate_code": "EX_HERO_MISSING",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B07RWF8L2V": {
+  "B0BQ4G7LY8": {
    "scorer": "IN",
    "rank": 4,
-   "in_top12": true,
-   "gate_code": "HERO_LED_COMPLEX",
-   "source": "HERO_LED_COMPLEX",
+   "in_top12": false,
+   "gate_code": "EX_HERO_MISSING",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B0GT1GCSTQ": {
+  "B0DN6T1QGD": {
    "scorer": "IN",
    "rank": 5,
    "in_top12": true,
@@ -46,16 +46,16 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0DVXD2WBB": {
+  "B07RWF8L2V": {
    "scorer": "IN",
    "rank": 6,
    "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "HERO_LED_COMPLEX",
+   "source": "HERO_LED_COMPLEX",
    "fop_rule": null,
    "manual": null
   },
-  "B01JO4KWAU": {
+  "B0GT1GCSTQ": {
    "scorer": "IN",
    "rank": 7,
    "in_top12": true,
@@ -64,16 +64,16 @@
    "fop_rule": null,
    "manual": null
   },
-  "B079YBV7Q9": {
+  "B0GVL7J5RH": {
    "scorer": "IN",
    "rank": 8,
-   "in_top12": true,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "in_top12": false,
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B08TZD2R7L": {
+  "B0DVXD2WBB": {
    "scorer": "IN",
    "rank": 9,
    "in_top12": true,
@@ -82,7 +82,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0F33XK6RQ": {
+  "B01JO4KWAU": {
    "scorer": "IN",
    "rank": 10,
    "in_top12": true,
@@ -91,7 +91,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0GYW2WZXT": {
+  "B079YBV7Q9": {
    "scorer": "IN",
    "rank": 11,
    "in_top12": true,
@@ -100,7 +100,7 @@
    "fop_rule": null,
    "manual": null
   },
-  "B09MQ54VPC": {
+  "B08TZD2R7L": {
    "scorer": "IN",
    "rank": 12,
    "in_top12": true,
@@ -109,68 +109,58 @@
    "fop_rule": null,
    "manual": null
   },
-  "B0DB28SXX3": {
+  "B0GVLCQ2DK": {
    "scorer": "IN",
    "rank": 13,
    "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B0H1HY4W14": {
+  "B0GSZZJFXM": {
    "scorer": "IN",
    "rank": 14,
    "in_top12": false,
-   "gate_code": "IN_OK",
-   "source": "IN_OK",
+   "gate_code": "EX_NOT_SUPPLEMENT",
+   "source": "manual_fop",
    "fop_rule": null,
-   "manual": null
+   "manual": "IN"
   },
-  "B0FND4M1QV": {
+  "B0F33XK6RQ": {
    "scorer": "IN",
    "rank": 15,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B09GKX9J39": {
+  "B0GYW2WZXT": {
    "scorer": "IN",
    "rank": 16,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B0BFBYN78B": {
+  "B09MQ54VPC": {
    "scorer": "IN",
    "rank": 17,
-   "in_top12": false,
+   "in_top12": true,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
    "manual": null
   },
-  "B0DP5XFVTP": {
+  "B0DB28SXX3": {
    "scorer": "IN",
    "rank": 18,
    "in_top12": false,
    "gate_code": "IN_OK",
    "source": "IN_OK",
    "fop_rule": null,
-   "manual": null
-  },
-  "B01IT9NLHW": {
-   "scorer": "OUT",
-   "rank": null,
-   "in_top12": false,
-   "gate_code": "EX_HERO_MISSING",
-   "source": "gate",
-   "fop_rule": null,
-   "near_miss": true,
    "manual": null
   },
   "B07SH31T9V": {
@@ -184,16 +174,6 @@
    "manual": null
   },
   "B08ZJQ1XD4": {
-   "scorer": "OUT",
-   "rank": null,
-   "in_top12": false,
-   "gate_code": "EX_HERO_MISSING",
-   "source": "gate",
-   "fop_rule": null,
-   "near_miss": true,
-   "manual": null
-  },
-  "B0BQ4G7LY8": {
    "scorer": "OUT",
    "rank": null,
    "in_top12": false,
@@ -218,10 +198,10 @@
    "rank": null,
    "in_top12": false,
    "gate_code": "EX_HERO_MISSING",
-   "source": "gate",
+   "source": "manual_fop",
    "fop_rule": null,
    "near_miss": true,
-   "manual": null
+   "manual": "OUT"
   }
  }
 }
