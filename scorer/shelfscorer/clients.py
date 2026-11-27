@@ -187,14 +187,14 @@ def _codex(system, messages, timeout=600):
                 f.write(r.read())
             args += ["-i", fp]
         args.append("-")
-        for i in range(3):
+        for i in range(6):                     # network blips ("workspace routing discovery failed") last minutes
             p = subprocess.run(args, input=prompt, capture_output=True, text=True, timeout=timeout)
             out = os.path.join(d, "out.txt")
             if p.returncode == 0 and os.path.exists(out) and open(out).read().strip():
                 text = open(out).read()
                 return {"content": [{"type": "text", "text": text}], "usage": {}, "backend": "codex",
                         "model": K.CODEX_MODEL or "codex-cli-default"}
-            time.sleep(5 * (i + 1))
+            time.sleep(30 * (i + 1))
         raise RuntimeError(f"codex exec failed rc={p.returncode}: {p.stderr[-300:]}")
 
 
