@@ -1,0 +1,46 @@
+{
+  "shelf_keyword": "saw palmetto for men",
+  "hero_name": "saw palmetto",
+  "hero_regex": "saw\\s*-?\\s*palmetto|sawpalmetto",
+  "hero_names": [
+    "saw palmetto",
+    "saw palmetto extract"
+  ],
+  "cluster_keywords": [
+    "saw palmetto for men",
+    "sawpalmetto for men",
+    "saw palmetto supplements for men"
+  ],
+  "parent_keyword": "saw palmetto",
+  "demand_keyword": "saw palmetto",
+  "microbial": false,
+  "scored_on": "sleeve",
+  "sleeve_kind": "audience",
+  "audience": "men",
+  "required_regex": "^(?!.*\\bwom[ae]n\\b)(?!.*\\bher\\b).*(?:\\bmen\\b|\\bmen'?s\\b|\\bmale\\b|\\bhim\\b)",
+  "sleeve_regex": "\\bmen\\b|\\bmens\\b|\\bmen's\\b|\\bmale\\b",
+  "sleeve_words": [
+    "for men",
+    "men",
+    "mens"
+  ],
+  "sleeve_cluster": [
+    "saw palmetto for men",
+    "sawpalmetto for men",
+    "organic saw palmetto for men",
+    "saw palmetto capsules for men",
+    "saw palmetto supplements for men",
+    "saw palmetto 450 mg for men"
+  ],
+  "hero_exclude_regex": "\\bhair\\b|shampoo|scalp|serum|biotin|topical",
+  "finder_terms": [
+    "saw palmetto for men",
+    "saw palmetto supplements for men"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "scored_on_why": "audience sleeve: men's saw palmetto (unisex titles OUT, R4); hair-growth listings OUT because most saw palmetto search is hair-led and Gautam's pick is the prostate side",
+  "spec_round": "prostate-2026-11-27",
+  "spec_note": "Rows: _Ideation/subniches/prostate-deep-dive-keyword-spy-2026-11-26.md (Datarova Keyword Spy, US, Related, Oct 2026, pulled 26 Nov). Gautam picked all three prostate shelves 27 Nov 2026. Not published until confirmed.",
+  "written_at": "2026-11-27T12:47:08+00:00"
+}

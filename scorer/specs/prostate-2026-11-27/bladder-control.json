@@ -1,0 +1,52 @@
+{
+  "shelf_keyword": "bladder control pills",
+  "hero_name": "bladder control",
+  "hero_regex": "bladder|urinat|\\bpee\\b",
+  "cluster_keywords": [
+    "bladder control pills",
+    "bladder control",
+    "bladder support",
+    "bladder control for men"
+  ],
+  "parent_keyword": "bladder control",
+  "microbial": false,
+  "benefit_led": true,
+  "scored_on": "parent",
+  "demand_keyword": "bladder control pills",
+  "demand_cluster": [
+    "bladder control pills",
+    "bladder control",
+    "bladder support",
+    "pumpkin seed extract for bladder control",
+    "bladder",
+    "bladder control for men",
+    "calcium glycerophosphate for bladder",
+    "best bladder control pills",
+    "bladder support supplements",
+    "overactive bladder pills",
+    "stop urge to pee",
+    "best bladder control supplement",
+    "nighttime urination supplement",
+    "overactive bladder control for men",
+    "bladder control supplements",
+    "bladder support for men",
+    "bladder health",
+    "bladder pills",
+    "over the counter bladder control",
+    "bladder control pills for men",
+    "bladder urgency relief"
+  ],
+  "required_regex": "^(?!.*\\bwom[ae]n\\b)(?!.*\\bfemale\\b)(?!.*\\bher\\b).*",
+  "hero_exclude_regex": "\\bpatch(es)?\\b|insert|pad\\b|pads\\b|underwear|liner",
+  "finder_terms": [
+    "bladder control pills",
+    "bladder control for men",
+    "bladder support"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "scored_on_why": "men-only rows total 403 clicks (under the 1,000 sleeve gate), so this is the men-or-unisex bladder shelf: women-labelled listings OUT; patches, inserts, pads and underwear OUT",
+  "spec_round": "prostate-2026-11-27",
+  "spec_note": "Rows: _Ideation/subniches/prostate-deep-dive-keyword-spy-2026-11-26.md (Datarova Keyword Spy, US, Related, Oct 2026, pulled 26 Nov). Gautam picked all three prostate shelves 27 Nov 2026. Not published until confirmed.",
+  "written_at": "2026-11-27T12:47:08+00:00"
+}
