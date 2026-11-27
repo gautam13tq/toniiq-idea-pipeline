@@ -1,6 +1,9 @@
 """Thin HTTP clients. Every call goes through Run.call so it is logged with query, rows, cost and raw file."""
 import gzip
 import json
+import os
+import subprocess
+import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -150,6 +153,51 @@ def apify_search(run, keyword, label):
 PRICE = {"in": 3.0 / 1e6, "out": 15.0 / 1e6}
 
 
+def _flatten(system, messages):
+    """One plain-text prompt plus image URLs from an Anthropic-style messages list."""
+    parts, images = [], []
+    if system:
+        parts.append("SYSTEM INSTRUCTIONS:\n" + system)
+    for m in messages:
+        c = m["content"]
+        if isinstance(c, str):
+            parts.append(f"{m['role'].upper()}:\n{c}")
+            continue
+        for b in c:
+            if b.get("type") == "text":
+                parts.append(f"{m['role'].upper()}:\n{b['text']}")
+            elif b.get("type") == "image":
+                images.append(b["source"]["url"])
+    return "\n\n".join(parts), images
+
+
+def _codex(system, messages, timeout=600):
+    """codex exec in an empty scratch dir, read-only sandbox, no session saved; returns an Anthropic-shaped reply."""
+    prompt, images = _flatten(system, messages)
+    prompt += ("\n\nAnswer directly from the text and images above. Do not run commands or read files. "
+               "Reply in the exact format asked for.")
+    with tempfile.TemporaryDirectory(prefix="scorer-codex-") as d:
+        args = [K.CODEX_BIN, "exec", "--skip-git-repo-check", "-s", "read-only", "--ephemeral", "-C", d,
+                "-o", os.path.join(d, "out.txt")]
+        if K.CODEX_MODEL:
+            args += ["-m", K.CODEX_MODEL]
+        for i, u in enumerate(images):
+            fp = os.path.join(d, f"img{i}.jpg")
+            with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60) as r, open(fp, "wb") as f:
+                f.write(r.read())
+            args += ["-i", fp]
+        args.append("-")
+        for i in range(3):
+            p = subprocess.run(args, input=prompt, capture_output=True, text=True, timeout=timeout)
+            out = os.path.join(d, "out.txt")
+            if p.returncode == 0 and os.path.exists(out) and open(out).read().strip():
+                text = open(out).read()
+                return {"content": [{"type": "text", "text": text}], "usage": {}, "backend": "codex",
+                        "model": K.CODEX_MODEL or "codex-cli-default"}
+            time.sleep(5 * (i + 1))
+        raise RuntimeError(f"codex exec failed rc={p.returncode}: {p.stderr[-300:]}")
+
+
 def anthropic(run, label, *, system=None, messages, max_tokens=1500, temperature=0):
     body = {"model": K.MODEL, "max_tokens": max_tokens, "temperature": temperature, "messages": messages}
     if system:
@@ -168,6 +216,11 @@ def anthropic(run, label, *, system=None, messages, max_tokens=1500, temperature
                 raise
     from .runlog import sha
     prompt_sha = sha(json.dumps({"system": system, "messages": messages}, sort_keys=True))
+    if K.LLM_BACKEND == "codex":
+        res = run.call("llm_codex", "/exec", {"label": label, "model": K.CODEX_MODEL or "codex-cli-default",
+                                               "prompt_sha": prompt_sha}, lambda: _codex(system, messages),
+                       raw_rel=f"llm/{label}.json", rows_fn=lambda r: 1, cost_usd=0.0)
+        return "".join(b.get("text", "") for b in res["content"] if b.get("type") == "text"), prompt_sha
     res = run.call("anthropic", "/v1/messages", {"label": label, "model": K.MODEL, "prompt_sha": prompt_sha}, fn,
                    raw_rel=f"llm/{label}.json", rows_fn=lambda r: 1,
                    cost_usd=lambda r: (r.get("usage", {}).get("input_tokens", 0) * PRICE["in"] +

@@ -39,7 +39,8 @@ def validate(run):
     need = [("datarova", "/keywords")]
     no_apify = bool(m.get("no_apify_page1"))      # opt-in fallback: checks that need Apify page data become WARN
     if not ineligible:
-        need += [("keepa", "/query"), ("keepa", "/search"), ("keepa", "/product"), ("anthropic", "/v1/messages")]
+        need += [("keepa", "/query"), ("keepa", "/search"), ("keepa", "/product")]
+        chk("V-CALLS-LLM", bool(K.LLM_TOOLS & tools), "no successful LLM call (Anthropic or local Codex)")
         chk("V-CALLS-APIFY", ("apify", K.APIFY_ACTOR) in tools, "no successful Apify search call"
             + (" (no_apify_page1: Keepa search used for page 1)" if no_apify else ""), "WARN" if no_apify else "BLOCKER")
     chk("V-CALLS", all(n in tools for n in need), f"missing calls: {[n for n in need if n not in tools]}")
@@ -69,7 +70,7 @@ def validate(run):
         unsure = sum(1 for d in dec.values() if d["verdict3"] == "UNSURE")
         fb = sum(1 for d in dec.values() if d.get("judge_fallback"))
         chk("V-GATE", fb == 0 and unsure == g["judge_calls"], f"unsure {unsure}, judge calls {g['judge_calls']}, fallback {fb}")
-        judge_logged = sum(1 for c in calls if c["tool"] == "anthropic" and str(c["query"].get("label", "")).startswith("judge_"))
+        judge_logged = sum(1 for c in calls if (c["tool"], c["endpoint"]) in K.LLM_TOOLS and str(c["query"].get("label", "")).startswith("judge_"))
         chk("V-JUDGE-LOG", judge_logged >= g["judge_calls"], f"{judge_logged} logged judge calls vs {g['judge_calls']}")
         fams = run.read("ranking.json")["families"]
         top = run.read("top12.json")

@@ -60,6 +60,13 @@ DATAROVA_BATCH = 10
 
 # Models (the app's pinned SONNET constant, clients.ts)
 MODEL = "claude-sonnet-4-5"
+# LLM backend (Gautam 27 Nov 2026: run locally, no Anthropic API). SCORER_LLM=codex routes every judge, merge,
+# front-of-pack and Diff call through the local Codex CLI (codex exec, read-only sandbox, empty scratch dir).
+import os as _os
+LLM_BACKEND = _os.environ.get("SCORER_LLM", "anthropic")
+CODEX_BIN = _os.environ.get("CODEX_BIN", "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex")
+CODEX_MODEL = _os.environ.get("CODEX_MODEL")          # None = the Codex CLI default
+LLM_TOOLS = {("anthropic", "/v1/messages"), ("llm_codex", "/exec")}
 DIFF_MAX_TOKENS = 2500
 
 # Spend
