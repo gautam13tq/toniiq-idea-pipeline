@@ -10,9 +10,9 @@ from . import clients
 GATE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "gate")
 if GATE_DIR not in sys.path:
     sys.path.insert(0, GATE_DIR)
-import gate_v113 as GATE  # noqa: E402
+import gate_v114 as GATE  # noqa: E402
 
-GATE_VERSION = "v11.3"
+GATE_VERSION = "v11.4"
 
 
 def keepa_stat(p, kind, idx):
