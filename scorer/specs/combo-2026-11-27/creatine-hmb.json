@@ -1,0 +1,56 @@
+{
+ "hero_name": "creatine",
+ "hero_regex": "creatine|creapure",
+ "parent_keyword": "creatine",
+ "microbial": false,
+ "candidate_subniches": [],
+ "seed_asins": [],
+ "spec_round": "combo-2026-11-27",
+ "hero_names": [
+  "creatine",
+  "creatine monohydrate"
+ ],
+ "scored_on": "sleeve",
+ "demand_keyword": "creatine",
+ "sleeve_kind": "pairing",
+ "written_at": "2026-11-27T10:00:13+00:00",
+ "manual_decisions": {},
+ "shelf_keyword": "creatine hmb",
+ "cluster_keywords": [
+  "creatine hmb",
+  "creatine with hmb",
+  "creatine and hmb",
+  "creatine hmb powder"
+ ],
+ "finder_terms": [
+  "creatine hmb",
+  "creatine with hmb"
+ ],
+ "required_regex": "\\bhmb\\b|hydroxy\\s*-?\\s*methyl\\s*-?\\s*butyrate|mytrex",
+ "sleeve_regex": "\\bhmb\\b",
+ "sleeve_words": [
+  "hmb",
+  "with hmb",
+  "and hmb"
+ ],
+ "scored_on_why": "pairing sleeve: creatine + HMB",
+ "spec_note": "Combo idea creatine + electrolytes + HMB + collagen (Gautam 27 Nov 2026) has no search of its own; master's pick: score the creatine + HMB and creatine + collagen pairings (27 Nov). Cluster from Datarova Keyword Spy Related, US, Oct 2026, pulled 27 Nov (records/amazon-ideas-system/combo-creatine-2026-11-27/).",
+ "sleeve_cluster": [
+  "creatine hmb",
+  "transparent labs creatine hmb",
+  "creatine hmb transparent labs",
+  "hmb creatine",
+  "creatine with hmb",
+  "hmb creatine supplements",
+  "creatine monohydrate hmb",
+  "creatine and hmb",
+  "creatine hmb powder",
+  "animal creatine hmb",
+  "creatine hmb gummies",
+  "transparent labs' creatine hmb",
+  "creatine + hmb",
+  "creatina 3 ultra hmb e taurina",
+  "transparent labs creatine hmb 60 servings",
+  "creatine plus hmb"
+ ]
+}
