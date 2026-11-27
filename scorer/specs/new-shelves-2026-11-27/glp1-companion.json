@@ -1,0 +1,49 @@
+{
+  "shelf_keyword": "glp-1 digestive support",
+  "hero_name": "glp-1 companion",
+  "hero_regex": "\\bglp",
+  "cluster_keywords": [
+    "glp-1 digestive support",
+    "glp-1 probiotic",
+    "glp-1 constipation support",
+    "glp-1 vitamins"
+  ],
+  "parent_keyword": "glp-1",
+  "microbial": false,
+  "benefit_led": true,
+  "scored_on": "parent",
+  "demand_keyword": "glp-1 digestive support",
+  "demand_cluster": [
+    "glp-1 friendly high protein snacks",
+    "glp-1 friendly high protein powder",
+    "glp-1 constipation support",
+    "glp 1 probiotic",
+    "glp-1 probiotic",
+    "glp-1 vitamins",
+    "protein shake for glp-1 users",
+    "glp probiotic",
+    "glp-1 digestive support",
+    "glp-1 protein shake",
+    "glp-1 friendly protein powder",
+    "glp-1 vitamins for women",
+    "glp-1 electrolytes",
+    "glp1 probiotics for women",
+    "liquid collagen for women on glp-1",
+    "fiber supplement for glp-1 users"
+  ],
+  "required_regex": "probiotic|fiber|fibre|constipat|digest|gut|bloat|nausea|protein|multivitamin|vitamin|electrolyte|collagen|regular",
+  "hero_exclude_regex": "\\bpatch(es)?\\b",
+  "finder_terms": [
+    "glp-1 digestive support",
+    "glp-1 probiotic",
+    "glp-1 constipation support",
+    "glp-1 vitamins",
+    "glp-1 protein powder"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "scored_on_why": "GLP-1 companion shelf (taken alongside the drug), grouped because no single need clears 1,000 generic clicks: probiotic 570, protein 921, vitamins 238, constipation 208, digestive 142, electrolytes 63, collagen 36, fibre 30 (2,208 generic). Brand rows (GLP-1 SOS, Flatter Me, Omyo, Super Gut, Centrum, Vitafusion) left out of demand. Grouping breaks the one-need rule; Gautam asked for it 27 Nov.",
+  "spec_round": "new-shelves-2026-11-27",
+  "spec_note": "Rows: records/amazon-ideas-system/new-shelves-2026-11-27/datarova_related_glp-1_2026-11-27.json (Datarova Keyword Spy, US, Related, Oct 2026, pulled 27 Nov; GLP/drug-term rows, clicks>=25). Gautam 27 Nov: score both the replacement and the companion GLP-1 shelves. Not published until confirmed.",
+  "written_at": "2026-11-27T12:55:23+00:00"
+}

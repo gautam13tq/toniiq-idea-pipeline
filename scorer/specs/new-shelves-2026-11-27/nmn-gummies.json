@@ -1,0 +1,30 @@
+{
+  "shelf_keyword": "nmn gummies",
+  "hero_name": "nmn",
+  "hero_regex": "\\bnmn\\b|nicotinamide mononucleotide",
+  "cluster_keywords": [
+    "nmn gummies",
+    "nmn supplement gummies"
+  ],
+  "parent_keyword": "nmn",
+  "demand_keyword": "nmn",
+  "microbial": false,
+  "scored_on": "sleeve",
+  "sleeve_kind": "format",
+  "gate_format": "gummy",
+  "qualifier_regex": "gumm",
+  "sleeve_regex": "gumm(y|ies)",
+  "sleeve_cluster": [
+    "nmn gummies",
+    "nmn supplement gummies"
+  ],
+  "finder_terms": [
+    "nmn gummies"
+  ],
+  "candidate_subniches": [],
+  "seed_asins": [],
+  "scored_on_why": "format sleeve; Datarova related corpus for 'nmn gummies' is 25 rows / 2,876 clicks, of which NMN-named gummy rows are 379 (nmn gummies 323, nmn supplement gummies 56); expected to fail the 1,000 demand gate. Gautam 27 Nov: score now.",
+  "spec_round": "new-shelves-2026-11-27",
+  "spec_note": "Rows: records/amazon-ideas-system/new-shelves-2026-11-27/datarova_related_nmn-gummies_2026-11-27.json (US, Related, Oct 2026, pulled 27 Nov).",
+  "written_at": "2026-11-27T12:55:23+00:00"
+}
